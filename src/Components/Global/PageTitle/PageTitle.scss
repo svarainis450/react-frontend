@@ -1,0 +1,15 @@
+.PageTitle {
+  text-align: center;
+  width: 100%;
+  background-color: var(--color-grey);
+  padding: 1.563rem 1rem 1.875rem;
+
+  @media (min-width: 1024px) {
+    padding: 3rem 1rem;
+  }
+
+  &_subtitle {
+    margin-top: 1rem;
+    color: var(--color-grey-text);
+  }
+}

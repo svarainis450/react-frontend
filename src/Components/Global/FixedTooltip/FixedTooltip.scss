@@ -1,0 +1,83 @@
+.FixedTooltip {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--z-index-disclosure);
+
+  box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 80vw;
+  max-width: 35.625rem;
+  background-color: var(--color-green-hero);
+  padding: 3.5rem 1.875rem;
+  
+  @media (min-width: 1024px) {
+    padding: 1.875rem 2.5rem 2.25rem;
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__close {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -3rem;
+    right: -1.5rem;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+
+    
+    @media (min-width: 1024px) {
+      top: -1.5rem;
+      right: -2.225rem;
+    }
+  }
+
+  &__title-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.625rem;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 0.875rem;
+    }
+  }
+
+  &_icon {
+    margin-right: 0.5rem;
+
+    @media (min-width: 1024px) {
+      margin-right: 1.125rem;
+    }
+
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  &__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 26px;
+
+    @media (min-width: 1024px) {
+      font-size: 30px;
+      line-height: 36px;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  &__description {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}

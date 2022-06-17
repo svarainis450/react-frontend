@@ -1,0 +1,15 @@
+export enum LinkList {
+  Landing = '/',
+  Pricing = '/pricing',
+  Checkout = '/checkout',
+  AddToCard = '/add-to-card',
+  Success = '/success',
+  About = '/about',
+  Faq = '/faq',
+  Demo = '/demo',
+  Login = '/login',
+  TermsAndConditions = '/t&c',
+  PrivacyPolicy = '/privacy-policy',
+  Membership = '/membership',
+  WAITLIST = '/waitlist',
+}

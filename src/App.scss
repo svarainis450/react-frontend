@@ -1,0 +1,77 @@
+html {
+  --color-white: #ffffff;
+  --color-black: #171a1f;
+  --color-grey: #f4f4f4;
+  --color-grey-text: #88898c;
+  --color-grey-line: #dcdcdc;
+  --color-grey-light: #c4c4c4;
+  --color-green-hero: #04c604;
+  --color-electric: #9ce3df;
+  --color-violet: #c378ff;
+  --color-error: #FA5000;
+  --color-orange-hero: #FB6E2B;
+
+  // z-index
+  --z-side-menu: 110;
+  --z-side-menu--overlay: 101;
+  --z-header: 100;
+  --z-index-disclosure: 30;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+#root,
+.App {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+// utilities
+.mobile.mobile.mobile {
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.desktop.desktop.desktop {
+  display: none;
+
+  @media (min-width: 1024px) {
+    display: block;
+  }
+}

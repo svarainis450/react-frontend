@@ -1,0 +1,56 @@
+.Typography {
+  margin: 0;
+
+  &--heading-max {
+    font-size: 2.188rem;
+    
+    @media (min-width: 1024px) {
+      font-size: 2.813rem;
+    }
+  }
+  
+  &--heading-large {
+    font-size: 1.5rem;
+    line-height: 28px;
+    
+    @media (min-width: 1024px) {
+      font-size: 1.875rem;
+      line-height: 36px;
+    }
+  }
+  
+  &--heading-small {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+  
+  &--default {
+    font-size: 1rem;
+  }
+
+  &--subheading {
+    font-size: 0.875rem;
+  }
+
+  &--text-small {
+    font-size: 0.75rem;
+  }
+
+
+  // Weight
+  &--thin {
+    font-weight: 300;
+  }
+
+  &--regular {
+    font-weight: 400;
+  }
+
+  &--medium {
+    font-weight: 500;
+  }
+
+  &--bold {
+    font-weight: 600;
+  }
+}

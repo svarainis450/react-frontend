@@ -1,0 +1,33 @@
+.StatisticsHero {
+  display: none;
+  
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+
+  &__block {
+    display: flex;
+
+    &:not(:first-of-type) {
+      &::before {
+        content: " ";
+        display: block;
+        margin: 0 1.25rem;
+        height: 100%;
+        border: 1px solid var(--color-black);
+      }
+    }
+  }
+
+  &__number {
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  &__subtitle {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 11px;
+  }
+}

@@ -1,0 +1,18 @@
+.HeroTitle {
+  text-align: center;
+  width: 100%;
+
+  &_title {
+    line-height: 2.25rem;
+    margin-bottom: 0.625rem;
+    color: var(--color-black);
+  }
+
+  &_subtitle {
+    line-height: 1.5rem;
+    max-width: 33.375rem;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--color-grey-text);
+  }
+}

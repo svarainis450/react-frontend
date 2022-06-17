@@ -1,0 +1,53 @@
+import { Link } from 'react-router-dom';
+
+import { NavigationToggler } from './NavigationToggler';
+import { NavigationList } from './NavigationList';
+import { LinkList } from '../../../types/links';
+
+import { HeaderProps } from './types';
+import { Button } from '../Button';
+
+import Logo from '../../../Assets/images/logo.svg';
+import './Header.scss';
+
+export const Header = ({ onMenuToggle }: HeaderProps) => {
+  return (
+    <div className="Header">
+      <Link to="/">
+        <img src={Logo} alt="logo" className="desktop" />
+      </Link>
+
+      <div className="Header__toggler">
+        <NavigationToggler onMenuToggle={onMenuToggle} />
+      </div>
+
+      <Link to="/" className="Header__mobile-logo mobile">
+        <img src={Logo} alt="logo" />
+      </Link>
+
+      <div className="desktop">
+        <NavigationList />
+      </div>
+
+      <div className="Header__button-wrapper">
+        {/* <Link to={LinkList.Login}>
+          <Button
+            className="Header__button--login"
+            buttonType="transparent"
+            onClick={() => console.log('login')}
+          >
+            Log In
+          </Button>
+        </Link>
+
+        <Link to={LinkList.Pricing}>
+          <Button className="Header__button--signup desktop">Sign up</Button>
+        </Link> */}
+
+        <Link to={LinkList.WAITLIST}>
+          <Button className="Header__button--signup desktop">Join waitlist</Button>
+        </Link> 
+      </div>
+    </div>
+  );
+};

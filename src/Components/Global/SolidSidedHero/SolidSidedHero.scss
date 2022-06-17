@@ -1,0 +1,163 @@
+.SolidSidedHero {
+  padding: 2.5rem 1.625rem;
+  margin: 2rem;
+  height: 36.5rem;
+  
+  @media (min-width: 1024px) {
+    margin: 0;
+    padding: 2rem 3.75rem;
+    height: 30rem;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    
+    @media (min-width: 1024px) {
+      justify-content: center;
+      flex-direction: row;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    
+    &--imgleft {
+      @media (min-width: 1024px) {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+
+  &__content-wrapper,
+  &__img-wrapper {
+    @media (min-width: 1024px) {
+      width: 50%;
+    }
+  }
+
+  &__img-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__img {
+    max-width: 18.125rem;
+    max-height: 19rem;
+
+    @media (min-width: 1024px) {
+      max-width: 30rem;
+    }
+  }
+
+  &__no {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.625rem;
+    text-align: center;
+    
+    @media (min-width: 1024px) {
+      margin-bottom: 0.875rem;
+      text-align: left;
+    }
+  }
+
+  &__text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: justify;
+    margin-bottom: 1.5rem;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 0;
+      text-align: left;
+    }
+  }
+
+
+
+  // &__content {
+  //   display: flex;
+  //   flex-direction: column;
+  //   max-width: 60rem;
+  //   margin: 1.375rem auto 0;
+    
+  //   @media (min-width: 1024px) {
+  //     margin-top: 3.125rem;
+  //     flex-direction: row;
+  //   }
+  // }
+
+  // &__context {
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   align-items: center;
+    
+  //   @media (min-width: 1024px) {
+  //     align-items: flex-start;
+  //     margin-left: auto;
+  //     width: 30rem;
+  //   }
+  // }
+
+  // &__img {
+  //   max-height: 35.375rem;
+  //   height: 100%;
+  //   // width: 100%;
+  // }
+
+  // &__no {
+  //   display: none;
+  //   @media (min-width: 1024px) {
+  //     display: block;
+  //   }
+  // }
+
+  // &__disclosure {
+  //   margin-top: 1.875rem;
+  //   display: flex;
+  //   align-items: center;
+    
+  //   @media (min-width: 1024px) {
+  //     margin-top: 3.75rem;
+  //   }
+  // }
+
+  // &__icon {
+  //   margin-right: 0.625rem;
+  // }
+
+  // &__phone {
+  //   margin: 0 auto 2.125rem;
+    
+  //   @media (min-width: 1024px) {
+  //     margin: 0 auto;
+  //   }
+  // }
+
+  // &__hero.SliderPhoneBlock__hero {
+  //   @media (min-width: 1024px) {
+  //     text-align: left;
+  //   }
+  // }
+}

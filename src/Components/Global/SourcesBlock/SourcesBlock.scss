@@ -1,0 +1,32 @@
+.SourcesBlock {
+  padding: 2.875rem 1rem;
+  
+  @media (min-width: 1024px) {
+    padding: 3.75rem 1rem 4.75rem;
+  }
+
+  &__title {
+    margin-bottom: 2rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 960px;
+    justify-content: space-evenly;
+    align-items: center;
+
+    @media (min-width: 1024px) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &__item {
+    margin: 0 1rem 1rem;
+
+    @media (min-width: 1024px) {
+      margin: 0 1rem;
+    }
+  }
+}
