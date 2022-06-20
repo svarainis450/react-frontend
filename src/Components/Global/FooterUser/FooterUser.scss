@@ -1,0 +1,30 @@
+.FooterUser {
+  height: 4.25rem;
+  width: 100%;
+  padding: 1.25rem 4.375rem;
+  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.1);
+  
+  @media (min-width: 1024px) {
+    
+  }
+  
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__credentials {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  &__linklist {
+    display: flex;
+  }
+
+  &__link {
+    margin-left: 2.875rem;
+  }
+}

@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+
+
 import { Frontpage } from './Components/Pages/Frontpage';
 import { FAQpage } from './Components/Pages/FAQpage';
 import { Pricing } from './Components/Pages/Pricing';
@@ -8,6 +11,7 @@ import { PrivacyPolicy } from './Components/Pages/PrivacyPolicy';
 import { DemoPage } from './Components/Pages/DemoPage';
 import { AboutPage } from './Components/Pages/AboutPage';
 import { Login } from './Components/Pages/Login';
+import { Dashboard } from './Components/Pages/Dashboard';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
 
@@ -24,7 +28,6 @@ import { WaitlistSignUp } from './Components/Pages/WaitlistSignUp';
 const App = () => {
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol'])
   const [currecy, setCurrency] = useState('$');
-
   
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -54,32 +57,42 @@ const App = () => {
 
   }, []);
 
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <ScrollOnNavigation />
-        <Routes>
-          <Route>
-            <Route index element={<Frontpage />} />
-            <Route path={LinkList.Faq} element={<FAQpage />} />
-            <Route path={LinkList.Pricing} element={<Pricing />} />
-            <Route path={LinkList.Membership} element={<SalesFunnel />}  />
-            <Route path={LinkList.Checkout} element={<CheckoutPage />} />
-            <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
-            <Route path={LinkList.Success} element={<SuccessPage />} />
-            <Route
-              path={LinkList.TermsAndConditions}
-              element={<TermsAndConditions />}
-            />
-            <Route path={LinkList.PrivacyPolicy} element={<PrivacyPolicy />} />
-            <Route path={LinkList.Demo} element={<DemoPage />} />
-            <Route path={LinkList.About} element={<AboutPage />} />
-          </Route>
+        <BrowserRouter>
+          <ScrollOnNavigation />
+          <Routes>
+            <Route>
+              <Route index element={<Frontpage />} />
+              <Route path={LinkList.Faq} element={<FAQpage />} />
+              <Route path={LinkList.Pricing} element={<Pricing />} />
+              <Route path={LinkList.Membership} element={<SalesFunnel />}  />
+              <Route path={LinkList.Checkout} element={<CheckoutPage />} />
+              <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
+              <Route path={LinkList.Success} element={<SuccessPage />} />
+              <Route
+                path={LinkList.TermsAndConditions}
+                element={<TermsAndConditions />}
+              />
+              <Route path={LinkList.PrivacyPolicy} element={<PrivacyPolicy />} />
+              <Route path={LinkList.Demo} element={<DemoPage />} />
+              <Route path={LinkList.About} element={<AboutPage />} />
+            </Route>
 
-          {/* <Route path={LinkList.Login} element={<Login />} /> */}
-          <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path={LinkList.Login} element={<Login />} />
+            <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
+            <Route path={LinkList.DASHBOARD} element={<Dashboard />} />
+
+            {/* <Route path={LinkList.PROFILE} element={<></>}>
+              <Route path={"/account"} element={<></>}/>
+              <Route path={"/notifications"} element={<></>}/>
+            </Route> */}
+
+
+
+          </Routes>
+        </BrowserRouter>
     </div>
     
   );
