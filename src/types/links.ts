@@ -11,5 +11,11 @@ export enum LinkList {
   TermsAndConditions = '/t&c',
   PrivacyPolicy = '/privacy-policy',
   Membership = '/membership',
+
   WAITLIST = '/waitlist',
+  DASHBOARD = '/dashboard',
+  TRENDS = '/trends',
+  DISCOVER = '/discover',
+  FORYOU = '/foryou',
+  PROFILE = '/profile',
 }

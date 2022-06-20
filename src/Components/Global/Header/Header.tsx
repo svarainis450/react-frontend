@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 
 import { NavigationToggler } from './NavigationToggler';
-import { NavigationList } from './NavigationList';
+import { NavigationList } from 'src/Components/Global/NavigationList';
+import { simpleNavList } from 'src/Components/Global/NavigationList/const';
 import { LinkList } from '../../../types/links';
 
 import { HeaderProps } from './types';
@@ -26,7 +27,7 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
       </Link>
 
       <div className="desktop">
-        <NavigationList />
+        <NavigationList list={simpleNavList} />
       </div>
 
       <div className="Header__button-wrapper">

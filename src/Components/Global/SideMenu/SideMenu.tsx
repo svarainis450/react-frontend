@@ -1,16 +1,21 @@
+import { useContext } from 'react';
 import classNames from 'classnames';
 
+import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { SideMenuProps } from './types';
 import { Button } from '../Button';
 
 import { Link } from 'react-router-dom';
-import { NavigationList } from '../Header/NavigationList';
+import { NavigationList } from '../NavigationList';
+import { simpleNavList } from '../NavigationList/const';
 import { LinkList } from '../../../types/links';
 
 import closeIcon from '../../../Assets/images/close.svg';
 import './SideMenu.scss';
 
 export const SideMenu = ({ isActive, isActiveToggler }: SideMenuProps) => {
+  const {userInfo, setUserInfo, isLoggedIn} = useContext(UserInfoContext);
+
   return (
     <div className={classNames('SideMenu', { 'SideMenu--active': isActive })}>
       <div
@@ -19,6 +24,7 @@ export const SideMenu = ({ isActive, isActiveToggler }: SideMenuProps) => {
           'SideMenu__overlay--inactive': !isActive,
         })}
       />
+
       <div className="SideMenu__content">
         <div className="SideMenu__top">
           <button
@@ -35,12 +41,13 @@ export const SideMenu = ({ isActive, isActiveToggler }: SideMenuProps) => {
           </Link> */}
         </div>
 
-        <NavigationList />
+        <NavigationList list={simpleNavList} />
 
         {/* <Link to={LinkList.Pricing} className="SideMenu__signup">
           <Button className="SideMenu__login">Sign up</Button>
         </Link> */}
 
+       
         <Link to={LinkList.WAITLIST} className="SideMenu__signup">
           <Button className="SideMenu__login">Join waitlist</Button>
         </Link>
