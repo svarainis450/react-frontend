@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+import { useEffect, useState } from 'react';
+import TagManager from 'react-gtm-module';
+import { useCookies } from 'react-cookie'
+import * as qs from 'query-string';
 
 
 import { Frontpage } from './Components/Pages/Frontpage';
@@ -12,6 +15,8 @@ import { DemoPage } from './Components/Pages/DemoPage';
 import { AboutPage } from './Components/Pages/AboutPage';
 import { Login } from './Components/Pages/Login';
 import { Dashboard } from './Components/Pages/Dashboard';
+import { WaitlistSignUp } from './Components/Pages/WaitlistSignUp';
+import { Trends } from './Components/Pages/Trends';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
 
@@ -19,11 +24,6 @@ import './App.scss';
 import 'normalize.css';
 import { LinkList } from './types';
 import { AddToCardPage, CheckoutPage, SuccessPage } from './pages';
-import { useEffect, useState } from 'react';
-import TagManager from 'react-gtm-module';
-import { useCookies } from 'react-cookie'
-import * as qs from 'query-string';
-import { WaitlistSignUp } from './Components/Pages/WaitlistSignUp';
 
 const App = () => {
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol'])
@@ -83,6 +83,7 @@ const App = () => {
             <Route path={LinkList.Login} element={<Login />} />
             <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
             <Route path={LinkList.DASHBOARD} element={<Dashboard />} />
+            <Route path={LinkList.TRENDS} element={<Trends />} />
 
             {/* <Route path={LinkList.PROFILE} element={<></>}>
               <Route path={"/account"} element={<></>}/>
