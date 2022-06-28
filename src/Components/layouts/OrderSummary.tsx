@@ -17,26 +17,26 @@ export const OrderSummary: FC = memo(() => {
       <Subtitle margin="0 0 0.625rem 0">Order Summary</Subtitle>
       <Background>
         <Row margin="0 0 0.875rem 0">
-          <Regular color={theme.colors.greyDark}>Subtotal</Regular>
-          <Regular color={theme.colors.greyDark}>{getCookie?.currencySymbol}{`${
+          <Regular>Subtotal</Regular>
+          <Regular>{getCookie?.currencySymbol}{`${
             Number(user.selectedPlan?.beginPrice) -
             Number(user.selectedPlan?.discount)
           }.00`}</Regular>
         </Row>
         {user.selectedPlan?.discount ? (
           <Row margin="0 0 0.875rem 0">
-            <Regular color={theme.colors.green}>
+            <Regular>
               {user.selectedPlan?.period} plan discount
             </Regular>
-            <Regular color={theme.colors.green}>
+            <Regular>
               {user.selectedPlan?.discount}.00
             </Regular>
           </Row>
         ) : null}
         {user.selectedPlan?.priceAfterDownsell ? (
           <Row margin="0 0 0.875rem 0">
-            <Regular color={theme.colors.green}>Additional discount</Regular>
-            <Regular color={theme.colors.green}>
+            <Regular>Additional discount</Regular>
+            <Regular>
               -
               {parseFloat(
                 String(Number(user.selectedPlan?.beginPrice) * 0.15)
@@ -60,7 +60,6 @@ OrderSummary.displayName = 'OrderSummary';
 
 const Background = styled.div`
   padding: 1.5rem 1.75rem;
-  background: ${theme.colors.white};
   border-radius: 0.25rem;
 `;
 

@@ -128,7 +128,7 @@ const Overlay = styled.div`
 
 const Background = styled(Flex)`
   padding: 2rem 4%;
-  background: ${theme.colors.green};
+  background: ${theme.colors.heroYellow};
 
   button.Button {
     width: 100%;
@@ -184,7 +184,7 @@ const Price = styled(Box).attrs({ as: 'p' })`
 const OldPrice = styled(Box).attrs({ as: 'p' })`
   font-size: 1.25rem;
   font-weight: 500;
-  color: ${theme.colors.white};
+  color: ${theme.colors.orange};
   text-decoration: line-through;
 `;
 

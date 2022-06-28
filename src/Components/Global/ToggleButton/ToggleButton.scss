@@ -23,7 +23,7 @@
     height: 0;
 
     &:checked + #{$block}__slider {
-      background-color: #04C604;
+      background-color: var(--color-yellow-hero);
     }
 
     &:checked + #{$block}__slider:before {
