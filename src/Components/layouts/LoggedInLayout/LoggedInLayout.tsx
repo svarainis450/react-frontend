@@ -9,6 +9,8 @@ import { HeaderUser } from "src/Components/Global/HeaderUser";
 import { FooterUser } from "src/Components/Global/FooterUser";
 import { UserSideMenu } from "src/Components/Global/UserSideMenu";
 
+import "./LoggedInLayout.scss";
+
 export const LoggedInLayout = ({children} : LoggedInLayoutProps) => {
   const [mainNavActive, setMainNavActive] = useState<boolean>(false);
   const {isLoggedIn} = useContext(UserInfoContext);
@@ -19,8 +21,10 @@ export const LoggedInLayout = ({children} : LoggedInLayoutProps) => {
 
   return <div className={classNames('LoggedInLayout')}>
     <UserSideMenu isActive={mainNavActive} isActiveToggler={setMainNavActive} />
-    <HeaderUser onMenuToggle={() => setMainNavActive((value) => !value)} /> 
-    {children}
+    <HeaderUser onMenuToggle={() => setMainNavActive((value) => !value)} />
+    <div className="LoggedInLayout__content">
+      {children}
+    </div>
     <FooterUser/>
   </div>
 }
