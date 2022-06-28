@@ -4,7 +4,7 @@ import { SubmenuProps } from './types';
 
 import './Submenu.scss'
 
-export const Submenu = ({menuItems, className} : SubmenuProps ) => {
+export const Submenu = ({menuItems, className, children} : SubmenuProps ) => {
   return <div className={classNames('Submenu', className)} >
     <ul className='Submenu__list'>
       {menuItems.map((item, index) => {
@@ -17,6 +17,10 @@ export const Submenu = ({menuItems, className} : SubmenuProps ) => {
           </NavLink>
         </li>
       })}
+
+      <div className="Submenu__children">
+        {children}
+      </div>
     </ul>
   </div>
 }

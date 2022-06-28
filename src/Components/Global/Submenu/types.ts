@@ -7,4 +7,5 @@ export interface SubmenuListProps {
 export interface SubmenuProps {
   menuItems: Array<SubmenuListProps>;
   className?: string;
+  children?: React.ReactNode;
 }

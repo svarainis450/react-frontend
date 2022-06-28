@@ -13,6 +13,10 @@
   &__item  {
     margin-right: 2.25rem;
     position: relative;
+
+    @media (min-width: 1024px) {
+      margin-right: 3.125rem;
+    }
   }
 
   &__link  {
@@ -43,5 +47,9 @@
 
   &__icon  {
     margin-right: 0.25rem;
+  }
+
+  &__children {
+    margin-left: auto;
   }
 }
