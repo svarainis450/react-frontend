@@ -3,15 +3,13 @@ import classNames from 'classnames';
 
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { UserSideMenuProps } from './types';
-import { Button } from '../Button';
 
-import { Link } from 'react-router-dom';
 import { NavigationList } from 'src/Components/Global/NavigationList';
 import { userNavList } from '../NavigationList/const';
-import { LinkList } from '../../../types/links';
 
 import closeIcon from '../../../Assets/images/close.svg';
 import './UserSideMenu.scss';
+import { UserMenu } from './UserMenu';
 
 export const UserSideMenu = ({ isActive, isActiveToggler }: UserSideMenuProps) => {
   const {userInfo, setUserInfo, isLoggedIn} = useContext(UserInfoContext);
@@ -36,6 +34,8 @@ export const UserSideMenu = ({ isActive, isActiveToggler }: UserSideMenuProps) =
         </div>
         
         <NavigationList list={userNavList} />
+
+        <UserMenu />
       </div>
     </div>
   );
