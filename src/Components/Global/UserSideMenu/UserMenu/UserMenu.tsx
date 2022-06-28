@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 
+import human from 'src/Assets/icons/human.svg';
+import bell_small from 'src/Assets/icons/bell_small.svg';
+import dimensions from 'src/Assets/icons/dimensions.svg';
+import shield from 'src/Assets/icons/shield.svg';
+import card from 'src/Assets/icons/card.svg';
+
 import './UserMenu.scss';
 
 export const UserMenu = () => {
@@ -30,35 +36,35 @@ export const UserMenu = () => {
           <ul className='UserMenu__list'>
             <li className='UserMenu__link'>
               <Link to="#">
-                <img src={''} alt="user" />
+                <img src={human} alt="user" />
                 Account
               </Link>
             </li>
 
             <li className='UserMenu__link'>
               <Link to={'#'}>
-                <img src={''} alt="bell" />
+                <img src={bell_small} alt="bell" />
                 Notifications
               </Link>
             </li>
 
             <li className='UserMenu__link'>
               <Link to={'#'}>
-                <img src={''} alt="dimensions" />
+                <img src={dimensions} alt="dimensions" />
                 Terms {'&'} Conditions
               </Link>
             </li>
 
             <li className='UserMenu__link'>
               <Link to={'#'}>
-                <img src={''} alt="shield" />
+                <img src={shield} alt="shield" />
                 Privacy policy
               </Link>
             </li>
 
             <li className='UserMenu__link'>
               <Link to={'#'}>
-                <img src={''} alt="card" />
+                <img src={card} alt="card" />
                 Billing
               </Link>
             </li>
