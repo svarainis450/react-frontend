@@ -118,7 +118,7 @@ const OptionCard = styled(Flex).attrs({
   background: ${theme.colors.white};
   border: 1.5px solid
     ${({ isSelected }) =>
-      isSelected ? theme.colors.green : theme.colors.white};
+      isSelected ? theme.colors.heroYellow : theme.colors.white};
   cursor: pointer;
 
   &:first-of-type {

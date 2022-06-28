@@ -63,7 +63,7 @@ SuccessPage.displayName = 'SuccessPage';
 const Background = styled(Flex)<{ isError: boolean }>`
   padding: 2rem 0;
   height: calc(100vh - 5.625rem);
-  background: ${theme.colors.green};
+  background: ${theme.colors.heroYellow};
   overflow-y: scroll;
 
   ${({ isError }) =>

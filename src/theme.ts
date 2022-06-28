@@ -5,7 +5,9 @@ export const theme = {
     green: '#04C604',
     grey: '#F4F4F4',
     greyDark: 'rgba(0, 0, 0, 0.6)',
-    red: '#FA5000'
+    red: '#FA5000',
+    heroYellow: "#FCF158",
+    orange: "#FA5000",
   },
   breakpoints: {
     mobile: 480,

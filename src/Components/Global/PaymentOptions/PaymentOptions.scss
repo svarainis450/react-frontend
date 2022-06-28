@@ -43,7 +43,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 26px;
-    color: #04C604;
+    color: var(--color-black);
     margin: 1rem auto 0;
     padding-right: 1.75rem;
     position: relative;
@@ -79,7 +79,7 @@
 
     &--selected {
       background-color: #FFFFFF;
-      box-shadow: 0 0 0 2px #04C604;
+      box-shadow: 0 0 0 2px var(--color-yellow-hero);
     }
 
     &.most-popular {
@@ -110,8 +110,8 @@
       line-height: 36px;
     }
     
+    margin-top: 10px;
     &-dsc {
-      margin-top: 10px;
       font-style: normal;
       font-weight: 400;
       font-size: 12px;
@@ -140,15 +140,15 @@
       width: 2.125rem;
       height: 2.125rem;
       border-radius: 50%;
-      background-color: #04C604;
+      background-color: var(--color-yellow-hero);
     }
-
+    
     &-discount {
+      color: var(--color-black);
       font-style: normal;
       font-weight: 500;
       font-size: 12px;
       line-height: 24px;
-      color: #FFFFFF;
     }
     
     &-payment-occurance {
@@ -165,7 +165,7 @@
       font-weight: 400;
       font-size: 12px;
       line-height: 22px;
-      color: #04C604;
+      color: var(--color-link);
       cursor: pointer;
       background-color: transparent;
       border: 0;

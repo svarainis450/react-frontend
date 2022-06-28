@@ -33,7 +33,7 @@ export const OurPromise: FC = memo(() => {
 OurPromise.displayName = 'OurPromise';
 
 const Background = styled(Flex)`
-  background: ${theme.colors.green};
+  background: ${theme.colors.heroYellow};
 `;
 
 // @TODO: move to Typography component
