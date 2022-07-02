@@ -16,8 +16,8 @@ export const DemoPage = () => {
           />
 
           <div className="DemoPage__content">
-            <Video url='https://www.youtube.com/watch?v=E3Lfoa4K8KY' className='DemoPage__video desktop' />
-            <Video url='https://www.youtube.com/watch?v=wnSqlEAwBZs' className='DemoPage__video mobile' />
+            <Video url='https://www.youtube.com/watch?v=3HKMhBrdWKY' className='DemoPage__video desktop' />
+            <Video url='https://www.youtube.com/watch?v=wDCCw6a-ruA' className='DemoPage__video mobile' />
           </div>
       </div>
     </Layout>
