@@ -5,13 +5,17 @@ html {
   --color-grey-text: #88898c;
   --color-grey-line: #dcdcdc;
   --color-grey-light: #c4c4c4;
-  --color-yellow-hero: #FCF158;
-  --color-light-orange: #EFEBE7;
+  --color-yellow-hero: #fcf158;
+  --color-light-orange: #efebe7;
   --color-electric: #9ce3df;
   --color-violet: #c378ff;
-  --color-error: #FA5000;
-  --color-orange-hero: #FB6E2B;
-  --color-link: #2842EA;
+  --color-error: #fa5000;
+  --color-orange-hero: #fb6e2b;
+  --color-link: #2842ea;
+  --color-green: #04c604;
+  --color-sand: #f0ebe6;
+  --color-purple: #d12bca;
+  --color-blue: #2b59d1;
 
   // z-index
   --z-side-menu: 110;
@@ -63,7 +67,11 @@ p {
   margin: 0;
 }
 
-// utilities
+// UTILITIES
+
+// screen size definitions
+$screen-desk-min: 1024px;
+
 .mobile.mobile.mobile {
   @media (min-width: 1024px) {
     display: none;
@@ -76,4 +84,8 @@ p {
   @media (min-width: 1024px) {
     display: block;
   }
+}
+
+// Desktop
+@mixin desktop {
 }

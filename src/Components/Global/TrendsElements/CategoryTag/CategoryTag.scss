@@ -1,0 +1,28 @@
+.Tag {
+  padding: 2px;
+  width: 66px;
+  border-radius: 13px;
+  text-align: center;
+
+  &__text {
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: -2%;
+  }
+}
+
+.Coins {
+  background-color: var(--color-electric);
+}
+.NFT {
+  background-color: var(--color-green);
+}
+.DAO {
+  background-color: var(--color-sand);
+}
+.Metaverse {
+  background-color: var(--color-purple);
+}
+.DeFi {
+  background-color: var(--color-blue);
+}
