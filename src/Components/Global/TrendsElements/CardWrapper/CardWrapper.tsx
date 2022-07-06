@@ -1,48 +1,60 @@
 import React, { ReactNode } from 'react';
 import { icons } from 'src/utils/icons';
 
-import { Typography, TypographyWeight } from '../../Typography';
+import {
+  Typography,
+  TypographyVariant,
+  TypographyWeight,
+} from '../../Typography';
 import './CardWrapper.scss';
 
 interface CardWrapperProps {
   children: ReactNode | ReactNode[];
-  onClick?: () => void;
+  onInfoClick?: () => void;
+  onCloseClick?: () => void;
   title?: string;
   subtitle?: string;
+  showInfoBlock?: boolean;
   showInfoLabel?: boolean;
+  infoTitle?: string;
+  infoDesc?: string;
 }
 
 export const CardWrapper: React.FC<CardWrapperProps> = ({
   children,
-  onClick,
+  infoDesc,
+  infoTitle,
+  onCloseClick,
+  onInfoClick,
+  showInfoBlock,
   showInfoLabel = false,
   subtitle,
   title,
 }) => {
-  const showInfo = 'show-info';
+  const showInfClass = showInfoBlock ? 'show-info' : '';
 
   return (
     <div className="card">
-      <div className={`info ${showInfo}`}>
+      <div className={`info ${showInfClass}`}>
         <img
           className="close-icon"
-          src={icons.closeX}
+          src={icons.closeXBlack}
           alt="Info label"
-          onClick={onClick}
+          onClick={onCloseClick}
         />
         <div className="flex-wrapper">
-          <img
-            className="info-label"
-            src={icons.info_label}
-            alt="Info label"
-            onClick={onClick}
-          />
-          <div>
+          <img className="info-label" src={icons.info_label} alt="Info label" />
+          {infoTitle && (
             <Typography className="info-title" weight={TypographyWeight.BOLD}>
-              What’s Talk Rate Project?
+              {infoTitle}
             </Typography>
-          </div>
+          )}
         </div>
+        {infoDesc && (
+          <Typography variant={TypographyVariant.SUBHEADING}>
+            {infoDesc}
+          </Typography>
+        )}
       </div>
       <div className="flex-wrapper">
         <div>
@@ -59,7 +71,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
             className="info-label"
             src={icons.info_label}
             alt="Info label"
-            onClick={onClick}
+            onClick={onInfoClick}
           />
         )}
       </div>

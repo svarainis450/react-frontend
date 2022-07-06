@@ -1,4 +1,4 @@
-import { CategoryTags } from '../TrendingCategory/types';
+import { CategoryTags } from '../types';
 import './CategoryTag.scss';
 
 interface TagProps {

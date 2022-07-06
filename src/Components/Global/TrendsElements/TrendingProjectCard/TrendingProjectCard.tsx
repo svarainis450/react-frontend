@@ -1,5 +1,6 @@
+import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
-import { CategoryTags } from '../TrendingCategory/types';
+import { CategoryTags } from '../types';
 
 import './TrendingProjectCard.scss';
 
@@ -15,11 +16,21 @@ export const TrendingProjectCard: React.FC<ProjectCardProps> = ({
   mentions,
 }) => (
   <li className="project-card">
-    <p>#1</p>
+    <Typography
+      className="project-card__grey-text"
+      weight={TypographyWeight.MEDIUM}
+    >
+      #1
+    </Typography>
     {/* <img/> */}
     <div>
-      <p>{projectTitle}</p>
-      <p>{mentions}</p>
+      <Typography weight={TypographyWeight.MEDIUM}>{projectTitle}</Typography>
+      <Typography
+        className="project-card__grey-text"
+        weight={TypographyWeight.THIN}
+      >
+        {mentions}
+      </Typography>
     </div>
     <CategoryTag tagTitle={categoryTitle} />
   </li>

@@ -1,5 +1,5 @@
 import { theme } from 'src/theme';
-import { CategoryTags } from './types';
+import { CategoryTags } from '../types';
 
 interface EllipseProps {
   categoryType?: CategoryTags;

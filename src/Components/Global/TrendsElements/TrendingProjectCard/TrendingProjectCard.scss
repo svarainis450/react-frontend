@@ -3,4 +3,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 9px 0;
+
+  border-bottom: 1.5px solid var(--color-grey);
+
+  &__grey-text {
+    color: var(--color-grey-text);
+  }
 }

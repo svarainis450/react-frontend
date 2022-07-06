@@ -1,29 +1,35 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import TagManager from 'react-gtm-module';
 import { useCookies } from 'react-cookie';
+import { PersistGate } from 'redux-persist/integration/react';
 import * as qs from 'query-string';
 
-import { Frontpage } from './Components/Pages/Frontpage';
-import { FAQpage } from './Components/Pages/FAQpage';
-import { Pricing } from './Components/Pages/Pricing';
-import { SalesFunnel } from './Components/Pages/SalesFunnel';
-import { TermsAndConditions } from './Components/Pages/TermsAndConditions';
-import { PrivacyPolicy } from './Components/Pages/PrivacyPolicy';
-import { DemoPage } from './Components/Pages/DemoPage';
-import { AboutPage } from './Components/Pages/AboutPage';
-import { Login } from './Components/Pages/Login';
-import { Dashboard } from './Components/Pages/Dashboard';
-import { WaitlistSignUp } from './Components/Pages/WaitlistSignUp';
-import { Trends } from './Components/Pages/Trends';
+import {
+  AboutPage,
+  Dashboard,
+  DemoPage,
+  FAQpage,
+  Frontpage,
+  Login,
+  Pricing,
+  PrivacyPolicy,
+  SalesFunnel,
+  TermsAndConditions,
+  Trends,
+  WaitlistSignUp,
+} from './Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
+
+import { LinkList } from './types';
+import { AddToCardPage, CheckoutPage, SuccessPage } from './pages';
+import { persistor, store } from './state/reduxstate/store';
 
 import './App.scss';
 import '../src/utils/breakpointsMixins.scss';
 import 'normalize.css';
-import { LinkList } from './types';
-import { AddToCardPage, CheckoutPage, SuccessPage } from './pages';
 
 const App = () => {
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
@@ -60,34 +66,43 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <ScrollOnNavigation />
-        <Routes>
-          <Route>
-            <Route index element={<Frontpage />} />
-            <Route path={LinkList.Faq} element={<FAQpage />} />
-            <Route path={LinkList.Pricing} element={<Pricing />} />
-            <Route path={LinkList.Membership} element={<SalesFunnel />} />
-            <Route path={LinkList.Checkout} element={<CheckoutPage />} />
-            <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
-            <Route path={LinkList.Success} element={<SuccessPage />} />
-            <Route
-              path={LinkList.TermsAndConditions}
-              element={<TermsAndConditions />}
-            />
-            <Route path={LinkList.PrivacyPolicy} element={<PrivacyPolicy />} />
-            <Route path={LinkList.Demo} element={<DemoPage />} />
-            <Route path={LinkList.About} element={<AboutPage />} />
-          </Route>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <Routes>
+              <Route>
+                <Route index element={<Frontpage />} />
+                <Route path={LinkList.Faq} element={<FAQpage />} />
+                <Route path={LinkList.Pricing} element={<Pricing />} />
+                <Route path={LinkList.Membership} element={<SalesFunnel />} />
+                <Route path={LinkList.Checkout} element={<CheckoutPage />} />
+                <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
+                <Route path={LinkList.Success} element={<SuccessPage />} />
+                <Route
+                  path={LinkList.TermsAndConditions}
+                  element={<TermsAndConditions />}
+                />
+                <Route
+                  path={LinkList.PrivacyPolicy}
+                  element={<PrivacyPolicy />}
+                />
+                <Route path={LinkList.Demo} element={<DemoPage />} />
+                <Route path={LinkList.About} element={<AboutPage />} />
+              </Route>
 
-          <Route path={LinkList.Login} element={<Login />} />
-          <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
-          <Route path={LinkList.DASHBOARD} element={<Dashboard />} />
-          <Route path={LinkList.TRENDS} element={<Trends />} />
+              <Route path={LinkList.Login} element={<Login />} />
+              {/* TODO: make these as private routes */}
+              <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
+              <Route path={LinkList.DASHBOARD} element={<Dashboard />} />
+              <Route path={LinkList.TRENDS} element={<Trends />} />
+              <Route path={LinkList.DISCOVER} element={<Trends />} />
 
-          {/* <Route path={LinkList.PROFILE} element={<></>}>
+              {/* <Route path={LinkList.PROFILE} element={<></>}>
               <Route path={"/account"} element={<></>}/>
               <Route path={"/notifications"} element={<></>}/>
             </Route> */}
-        </Routes>
+            </Routes>
+          </PersistGate>
+        </Provider>
       </BrowserRouter>
     </div>
   );

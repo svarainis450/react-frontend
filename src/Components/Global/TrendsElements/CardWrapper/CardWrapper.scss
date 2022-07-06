@@ -31,7 +31,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: 20px 10px;
+    padding: 20px;
     width: 100%;
 
     border-radius: 10px;
@@ -44,6 +44,8 @@
     }
 
     .info-title {
+      margin: 0 0 0 16px;
+
       font-size: 24px;
     }
 
@@ -52,8 +54,14 @@
     }
 
     .close-icon {
-      cursor: pointer;
       float: right;
+      cursor: pointer;
+    }
+
+    .flex-wrapper {
+      align-items: center;
+      justify-content: flex-start;
+      margin: 20px 0 18px;
     }
   }
 }
