@@ -5,10 +5,7 @@ import {
   Top3Element,
   TrendingCategory,
 } from 'src/Components/Global';
-import {
-  CategoryTags,
-  InfoBlockTypes,
-} from 'src/Components/Global/TrendsElements/types';
+import { InfoBlockTypes } from 'src/Components/Global/TrendsElements/types';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { submenuList, infoBlocks } from './constants';
@@ -25,7 +22,7 @@ import {
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
 
-export const Trends = () => {
+export const Trends: React.FC = () => {
   const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
     null
   );

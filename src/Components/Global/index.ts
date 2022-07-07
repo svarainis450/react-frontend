@@ -4,3 +4,9 @@ export * from './TrendsElements/TrendingCategory/TrendingCategory';
 export * from './TrendsElements/CategoryTag/CategoryTag';
 export * from './TrendsElements/TrendingProjectCard/TrendingProjectCard';
 export * from './TrendsElements/Top3Element/Top3Element';
+
+// DISCOVER
+export * from './DiscoverElements/ProjectCard';
+
+// MISC
+export * from './TalkRateElement/TalkRateElement';
