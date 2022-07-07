@@ -3,27 +3,27 @@
 
   &--heading-max {
     font-size: 2.188rem;
-    
+
     @media (min-width: 1024px) {
       font-size: 2.813rem;
     }
   }
-  
+
   &--heading-large {
     font-size: 1.5rem;
     line-height: 28px;
-    
+
     @media (min-width: 1024px) {
       font-size: 1.875rem;
       line-height: 36px;
     }
   }
-  
+
   &--heading-small {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.125rem;
   }
-  
+
   &--default {
     font-size: 1rem;
   }
@@ -35,7 +35,6 @@
   &--text-small {
     font-size: 0.75rem;
   }
-
 
   // Weight
   &--thin {
@@ -52,5 +51,9 @@
 
   &--bold {
     font-weight: 600;
+  }
+
+  &--bold700 {
+    font-weight: 700;
   }
 }

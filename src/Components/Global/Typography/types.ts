@@ -1,8 +1,8 @@
 export interface TypographyProps {
   className?: string;
   children: string | React.ReactElement;
-  variant?: TypographyVariant,
-  weight?: TypographyWeight,
+  variant?: TypographyVariant;
+  weight?: TypographyWeight;
 }
 
 export enum TypographyVariant {
@@ -19,5 +19,6 @@ export enum TypographyWeight {
   THIN = 'thin',
   REGULAR = 'regular',
   MEDIUM = 'medium',
-  BOLD = 'bold'
+  BOLD = 'bold',
+  BOLD700 = 'bold700',
 }
