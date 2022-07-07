@@ -9,6 +9,23 @@ export const fethchProjects = createAsyncThunk(
     try {
       const resp = await fetch(`${api}/projects`, {
         headers: {
+          accept: 'images/png',
+          Authorization: `Bearer ${demoToken}`,
+        },
+      }).then((res) => res.json());
+      return resp;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+export const fetchTrendingProjects = createAsyncThunk(
+  'projects/GET_TRENDING_PROJECTS',
+  async () => {
+    try {
+      const resp = await fetch(`${api}/projects/trending`, {
+        headers: {
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());

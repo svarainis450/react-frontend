@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import {
   CardWrapper,
-  CategoryTag,
   Top3Element,
   TrendingCategory,
 } from 'src/Components/Global';
@@ -16,44 +15,52 @@ import { submenuList, infoBlocks } from './constants';
 
 import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { fethchProjects } from 'src/state/reduxstate/projects/thunks';
+import {
+  fetchTrendingProjects,
+  fethchProjects,
+} from 'src/state/reduxstate/projects/thunks';
+import {
+  projectsSelector,
+  trendingProjectsSelector,
+} from 'src/state/reduxstate/projects/selectors';
+import { useSelector } from 'react-redux';
 
 export const Trends = () => {
   const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
     null
   );
   const dispatch = useAppDispatch();
+  const trendingProjects = useSelector(trendingProjectsSelector);
+  const projects = useSelector(projectsSelector);
 
-  const demoProjects = [
-    {
-      id: 1,
-      icon: 'bitkoin',
-      tag: CategoryTags.coins,
-      title: 'Bitcoin (BTC)',
-      rate: '67',
-    },
-    {
-      id: 2,
-      icon: 'bitkoin',
-      tag: CategoryTags.coins,
-      title: 'Bitcoin (BTC)',
-      rate: '67',
-    },
-    {
-      id: 3,
-      icon: 'bitkoin',
-      tag: CategoryTags.coins,
-      title: 'Bitcoin (BTC)',
-      rate: '67',
-    },
-  ];
-
-  const token =
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NTY3ODAyNDgsImV4cCI6MTY1NzE0MDI0OCwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiaWV2YUB0ZXN0Lmx0In0.ts6s40LdIoA0M1BKkHIF4fMTdZ3UurYZmS3tLJoMshR9QL74nHK23mgOftHUTcle8ngzCdcfKPjw9FZCDXRWPOK9JQokEbUU1KnuhqFyWVNT041EHIoDeLc9swJqvFmmZnSwCyWAszrokggydr_1rttsyg12KN5taROebJrZbnBSn0Kw4ckfm2bte5XoClTRfuCE95bLd9Dar0bxWbdIwO5N1s_E3GGvmEARpqf0CJ2pqaGXIiKQb8YDoj56N5TT4GdqeggAEBRsffqrS-oZNAPovnYGTbqRcMG1XbH4z3nfP-P2TCLZtgScCPFNyiLE7joVV6XRkdWhkZO_2YvYWQ';
+  // const demoProjects = [
+  //   {
+  //     id: 1,
+  //     icon: 'bitkoin',
+  //     tag: CategoryTags.coins,
+  //     title: 'Bitcoin (BTC)',
+  //     rate: '67',
+  //   },
+  //   {
+  //     id: 2,
+  //     icon: 'bitkoin',
+  //     tag: CategoryTags.coins,
+  //     title: 'Bitcoin (BTC)',
+  //     rate: '67',
+  //   },
+  //   {
+  //     id: 3,
+  //     icon: 'bitkoin',
+  //     tag: CategoryTags.coins,
+  //     title: 'Bitcoin (BTC)',
+  //     rate: '67',
+  //   },
+  // ];
 
   useEffect(() => {
     dispatch(fethchProjects());
-  }, []);
+    dispatch(fetchTrendingProjects());
+  }, [dispatch]);
 
   return (
     <div className="Trends">
@@ -61,7 +68,7 @@ export const Trends = () => {
         <Submenu menuItems={submenuList} />
         <div className="wrapper two-columns">
           <CardWrapper title="Trending Category" subtitle="Today">
-            <TrendingCategory />
+            <TrendingCategory trendingProjects={trendingProjects} />
           </CardWrapper>
           <CardWrapper
             title="Project picks by popularity among influencers and their followers"
@@ -82,14 +89,14 @@ export const Trends = () => {
             showInfoBlock={showInfoBlock === InfoBlockTypes.rate}
           >
             <ul className="cards-grid">
-              {demoProjects.map(({ id, icon, title, tag, rate }) => (
+              {projects.map(({ id, img, name, tag, rateData }) => (
                 <Top3Element
                   key={id}
                   id={id}
-                  icon={icon}
-                  projectName={title}
+                  icon={img}
+                  projectName={name}
                   tagTitle={tag}
-                  talkRate={rate}
+                  talkRate={rateData.talkRate}
                 />
               ))}
             </ul>
@@ -105,14 +112,14 @@ export const Trends = () => {
             showInfoBlock={showInfoBlock === InfoBlockTypes.positive}
           >
             <ul className="cards-grid">
-              {demoProjects.map(({ id, icon, title, tag, rate }) => (
+              {projects.map(({ id, img, name, tag, rateData }) => (
                 <Top3Element
                   key={id}
                   id={id}
-                  icon={icon}
-                  projectName={title}
+                  icon={img}
+                  projectName={name}
                   tagTitle={tag}
-                  talkRate={rate}
+                  talkRate={rateData.talkRate}
                 />
               ))}
             </ul>
@@ -128,14 +135,14 @@ export const Trends = () => {
             showInfoBlock={showInfoBlock === InfoBlockTypes.bullish}
           >
             <ul className="cards-grid">
-              {demoProjects.map(({ id, icon, title, tag, rate }) => (
+              {projects.map(({ id, img, name, tag, rateData }) => (
                 <Top3Element
                   key={id}
                   id={id}
-                  icon={icon}
-                  projectName={title}
+                  icon={img}
+                  projectName={name}
                   tagTitle={tag}
-                  talkRate={rate}
+                  talkRate={rateData.talkRate}
                 />
               ))}
             </ul>

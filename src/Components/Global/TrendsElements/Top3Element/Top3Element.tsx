@@ -10,7 +10,7 @@ interface ElementProps {
   icon: string;
   projectName: string;
   tagTitle: CategoryTags;
-  talkRate: string;
+  talkRate: number;
 }
 
 export const Top3Element: React.FC<ElementProps> = ({
@@ -25,11 +25,7 @@ export const Top3Element: React.FC<ElementProps> = ({
       className="element__diff-color"
       weight={TypographyWeight.THIN}
     >{`#${id}`}</Typography>
-    <img
-      className="element__icon"
-      src={images[icon as keyof typeof images]}
-      alt={projectName}
-    />
+    <img className="element__icon" src={icon} alt={projectName} />
     <div>
       <Typography className="project-title" weight={TypographyWeight.MEDIUM}>
         {projectName}

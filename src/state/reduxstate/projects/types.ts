@@ -14,6 +14,7 @@ export interface Project {
   };
   influencers: [];
   coinbaseUrl: string | null;
+  tag: CategoryTags; //should be added to BE response
 }
 
 export interface TrendingProject {

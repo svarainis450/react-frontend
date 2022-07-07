@@ -8,6 +8,7 @@ import { TrendingProjectCard } from '../TrendingProjectCard/TrendingProjectCard'
 import './TrendingCategory.scss';
 import { TrendsCategoryEllipse } from './TrendsCategoryEllipse';
 import { CategoryTags } from '../types';
+import { TrendingProject } from 'src/state/reduxstate/projects/types';
 
 const tags = [
   CategoryTags.coins,
@@ -17,31 +18,13 @@ const tags = [
   CategoryTags.defi,
 ];
 
-//TODO: remove this fake api response
-const responseFromApi = [
-  {
-    id: 1,
-    name: 'Shiba Inu',
-    ticker: 'SHIB',
-    additional: 'Mentioned 9999 times',
-    tag: {
-      name: 'Coins',
-      color: '#FFF',
-    },
-  },
-  {
-    id: 2,
-    name: 'Crypto punks',
-    ticker: 'MANA',
-    additional: 'Mentioned 9999 times',
-    tag: {
-      name: 'Coins',
-      color: '#FFF',
-    },
-  },
-];
+interface TrendingCategoryProps {
+  trendingProjects: TrendingProject[];
+}
 
-export const TrendingCategory: React.FC = () => (
+export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
+  trendingProjects,
+}) => (
   <div className="Category">
     <div className="Category__block">
       <div className="Category__svg-wrapper">
@@ -65,9 +48,10 @@ export const TrendingCategory: React.FC = () => (
     </Typography>
     <Typography className="Category__block-subtitle">Today</Typography>
     <ul className="Category__projects-wrapper">
-      {responseFromApi.map((item) => (
+      {trendingProjects.map((item, index) => (
         <TrendingProjectCard
           key={item.id}
+          rankNumber={index + 1}
           projectTitle={item.name}
           mentions={item.additional}
           categoryTitle={item.tag.name as CategoryTags}

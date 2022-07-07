@@ -8,19 +8,21 @@ interface ProjectCardProps {
   categoryTitle: CategoryTags;
   projectTitle: string;
   mentions: string;
+  rankNumber: number;
 }
 
 export const TrendingProjectCard: React.FC<ProjectCardProps> = ({
   categoryTitle,
   projectTitle,
   mentions,
+  rankNumber,
 }) => (
   <li className="project-card">
     <Typography
       className="project-card__grey-text"
       weight={TypographyWeight.MEDIUM}
     >
-      #1
+      {`#${rankNumber}`}
     </Typography>
     {/* <img/> */}
     <div>
