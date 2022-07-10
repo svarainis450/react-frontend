@@ -1,13 +1,21 @@
 .project-card {
   display: block;
+  border: none;
+
+  .border-wrapper {
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1.5px solid var(--color-grey);
+
+    .grey-text {
+      color: var(--color-grey-text);
+    }
+  }
 
   .flex {
     display: flex;
     align-items: center;
     justify-content: space-around;
-
-    padding: 0 0 16px;
-    border-bottom: 1.5px solid var(--color-grey);
 
     .title {
       margin: 0 0 6px;
@@ -20,13 +28,13 @@
     }
   }
 
-  .border-wrapper {
-    display: block;
-    padding: 8px 0;
-    border-bottom: 1.5px solid var(--color-grey);
+  .talk-rate-desc {
+    width: calc(100% - 32px - 58px);
+  }
 
-    .grey-text {
-      color: var(--color-grey-text);
-    }
+  .small-text {
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--color-grey-text);
   }
 }

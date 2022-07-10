@@ -16,7 +16,7 @@ interface ProjectCardProps {
 export const ProjectCard: React.FC<ProjectCardProps> = () => (
   <CardWrapper>
     <div className="project-card">
-      <div className="flex">
+      <div className="flex border-wrapper">
         <img className="icon" src={images.bitkoin} alt="bitkoin" />
         <div>
           <Typography className="title" weight={TypographyWeight.MEDIUM}>
@@ -41,7 +41,29 @@ export const ProjectCard: React.FC<ProjectCardProps> = () => (
           2017 01 21
         </Typography>
       </div>
-      <TalkRateElement />
+      <div className="flex border-wrapper">
+        <TalkRateElement rate={89} />
+        <div className="talk-rate-desc">
+          <Typography className="small-text">
+            Talk Rate indicates how popular the project is among crypto experts
+            and the community
+          </Typography>
+        </div>
+      </div>
+      <div className="border-wrapper">
+        <Typography className="small-text">
+          <strong>Positive v.s. Negative</strong> Index shows how people
+          collectively value the project - whether they are more positive or
+          negative about the growth of the project
+        </Typography>
+      </div>
+      <div className="border-wrapper">
+        <Typography className="small-text">
+          <strong>Bull v.s. Bear</strong> Index spots whether the project is
+          Bullish, meaning is on the rise, or Bearish, meaning it is declining
+          in value
+        </Typography>
+      </div>
     </div>
   </CardWrapper>
 );

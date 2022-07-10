@@ -1,18 +1,18 @@
-// .circle {
-//   width: 58px;
-//   height: 58px;
+.circluar-wrapper {    
+  position: relative;
+  width: 58px;
+  height: 58px;
+  
+  .CircularProgressbar-text {
+    font-weight: 700;
+    dominant-baseline: text-before-edge;
+  }
 
-//   border-radius: 50%;
-//   box-sizing: border-box;
-
-//   .rate-size {
-//   }
-// }
-
-.progress-ring {
-  .progress-ring__circle {
-    transition: stroke-dashoffset 0.35s;
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
+  .talk-rate {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    font-size: 6px;
+    text-transform: uppercase;
   }
 }
