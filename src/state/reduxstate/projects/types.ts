@@ -1,17 +1,19 @@
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
+export interface RateData {
+  talkRate: number;
+  talkRateChanges: number;
+  positiveRatio: number;
+  bullRatio: number;
+}
+
 export interface Project {
   id: number;
   name: string;
   symbol: string;
   started: string;
   img: string;
-  rateData: {
-    talkRate: number;
-    talkRateChanges: number;
-    positiveRatio: number;
-    bullRatio: number;
-  };
+  rateData: RateData;
   influencers: [];
   coinbaseUrl: string | null;
   tag: CategoryTags; //should be added to BE response

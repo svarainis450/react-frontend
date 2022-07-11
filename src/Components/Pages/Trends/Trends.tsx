@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import {
   CardWrapper,
+  LoadError,
   Top3Element,
   TrendingCategory,
 } from 'src/Components/Global';
@@ -85,18 +86,22 @@ export const Trends: React.FC = () => {
             onCloseClick={() => setShowInfoBlock(null)}
             showInfoBlock={showInfoBlock === InfoBlockTypes.rate}
           >
-            <ul className="cards-grid">
-              {projects.map(({ id, img, name, tag, rateData }) => (
-                <Top3Element
-                  key={id}
-                  id={id}
-                  icon={img}
-                  projectName={name}
-                  tagTitle={tag}
-                  talkRate={rateData.talkRate}
-                />
-              ))}
-            </ul>
+            {projects ? (
+              <ul className="cards-grid">
+                {projects.map(({ id, img, name, tag, rateData }) => (
+                  <Top3Element
+                    key={id}
+                    id={id}
+                    icon={img}
+                    projectName={name}
+                    tagTitle={tag}
+                    talkRate={rateData.talkRate}
+                  />
+                ))}
+              </ul>
+            ) : (
+              <LoadError />
+            )}
           </CardWrapper>
           <CardWrapper
             title="Top 3 Positive Projects"
@@ -108,18 +113,22 @@ export const Trends: React.FC = () => {
             onCloseClick={() => setShowInfoBlock(null)}
             showInfoBlock={showInfoBlock === InfoBlockTypes.positive}
           >
-            <ul className="cards-grid">
-              {projects.map(({ id, img, name, tag, rateData }) => (
-                <Top3Element
-                  key={id}
-                  id={id}
-                  icon={img}
-                  projectName={name}
-                  tagTitle={tag}
-                  talkRate={rateData.talkRate}
-                />
-              ))}
-            </ul>
+            {projects ? (
+              <ul className="cards-grid">
+                {projects.map(({ id, img, name, tag, rateData }) => (
+                  <Top3Element
+                    key={id}
+                    id={id}
+                    icon={img}
+                    projectName={name}
+                    tagTitle={tag}
+                    talkRate={rateData.talkRate}
+                  />
+                ))}
+              </ul>
+            ) : (
+              <LoadError />
+            )}
           </CardWrapper>
           <CardWrapper
             title="Top 3 Bull Projects"
@@ -131,18 +140,22 @@ export const Trends: React.FC = () => {
             onCloseClick={() => setShowInfoBlock(null)}
             showInfoBlock={showInfoBlock === InfoBlockTypes.bullish}
           >
-            <ul className="cards-grid">
-              {projects.map(({ id, img, name, tag, rateData }) => (
-                <Top3Element
-                  key={id}
-                  id={id}
-                  icon={img}
-                  projectName={name}
-                  tagTitle={tag}
-                  talkRate={rateData.talkRate}
-                />
-              ))}
-            </ul>
+            {projects ? (
+              <ul className="cards-grid">
+                {projects.map(({ id, img, name, tag, rateData }) => (
+                  <Top3Element
+                    key={id}
+                    id={id}
+                    icon={img}
+                    projectName={name}
+                    tagTitle={tag}
+                    talkRate={rateData.talkRate}
+                  />
+                ))}
+              </ul>
+            ) : (
+              <LoadError />
+            )}
           </CardWrapper>
         </div>
         <div className="wrapper one-column">

@@ -9,6 +9,7 @@ import './TrendingCategory.scss';
 import { TrendsCategoryEllipse } from './TrendsCategoryEllipse';
 import { CategoryTags } from '../types';
 import { TrendingProject } from 'src/state/reduxstate/projects/types';
+import { LoadError } from '../../LoadError/LoadError';
 
 const tags = [
   CategoryTags.coins,
@@ -47,16 +48,20 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
       Trending Projects
     </Typography>
     <Typography className="Category__block-subtitle">Today</Typography>
-    <ul className="Category__projects-wrapper">
-      {trendingProjects.map((item, index) => (
-        <TrendingProjectCard
-          key={item.id}
-          rankNumber={index + 1}
-          projectTitle={item.name}
-          mentions={item.additional}
-          categoryTitle={item.tag.name as CategoryTags}
-        />
-      ))}
-    </ul>
+    {trendingProjects ? (
+      <ul className="Category__projects-wrapper">
+        {trendingProjects.map((item, index) => (
+          <TrendingProjectCard
+            key={item.id}
+            rankNumber={index + 1}
+            projectTitle={item.name}
+            mentions={item.additional}
+            categoryTitle={item.tag.name as CategoryTags}
+          />
+        ))}
+      </ul>
+    ) : (
+      <LoadError />
+    )}
   </div>
 );

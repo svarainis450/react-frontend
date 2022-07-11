@@ -6,7 +6,9 @@ export * from './TrendsElements/TrendingProjectCard/TrendingProjectCard';
 export * from './TrendsElements/Top3Element/Top3Element';
 
 // DISCOVER
-export * from './DiscoverElements/ProjectCard';
+export * from './DiscoverElements/ProjectCard/ProjectCard';
+export * from './DiscoverElements/IndexAxis/IndexAxis';
 
 // MISC
 export * from './TalkRateElement/TalkRateElement';
+export * from './LoadError/LoadError';
