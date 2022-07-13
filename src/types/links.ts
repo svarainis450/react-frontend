@@ -8,6 +8,7 @@ export enum LinkList {
   Faq = '/faq',
   Demo = '/demo',
   Login = '/login',
+  Register = '/register',
   TermsAndConditions = '/t&c',
   PrivacyPolicy = '/privacy-policy',
   Membership = '/membership',

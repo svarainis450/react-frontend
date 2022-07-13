@@ -1,0 +1,56 @@
+.Register {
+  background-color: var(--color-grey);
+  padding-top: 3.75rem;
+  min-height: calc(100vh - 66px);
+
+  @media (min-width: 1024px) {
+    min-height: calc(100vh - 90px);
+    padding-top: 15vh;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 36px;
+    margin-bottom: 2.5rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  &__img {
+    margin-bottom: 3.125rem;
+    height: 11.75rem;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  &__teaser {
+    padding: 0 2.125rem;
+    margin-bottom: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    max-width: 11.875rem;
+    margin: 0 auto 3rem auto;
+  }
+}

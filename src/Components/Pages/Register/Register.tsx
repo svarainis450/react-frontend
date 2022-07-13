@@ -7,35 +7,28 @@ import rocketTicket from 'src/Assets/images/rocketTicket.svg';
 import { LayoutWithHeader } from 'src/Components/';
 import { Input } from 'src/Components';
 
-import { API_USER_LOGIN } from 'src/Common/services/login'
-import { UserInfoContext } from 'src/state/UserInfoContextProvider'
+import { API_USER_REGISTER } from 'src/Common/services/register'
 
-import './Login.scss';
+import './Register.scss';
 import { LinkList } from 'src/types';
 
-export const Login = () => {
+export const Register = () => {
   const [email, setEmail] = useState<string>('');
   const [pass, setPass] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const [loginInProgress, setLoginInProgress] = useState<boolean>(false);
+  const [RegisterInProgress, setRegisterInProgress] = useState<boolean>(false);
 
-  const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleRegister = () => {
     setError("");
-    setLoginInProgress(true);
+    setRegisterInProgress(true);
 
-    API_USER_LOGIN(email, pass)
-      .then((response: any) => {
-        setUserInfo(response.data);
-      })
-      .then(() => {
-        setLoginInProgress(false);
-        return navigate(LinkList.DASHBOARD);
-      })
+    API_USER_REGISTER(email, pass)
+      .then(() => navigate(LinkList.Login))
       .catch((err) => {
-        setLoginInProgress(false);
+        setRegisterInProgress(false);
+
         err
           ? setError(err.data.message)
           : setError(
@@ -54,9 +47,9 @@ export const Login = () => {
 
   return (
     <LayoutWithHeader>
-      <div className="Login">
-        <div className="Login__content">
-          <p className="Login__title">Welcome back to Potato</p>
+      <div className="Register">
+        <div className="Register__content">
+          <p className="Register__title">Sign up to Potato</p>
 
           <Input
             name="email"
@@ -78,18 +71,17 @@ export const Login = () => {
             error={error}
           />
 
-          <Button className="Login__button" type="submit" onClick={handleLogin}>
-            {loginInProgress ? "Logging in ..." : "Log in"}
+          <Button className="Register__button" type="submit" onClick={handleRegister}>
+            {RegisterInProgress ? "Signing up  ..." : "Sign up"}
           </Button>
 
-          <img className="Login__img" src={rocketTicket} alt="rocketTicket" />
+          <img className="Register__img" src={rocketTicket} alt="rocketTicket" />
 
-          <p className="Login__teaser">
-            New to Potato? Potato is a crypto influencer marketplace to help
-            people discover x100 opportunities on time
+          <p className="Register__teaser">
+            Already have account? 
           </p>
 
-          <Button className="Login__button" onClick={() => navigate(LinkList.Register)}>Sign up</Button>
+          <Button className="Register__button" onClick={() => navigate(LinkList.Login)}>Log in</Button>
         </div>
       </div>
     </LayoutWithHeader>

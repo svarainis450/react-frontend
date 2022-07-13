@@ -11,3 +11,4 @@ export * from './SalesFunnel';
 export * from './TermsAndConditions';
 export * from './Trends';
 export * from './WaitlistSignUp';
+export * from './Register';
