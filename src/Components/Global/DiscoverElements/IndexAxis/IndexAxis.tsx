@@ -1,7 +1,9 @@
-import { randomBytes } from 'crypto';
-import { useEffect } from 'react';
 import { Typography } from '../../Typography';
+import styled from 'styled-components';
+
 import './IndexAxis.scss';
+import { theme } from 'src/theme';
+import { icons } from 'src/utils/icons';
 
 interface IndexAxisProps {
   rating: number;
@@ -12,38 +14,41 @@ const BULLS = ['bear', 'neutral', 'bull'];
 const POSITIVE = ['negative', 'neutral', 'positive'];
 
 export const IndexAxis: React.FC<IndexAxisProps> = ({ rating, type }) => {
-  const axisTitles = type === 'bull' ? BULLS : POSITIVE;
+  const isBullType = type === 'bull';
+  const axisTitles = isBullType ? BULLS : POSITIVE;
   const isPositive = rating >= 0;
-  const isNegative = rating < 0;
-  const positiveElement = document.getElementById('positive');
-  const negativeElement = document.getElementById('negative');
-
-  useEffect(() => {
-    if (isPositive && positiveElement) {
-      positiveElement.style.setProperty('width', `${rating}%`);
-    } else if (isNegative && negativeElement) {
-      negativeElement.style.setProperty('width', `${Math.abs(rating)}%`);
-    }
-  }, [rating, isPositive, isNegative, positiveElement, negativeElement]);
+  const rangeWidth = isPositive ? rating : Math.abs(rating);
 
   return (
     <div className="axis-wrapper">
+      <div className="icons-wrapper">
+        <img
+          src={isBullType ? icons.bear : icons.negative}
+          alt={isBullType ? 'Bears' : 'Negative'}
+        />
+        <img
+          src={isBullType ? icons.bulls : icons.positive}
+          alt={isBullType ? 'Bulls' : 'Positive'}
+        />
+      </div>
       <div className="axis">
-        <div className="center-line"></div>
-        {isPositive && (
-          <div className="rating-wrapper">
-            <div id="positive" className="positive-range">
-              <div className="circle" />
-            </div>
+        <div className="center-line" />
+        <div className="range-wrapper">
+          <div className="rating-wrapper negative">
+            {!isPositive && (
+              <Rating isPositive={isPositive} width={rangeWidth}>
+                <div className="circle negative" />
+              </Rating>
+            )}
           </div>
-        )}
-        {isNegative && (
           <div className="rating-wrapper">
-            <div id="negative" className="negative-range">
-              <div className="circle negative" />
-            </div>
+            {isPositive && (
+              <Rating isPositive={isPositive} width={rangeWidth}>
+                <div className="circle" />
+              </Rating>
+            )}
           </div>
-        )}
+        </div>
       </div>
       <div className="axis-titles">
         {axisTitles.map((item, index) => (
@@ -53,3 +58,15 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({ rating, type }) => {
     </div>
   );
 };
+interface RatingProps {
+  isPositive: boolean;
+  width?: number;
+}
+
+const Rating = styled.div<RatingProps>`
+  position: relative;
+  height: 4px;
+  width: ${({ width }) => `${width}%` || '100%'};
+  background: ${({ isPositive }) =>
+    isPositive ? theme.colors.potatoGreen : theme.colors.red};
+`;

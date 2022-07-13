@@ -45,4 +45,30 @@
       color: var(--color-grey-text);
     }
   }
+
+  .rate-change-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 0 6px;
+
+    .triangle {
+      margin: 0 6px 0 0;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 6px solid var(--color-green);
+    }
+
+    .triangle.negative {
+      border-bottom: 6px solid var(--color-red);
+      transform: scaleY(-1);
+    }
+
+    p {
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
 }

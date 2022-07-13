@@ -17,7 +17,29 @@ export const Discover: React.FC = () => {
       <LoggedInLayout>
         <Submenu menuItems={submenuList} />
         <div className="Discover__wrapper">
-          <ProjectCard />
+          {projects.map(
+            ({
+              id,
+              coinbaseUrl,
+              tag,
+              rateData,
+              name,
+              influencers,
+              img,
+              started,
+            }) => (
+              <ProjectCard
+                key={id}
+                name={name}
+                img={img}
+                coinbaseUrl={coinbaseUrl}
+                influencers={influencers}
+                rateData={rateData}
+                tag={tag}
+                started={started}
+              />
+            )
+          )}
         </div>
       </LoggedInLayout>
     </div>
