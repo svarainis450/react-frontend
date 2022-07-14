@@ -1,0 +1,66 @@
+.project-picks {
+  &__row {
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr 0.9fr 0.9fr 1fr;
+    grid-auto-rows: 1fr;
+    align-items: center;
+
+    padding: 14px 0;
+
+    border-bottom: 1.5px solid var(--color-grey);
+    // border-top: 1.5px solid var(--color-grey);
+    // text-align: center;
+
+    // :last-child,
+    // :first-child {
+    //   text-align: left;
+    // }
+
+    &__influencer {
+      display: flex;
+      align-items: center;
+
+      &__tag-name {
+        margin: 0 0 2px;
+
+        font-size: 12px;
+        line-height: 14px;
+        font-weight: 500;
+      }
+
+      &__name {
+        color: var(--color-grey-text);
+        font-size: 12px;
+        line-height: 14px;
+        font-weight: 300;
+      }
+    }
+    &__thin-text {
+      margin: 0 0 0 6px;
+      font-size: 14px;
+      line-height: 22px;
+      font-weight: 300;
+    }
+
+    &__thin-text__positioned {
+      margin: 0 0 0 35px;
+    }
+
+    &__project {
+      display: flex;
+      align-items: center;
+    }
+
+    .icon {
+      margin: 0 10px 0 0;
+      width: 30px;
+      height: 30px;
+
+      border-radius: 50%;
+    }
+  }
+
+  .titles {
+    border-top: 1.5px solid var(--color-grey);
+  }
+}

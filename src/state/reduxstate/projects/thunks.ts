@@ -36,3 +36,20 @@ export const fetchTrendingProjects = createAsyncThunk(
     }
   }
 );
+
+//TODO: add the variable for /${today}
+export const fetchProjectsPick = createAsyncThunk(
+  'projects/GET_PROJECT_PICKS',
+  async () => {
+    try {
+      const resp = await fetch(`${api}/influencers/today`, {
+        headers: {
+          Authorization: `Bearer ${demoToken}`,
+        },
+      }).then((res) => res.json());
+      return resp;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);

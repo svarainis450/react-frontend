@@ -62,7 +62,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
           </Typography>
         </div>
       )}
-      {showProjects && (
+      {(showProjects || !isTablet) && (
         <>
           <Typography
             className="Category__block-title"

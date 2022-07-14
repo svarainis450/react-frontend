@@ -33,8 +33,23 @@ export interface TrendingProject {
 
 export type Statuses = 'idle' | 'pending' | 'success' | 'error';
 
+export interface ProjectPicks {
+  id: number;
+  name: string;
+  tagName: string;
+  postCount: number;
+  channel: string;
+  tag: {
+    name: CategoryTags;
+    color: string;
+  };
+  projects: TrendingProject[];
+}
+
 export interface ProjectsState {
   projects: Project[];
   status: Statuses;
   trending_projects: TrendingProject[];
+  influencers_picks: [];
+  project_picks: ProjectPicks[];
 }

@@ -37,10 +37,16 @@
   @include tablet {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
+    grid-auto-rows: 1fr !important;
     grid-gap: 20px !important;
     padding: 0 16px !important;
 
     max-width: 1300px !important;
     margin: 0 auto 20px !important;
+    box-sizing: border-box !important;
+
+    .card {
+      height: 100% !important;
+    }
   }
 }
