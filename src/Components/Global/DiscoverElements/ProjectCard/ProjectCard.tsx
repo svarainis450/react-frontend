@@ -1,4 +1,4 @@
-import { Project, RateData } from 'src/state/reduxstate/projects/types';
+import { Project } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { images } from 'src/utils/images';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
@@ -11,7 +11,6 @@ import {
   TypographyVariant,
 } from '../../Typography';
 import { CoinBaseButton } from '../CoinBaseButton/CoinBaseButton';
-import { IndexAxis } from '../IndexAxis/IndexAxis';
 import { PositiveBullsBlock } from './PositiveBullsBlock';
 
 import './ProjectCard.scss';

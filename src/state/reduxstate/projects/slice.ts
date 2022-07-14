@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchTrendingProjects, fethchProjects } from './thunks';
+import { fetchTrendingProjects, fetchProjects } from './thunks';
 import { ProjectsState, Statuses } from './types';
 
 const initialState: ProjectsState = {
@@ -18,13 +18,13 @@ const projectsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(
-      fethchProjects.fulfilled,
+      fetchProjects.fulfilled,
       (state, action: PayloadAction<ProjectsState['projects']>) => {
         state.projects = action.payload;
         state.status = 'success';
       }
     );
-    builder.addCase(fethchProjects.rejected, (state) => {
+    builder.addCase(fetchProjects.rejected, (state) => {
       state.status = 'error';
     });
     builder.addCase(

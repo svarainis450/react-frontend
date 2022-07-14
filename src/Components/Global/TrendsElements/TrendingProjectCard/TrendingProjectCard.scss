@@ -1,5 +1,6 @@
-.project-card {
-  display: flex;
+.trending-project-card {
+  display: grid;
+  grid-template-columns: 0.2fr 0.8fr 1.5fr 0.5fr;
   align-items: center;
   justify-content: space-between;
   padding: 9px 0;

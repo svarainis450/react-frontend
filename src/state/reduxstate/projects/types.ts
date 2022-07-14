@@ -24,6 +24,7 @@ export interface TrendingProject {
   name: string;
   ticker: string;
   additional: string;
+  img: string;
   tag: {
     name: CategoryTags;
     color: string;

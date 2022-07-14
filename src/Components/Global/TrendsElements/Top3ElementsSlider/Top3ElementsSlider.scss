@@ -1,0 +1,46 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.swiper,
+.swiper-wrapper,
+.swiper-slide,
+.swiper-pagination {
+  @include tablet {
+    all: unset !important;
+  }
+}
+
+.swiper-pagination {
+  position: static;
+  margin: 16px 0 0;
+  align-items: center !important;
+
+  .swiper-pagination-bullet {
+    background-color: var(--color-black) !important;
+    opacity: 1 !important;
+  }
+  .swiper-pagination-bullet-active {
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-white) !important;
+    border: 1px solid var(--color-black);
+  }
+}
+
+.swiper-slide.swiper-slide-duplicate,
+.swiper-pagination {
+  @include tablet {
+    display: none !important;
+  }
+}
+
+.swiper-wrapper {
+  @include tablet {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-gap: 20px !important;
+    padding: 0 16px !important;
+
+    max-width: 1300px !important;
+    margin: 0 auto 20px !important;
+  }
+}

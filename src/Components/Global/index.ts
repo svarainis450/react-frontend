@@ -4,6 +4,7 @@ export * from './TrendsElements/TrendingCategory/TrendingCategory';
 export * from './TrendsElements/CategoryTag/CategoryTag';
 export * from './TrendsElements/TrendingProjectCard/TrendingProjectCard';
 export * from './TrendsElements/Top3Element/Top3Element';
+export * from './TrendsElements/Top3ElementsSlider/Top3ElementsSlider';
 
 // DISCOVER
 export * from './DiscoverElements/ProjectCard/ProjectCard';

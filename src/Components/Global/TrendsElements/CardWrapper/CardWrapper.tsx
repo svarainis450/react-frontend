@@ -62,14 +62,10 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
           )}
         </div>
       )}
-      {title || subtitle || (
+      {(title || subtitle) && (
         <div className="flex-wrapper">
           <div>
-            {title && (
-              <Typography className="title" weight={TypographyWeight.BOLD700}>
-                {title}
-              </Typography>
-            )}
+            {title && <Typography className="title">{title}</Typography>}
             {subtitle && (
               <Typography className="subtitle">{subtitle}</Typography>
             )}
