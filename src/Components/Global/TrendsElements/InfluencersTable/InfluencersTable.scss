@@ -1,77 +1,139 @@
 @import '../../../../utils/breakpointsMixins.scss';
 
-.influencers-table {
-  padding: 17px 0 0;
-  overflow-x: scroll;
-
-  &__row {
-    display: grid;
-    grid-template-columns: 1.3fr repeat(6, 1fr) 0.6fr;
-    grid-auto-rows: 1fr;
-    grid-gap: 80px;
+.influencers-picks {
+  &__filters {
+    display: flex;
     align-items: center;
-    justify-items: center;
-    width: fit-content;
+    justify-content: space-between;
+    padding: 16px 0 0 0;
 
-    padding: 7px 0;
-
-    border-bottom: 1.5px solid var(--color-grey);
-
-    @include desktop {
-      width: 100%;
-      grid-template-columns: 1.3fr repeat(6, 0.9fr) 0.6fr;
-      grid-gap: 0;
-    }
-
-    &__influencer {
+    &__input-wrapper {
+      position: relative;
       display: flex;
-      align-items: center;
-      justify-self: flex-start;
+      max-width: 256px;
+      width: 100%;
 
-      &__tag-name {
-        margin: 0 0 2px;
-
-        font-size: 12px;
-        line-height: 14px;
-        font-weight: 500;
+      &__magnifier {
+        margin: 0 -24px 0 0;
       }
 
-      &__name {
-        color: var(--color-grey-text);
-        font-size: 12px;
-        line-height: 14px;
+      &__input {
+        all: unset;
+        padding: 8px 8px 8px 32px;
+        width: 100%;
+
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 100px;
+      }
+    }
+
+    &__sort {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      grid-gap: 16px;
+
+      max-width: 293px;
+
+      &__option {
+        font-size: 14px;
+        font-weight: 300;
+        cursor: pointer;
+      }
+
+      .select {
+        all: unset;
+        font-size: 14px;
         font-weight: 300;
       }
     }
-
-    &__thin-text {
-      margin: 0 0 0 6px;
-      font-size: 14px;
-      line-height: 22px;
-      font-weight: 300;
-    }
-
-    &__thin-text__positioned {
-      margin: 0 0 0 35px;
-    }
-
-    .icon {
-      margin: 0 10px 0 0;
-      width: 30px;
-      height: 30px;
-
-      border-radius: 50%;
-    }
   }
 
-  .titles {
-    border-top: 1.5px solid var(--color-grey);
+  &__influencers-table {
+    padding: 17px 0 0;
+    overflow-x: scroll;
 
-    :first-of-type {
-      justify-self: flex-start;
+    &__row {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(6, 1fr) 0.6fr;
+      grid-auto-rows: 1fr;
+      grid-gap: 80px;
+      align-items: center;
+      justify-items: center;
+      width: fit-content;
+
+      padding: 7px 0;
+
+      border-bottom: 1.5px solid var(--color-grey);
+
+      @include desktop {
+        width: 100%;
+        grid-template-columns: 1.3fr repeat(6, 0.9fr) 0.6fr;
+        grid-gap: 0;
+      }
+
+      &__influencer {
+        display: flex;
+        align-items: center;
+        justify-self: flex-start;
+
+        &__tag-name {
+          margin: 0 0 2px;
+
+          font-size: 12px;
+          line-height: 14px;
+          font-weight: 500;
+        }
+
+        &__name {
+          color: var(--color-grey-text);
+          font-size: 12px;
+          line-height: 14px;
+          font-weight: 300;
+        }
+      }
+
+      &__thin-text {
+        margin: 0 0 0 6px;
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 300;
+      }
+
+      &__thin-text__positioned {
+        margin: 0 0 0 35px;
+      }
+
+      &__projects {
+        display: flex;
+        align-items: center;
+        justify-self: flex-start;
+      }
+
+      &__link {
+        img {
+          cursor: pointer;
+        }
+      }
+
+      .icon {
+        margin: 0 10px 0 0;
+        width: 30px;
+        height: 30px;
+
+        border-radius: 50%;
+      }
     }
-    :nth-child(7) {
-      justify-self: flex-start;
+
+    .titles {
+      border-top: 1.5px solid var(--color-grey);
+
+      :first-of-type {
+        justify-self: flex-start;
+      }
+      :nth-child(7) {
+        justify-self: flex-start;
+      }
     }
   }
 }

@@ -5,6 +5,7 @@ export interface TypographyProps {
   children: ReactNode | ReactNode[];
   variant?: TypographyVariant;
   weight?: TypographyWeight;
+  onClick?: () => void;
 }
 
 export enum TypographyVariant {
