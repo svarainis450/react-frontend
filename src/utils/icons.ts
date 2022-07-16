@@ -21,7 +21,11 @@ import positive_element from '../Assets/icons/positive_element.svg';
 import bull_element from '../Assets/icons/bull_element.svg';
 import coin_base from '../Assets/icons/coin_base_icon.svg';
 
+// Profile page icons
+import account_icon from '../Assets/icons/account_icon.svg';
+
 export const icons = {
+  account_icon,
   search_magnifier,
   link_arrow,
   positive_element,

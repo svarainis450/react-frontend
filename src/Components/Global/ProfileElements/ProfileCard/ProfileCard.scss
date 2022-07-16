@@ -1,0 +1,76 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.profile-card {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+
+  @include desktop {
+    max-width: 310px;
+  }
+
+  &__avatar {
+    position: absolute;
+    top: -57px;
+    left: calc(114px / 2 + 40px);
+
+    width: 114px;
+    height: 114px;
+
+    border: 2px solid var(--color-white);
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  &__name {
+    margin: 30px 0 16px;
+
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__border-wrapper {
+    padding: 8px 0;
+
+    border-top: 1px solid var(--color-grey);
+
+    &__input-wrapper {
+      position: relative;
+      margin: 0 0 8px;
+
+      label {
+        position: absolute;
+        top: 16px;
+        left: 8px;
+
+        color: var(--color-grey-text);
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      input {
+        padding: 16px 16px 16px 35%;
+        width: 100%;
+
+        border: 0.5px solid var(--color-grey-text);
+        border-radius: 10px;
+
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+  }
+
+  .bolded-text {
+    margin: 0 0 16px;
+
+    color: var(--color-grey-text);
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 500;
+  }
+}

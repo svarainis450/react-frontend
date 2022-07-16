@@ -15,3 +15,6 @@ export * from './DiscoverElements/IndexAxis/IndexAxis';
 // MISC
 export * from './TalkRateElement/TalkRateElement';
 export * from './LoadError/LoadError';
+
+// PROFILE
+export * from './ProfileElements/ProfileCard/ProfileCard';

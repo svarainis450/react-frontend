@@ -16,6 +16,7 @@ import {
   Login,
   Pricing,
   PrivacyPolicy,
+  Profile,
   SalesFunnel,
   TermsAndConditions,
   Trends,
@@ -97,10 +98,7 @@ const App = () => {
               <Route path={LinkList.TRENDS} element={<Trends />} />
               <Route path={LinkList.DISCOVER} element={<Discover />} />
 
-              {/* <Route path={LinkList.PROFILE} element={<></>}>
-              <Route path={"/account"} element={<></>}/>
-              <Route path={"/notifications"} element={<></>}/>
-            </Route> */}
+              <Route path={LinkList.PROFILE} element={<Profile />} />
             </Routes>
           </PersistGate>
         </Provider>
