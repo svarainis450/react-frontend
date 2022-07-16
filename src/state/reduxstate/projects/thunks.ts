@@ -3,7 +3,7 @@ import { api, demoToken } from '../types';
 
 //NOTE: token should come from the state after login or local storge if it will be saved here
 
-export const fethchProjects = createAsyncThunk(
+export const fetchProjects = createAsyncThunk(
   'projects/GET_PROJECTS',
   async () => {
     try {
@@ -13,6 +13,7 @@ export const fethchProjects = createAsyncThunk(
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());
+      console.log(resp);
       return resp;
     } catch (e) {
       console.log(e);
@@ -25,6 +26,23 @@ export const fetchTrendingProjects = createAsyncThunk(
   async () => {
     try {
       const resp = await fetch(`${api}/projects/trending`, {
+        headers: {
+          Authorization: `Bearer ${demoToken}`,
+        },
+      }).then((res) => res.json());
+      return resp;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+//TODO: add the variable for /${today}
+export const fetchProjectsPick = createAsyncThunk(
+  'projects/GET_PROJECT_PICKS',
+  async () => {
+    try {
+      const resp = await fetch(`${api}/influencers/today`, {
         headers: {
           Authorization: `Bearer ${demoToken}`,
         },

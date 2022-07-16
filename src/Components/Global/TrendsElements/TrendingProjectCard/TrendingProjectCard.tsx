@@ -9,22 +9,24 @@ interface ProjectCardProps {
   projectTitle: string;
   mentions: string;
   rankNumber: number;
+  img: string;
 }
 
 export const TrendingProjectCard: React.FC<ProjectCardProps> = ({
   categoryTitle,
   projectTitle,
+  img,
   mentions,
   rankNumber,
 }) => (
-  <li className="project-card">
+  <li className="trending-project-card">
     <Typography
       className="project-card__grey-text"
       weight={TypographyWeight.MEDIUM}
     >
       {`#${rankNumber}`}
     </Typography>
-    {/* <img/> */}
+    <img src={img} alt={projectTitle} />
     <div>
       <Typography weight={TypographyWeight.MEDIUM}>{projectTitle}</Typography>
       <Typography

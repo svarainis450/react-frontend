@@ -10,6 +10,7 @@ import {
   AboutPage,
   Dashboard,
   DemoPage,
+  Discover,
   FAQpage,
   Frontpage,
   Login,
@@ -94,7 +95,7 @@ const App = () => {
               <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
               <Route path={LinkList.DASHBOARD} element={<Dashboard />} />
               <Route path={LinkList.TRENDS} element={<Trends />} />
-              <Route path={LinkList.DISCOVER} element={<Trends />} />
+              <Route path={LinkList.DISCOVER} element={<Discover />} />
 
               {/* <Route path={LinkList.PROFILE} element={<></>}>
               <Route path={"/account"} element={<></>}/>

@@ -1,4 +1,4 @@
-import {useMediaQuery as useQuery} from '@mui/material';
+import { useMediaQuery as useQuery } from '@mui/material';
 import { theme } from '../theme';
 
 export const useMediaQuery = () => ({

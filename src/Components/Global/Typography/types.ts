@@ -1,6 +1,8 @@
+import { ReactNode } from 'react';
+
 export interface TypographyProps {
   className?: string;
-  children: string | React.ReactElement;
+  children: ReactNode | ReactNode[];
   variant?: TypographyVariant;
   weight?: TypographyWeight;
 }
