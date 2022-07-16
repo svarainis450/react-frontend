@@ -52,6 +52,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                   projectName={name}
                   tagTitle={tag}
                   talkRate={rateData.talkRate}
+                  blockType={InfoBlockTypes.rate}
                 />
               ))}
             </ul>
@@ -81,6 +82,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                   projectName={name}
                   tagTitle={tag}
                   talkRate={rateData.talkRate}
+                  blockType={InfoBlockTypes.positive}
                 />
               ))}
             </ul>
@@ -110,6 +112,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                   projectName={name}
                   tagTitle={tag}
                   talkRate={rateData.talkRate}
+                  blockType={InfoBlockTypes.bullish}
                 />
               ))}
             </ul>

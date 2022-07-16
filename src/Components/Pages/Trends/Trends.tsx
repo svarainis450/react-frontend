@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 
 import {
   CardWrapper,
+  CategoryTag,
+  InfluencersTable,
   ProjectPicksTable,
   Top3ElementsSlider,
   TrendingCategory,
@@ -22,6 +24,9 @@ import {
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
+import { icons } from 'src/utils/icons';
+import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { Project } from 'src/state/reduxstate/projects/types';
 
 export const Trends: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +38,90 @@ export const Trends: React.FC = () => {
     dispatch(fetchTrendingProjects());
     dispatch(fetchProjectsPick());
   }, [dispatch]);
+
+  const demoTop3: Project[] = [
+    {
+      id: 1,
+      img: icons.coin_base,
+      name: 'Bitcoin (BTC)',
+      tag: CategoryTags.coins,
+      rateData: {
+        talkRate: 67,
+        positiveRatio: 66,
+        bullRatio: 33,
+        talkRateChanges: 12,
+      },
+    },
+    {
+      id: 2,
+      img: icons.coin_base,
+      name: 'Dogecoin (DOGE)',
+      tag: CategoryTags.coins,
+      rateData: {
+        talkRate: 67,
+        positiveRatio: 66,
+        bullRatio: 33,
+        talkRateChanges: 12,
+      },
+    },
+    {
+      id: 3,
+      img: icons.coin_base,
+      name: 'Dogecoin (DOGE)',
+      tag: CategoryTags.coins,
+      rateData: {
+        talkRate: 67,
+        positiveRatio: 66,
+        bullRatio: 33,
+        talkRateChanges: 12,
+      },
+    },
+  ];
+
+  const influencersDemo = [
+    {
+      id: 1,
+      name: 'Vitalik Buterin',
+      tagName: '@VitalikButerin',
+      img: icons.coin_base,
+      followers: 540,
+      bullseyeIndex: 84,
+      category: CategoryTags.coins,
+      postCount: 3,
+      channel: 'Twitter',
+      projectName: 'Etherium',
+      projectImg: icons.coin_base,
+      linkToPost: 'asdasd',
+    },
+    {
+      id: 2,
+      name: 'Vitalik Buterin',
+      tagName: '@VitalikButerin',
+      img: icons.coin_base,
+      followers: 540,
+      bullseyeIndex: 84,
+      category: CategoryTags.coins,
+      postCount: 3,
+      channel: 'Twitter',
+      projectName: 'Etherium',
+      projectImg: icons.coin_base,
+      linkToPost: 'asdasd',
+    },
+    {
+      id: 3,
+      name: 'Vitalik Buterin',
+      tagName: '@VitalikButerin',
+      img: icons.coin_base,
+      followers: 540,
+      bullseyeIndex: 84,
+      category: CategoryTags.coins,
+      postCount: 3,
+      channel: 'Twitter',
+      projectName: 'Etherium',
+      projectImg: icons.coin_base,
+      linkToPost: 'asdasd',
+    },
+  ];
 
   return (
     <div className="Trends">
@@ -49,13 +138,13 @@ export const Trends: React.FC = () => {
             <ProjectPicksTable pickedProjects={projectPicks} />
           </CardWrapper>
         </section>
-        <Top3ElementsSlider projects={projects} />
+        <Top3ElementsSlider projects={demoTop3} />
         <section className="wrapper one-column">
           <CardWrapper
             title="List of influencers and their picks"
             subtitle="Today"
           >
-            influencers picks
+            <InfluencersTable influencersData={influencersDemo} />
           </CardWrapper>
         </section>
       </LoggedInLayout>

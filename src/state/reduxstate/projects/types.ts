@@ -10,12 +10,12 @@ export interface RateData {
 export interface Project {
   id: number;
   name: string;
-  symbol: string;
-  started: string;
+  symbol?: string;
+  started?: string;
   img: string;
   rateData: RateData;
-  influencers: [];
-  coinbaseUrl: string | null;
+  influencers?: [];
+  coinbaseUrl?: string | null;
   tag: CategoryTags; //should be added to BE response
 }
 

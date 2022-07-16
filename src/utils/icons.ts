@@ -9,15 +9,21 @@ import info_label from '../Assets/icons/info_label.svg';
 import fav_star from '../Assets/icons/fav_star.svg';
 import loader from '../Assets/icons/loader.svg';
 import finger_tap from '../Assets/icons/finger_tap.svg';
+import link_arrow from '../Assets/icons/link_arrow.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
 import bear from '../Assets/icons/bear.svg';
 import positive from '../Assets/icons/positive.svg';
 import negative from '../Assets/icons/negative.svg';
+import positive_element from '../Assets/icons/positive_element.svg';
+import bull_element from '../Assets/icons/bull_element.svg';
 import coin_base from '../Assets/icons/coin_base_icon.svg';
 
 export const icons = {
+  link_arrow,
+  positive_element,
+  bull_element,
   finger_tap,
   coin_base,
   bulls,

@@ -1,19 +1,32 @@
-.project-picks {
+@import '../../../../utils/breakpointsMixins.scss';
+
+.influencers-table {
+  padding: 17px 0 0;
   overflow-x: scroll;
 
   &__row {
     display: grid;
-    grid-template-columns: 1.3fr 0.9fr 0.9fr 0.9fr 1fr;
+    grid-template-columns: 1.3fr repeat(6, 1fr) 0.6fr;
     grid-auto-rows: 1fr;
+    grid-gap: 80px;
     align-items: center;
+    justify-items: center;
+    width: fit-content;
 
-    padding: 14px 0;
+    padding: 7px 0;
 
     border-bottom: 1.5px solid var(--color-grey);
+
+    @include desktop {
+      width: 100%;
+      grid-template-columns: 1.3fr repeat(6, 0.9fr) 0.6fr;
+      grid-gap: 0;
+    }
 
     &__influencer {
       display: flex;
       align-items: center;
+      justify-self: flex-start;
 
       &__tag-name {
         margin: 0 0 2px;
@@ -30,6 +43,7 @@
         font-weight: 300;
       }
     }
+
     &__thin-text {
       margin: 0 0 0 6px;
       font-size: 14px;
@@ -39,11 +53,6 @@
 
     &__thin-text__positioned {
       margin: 0 0 0 35px;
-    }
-
-    &__project {
-      display: flex;
-      align-items: center;
     }
 
     .icon {
@@ -57,5 +66,12 @@
 
   .titles {
     border-top: 1.5px solid var(--color-grey);
+
+    :first-of-type {
+      justify-self: flex-start;
+    }
+    :nth-child(7) {
+      justify-self: flex-start;
+    }
   }
 }
