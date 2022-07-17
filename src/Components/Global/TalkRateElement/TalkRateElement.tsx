@@ -6,19 +6,23 @@ import './TalkRateElement.scss';
 
 interface TalkRateProps {
   rate: number;
+  type?: 'talk-rate' | 'bullseye';
 }
 
-export const TalkRateElement: React.FC<TalkRateProps> = ({ rate }) => {
+export const TalkRateElement: React.FC<TalkRateProps> = ({
+  rate,
+  type = 'talk-rate',
+}) => {
   const pathColorHandler = (rateVal: number) => {
-    if (rateVal > 50) {
-      return theme.colors.potatoGreen;
-    } else {
+    if (rateVal < 50 && type !== 'bullseye') {
       return theme.colors.red;
+    } else {
+      return theme.colors.potatoGreen;
     }
   };
 
   return (
-    <div className="circluar-wrapper">
+    <div className={`circluar-wrapper ${type === 'bullseye' ? type : ''}`}>
       <CircularProgressbar
         styles={buildStyles({
           textSize: '1.25rem',
@@ -29,7 +33,11 @@ export const TalkRateElement: React.FC<TalkRateProps> = ({ rate }) => {
         value={rate}
         text={`${rate}`}
       />
-      <p className="talk-rate">Talk rate</p>
+      {type === 'talk-rate' ? (
+        <p className="talk-rate">Talk rate</p>
+      ) : (
+        <p className="talk-rate bullseye">Bullseye</p>
+      )}
     </div>
   );
 };

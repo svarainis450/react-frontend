@@ -26,7 +26,7 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   console.log(pickedProjects);
   return (
     <div className="project-picks">
-      <ProjectPicksList pickedProjects={pickedProjects} />
+      {pickedProjects && <ProjectPicksList pickedProjects={pickedProjects} />}
       {!isTablet && (
         <div className="project-picks__row titles">
           {HEADLINES.map((item) => (

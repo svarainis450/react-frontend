@@ -5,6 +5,7 @@ export interface TypographyProps {
   children: ReactNode | ReactNode[];
   variant?: TypographyVariant;
   weight?: TypographyWeight;
+  onClick?: () => void;
 }
 
 export enum TypographyVariant {
@@ -15,6 +16,7 @@ export enum TypographyVariant {
   DEFAULT = 'default',
   TEXT_SMALL = 'text-small',
   TEXT_DETAIL = 'text-detail',
+  CAPTION = 'caption',
 }
 
 export enum TypographyWeight {

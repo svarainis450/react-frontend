@@ -16,6 +16,7 @@ import {
   Login,
   Pricing,
   PrivacyPolicy,
+  Profile,
   SalesFunnel,
   TermsAndConditions,
   Trends,
@@ -97,14 +98,15 @@ const App = () => {
               <Route path={LinkList.TRENDS} element={<Trends />} />
               <Route path={LinkList.DISCOVER} element={<Discover />} />
 
-              {/* <Route path={LinkList.PROFILE} element={<></>}>
-              <Route path={"/account"} element={<></>}/>
-              <Route path={"/notifications"} element={<></>}/>
-            </Route> */}
+              <Route path={LinkList.PROFILE} element={<Profile />} />
             </Routes>
           </PersistGate>
         </Provider>
       </BrowserRouter>
+      <script
+        type="text/javascript"
+        src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=Us6NPr"
+      />
     </div>
   );
 };

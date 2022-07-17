@@ -8,6 +8,7 @@ export * from './Layout';
 export * from './Login';
 export * from './Pricing';
 export * from './PrivacyPolicy';
+export * from './Profile/Profile';
 export * from './SalesFunnel';
 export * from './TermsAndConditions';
 export * from './Trends';
