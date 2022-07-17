@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
 import { Project } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
+import { setFavoriteProjects } from 'src/state/reduxstate/user/slice';
 import { icons } from 'src/utils/icons';
-import { images } from 'src/utils/images';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
 import { CategoryTag } from '../../TrendsElements/CategoryTag/CategoryTag';
@@ -15,28 +18,51 @@ import { PositiveBullsBlock } from './PositiveBullsBlock';
 
 import './ProjectCard.scss';
 
-interface ProjectCardProps extends Omit<Project, 'id' | 'symbol'> {}
+interface ProjectCardProps extends Omit<Project, 'symbol'> {}
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
+  id,
   rateData,
   name,
   started,
+  img,
 }) => {
+  const dispatch = useAppDispatch();
+  const favoriteProjects = useSelector(favoriteProjectsSelector);
+  const isFavoriteProject = favoriteProjects.includes(id);
   const isPositiveRateChange = rateData.talkRateChanges > 0;
+
+  const handleFavoritesIcon = (id: number) => {
+    if (!isFavoriteProject) {
+      dispatch(setFavoriteProjects(id));
+    } else if (isFavoriteProject) {
+      const favoriteExcluded = favoriteProjects.filter(
+        (item) => Number(item) !== id
+      );
+      dispatch(setFavoriteProjects(favoriteExcluded));
+    }
+  };
 
   return (
     <div className="wrapper">
       <CardWrapper>
         <div className="project-card">
           <div className="flex border-wrapper">
-            <img className="icon" src={images.bitkoin} alt="bitkoin" />
-            <div>
-              <Typography className="title" weight={TypographyWeight.MEDIUM}>
-                {name}
-              </Typography>
-              <CategoryTag tagTitle={CategoryTags.coins} />
+            <div className="flex">
+              <img className="icon" src={img} alt="bitkoin" />
+              <div>
+                <Typography className="title" weight={TypographyWeight.MEDIUM}>
+                  {name}
+                </Typography>
+                <CategoryTag tagTitle={CategoryTags.coins} />
+              </div>
             </div>
-            <img src={icons.fav_star} alt="Add to favorites" />
+            <img
+              className="favorites"
+              src={isFavoriteProject ? icons.favorite_selected : icons.fav_star}
+              alt="Add to favorites"
+              onClick={() => handleFavoritesIcon(id)}
+            />
           </div>
           <div className="border-wrapper">
             <Typography
@@ -75,7 +101,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           <PositiveBullsBlock rateData={rateData} />
           <div className="border-wrapper">
             <Typography className="small-text">
-              <strong>Top influencers taked about this coin</strong>{' '}
+              <strong>Top influencers taked about this coin</strong>
             </Typography>
           </div>
           <CoinBaseButton />

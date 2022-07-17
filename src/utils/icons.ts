@@ -7,6 +7,7 @@ import closeXBlack from '../Assets/icons/close_x_black.svg';
 import back from '../Assets/icons/back.svg';
 import info_label from '../Assets/icons/info_label.svg';
 import fav_star from '../Assets/icons/fav_star.svg';
+import favorite_selected from '../Assets/icons/favorite_selected.svg';
 import loader from '../Assets/icons/loader.svg';
 import finger_tap from '../Assets/icons/finger_tap.svg';
 import link_arrow from '../Assets/icons/link_arrow.svg';
@@ -38,6 +39,7 @@ export const icons = {
   negative,
   loader,
   fav_star,
+  favorite_selected,
   info_label,
   circle,
   circle_checked,

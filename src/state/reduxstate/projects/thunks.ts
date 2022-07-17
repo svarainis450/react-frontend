@@ -9,12 +9,11 @@ export const fetchProjects = createAsyncThunk(
     try {
       const resp = await fetch(`${api}/projects`, {
         headers: {
-          accept: 'images/png',
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());
       console.log(resp);
-      return resp;
+      return resp.slice(0, 16);
     } catch (e) {
       console.log(e);
     }

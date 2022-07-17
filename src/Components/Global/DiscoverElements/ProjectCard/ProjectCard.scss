@@ -19,10 +19,16 @@
       }
     }
 
+    .favorites {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
     .flex {
       display: flex;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
 
       .title {
         margin: 0 0 6px;

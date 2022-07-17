@@ -16,7 +16,7 @@ export const Discover: React.FC = () => {
 
   console.log(projects);
   useEffect(() => {
-    dispatch(fetchProjects);
+    dispatch(fetchProjects());
   }, [dispatch]);
 
   return (
@@ -36,6 +36,7 @@ export const Discover: React.FC = () => {
               started,
             }) => (
               <ProjectCard
+                id={id}
                 key={id}
                 name={name}
                 img={img}
