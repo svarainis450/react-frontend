@@ -16,6 +16,7 @@ export enum TypographyVariant {
   DEFAULT = 'default',
   TEXT_SMALL = 'text-small',
   TEXT_DETAIL = 'text-detail',
+  CAPTION = 'caption',
 }
 
 export enum TypographyWeight {

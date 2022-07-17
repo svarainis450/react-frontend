@@ -12,9 +12,14 @@
 
     @include desktop {
       flex-direction: row;
+      gap: 20px;
 
       margin: 0 auto;
       max-width: 1300px;
+    }
+
+    &__container {
+      width: 100%;
     }
   }
 }

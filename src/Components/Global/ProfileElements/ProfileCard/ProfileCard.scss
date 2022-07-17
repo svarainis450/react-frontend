@@ -36,6 +36,18 @@
 
     border-top: 1px solid var(--color-grey);
 
+    &__edit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin: 0 0 16px;
+
+      &__action {
+        cursor: pointer;
+      }
+    }
+
     &__input-wrapper {
       position: relative;
       margin: 0 0 8px;
@@ -66,8 +78,6 @@
   }
 
   .bolded-text {
-    margin: 0 0 16px;
-
     color: var(--color-grey-text);
     font-size: 12px;
     line-height: 14px;
