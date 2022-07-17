@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 import {
   CardWrapper,
-  CategoryTag,
   InfluencersTable,
   ProjectPicksTable,
   Top3ElementsSlider,

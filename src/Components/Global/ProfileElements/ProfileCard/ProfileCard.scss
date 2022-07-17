@@ -75,6 +75,15 @@
         line-height: 22px;
       }
     }
+
+    &__tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+
+      width: 100%;
+    }
   }
 
   .bolded-text {

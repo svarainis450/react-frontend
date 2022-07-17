@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { tags } from 'src/state/reduxstate/projects/types';
 import { images } from 'src/utils/images';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
+import { CategoryTag } from '../../TrendsElements/CategoryTag/CategoryTag';
 import {
   Typography,
   TypographyVariant,
@@ -27,16 +29,11 @@ export const ProfileCard: React.FC = () => {
         <div className="profile-card__border-wrapper">
           <div className="profile-card__border-wrapper__edit">
             <Typography className="bolded-text">Selected Interests</Typography>
-            <Typography
-              variant={TypographyVariant.CAPTION}
-              weight={TypographyWeight.BOLD700}
-              className="profile-card__border-wrapper__edit__action"
-              onClick={() =>
-                setEditData({ ...editData, interests: !editData.interests })
-              }
-            >
-              Edit
-            </Typography>
+          </div>
+          <div className="profile-card__border-wrapper__tags">
+            {tags.map((item, index) => (
+              <CategoryTag key={index} tagTitle={item} />
+            ))}
           </div>
         </div>
         <div className="profile-card__border-wrapper">

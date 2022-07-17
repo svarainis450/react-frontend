@@ -53,3 +53,11 @@ export interface ProjectsState {
   influencers_picks: [];
   project_picks: ProjectPicks[];
 }
+
+export const tags = [
+  CategoryTags.coins,
+  CategoryTags.NFT,
+  CategoryTags.DAO,
+  CategoryTags.meta,
+  CategoryTags.defi,
+];

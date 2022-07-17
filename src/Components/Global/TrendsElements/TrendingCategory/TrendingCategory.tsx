@@ -10,18 +10,10 @@ import { TrendingProjectCard } from '../TrendingProjectCard/TrendingProjectCard'
 import './TrendingCategory.scss';
 import { TrendsCategoryEllipse } from './TrendsCategoryEllipse';
 import { CategoryTags } from '../types';
-import { TrendingProject } from 'src/state/reduxstate/projects/types';
+import { tags, TrendingProject } from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { useMediaQuery } from 'src/hooks';
 import { icons } from 'src/utils/icons';
-
-const tags = [
-  CategoryTags.coins,
-  CategoryTags.NFT,
-  CategoryTags.DAO,
-  CategoryTags.meta,
-  CategoryTags.defi,
-];
 
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
