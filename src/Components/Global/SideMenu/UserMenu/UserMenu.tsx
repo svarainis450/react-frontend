@@ -6,6 +6,7 @@ import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { LinkList } from 'src/types/links';
 
 import closeIcon from '../../../Assets/images/close.svg';
+import { LogOut } from 'src/Common/utils/LogOut'
 import './UserMenu.scss';
 
 export const UserMenu = () => {
@@ -55,7 +56,7 @@ export const UserMenu = () => {
           </li>
         </ul>
 
-        <button className='menuOpen__logout'>
+        <button className='menuOpen__logout' onClick={LogOut}>
           Log out
         </button>
       </div>

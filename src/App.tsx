@@ -71,9 +71,12 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn() && _.isEmpty(userInfo)) {
-      // pull user info & set user as logged in.
-      // in LoggedIn layout wrapper set redirect if logged out. 
+    console.log(isLoggedIn())
+    console.log(_.isEmpty(userInfo))
+
+    if (isLoggedIn()) {
+      console.log('papulinkim info')
+      getUserInfo();
     }
   }, []);
 

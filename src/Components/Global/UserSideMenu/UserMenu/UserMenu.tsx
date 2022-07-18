@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
+import { LogOut } from 'src/Common/utils/LogOut'
 
 import human from 'src/Assets/icons/human.svg';
 import bell_small from 'src/Assets/icons/bell_small.svg';
@@ -70,7 +71,7 @@ export const UserMenu = () => {
             </li>
           </ul>
 
-          <button className='UserMenu__logout'>
+          <button className='UserMenu__logout' onClick={LogOut}>
             Log out
           </button>
         </div>
