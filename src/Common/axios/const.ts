@@ -5,5 +5,6 @@ export enum ResponseCode {
 
 export enum ENUM_API {
   LOGIN = "/login",
-  REGISTER = "/register"
+  REGISTER = "/register",
+  ME = "/me",
 }

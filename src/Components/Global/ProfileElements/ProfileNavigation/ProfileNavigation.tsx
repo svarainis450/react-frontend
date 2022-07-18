@@ -8,6 +8,7 @@ import {
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { setProfileBlock } from 'src/state/reduxstate/user/slice';
 import { NavClassTypes } from 'src/state/reduxstate/user/types';
+import { LogOut } from 'src/Common/utils/LogOut'
 import { Typography, TypographyWeight } from '../../Typography';
 import './ProfileNavigation.scss';
 
@@ -69,9 +70,9 @@ export const ProfileNavigation: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className="profile-navigation__nav__list__element selected">
+        <button className="profile-navigation__nav__list__element selected" onClick={LogOut}>
           <Typography weight={TypographyWeight.BOLD700}>Log out</Typography>
-        </div>
+        </button>
       </nav>
       <div className="profile-navigation__progress-bar">
         <div
