@@ -41,7 +41,7 @@ export const fetchProjectsPick = createAsyncThunk(
   'projects/GET_PROJECT_PICKS',
   async () => {
     try {
-      const resp = await fetch(`${api}/influencers/today`, {
+      const resp = await fetch(`${api}/influencers/today?limit=10&offset=0`, {
         headers: {
           Authorization: `Bearer ${demoToken}`,
         },

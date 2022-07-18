@@ -19,3 +19,4 @@ export * from './LoadError/LoadError';
 // PROFILE
 export * from './ProfileElements/ProfileCard/ProfileCard';
 export * from './ProfileElements/ProfileNavigation/ProfileNavigation';
+export * from './ProfileElements/Notifications/NotificationsBlock';

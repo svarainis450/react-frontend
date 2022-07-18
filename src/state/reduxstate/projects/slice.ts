@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { InfluencerData } from 'src/Components/Global';
 import {
   fetchTrendingProjects,
   fetchProjects,
@@ -12,12 +13,19 @@ const initialState: ProjectsState = {
   status: 'idle' as Statuses,
   influencers_picks: [],
   project_picks: [] as ProjectsState['project_picks'],
+  filtered_influencers_picks: [] as ProjectsState['filtered_influencers_picks'],
 };
 
 const projectsSlice = createSlice({
   name: 'projects',
   initialState,
   reducers: {
+    setFilteredInflPicks: (
+      state: { filtered_influencers_picks: InfluencerData[] },
+      action: PayloadAction<InfluencerData[]>
+    ) => {
+      state.filtered_influencers_picks = action.payload;
+    },
     setStatus: (
       state: { status: Statuses },
       action: PayloadAction<Statuses>
@@ -51,5 +59,5 @@ const projectsSlice = createSlice({
   },
 });
 
-export const { setStatus } = projectsSlice.actions;
+export const { setStatus, setFilteredInflPicks } = projectsSlice.actions;
 export default projectsSlice;

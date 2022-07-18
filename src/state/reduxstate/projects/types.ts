@@ -1,3 +1,4 @@
+import { InfluencerData } from 'src/Components/Global';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
 export interface RateData {
@@ -52,6 +53,7 @@ export interface ProjectsState {
   trending_projects: TrendingProject[];
   influencers_picks: [];
   project_picks: ProjectPicks[];
+  filtered_influencers_picks: InfluencerData[];
 }
 
 export const tags = [

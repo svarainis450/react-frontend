@@ -23,7 +23,6 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   pickedProjects,
 }) => {
   const { isTablet } = useMediaQuery();
-  console.log(pickedProjects);
   return (
     <div className="project-picks">
       {pickedProjects && <ProjectPicksList pickedProjects={pickedProjects} />}

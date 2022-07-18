@@ -50,11 +50,13 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
         (a, b) => b.bullseyeIndex - a.bullseyeIndex
       );
       setfilteredInfluencers(filterByBullseye);
+      setSortType(null);
     } else if (sortType === 'followers') {
       const filteredByFollowers = influencersData.sort(
         (a, b) => b.followers - a.followers
       );
       setfilteredInfluencers(filteredByFollowers);
+      setSortType(null);
     } else {
       setfilteredInfluencers(influencersData);
     }
