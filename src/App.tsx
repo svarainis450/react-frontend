@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import TagManager from 'react-gtm-module';
@@ -21,7 +21,8 @@ import {
   TermsAndConditions,
   Trends,
   WaitlistSignUp,
-} from './Components/Pages';
+  Register,
+} from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
 
@@ -29,13 +30,18 @@ import { LinkList } from './types';
 import { AddToCardPage, CheckoutPage, SuccessPage } from './pages';
 import { persistor, store } from './state/reduxstate/store';
 
+import { UserInfoContext } from './state/UserInfoContextProvider';
+import { isLoggedIn } from './Common/utils/isLoggedIn';
+
 import './App.scss';
 import '../src/utils/breakpointsMixins.scss';
 import 'normalize.css';
+import _ from 'lodash';
 
 const App = () => {
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
   const [currecy, setCurrency] = useState('$');
+  const {userInfo, getUserInfo} = useContext(UserInfoContext)
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -61,6 +67,13 @@ const App = () => {
       } else {
         setCookie('currencySymbol', '$');
       }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn() && _.isEmpty(userInfo)) {
+      // pull user info & set user as logged in.
+      // in LoggedIn layout wrapper set redirect if logged out. 
     }
   }, []);
 
@@ -92,6 +105,7 @@ const App = () => {
               </Route>
 
               <Route path={LinkList.Login} element={<Login />} />
+              <Route path={LinkList.Register} element={<Register />} />
               {/* TODO: make these as private routes */}
               <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
               <Route path={LinkList.DASHBOARD} element={<Dashboard />} />
