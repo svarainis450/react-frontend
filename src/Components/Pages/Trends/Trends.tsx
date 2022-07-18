@@ -1,161 +1,179 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import {
   CardWrapper,
-  Top3Element,
+  InfluencersTable,
+  ProjectPicksTable,
+  Top3ElementsSlider,
   TrendingCategory,
 } from 'src/Components/Global';
-import {
-  CategoryTags,
-  InfoBlockTypes,
-} from 'src/Components/Global/TrendsElements/types';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import { Submenu } from 'src/Components/Global/Submenu';
-import { submenuList, infoBlocks } from './constants';
+import { submenuList } from './constants';
 
 import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
+  fetchProjectsPick,
   fetchTrendingProjects,
-  fethchProjects,
 } from 'src/state/reduxstate/projects/thunks';
 import {
+  projectPicksSelector,
   projectsSelector,
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
+import { icons } from 'src/utils/icons';
+import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { Project } from 'src/state/reduxstate/projects/types';
 
-export const Trends = () => {
-  const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
-    null
-  );
+export const Trends: React.FC = () => {
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
+  const projectPicks = useSelector(projectPicksSelector);
   const projects = useSelector(projectsSelector);
 
-  // const demoProjects = [
-  //   {
-  //     id: 1,
-  //     icon: 'bitkoin',
-  //     tag: CategoryTags.coins,
-  //     title: 'Bitcoin (BTC)',
-  //     rate: '67',
-  //   },
-  //   {
-  //     id: 2,
-  //     icon: 'bitkoin',
-  //     tag: CategoryTags.coins,
-  //     title: 'Bitcoin (BTC)',
-  //     rate: '67',
-  //   },
-  //   {
-  //     id: 3,
-  //     icon: 'bitkoin',
-  //     tag: CategoryTags.coins,
-  //     title: 'Bitcoin (BTC)',
-  //     rate: '67',
-  //   },
-  // ];
-
   useEffect(() => {
-    dispatch(fethchProjects());
     dispatch(fetchTrendingProjects());
+    dispatch(fetchProjectsPick());
   }, [dispatch]);
+
+  const demoTop3: Project[] = [
+    {
+      id: 1,
+      img: icons.coin_base,
+      name: 'Bitcoin (BTC)',
+      tag: CategoryTags.coins,
+      rateData: {
+        talkRate: 67,
+        positiveRatio: 66,
+        bullRatio: 33,
+        talkRateChanges: 12,
+      },
+    },
+    {
+      id: 2,
+      img: icons.coin_base,
+      name: 'Dogecoin (DOGE)',
+      tag: CategoryTags.coins,
+      rateData: {
+        talkRate: 67,
+        positiveRatio: 66,
+        bullRatio: 33,
+        talkRateChanges: 12,
+      },
+    },
+    {
+      id: 3,
+      img: icons.coin_base,
+      name: 'Dogecoin (DOGE)',
+      tag: CategoryTags.coins,
+      rateData: {
+        talkRate: 67,
+        positiveRatio: 66,
+        bullRatio: 33,
+        talkRateChanges: 12,
+      },
+    },
+  ];
+
+  const influencersDemo = [
+    {
+      id: 1,
+      name: 'Vitalik Buterin',
+      tagName: '@VitalikButerin',
+      img: icons.coin_base,
+      followers: 540,
+      bullseyeIndex: 23,
+      category: CategoryTags.coins,
+      postCount: 3,
+      channel: 'Twitter',
+      projectName: 'Etherium',
+      projectImg: icons.coin_base,
+      linkToPost: 'asdasd',
+    },
+    {
+      id: 2,
+      name: 'Vitalik Buterin',
+      tagName: '@VitalikButerin',
+      img: icons.coin_base,
+      followers: 120,
+      bullseyeIndex: 84,
+      category: CategoryTags.NFT,
+      postCount: 3,
+      channel: 'Twitter',
+      projectName: 'Etherium',
+      projectImg: icons.coin_base,
+      linkToPost: 'asdasd',
+    },
+    {
+      id: 3,
+      name: 'Vitalik Buterin',
+      tagName: '@VitalikButerin',
+      img: icons.coin_base,
+      followers: 140,
+      bullseyeIndex: 90,
+      category: CategoryTags.meta,
+      postCount: 3,
+      channel: 'Twitter',
+      projectName: 'Etherium',
+      projectImg: icons.coin_base,
+      linkToPost: 'asdasd',
+    },
+    {
+      id: 4,
+      name: 'Vitalik Buterin',
+      tagName: '@VitalikButerin',
+      img: icons.coin_base,
+      followers: 240,
+      bullseyeIndex: 84,
+      category: CategoryTags.meta,
+      postCount: 3,
+      channel: 'Twitter',
+      projectName: 'Etherium',
+      projectImg: icons.coin_base,
+      linkToPost: 'asdasd',
+    },
+    {
+      id: 4,
+      name: 'Vitalik Buterin',
+      tagName: '@VitalikButerin',
+      img: icons.coin_base,
+      followers: 840,
+      bullseyeIndex: 77,
+      category: CategoryTags.defi,
+      postCount: 3,
+      channel: 'Twitter',
+      projectName: 'Etherium',
+      projectImg: icons.coin_base,
+      linkToPost: 'asdasd',
+    },
+  ];
 
   return (
     <div className="Trends">
       <LoggedInLayout>
         <Submenu menuItems={submenuList} />
-        <div className="wrapper two-columns">
+        <section className="wrapper two-columns">
           <CardWrapper title="Trending Category" subtitle="Today">
             <TrendingCategory trendingProjects={trendingProjects} />
           </CardWrapper>
           <CardWrapper
-            title="Project picks by popularity among influencers and their followers"
+            title="Project picks by most followed crypto experts"
             subtitle="Today"
           >
-            influencers
+            <ProjectPicksTable pickedProjects={projectPicks} />
           </CardWrapper>
-        </div>
-        <div className="wrapper">
-          <CardWrapper
-            title="Top 3 Talk Rate Projects"
-            subtitle="Today"
-            showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.rate].title}
-            infoDesc={infoBlocks[InfoBlockTypes.rate].desc}
-            onInfoClick={() => setShowInfoBlock(InfoBlockTypes.rate)}
-            onCloseClick={() => setShowInfoBlock(null)}
-            showInfoBlock={showInfoBlock === InfoBlockTypes.rate}
-          >
-            <ul className="cards-grid">
-              {projects.map(({ id, img, name, tag, rateData }) => (
-                <Top3Element
-                  key={id}
-                  id={id}
-                  icon={img}
-                  projectName={name}
-                  tagTitle={tag}
-                  talkRate={rateData.talkRate}
-                />
-              ))}
-            </ul>
-          </CardWrapper>
-          <CardWrapper
-            title="Top 3 Positive Projects"
-            subtitle="Today"
-            showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.positive].title}
-            infoDesc={infoBlocks[InfoBlockTypes.positive].desc}
-            onInfoClick={() => setShowInfoBlock(InfoBlockTypes.positive)}
-            onCloseClick={() => setShowInfoBlock(null)}
-            showInfoBlock={showInfoBlock === InfoBlockTypes.positive}
-          >
-            <ul className="cards-grid">
-              {projects.map(({ id, img, name, tag, rateData }) => (
-                <Top3Element
-                  key={id}
-                  id={id}
-                  icon={img}
-                  projectName={name}
-                  tagTitle={tag}
-                  talkRate={rateData.talkRate}
-                />
-              ))}
-            </ul>
-          </CardWrapper>
-          <CardWrapper
-            title="Top 3 Bull Projects"
-            subtitle="Today"
-            showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.bullish].title}
-            infoDesc={infoBlocks[InfoBlockTypes.bullish].desc}
-            onInfoClick={() => setShowInfoBlock(InfoBlockTypes.bullish)}
-            onCloseClick={() => setShowInfoBlock(null)}
-            showInfoBlock={showInfoBlock === InfoBlockTypes.bullish}
-          >
-            <ul className="cards-grid">
-              {projects.map(({ id, img, name, tag, rateData }) => (
-                <Top3Element
-                  key={id}
-                  id={id}
-                  icon={img}
-                  projectName={name}
-                  tagTitle={tag}
-                  talkRate={rateData.talkRate}
-                />
-              ))}
-            </ul>
-          </CardWrapper>
-        </div>
-        <div className="wrapper one-column">
+        </section>
+        <Top3ElementsSlider projects={demoTop3} />
+        <section className="wrapper one-column">
           <CardWrapper
             title="List of influencers and their picks"
             subtitle="Today"
           >
-            influencers picks
+            <InfluencersTable influencersData={influencersDemo} />
           </CardWrapper>
-        </div>
+        </section>
       </LoggedInLayout>
     </div>
   );

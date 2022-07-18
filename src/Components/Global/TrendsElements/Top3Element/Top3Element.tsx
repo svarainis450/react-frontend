@@ -1,8 +1,8 @@
 import { icons } from 'src/utils/icons';
-import { images } from 'src/utils/images';
+import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
-import { CategoryTags } from '../types';
+import { CategoryTags, InfoBlockTypes } from '../types';
 import './Top3Element.scss';
 
 interface ElementProps {
@@ -11,6 +11,7 @@ interface ElementProps {
   projectName: string;
   tagTitle: CategoryTags;
   talkRate: number;
+  blockType: InfoBlockTypes;
 }
 
 export const Top3Element: React.FC<ElementProps> = ({
@@ -19,19 +20,31 @@ export const Top3Element: React.FC<ElementProps> = ({
   projectName,
   talkRate,
   tagTitle,
-}) => (
-  <li className="element">
-    <Typography
-      className="element__diff-color"
-      weight={TypographyWeight.THIN}
-    >{`#${id}`}</Typography>
-    <img className="element__icon" src={icon} alt={projectName} />
-    <div>
-      <Typography className="project-title" weight={TypographyWeight.MEDIUM}>
-        {projectName}
-      </Typography>
-      <CategoryTag tagTitle={tagTitle} />
-    </div>
-    <div>{talkRate}</div>
-  </li>
-);
+  blockType,
+}) => {
+  const visual = {
+    [InfoBlockTypes.rate]: <TalkRateElement rate={talkRate} />,
+    [InfoBlockTypes.positive]: (
+      <img src={icons.positive_element} alt="Positive project" />
+    ),
+    [InfoBlockTypes.bullish]: (
+      <img src={icons.bull_element} alt="Bull project" />
+    ),
+  };
+  return (
+    <li className="element">
+      <Typography
+        className="element__diff-color"
+        weight={TypographyWeight.THIN}
+      >{`#${id}`}</Typography>
+      <img className="element__icon" src={icon} alt={projectName} />
+      <div>
+        <Typography className="project-title" weight={TypographyWeight.MEDIUM}>
+          {projectName}
+        </Typography>
+        <CategoryTag tagTitle={tagTitle} />
+      </div>
+      <>{visual[blockType]}</>
+    </li>
+  );
+};

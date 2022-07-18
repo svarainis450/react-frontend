@@ -5,16 +5,16 @@
 
   .wrapper {
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 020px;
     grid-template-columns: 1fr;
 
     margin: 0 0 20px;
-    padding: 0 16px;
     max-width: 100%;
 
     @include desktop {
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 20px;
+      padding: 0 16px;
 
       max-width: 1300px;
       margin: 0 auto 20px;

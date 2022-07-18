@@ -9,6 +9,7 @@ export const Typography = ({
   children,
   variant = TypographyVariant.DEFAULT,
   weight = TypographyWeight.REGULAR,
+  onClick,
 }: TypographyProps) => {
   return (
     <p
@@ -18,6 +19,7 @@ export const Typography = ({
         `Typography--${variant}`,
         `Typography--${weight}`
       )}
+      onClick={onClick}
     >
       {children}
     </p>
