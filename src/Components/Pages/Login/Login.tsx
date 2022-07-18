@@ -19,7 +19,7 @@ export const Login = () => {
   const [error, setError] = useState<string>('');
   const [loginInProgress, setLoginInProgress] = useState<boolean>(false);
 
-  const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
+  const { userInfo, setUserInfo } = useContext(UserInfoContext);
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -28,7 +28,6 @@ export const Login = () => {
 
     API_USER_LOGIN(email, pass)
       .then((response: any) => {
-        console.log('Login response', response)
         setUserInfo(response.data);
       })
       .then(() => {
