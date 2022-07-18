@@ -12,9 +12,10 @@ export const API_USER_LOGIN = (email: string, pass: string) => {
     instance
       .post(ENUM_API.LOGIN, postBody)
       .then((res: any) => {
+        console.log('Token?', res.data["token"])
         Cookies.set(
           "token",
-          res.headers["token"] ?? ""
+          res.data["token"] ?? ""
         );
         return res;
       })

@@ -28,6 +28,7 @@ export const Login = () => {
 
     API_USER_LOGIN(email, pass)
       .then((response: any) => {
+        console.log('Login response', response)
         setUserInfo(response.data);
       })
       .then(() => {
