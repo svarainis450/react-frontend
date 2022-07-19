@@ -58,6 +58,7 @@ export const Register = () => {
             onChange={handleEmailChange}
             placeholder="Email"
             margin="0 0 1.875rem 0"
+            className='Register__input'
             // error={error}
           />
 
@@ -69,6 +70,7 @@ export const Register = () => {
             placeholder="Password"
             margin="0 0 1.875rem 0"
             error={error}
+            className='Register__input'
           />
 
           <Button className="Register__button" type="submit" onClick={handleRegister}>
