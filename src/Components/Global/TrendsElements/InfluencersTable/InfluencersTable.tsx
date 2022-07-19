@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
+import { tags } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import {
   Typography,
@@ -26,14 +27,6 @@ export interface InfluencerData {
 interface InfluencersTableProps {
   influencersData: InfluencerData[];
 }
-
-const CATEGORIES = [
-  CategoryTags.coins,
-  CategoryTags.NFT,
-  CategoryTags.DAO,
-  CategoryTags.meta,
-  CategoryTags.defi,
-];
 
 type SortTypes = 'followers' | 'bullseye';
 
@@ -118,7 +111,7 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
             <option value="category" defaultValue="category">
               Category
             </option>
-            {CATEGORIES.map((item, index) => (
+            {tags.map((item, index) => (
               <option key={index} value={item as CategoryTags}>
                 {item}
               </option>

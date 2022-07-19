@@ -1,30 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { InfluencerData } from 'src/Components/Global';
 import {
   fetchTrendingProjects,
   fetchProjects,
   fetchProjectsPick,
+  fetchInfluencers,
 } from './thunks';
-import { ProjectsState, Statuses } from './types';
+import { ProjectFilterKeys, ProjectsState, Statuses } from './types';
 
 const initialState: ProjectsState = {
   projects: [] as ProjectsState['projects'],
+  project_filter_key: null,
   trending_projects: [] as ProjectsState['trending_projects'],
   status: 'idle' as Statuses,
   influencers_picks: [],
   project_picks: [] as ProjectsState['project_picks'],
-  filtered_influencers_picks: [] as ProjectsState['filtered_influencers_picks'],
+  influencers: [] as ProjectsState['project_picks'],
 };
 
 const projectsSlice = createSlice({
   name: 'projects',
   initialState,
   reducers: {
-    setFilteredInflPicks: (
-      state: { filtered_influencers_picks: InfluencerData[] },
-      action: PayloadAction<InfluencerData[]>
+    setProjectsFilterKey: (
+      state: {
+        project_filter_key: ProjectFilterKeys | null;
+      },
+      action: PayloadAction<ProjectFilterKeys>
     ) => {
-      state.filtered_influencers_picks = action.payload;
+      state.project_filter_key = action.payload;
     },
     setStatus: (
       state: { status: Statuses },
@@ -56,8 +59,14 @@ const projectsSlice = createSlice({
         state.project_picks = action.payload;
       }
     );
+    builder.addCase(
+      fetchInfluencers.fulfilled,
+      (state, action: PayloadAction<ProjectsState['influencers']>) => {
+        state.influencers = action.payload;
+      }
+    );
   },
 });
 
-export const { setStatus, setFilteredInflPicks } = projectsSlice.actions;
+export const { setStatus, setProjectsFilterKey } = projectsSlice.actions;
 export default projectsSlice;

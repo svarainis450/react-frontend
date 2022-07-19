@@ -1,0 +1,31 @@
+.influencer-card {
+  position: relative;
+
+  &__border-wrapper {
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1.5px solid var(--color-grey);
+
+    .grey-text {
+      color: var(--color-grey-text);
+    }
+
+    &__avatar {
+      margin: 0 16px 0 0;
+      width: 54px;
+      height: 54px;
+
+      border-radius: 50%;
+    }
+
+    &__top-expert {
+      position: absolute;
+      top: -24px;
+      right: 0;
+    }
+  }
+  &__border-wrapper.flex {
+    display: flex;
+    align-items: center;
+  }
+}

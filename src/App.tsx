@@ -22,6 +22,7 @@ import {
   Trends,
   WaitlistSignUp,
   Register,
+  Influencers,
 } from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
@@ -41,7 +42,7 @@ import _ from 'lodash';
 const App = () => {
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
   const [currecy, setCurrency] = useState('$');
-  const {userInfo, getUserInfo} = useContext(UserInfoContext)
+  const { userInfo, getUserInfo } = useContext(UserInfoContext);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -71,11 +72,11 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    console.log(isLoggedIn())
-    console.log(_.isEmpty(userInfo))
+    console.log(isLoggedIn());
+    console.log(_.isEmpty(userInfo));
 
     if (isLoggedIn()) {
-      console.log('papulinkim info')
+      console.log('papulinkim info');
       getUserInfo();
     }
   }, []);
@@ -114,6 +115,7 @@ const App = () => {
               <Route path={LinkList.DASHBOARD} element={<Dashboard />} />
               <Route path={LinkList.TRENDS} element={<Trends />} />
               <Route path={LinkList.DISCOVER} element={<Discover />} />
+              <Route path={LinkList.INFLUENCERS} element={<Influencers />} />
 
               <Route path={LinkList.PROFILE} element={<Profile />} />
             </Routes>

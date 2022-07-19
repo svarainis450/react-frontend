@@ -1,19 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api, demoToken } from '../types';
+import { InfluencerFilterKeys, ProjectFilterKeys } from './types';
 
 //NOTE: token should come from the state after login or local storge if it will be saved here
 
 export const fetchProjects = createAsyncThunk(
   'projects/GET_PROJECTS',
-  async () => {
+  async (filterKey?: ProjectFilterKeys) => {
     try {
-      const resp = await fetch(`${api}/projects`, {
+      const resp = await fetch(`${api}/projects?limit=50&offset=30`, {
         headers: {
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());
-      console.log(resp);
-      return resp.slice(0, 16);
+      console.log('effect');
+      return resp.result;
     } catch (e) {
       console.log(e);
     }
@@ -46,7 +47,23 @@ export const fetchProjectsPick = createAsyncThunk(
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());
-      return resp;
+      return resp.result;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+export const fetchInfluencers = createAsyncThunk(
+  'projects/GET_INFLUENCERS',
+  async (filterKey?: InfluencerFilterKeys) => {
+    try {
+      const resp = await fetch(`${api}/influencers?limit=10&offset=0`, {
+        headers: {
+          Authorization: `Bearer ${demoToken}`,
+        },
+      }).then((res) => res.json());
+      return resp.result;
     } catch (e) {
       console.log(e);
     }

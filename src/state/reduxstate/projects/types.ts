@@ -40,20 +40,23 @@ export interface ProjectPicks {
   tagName: string;
   postCount: number;
   channel: string;
+  img: string;
+  expert?: boolean | null;
   tag: {
     name: CategoryTags;
     color: string;
   };
-  projects: TrendingProject[];
+  projects?: TrendingProject[];
 }
 
 export interface ProjectsState {
   projects: Project[];
+  project_filter_key: ProjectFilterKeys | null;
   status: Statuses;
   trending_projects: TrendingProject[];
+  influencers: ProjectPicks[];
   influencers_picks: [];
   project_picks: ProjectPicks[];
-  filtered_influencers_picks: InfluencerData[];
 }
 
 export const tags = [
@@ -63,3 +66,23 @@ export const tags = [
   CategoryTags.meta,
   CategoryTags.defi,
 ];
+
+export enum ProjectFilterKeys {
+  TALK_RATE = 'talk_rate',
+  POSITIVE = 'positive',
+  NEGATIVE = 'negative',
+  BULL = 'bull',
+  BEAR = 'bear',
+  NEWEST = 'newest',
+  OLDEST = 'oldest',
+}
+
+export enum InfluencerFilterKeys {
+  TOP_EXPERT = 'top_expert',
+  FOLLOWERS = 'followers',
+  MOST_ACTIVE = 'active',
+  BULLSEYE = 'bullseye',
+  FIRST_MOVER = 'first_mover',
+  REVIEWER = 'reviewer',
+  RATE = 'rate',
+}
