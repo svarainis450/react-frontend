@@ -60,9 +60,22 @@
     }
   }
 
+  &__input {
+    width: 100%;
+
+    @media (min-width: 1024px) {
+      width: 24rem;
+    }
+  }
+
   &__button {
     width: 100%;
     max-width: 11.875rem;
     margin: 0 auto 3rem auto;
+  }
+
+  &__success {
+    margin-bottom: 1rem;
+    color: var(--color-green);
   }
 }

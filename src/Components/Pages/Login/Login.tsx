@@ -19,7 +19,7 @@ export const Login = () => {
   const [error, setError] = useState<string>('');
   const [loginInProgress, setLoginInProgress] = useState<boolean>(false);
 
-  const { userInfo, setUserInfo } = useContext(UserInfoContext);
+  const { setUserInfo } = useContext(UserInfoContext);
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -67,6 +67,7 @@ export const Login = () => {
             onChange={handleEmailChange}
             placeholder="Email"
             margin="0 0 1.875rem 0"
+            className='Login__input'
             // error={error}
           />
 
@@ -78,6 +79,7 @@ export const Login = () => {
             placeholder="Password"
             margin="0 0 1.875rem 0"
             error={error}
+            className='Login__input'
           />
 
           <Button className="Login__button" type="submit" onClick={handleLogin}>

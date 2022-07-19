@@ -48,6 +48,14 @@
     }
   }
 
+  &__input {
+    width: 100%;
+
+    @media (min-width: 1024px) {
+      width: 24rem;
+    }
+  }
+
   &__button {
     width: 100%;
     max-width: 11.875rem;
