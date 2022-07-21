@@ -14,3 +14,4 @@ export * from './TermsAndConditions';
 export * from './Trends';
 export * from './WaitlistSignUp';
 export * from './Register';
+export * from './Influencers/Influencers';

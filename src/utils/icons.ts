@@ -7,6 +7,7 @@ import closeXBlack from '../Assets/icons/close_x_black.svg';
 import back from '../Assets/icons/back.svg';
 import info_label from '../Assets/icons/info_label.svg';
 import fav_star from '../Assets/icons/fav_star.svg';
+import favorite_selected from '../Assets/icons/favorite_selected.svg';
 import loader from '../Assets/icons/loader.svg';
 import finger_tap from '../Assets/icons/finger_tap.svg';
 import link_arrow from '../Assets/icons/link_arrow.svg';
@@ -20,11 +21,25 @@ import negative from '../Assets/icons/negative.svg';
 import positive_element from '../Assets/icons/positive_element.svg';
 import bull_element from '../Assets/icons/bull_element.svg';
 import coin_base from '../Assets/icons/coin_base_icon.svg';
+import top_expert from '../Assets/icons/top_expert.svg';
 
 // Profile page icons
 import account_icon from '../Assets/icons/account_icon.svg';
 
+// Social Channels
+import telegram from '../Assets/icons/socialChannels/telegram.svg';
+import twitter from '../Assets/icons/socialChannels/twitter.svg';
+import discord from '../Assets/icons/socialChannels/discord.svg';
+import youtube from '../Assets/icons/socialChannels/youtube.svg';
+import reddit from '../Assets/icons/socialChannels/reddit.svg';
+
 export const icons = {
+  telegram,
+  twitter,
+  discord,
+  youtube,
+  reddit,
+  top_expert,
   account_icon,
   search_magnifier,
   link_arrow,
@@ -38,6 +53,7 @@ export const icons = {
   negative,
   loader,
   fav_star,
+  favorite_selected,
   info_label,
   circle,
   circle_checked,
