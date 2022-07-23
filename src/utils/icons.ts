@@ -12,6 +12,7 @@ import loader from '../Assets/icons/loader.svg';
 import finger_tap from '../Assets/icons/finger_tap.svg';
 import link_arrow from '../Assets/icons/link_arrow.svg';
 import search_magnifier from '../Assets/icons/search_magnifier.svg';
+import arrow_right from '../Assets/icons/arrow_right.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -33,7 +34,14 @@ import discord from '../Assets/icons/socialChannels/discord.svg';
 import youtube from '../Assets/icons/socialChannels/youtube.svg';
 import reddit from '../Assets/icons/socialChannels/reddit.svg';
 
+// Payments
+import paypal_logo from '../Assets/icons/payments/paypal_logo.svg';
+import cards_logos from '../Assets/icons/payments/cards_logos.svg';
+
 export const icons = {
+  paypal_logo,
+  arrow_right,
+  cards_logos,
   telegram,
   twitter,
   discord,

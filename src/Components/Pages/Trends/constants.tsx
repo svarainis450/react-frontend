@@ -1,25 +1,23 @@
+import { LastWeek, Today, Upcomming } from 'src/Assets/icons/IconElements';
 import { SubmenuListProps } from 'src/Components/Global/Submenu';
 
-import today from 'src/Assets/icons/book.svg';
-import lastWeek from 'src/Assets/icons/book.svg';
-import upcoming from 'src/Assets/icons/book.svg';
 import { InfoBlockTypes } from 'src/Components/Global/TrendsElements/types';
 
 export const submenuList: Array<SubmenuListProps> = [
   {
     title: 'Today',
     url: '/trends',
-    icon: today,
+    icon: <Today />,
   },
   {
     title: 'Last Week',
     url: '/dashboard',
-    icon: lastWeek,
+    icon: <LastWeek />,
   },
   {
     title: 'Upcoming',
     url: '/dashboard',
-    icon: upcoming,
+    icon: <Upcomming />,
   },
 ];
 

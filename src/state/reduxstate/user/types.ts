@@ -1,5 +1,3 @@
-import { Project } from '../projects/types';
-
 export type NavClassTypes = 'notifications' | 'terms' | 'privacy' | 'billing';
 
 export interface UserState {

@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
+import {
+  Influencer,
+  Project,
+  ProjectPicks,
+} from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 import { setFavoriteProjects } from 'src/state/reduxstate/user/slice';
@@ -19,14 +23,14 @@ import {
 
 import './InfluencerCard.scss';
 
-interface InfluencerCardProps extends ProjectPicks {}
+interface InfluencerCardProps extends Influencer {}
 
 export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   id,
   tagName,
   name,
   img,
-  expert,
+  flag,
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
@@ -58,7 +62,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
             <Typography weight={TypographyWeight.MEDIUM}>{tagName}</Typography>
             <Typography className="grey-text">{name}</Typography>
           </div>
-          {expert && (
+          {flag === 'expert' && (
             <img
               className="influencer-card__border-wrapper__top-expert"
               src={icons.top_expert}

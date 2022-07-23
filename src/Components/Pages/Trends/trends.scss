@@ -14,7 +14,7 @@
     @include desktop {
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 20px;
-      padding: 0 16px;
+      padding: 0;
 
       max-width: 1300px;
       margin: 0 auto 20px;

@@ -38,10 +38,13 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
       {pickedProjects &&
         !isTablet &&
         pickedProjects.map(
-          ({ name, tagName, tag, channel, projects, postCount }, index) => (
+          (
+            { name, tagName, tag, channel, projects, postCount, img },
+            index
+          ) => (
             <div key={index} className="project-picks__row">
               <div className="project-picks__row__influencer">
-                <img className="icon" src={icons.coin_base} alt={name} />
+                <img className="icon" src={img} alt={name} />
                 <div>
                   <Typography className="project-picks__row__influencer__tag-name">
                     {tagName}
@@ -63,7 +66,11 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
               <div className="project-picks__row__project">
                 <img
                   className="icon"
-                  src={icons.coin_base}
+                  src={
+                    projects && projects[0].img
+                      ? projects[0].img
+                      : icons.coin_base
+                  }
                   alt="Project picks"
                 />
                 <Typography className="project-picks__row__thin-text">

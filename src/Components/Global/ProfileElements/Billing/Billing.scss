@@ -1,0 +1,60 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.Billing {
+  &__border-wrapper {
+    display: grid;
+    grid-gap: 8px;
+    margin: 8px 0 0;
+    padding: 8px 0;
+
+    border-top: 1.5px solid var(--color-grey);
+
+    &__method {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      max-width: 100%;
+
+      border: 1px solid var(--color-sand);
+      border-radius: 5px;
+
+      @include desktop {
+        max-width: 70%;
+      }
+
+      cursor: pointer;
+
+      &__info {
+        display: flex;
+        gap: 16px;
+      }
+    }
+
+    &__texts {
+      p {
+        font-size: 14px;
+        line-height: 14px;
+      }
+      &__title {
+        margin: 0 0 4px;
+        font-weight: 700;
+      }
+      &__subtitle {
+        font-weight: 300;
+        color: var(--color-grey-text);
+      }
+    }
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+
+    @include desktop {
+      max-width: 70%;
+    }
+  }
+}

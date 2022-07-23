@@ -19,7 +19,6 @@ import {
 } from 'src/state/reduxstate/projects/thunks';
 import {
   projectPicksSelector,
-  projectsSelector,
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
@@ -31,7 +30,8 @@ export const Trends: React.FC = () => {
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
-  const projects = useSelector(projectsSelector);
+
+  console.log(projectPicks);
 
   useEffect(() => {
     dispatch(fetchTrendingProjects());

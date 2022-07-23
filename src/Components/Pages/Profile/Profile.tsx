@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import {
+  Billing,
   CardWrapper,
   NotificationsBlock,
   ProfileCard,
@@ -16,7 +17,7 @@ const profileBlocks: {
   [key in NavClassTypes]: JSX.Element;
 } = {
   notifications: <NotificationsBlock />,
-  billing: <></>,
+  billing: <Billing />,
   terms: <TermsContent />,
   privacy: <PrivacyPolicyContent />,
 };

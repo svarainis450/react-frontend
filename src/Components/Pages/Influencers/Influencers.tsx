@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import {
   InfluencerCard,
   LoadError,
-  ProjectCard,
   ProjectFilters,
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
@@ -11,17 +10,15 @@ import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import {
   influencersSelector,
   projectFilterKeySelector,
-  projectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { fetchInfluencers } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { submenuList } from './constants';
+import { submenuList } from '../Discover/Discover';
 
 import './Influencers.scss';
 
 export const Influencers: React.FC = () => {
   const influencers = useSelector(influencersSelector);
-  const projectFilterKey = useSelector(projectFilterKeySelector);
   const dispatch = useAppDispatch();
 
   console.log(influencers);

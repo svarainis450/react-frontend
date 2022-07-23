@@ -15,7 +15,15 @@ export const Submenu = ({ menuItems, className, children }: SubmenuProps) => {
               key={`submenu_${item.title}_${index}`}
             >
               <NavLink to={item.url} className="Submenu__link">
-                <img className="Submenu__icon" src={item.icon} />
+                {typeof item.icon === 'string' ? (
+                  <img
+                    className="Submenu__icon"
+                    src={item.icon}
+                    alt={item.title}
+                  />
+                ) : (
+                  <div className="Submenu__icon">{item.icon}</div>
+                )}
                 {item.title}
               </NavLink>
             </li>
