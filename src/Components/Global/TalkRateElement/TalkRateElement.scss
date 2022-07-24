@@ -30,3 +30,17 @@
     font-size: 4px;
   }
 }
+
+.circluar-wrapper.bullseye.bigger {
+  position: relative;
+  width: 58px;
+  height: 58px;
+
+  .talk-rate.bullseye {
+    position: absolute;
+    top: 15px;
+    left: 11px;
+    font-size: 7px;
+    text-transform: uppercase;
+  }
+}

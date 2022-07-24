@@ -30,12 +30,18 @@ export const EmailInfo: React.FC = () => {
           <Typography className="Billing__border-wrapper__texts__title other">
             Send to other account email
           </Typography>
-          <div className="Billing__border-wrapper__texts__bordered">
-            <Typography className="Billing__border-wrapper__texts__subtitle">
-              {/* TODO: billing. check if email value comes as expected */}
-              {userInfo.email || 'email@email.com'}
-            </Typography>
-          </div>
+          <form className="Billing__border-wrapper__texts__input-wrapper">
+            <img
+              src={icons.envelope}
+              alt="email input"
+              className="Billing__border-wrapper__texts__input-wrapper__envelope"
+            />
+            {/* TODO: add submit, when email submit visuals appears */}
+            <input
+              value={userInfo.email || 'email@email.com'}
+              className="Billing__border-wrapper__texts__input-wrapper__input"
+            />
+          </form>
         </div>
       </div>
     </div>

@@ -49,8 +49,8 @@ export interface ProjectPicks {
 
 export interface Influencer extends ProjectPicks {
   flag?: 'expert' | null;
+  bullseye: number;
   rateData: {
-    bullseyeIndex: number;
     reviewer: number;
   };
   followers: number;

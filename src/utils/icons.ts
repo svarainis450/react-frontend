@@ -13,6 +13,7 @@ import finger_tap from '../Assets/icons/finger_tap.svg';
 import link_arrow from '../Assets/icons/link_arrow.svg';
 import search_magnifier from '../Assets/icons/search_magnifier.svg';
 import arrow_right from '../Assets/icons/arrow_right.svg';
+import envelope from '../Assets/icons/envelope.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -23,6 +24,10 @@ import positive_element from '../Assets/icons/positive_element.svg';
 import bull_element from '../Assets/icons/bull_element.svg';
 import coin_base from '../Assets/icons/coin_base_icon.svg';
 import top_expert from '../Assets/icons/top_expert.svg';
+
+//Influencers page icons
+import first_mover from '../Assets/icons/first_mover.svg';
+import reviewer from '../Assets/icons/reviewer.svg';
 
 // Profile page icons
 import account_icon from '../Assets/icons/account_icon.svg';
@@ -39,6 +44,9 @@ import paypal_logo from '../Assets/icons/payments/paypal_logo.svg';
 import cards_logos from '../Assets/icons/payments/cards_logos.svg';
 
 export const icons = {
+  reviewer,
+  first_mover,
+  envelope,
   paypal_logo,
   arrow_right,
   cards_logos,
