@@ -95,3 +95,8 @@ export enum InfluencerFilterKeys {
   REVIEWER = 'reviewer',
   RATE = 'rate',
 }
+
+export enum PaymentMethodTypes {
+  PAYPAL = 'paypal',
+  CARDS = 'card',
+}

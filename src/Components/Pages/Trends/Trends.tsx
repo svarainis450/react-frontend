@@ -30,7 +30,6 @@ export const Trends: React.FC = () => {
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
-
   console.log(projectPicks);
 
   useEffect(() => {
@@ -156,7 +155,7 @@ export const Trends: React.FC = () => {
         <Submenu menuItems={submenuList} />
         <section className="wrapper two-columns">
           <CardWrapper title="Trending Category" subtitle="Today">
-            <TrendingCategory trendingProjects={trendingProjects} />
+            <TrendingCategory trendingProjects={trendingProjects.slice(0, 5)} />
           </CardWrapper>
           <CardWrapper
             title="Project picks by most followed crypto experts"

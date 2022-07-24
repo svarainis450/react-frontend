@@ -30,7 +30,7 @@ export const fetchTrendingProjects = createAsyncThunk(
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());
-      return resp;
+      return resp.result;
     } catch (e) {
       console.log(e);
     }

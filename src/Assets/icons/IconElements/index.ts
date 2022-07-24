@@ -1,3 +1,4 @@
+export * from './Account';
 export * from './Billing';
 export * from './Notifications';
 export * from './Terms';
