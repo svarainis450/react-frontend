@@ -2,14 +2,16 @@
 
 .profile-navigation {
   &__nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    display: none;
+
+    @include desktop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
 
     &__list {
-      display: none;
-
       @include desktop {
         display: flex;
         justify-content: space-between;
@@ -48,6 +50,10 @@
         p {
           color: var(--color-black);
         }
+      }
+
+      &__button {
+        all: unset;
       }
     }
   }

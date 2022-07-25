@@ -6,7 +6,14 @@
     padding: 8px 0;
     border-bottom: 1.5px solid var(--color-grey);
 
+    &__flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     .grey-text {
+      margin: 0 0 8px;
       color: var(--color-grey-text);
     }
 
@@ -22,6 +29,10 @@
       position: absolute;
       top: -24px;
       right: 0;
+    }
+
+    &__social-icon {
+      margin: 0 8px 0 0;
     }
   }
   &__border-wrapper.flex {

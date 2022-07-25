@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { tags } from 'src/state/reduxstate/projects/types';
+import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { images } from 'src/utils/images';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
 import { CategoryTag } from '../../TrendsElements/CategoryTag/CategoryTag';
@@ -16,6 +17,8 @@ export const ProfileCard: React.FC = () => {
     information: true,
     account: true,
   });
+
+  const { userInfo } = useContext(UserInfoContext);
 
   return (
     <div className="profile-card">
@@ -52,6 +55,7 @@ export const ProfileCard: React.FC = () => {
           </div>
           <div className="profile-card__border-wrapper__input-wrapper">
             <label>First name</label>
+            {/* TODO: billing. value={name from state} */}
             <input
               value="First Name"
               type="text"
@@ -60,6 +64,7 @@ export const ProfileCard: React.FC = () => {
           </div>
           <div className="profile-card__border-wrapper__input-wrapper">
             <label>Last name</label>
+            {/* TODO: billing. value={last name from state} */}
             <input
               value="Last Name"
               type="text"
@@ -83,6 +88,7 @@ export const ProfileCard: React.FC = () => {
           </div>
           <div className="profile-card__border-wrapper__input-wrapper">
             <label>Email</label>
+            {/* TODO: billing. value={email from state} */}
             <input
               value="First Name"
               type="email"
@@ -91,8 +97,10 @@ export const ProfileCard: React.FC = () => {
           </div>
           <div className="profile-card__border-wrapper__input-wrapper">
             <label>Password</label>
+            {/* TODO: billing. value={pasw from state}  not sure if this a good decision*/}
+
             <input
-              value="Last Name"
+              value="Password"
               type="password"
               disabled={editData.account}
             />

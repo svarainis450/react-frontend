@@ -1,7 +1,7 @@
 export interface SubmenuListProps {
   title: string;
   url: string;
-  icon: string;
+  icon: string | JSX.Element;
 }
 
 export interface SubmenuProps {

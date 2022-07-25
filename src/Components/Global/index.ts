@@ -24,3 +24,4 @@ export * from './LoadError/LoadError';
 export * from './ProfileElements/ProfileCard/ProfileCard';
 export * from './ProfileElements/ProfileNavigation/ProfileNavigation';
 export * from './ProfileElements/Notifications/NotificationsBlock';
+export * from './ProfileElements/Billing/Billing';

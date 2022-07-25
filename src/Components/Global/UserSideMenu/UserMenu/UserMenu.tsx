@@ -3,19 +3,29 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
-import { LogOut } from 'src/Common/utils/LogOut'
-
-import human from 'src/Assets/icons/human.svg';
-import bell_small from 'src/Assets/icons/bell_small.svg';
-import dimensions from 'src/Assets/icons/dimensions.svg';
-import shield from 'src/Assets/icons/shield.svg';
-import card from 'src/Assets/icons/card.svg';
+import { LogOut } from 'src/Common/utils/LogOut';
 
 import './UserMenu.scss';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { NavClassTypes } from 'src/state/reduxstate/user/types';
+import { setProfileBlock } from 'src/state/reduxstate/user/slice';
+import { icons } from 'src/utils/icons';
+import { PROFILE_NAVIGATION } from '../../SideMenu/types';
+import { LinkList } from 'src/types';
 
-export const UserMenu = () => {
+interface UserMenuProps {
+  isActiveToggler: (value: boolean) => void;
+}
+
+export const UserMenu: React.FC<UserMenuProps> = ({ isActiveToggler }) => {
   const [menuActive, setMenuActive] = useState(false);
-  const {userInfo, isLoggedIn} = useContext(UserInfoContext);
+  const { userInfo, isLoggedIn } = useContext(UserInfoContext);
+  const dispatch = useAppDispatch();
+
+  const handleProfileMenuItem = (item: NavClassTypes) => {
+    dispatch(setProfileBlock(item));
+    isActiveToggler(false);
+  };
 
   return (
     <div className="UserMenu">
@@ -26,56 +36,45 @@ export const UserMenu = () => {
 
         <div
           onClick={() => setMenuActive((boolean) => !boolean)}
-          className={classNames('UserMenu__toggle', {'UserMenu__toggle--active': menuActive})}
+          className={classNames('UserMenu__toggle', {
+            'UserMenu__toggle--active': menuActive,
+          })}
         >
           Me
         </div>
       </div>
 
-      {menuActive && 
+      {menuActive && (
         <div className="UserMenu__bottom">
-          <ul className='UserMenu__list'>
-            <li className='UserMenu__link'>
-              <Link to="#">
-                <img src={human} alt="user" />
+          <ul className="UserMenu__list">
+            <Link
+              to={LinkList.PROFILE}
+              onClick={() => handleProfileMenuItem('account')}
+            >
+              <li className="UserMenu__link">
+                <img src={icons.account_icon} alt="user" />
                 Account
+              </li>
+            </Link>
+            {PROFILE_NAVIGATION.map(({ id, name, icon, key }) => (
+              <Link
+                key={id}
+                to={LinkList.PROFILE}
+                onClick={() => handleProfileMenuItem(key)}
+              >
+                <li className="UserMenu__item">
+                  <div>{icon}</div>
+                  {name}
+                </li>
               </Link>
-            </li>
-
-            <li className='UserMenu__link'>
-              <Link to={'#'}>
-                <img src={bell_small} alt="bell" />
-                Notifications
-              </Link>
-            </li>
-
-            <li className='UserMenu__link'>
-              <Link to={'#'}>
-                <img src={dimensions} alt="dimensions" />
-                Terms {'&'} Conditions
-              </Link>
-            </li>
-
-            <li className='UserMenu__link'>
-              <Link to={'#'}>
-                <img src={shield} alt="shield" />
-                Privacy policy
-              </Link>
-            </li>
-
-            <li className='UserMenu__link'>
-              <Link to={'#'}>
-                <img src={card} alt="card" />
-                Billing
-              </Link>
-            </li>
+            ))}
           </ul>
 
-          <button className='UserMenu__logout' onClick={LogOut}>
+          <button className="UserMenu__logout" onClick={LogOut}>
             Log out
           </button>
         </div>
-        }
+      )}
     </div>
   );
 };

@@ -1,48 +1,11 @@
 import { useState } from 'react';
-import {
-  Billing,
-  Notifications,
-  Privacy,
-  Terms,
-} from 'src/Assets/icons/IconElements';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { setProfileBlock } from 'src/state/reduxstate/user/slice';
 import { NavClassTypes } from 'src/state/reduxstate/user/types';
-import { LogOut } from 'src/Common/utils/LogOut'
+import { LogOut } from 'src/Common/utils/LogOut';
 import { Typography, TypographyWeight } from '../../Typography';
 import './ProfileNavigation.scss';
-
-const NAVIGATION: Array<{
-  id: number;
-  name: string;
-  icon: JSX.Element;
-  key: NavClassTypes;
-}> = [
-  {
-    id: 1,
-    name: 'Notifications',
-    icon: <Notifications />,
-    key: 'notifications',
-  },
-  {
-    id: 2,
-    name: 'Terms & Conditions',
-    icon: <Terms />,
-    key: 'terms',
-  },
-  {
-    id: 3,
-    name: 'Privacy Policy',
-    icon: <Privacy />,
-    key: 'privacy',
-  },
-  {
-    id: 4,
-    name: 'Billing',
-    icon: <Billing />,
-    key: 'billing',
-  },
-];
+import { PROFILE_NAVIGATION } from '../../SideMenu/types';
 
 export const ProfileNavigation: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -54,31 +17,36 @@ export const ProfileNavigation: React.FC = () => {
   };
 
   return (
-    <div className="profile-navigation">
-      <nav className="profile-navigation__nav">
-        <div className="profile-navigation__nav__list">
-          {NAVIGATION.map(({ id, name, icon, key }) => (
-            <div
-              onClick={() => handleNavSelection(key as NavClassTypes)}
-              key={id}
-              className={`profile-navigation__nav__list__element ${selected} ${
-                selected === key ? 'selected' : ''
-              }`}
-            >
-              <>{icon}</>
-              <Typography>{name}</Typography>
-            </div>
-          ))}
+    <>
+      <div className="profile-navigation">
+        <nav className="profile-navigation__nav">
+          <div className="profile-navigation__nav__list">
+            {PROFILE_NAVIGATION.map(({ id, name, icon, key }) => (
+              <div
+                onClick={() => handleNavSelection(key as NavClassTypes)}
+                key={id}
+                className={`profile-navigation__nav__list__element ${selected} ${
+                  selected === key ? 'selected' : ''
+                }`}
+              >
+                <>{icon}</>
+                <Typography>{name}</Typography>
+              </div>
+            ))}
+          </div>
+          <button
+            className="profile-navigation__nav__list__button selected"
+            onClick={LogOut}
+          >
+            <Typography weight={TypographyWeight.MEDIUM}>Log out</Typography>
+          </button>
+        </nav>
+        <div className="profile-navigation__progress-bar">
+          <div
+            className={`profile-navigation__progress-bar__progress ${selected}`}
+          />
         </div>
-        <button className="profile-navigation__nav__list__element selected" onClick={LogOut}>
-          <Typography weight={TypographyWeight.BOLD700}>Log out</Typography>
-        </button>
-      </nav>
-      <div className="profile-navigation__progress-bar">
-        <div
-          className={`profile-navigation__progress-bar__progress ${selected}`}
-        />
       </div>
-    </div>
+    </>
   );
 };

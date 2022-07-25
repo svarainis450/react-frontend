@@ -14,7 +14,7 @@ const initialState: ProjectsState = {
   status: 'idle' as Statuses,
   influencers_picks: [],
   project_picks: [] as ProjectsState['project_picks'],
-  influencers: [] as ProjectsState['project_picks'],
+  influencers: [] as ProjectsState['influencers'],
 };
 
 const projectsSlice = createSlice({

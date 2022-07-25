@@ -1,4 +1,11 @@
-import { useState, ChangeEvent, useCallback, FormEvent, useContext, SyntheticEvent } from 'react';
+import {
+  useState,
+  ChangeEvent,
+  useCallback,
+  FormEvent,
+  useContext,
+  SyntheticEvent,
+} from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,8 +14,8 @@ import rocketTicket from 'src/Assets/images/rocketTicket.svg';
 import { LayoutWithHeader } from 'src/Components/';
 import { Input } from 'src/Components';
 
-import { API_USER_LOGIN } from 'src/Common/services/login'
-import { UserInfoContext } from 'src/state/UserInfoContextProvider'
+import { API_USER_LOGIN } from 'src/Common/services/login';
+import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 
 import './Login.scss';
 import { LinkList } from 'src/types';
@@ -23,7 +30,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    setError("");
+    setError('');
     setLoginInProgress(true);
 
     API_USER_LOGIN(email, pass)
@@ -36,7 +43,7 @@ export const Login = () => {
       })
       .catch((err) => {
         setLoginInProgress(false);
-        console.log(err)
+        console.log(err);
 
         err
           ? setError(err.data)
@@ -44,11 +51,11 @@ export const Login = () => {
               `We're experiencing some internal problems. Try in few minutes`
             );
       });
-  }
+  };
 
   const handlePassChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPass(e.target.value);
-  }; 
+  };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -67,7 +74,7 @@ export const Login = () => {
             onChange={handleEmailChange}
             placeholder="Email"
             margin="0 0 1.875rem 0"
-            className='Login__input'
+            className="Login__input"
             // error={error}
           />
 
@@ -79,11 +86,11 @@ export const Login = () => {
             placeholder="Password"
             margin="0 0 1.875rem 0"
             error={error}
-            className='Login__input'
+            className="Login__input"
           />
 
           <Button className="Login__button" type="submit" onClick={handleLogin}>
-            {loginInProgress ? "Logging in ..." : "Log in"}
+            {loginInProgress ? 'Logging in ...' : 'Log in'}
           </Button>
 
           <img className="Login__img" src={rocketTicket} alt="rocketTicket" />
@@ -93,7 +100,12 @@ export const Login = () => {
             people discover x100 opportunities on time
           </p>
 
-          <Button className="Login__button" onClick={() => navigate(LinkList.Register)}>Sign up</Button>
+          <Button
+            className="Login__button"
+            onClick={() => navigate(LinkList.Register)}
+          >
+            Sign up
+          </Button>
         </div>
       </div>
     </LayoutWithHeader>

@@ -23,6 +23,7 @@ import {
   WaitlistSignUp,
   Register,
   Influencers,
+  Funds,
 } from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
@@ -163,6 +164,12 @@ const App = () => {
                   ) : (
                     <Navigate to={LinkList.INFLUENCERS} />
                   )
+                }
+              />
+              <Route
+                path={LinkList.FUNDS}
+                element={
+                  isLoggedIn() ? <Funds /> : <Navigate to={LinkList.TRENDS} />
                 }
               />
             </Routes>

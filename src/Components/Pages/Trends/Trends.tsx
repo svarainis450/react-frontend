@@ -19,7 +19,6 @@ import {
 } from 'src/state/reduxstate/projects/thunks';
 import {
   projectPicksSelector,
-  projectsSelector,
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
@@ -31,7 +30,7 @@ export const Trends: React.FC = () => {
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
-  const projects = useSelector(projectsSelector);
+  console.log(projectPicks);
 
   useEffect(() => {
     dispatch(fetchTrendingProjects());
@@ -156,7 +155,7 @@ export const Trends: React.FC = () => {
         <Submenu menuItems={submenuList} />
         <section className="wrapper two-columns">
           <CardWrapper title="Trending Category" subtitle="Today">
-            <TrendingCategory trendingProjects={trendingProjects} />
+            <TrendingCategory trendingProjects={trendingProjects.slice(0, 5)} />
           </CardWrapper>
           <CardWrapper
             title="Project picks by most followed crypto experts"

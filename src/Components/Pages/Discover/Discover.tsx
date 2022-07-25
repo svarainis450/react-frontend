@@ -9,9 +9,28 @@ import {
 } from 'src/state/reduxstate/projects/selectors';
 import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { submenuList } from './constants';
 
 import './Discover.scss';
+import { SubmenuListProps } from 'src/Components/Global/Submenu';
+import { Star, Influencers, Funds } from '../../../Assets/icons/IconElements';
+
+export const submenuList: SubmenuListProps[] = [
+  {
+    title: 'Projects',
+    url: '/discover',
+    icon: <Star />,
+  },
+  {
+    title: 'Influencers',
+    url: '/influencers',
+    icon: <Influencers />,
+  },
+  {
+    title: 'Funds',
+    url: '/funds',
+    icon: <Funds />,
+  },
+];
 
 export const Discover: React.FC = () => {
   const projects = useSelector(projectsSelector);

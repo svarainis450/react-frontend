@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
+import {
+  Influencer,
+  Project,
+  ProjectPicks,
+  tags,
+} from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 import { setFavoriteProjects } from 'src/state/reduxstate/user/slice';
 import { icons } from 'src/utils/icons';
+import { IndexAxis } from '../../DiscoverElements/IndexAxis/IndexAxis';
 import { PositiveBullsBlock } from '../../DiscoverElements/ProjectCard/PositiveBullsBlock';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
@@ -19,14 +25,15 @@ import {
 
 import './InfluencerCard.scss';
 
-interface InfluencerCardProps extends ProjectPicks {}
+interface InfluencerCardProps extends Influencer {}
 
 export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   id,
   tagName,
   name,
   img,
-  expert,
+  flag,
+  bullseye,
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
@@ -58,7 +65,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
             <Typography weight={TypographyWeight.MEDIUM}>{tagName}</Typography>
             <Typography className="grey-text">{name}</Typography>
           </div>
-          {expert && (
+          {flag === 'expert' && (
             <img
               className="influencer-card__border-wrapper__top-expert"
               src={icons.top_expert}
@@ -70,11 +77,31 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
           <Typography className="grey-text" weight={TypographyWeight.MEDIUM}>
             Active social channels
           </Typography>
-          <img src={icons.twitter} alt="twitter" />
-          <img src={icons.discord} alt="discord" />
-          <img src={icons.youtube} alt="youtube" />
-          <img src={icons.telegram} alt="telegram" />
-          <img src={icons.reddit} alt="reddit" />
+          <img
+            className="influencer-card__border-wrapper__social-icon"
+            src={icons.twitter}
+            alt="twitter"
+          />
+          <img
+            className="influencer-card__border-wrapper__social-icon"
+            src={icons.discord}
+            alt="discord"
+          />
+          <img
+            className="influencer-card__border-wrapper__social-icon"
+            src={icons.youtube}
+            alt="youtube"
+          />
+          <img
+            className="influencer-card__border-wrapper__social-icon"
+            src={icons.telegram}
+            alt="telegram"
+          />
+          <img
+            className="influencer-card__border-wrapper__social-icon"
+            src={icons.reddit}
+            alt="reddit"
+          />
         </div>
         <div className="influencer-card__border-wrapper">
           <Typography
@@ -93,6 +120,11 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
           >
             Focus areas
           </Typography>
+          <div className="influencer-card__border-wrapper__flex">
+            {tags.map((item) => (
+              <CategoryTag key={item} tagTitle={item} />
+            ))}
+          </div>
         </div>
         <div className="influencer-card__border-wrapper">
           <Typography
@@ -102,9 +134,10 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
           >
             Focus areas
           </Typography>
-          <TalkRateElement rate={88} type="bullseye" />
+          <TalkRateElement rate={bullseye} type="bullseye" isBiggerBullseye />
         </div>
         <div className="influencer-card__border-wrapper">
+          <IndexAxis type="mover" rating={66} />
           <Typography
             variant={TypographyVariant.TEXT_SMALL}
             className="grey-text"
@@ -113,6 +146,9 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
             <strong>First Mover v.s. Reviewer Index</strong> shows whether an
             expert has a direct impact on the industry or is just a commentator{' '}
           </Typography>
+        </div>
+        <div className="influencer-card__border-wrapper">
+          <TalkRateElement rate={55} type="influence" isBiggerBullseye />
         </div>
       </div>
     </CardWrapper>

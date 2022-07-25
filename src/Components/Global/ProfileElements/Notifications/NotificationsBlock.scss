@@ -44,4 +44,14 @@
   .toggle-title {
     margin: 0 0 0 6px;
   }
+
+  .ToggleButton__slider {
+    background-color: var(--color-sand);
+  }
+
+  .ToggleButton__input {
+    &:checked + .ToggleButton__slider {
+      background-color: var(--color-blue);
+    }
+  }
 }

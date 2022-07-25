@@ -2,6 +2,7 @@
 
 .profile-card {
   position: relative;
+  margin: 60px 0 0;
   max-width: 100%;
   width: 100%;
 
@@ -12,7 +13,7 @@
   &__avatar {
     position: absolute;
     top: -57px;
-    left: calc(114px / 2 + 40px);
+    left: calc(50% - 114px / 2);
 
     width: 114px;
     height: 114px;

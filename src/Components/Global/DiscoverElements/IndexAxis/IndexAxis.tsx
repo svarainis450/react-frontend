@@ -7,29 +7,40 @@ import { icons } from 'src/utils/icons';
 
 interface IndexAxisProps {
   rating: number;
-  type: 'bull' | 'positive';
+  type: 'bull' | 'positive' | 'mover';
 }
 
 const BULLS = ['bear', 'neutral', 'bull'];
 const POSITIVE = ['negative', 'neutral', 'positive'];
+const MOVER = ['reviewer', 'neutral', 'first mover'];
 
 export const IndexAxis: React.FC<IndexAxisProps> = ({ rating, type }) => {
   const isBullType = type === 'bull';
-  const axisTitles = isBullType ? BULLS : POSITIVE;
+  const axisData = {
+    bull: {
+      titles: BULLS,
+      iconNegative: icons.bear,
+      iconPositive: icons.bulls,
+    },
+    positive: {
+      titles: POSITIVE,
+      iconNegative: icons.negative,
+      iconPositive: icons.positive,
+    },
+    mover: {
+      titles: MOVER,
+      iconNegative: icons.reviewer,
+      iconPositive: icons.first_mover,
+    },
+  };
   const isPositive = rating >= 0;
   const rangeWidth = isPositive ? rating : Math.abs(rating);
 
   return (
     <div className="axis-wrapper">
       <div className="icons-wrapper">
-        <img
-          src={isBullType ? icons.bear : icons.negative}
-          alt={isBullType ? 'Bears' : 'Negative'}
-        />
-        <img
-          src={isBullType ? icons.bulls : icons.positive}
-          alt={isBullType ? 'Bulls' : 'Positive'}
-        />
+        <img src={axisData[type].iconNegative} alt={axisData[type].titles[0]} />
+        <img src={axisData[type].iconPositive} alt={axisData[type].titles[2]} />
       </div>
       <div className="axis">
         <div className="center-line" />
@@ -51,7 +62,7 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({ rating, type }) => {
         </div>
       </div>
       <div className="axis-titles">
-        {axisTitles.map((item, index) => (
+        {axisData[type].titles.map((item, index) => (
           <Typography key={index}>{item}</Typography>
         ))}
       </div>

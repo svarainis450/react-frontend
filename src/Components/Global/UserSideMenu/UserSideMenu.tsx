@@ -11,11 +11,18 @@ import closeIcon from '../../../Assets/images/close.svg';
 import './UserSideMenu.scss';
 import { UserMenu } from './UserMenu';
 
-export const UserSideMenu = ({ isActive, isActiveToggler }: UserSideMenuProps) => {
-  const {userInfo, setUserInfo, isLoggedIn} = useContext(UserInfoContext);
+export const UserSideMenu = ({
+  isActive,
+  isActiveToggler,
+}: UserSideMenuProps) => {
+  const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
 
   return (
-    <div className={classNames('UserSideMenu', { 'UserSideMenu--active': isActive })}>
+    <div
+      className={classNames('UserSideMenu', {
+        'UserSideMenu--active': isActive,
+      })}
+    >
       <div
         onClick={() => isActiveToggler(false)}
         className={classNames('UserSideMenu__overlay', {
@@ -32,10 +39,10 @@ export const UserSideMenu = ({ isActive, isActiveToggler }: UserSideMenuProps) =
             <img src={closeIcon} alt="" />
           </button>
         </div>
-        
+
         <NavigationList list={userNavList} />
 
-        <UserMenu />
+        <UserMenu isActiveToggler={() => isActiveToggler(false)} />
       </div>
     </div>
   );

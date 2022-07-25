@@ -1,4 +1,3 @@
-import { InfluencerData } from 'src/Components/Global';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
 export interface RateData {
@@ -41,7 +40,6 @@ export interface ProjectPicks {
   postCount: number;
   channel: string;
   img: string;
-  expert?: boolean | null;
   tag: {
     name: CategoryTags;
     color: string;
@@ -49,12 +47,23 @@ export interface ProjectPicks {
   projects?: TrendingProject[];
 }
 
+export interface Influencer extends ProjectPicks {
+  flag?: 'expert' | null;
+  bullseye: number;
+  rateData: {
+    reviewer: number;
+  };
+  followers: number;
+  posts: number;
+  focus: CategoryTags[];
+}
+
 export interface ProjectsState {
   projects: Project[];
   project_filter_key: ProjectFilterKeys | null;
   status: Statuses;
   trending_projects: TrendingProject[];
-  influencers: ProjectPicks[];
+  influencers: Influencer[];
   influencers_picks: [];
   project_picks: ProjectPicks[];
 }
@@ -85,4 +94,9 @@ export enum InfluencerFilterKeys {
   FIRST_MOVER = 'first_mover',
   REVIEWER = 'reviewer',
   RATE = 'rate',
+}
+
+export enum PaymentMethodTypes {
+  PAYPAL = 'paypal',
+  CARDS = 'card',
 }
