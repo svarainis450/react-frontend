@@ -91,6 +91,7 @@ const App = () => {
                 <Route path={LinkList.Checkout} element={<CheckoutPage />} />
                 <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
                 <Route path={LinkList.Success} element={<SuccessPage />} />
+                <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
                 <Route
                   path={LinkList.TermsAndConditions}
                   element={<TermsAndConditions />}
@@ -103,14 +104,12 @@ const App = () => {
                 <Route path={LinkList.About} element={<AboutPage />} />
               </Route>
 
-              <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
-
-              <Route path={LinkList.Login} element={ isLoggedIn() ? <Navigate to={LinkList.DASHBOARD} /> : <Login />} />
-              <Route path={LinkList.Register} element={isLoggedIn() ? <Navigate to={LinkList.DASHBOARD} /> : <Register />} />
-              <Route path={LinkList.DASHBOARD} element={isLoggedIn() ? <Dashboard /> : <Navigate to={LinkList.Login}/>} />
-              <Route path={LinkList.TRENDS} element={isLoggedIn() ? <Trends /> : <Navigate to={LinkList.Login}/>} />
-              <Route path={LinkList.DISCOVER} element={isLoggedIn() ? <Discover /> : <Navigate to={LinkList.Login}/>} />
-              <Route path={LinkList.PROFILE} element={isLoggedIn() ? <Profile /> : <Navigate to={LinkList.Login}/>} />
+              <Route path={LinkList.Login} element={ isLoggedIn() ? <Navigate to={LinkList.DASHBOARD} replace /> : <Login />} />
+              <Route path={LinkList.Register} element={isLoggedIn() ? <Navigate to={LinkList.DASHBOARD} replace /> : <Register />} />
+              <Route path={LinkList.DASHBOARD} element={isLoggedIn() ? <Dashboard /> : <Navigate to={LinkList.Login} replace/>} />
+              <Route path={LinkList.TRENDS} element={isLoggedIn() ? <Trends /> : <Navigate to={LinkList.Login} replace/>} />
+              <Route path={LinkList.DISCOVER} element={isLoggedIn() ? <Discover /> : <Navigate to={LinkList.Login} replace />} />
+              <Route path={LinkList.PROFILE} element={isLoggedIn() ? <Profile /> : <Navigate to={LinkList.Login} replace />} />
             </Routes>
           </PersistGate>
         </Provider>

@@ -32,7 +32,7 @@ export const Login = () => {
       })
       .then(() => {
         setLoginInProgress(false);
-        return navigate(LinkList.DASHBOARD);
+        return navigate(LinkList.TRENDS);
       })
       .catch((err) => {
         setLoginInProgress(false);
