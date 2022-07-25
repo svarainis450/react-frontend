@@ -22,6 +22,7 @@ import {
   Trends,
   WaitlistSignUp,
   Register,
+  Influencers,
 } from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
@@ -41,7 +42,7 @@ import _ from 'lodash';
 const App = () => {
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
   const [currecy, setCurrency] = useState('$');
-  const {userInfo, getUserInfo} = useContext(UserInfoContext)
+  const { userInfo, getUserInfo } = useContext(UserInfoContext);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -104,12 +105,66 @@ const App = () => {
                 <Route path={LinkList.About} element={<AboutPage />} />
               </Route>
 
-              <Route path={LinkList.Login} element={ isLoggedIn() ? <Navigate to={LinkList.DASHBOARD} replace /> : <Login />} />
-              <Route path={LinkList.Register} element={isLoggedIn() ? <Navigate to={LinkList.DASHBOARD} replace /> : <Register />} />
-              <Route path={LinkList.DASHBOARD} element={isLoggedIn() ? <Dashboard /> : <Navigate to={LinkList.Login} replace/>} />
-              <Route path={LinkList.TRENDS} element={isLoggedIn() ? <Trends /> : <Navigate to={LinkList.Login} replace/>} />
-              <Route path={LinkList.DISCOVER} element={isLoggedIn() ? <Discover /> : <Navigate to={LinkList.Login} replace />} />
-              <Route path={LinkList.PROFILE} element={isLoggedIn() ? <Profile /> : <Navigate to={LinkList.Login} replace />} />
+              <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
+
+              <Route
+                path={LinkList.Login}
+                element={
+                  isLoggedIn() ? (
+                    <Navigate to={LinkList.DASHBOARD} />
+                  ) : (
+                    <Login />
+                  )
+                }
+              />
+              <Route
+                path={LinkList.Register}
+                element={
+                  isLoggedIn() ? (
+                    <Navigate to={LinkList.DASHBOARD} />
+                  ) : (
+                    <Register />
+                  )
+                }
+              />
+              <Route
+                path={LinkList.DASHBOARD}
+                element={
+                  isLoggedIn() ? (
+                    <Dashboard />
+                  ) : (
+                    <Navigate to={LinkList.Login} />
+                  )
+                }
+              />
+              <Route
+                path={LinkList.TRENDS}
+                element={
+                  isLoggedIn() ? <Trends /> : <Navigate to={LinkList.Login} />
+                }
+              />
+              <Route
+                path={LinkList.DISCOVER}
+                element={
+                  isLoggedIn() ? <Discover /> : <Navigate to={LinkList.Login} />
+                }
+              />
+              <Route
+                path={LinkList.PROFILE}
+                element={
+                  isLoggedIn() ? <Profile /> : <Navigate to={LinkList.Login} />
+                }
+              />
+              <Route
+                path={LinkList.INFLUENCERS}
+                element={
+                  isLoggedIn() ? (
+                    <Influencers />
+                  ) : (
+                    <Navigate to={LinkList.INFLUENCERS} />
+                  )
+                }
+              />
             </Routes>
           </PersistGate>
         </Provider>

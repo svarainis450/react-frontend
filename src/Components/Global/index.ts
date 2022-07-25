@@ -11,6 +11,10 @@ export * from './TrendsElements/ProjectPicks/ProjectPicksTable';
 // DISCOVER
 export * from './DiscoverElements/ProjectCard/ProjectCard';
 export * from './DiscoverElements/IndexAxis/IndexAxis';
+export * from './DiscoverElements/ProjectsFilters/ProjectFilters';
+
+// INFLUENCERS
+export * from './InfluencersElements/InfluencerCard/InfluencerCard';
 
 // MISC
 export * from './TalkRateElement/TalkRateElement';
@@ -19,3 +23,4 @@ export * from './LoadError/LoadError';
 // PROFILE
 export * from './ProfileElements/ProfileCard/ProfileCard';
 export * from './ProfileElements/ProfileNavigation/ProfileNavigation';
+export * from './ProfileElements/Notifications/NotificationsBlock';

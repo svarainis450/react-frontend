@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import {
   CardWrapper,
+  NotificationsBlock,
   ProfileCard,
   ProfileNavigation,
 } from 'src/Components/Global';
@@ -14,7 +15,7 @@ import './Profile.scss';
 const profileBlocks: {
   [key in NavClassTypes]: JSX.Element;
 } = {
-  notifications: <></>,
+  notifications: <NotificationsBlock />,
   billing: <></>,
   terms: <TermsContent />,
   privacy: <PrivacyPolicyContent />,

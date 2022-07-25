@@ -17,6 +17,7 @@ export enum LinkList {
   DASHBOARD = '/dashboard',
   TRENDS = '/trends',
   DISCOVER = '/discover',
+  INFLUENCERS = '/influencers',
   FORYOU = '/foryou',
   PROFILE = '/profile',
 }

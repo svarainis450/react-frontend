@@ -7,5 +7,5 @@ export enum ENUM_API {
   LOGIN = "/login",
   REGISTER = "/register",
   ME = "/me",
-  WAITLIST_SIGN = "/register",
+  WAITLIST_SIGN = "/subscription-user",
 }

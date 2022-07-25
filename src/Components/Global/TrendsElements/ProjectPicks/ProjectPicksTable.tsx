@@ -23,7 +23,6 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   pickedProjects,
 }) => {
   const { isTablet } = useMediaQuery();
-  console.log(pickedProjects);
   return (
     <div className="project-picks">
       {pickedProjects && <ProjectPicksList pickedProjects={pickedProjects} />}
@@ -68,7 +67,9 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                   alt="Project picks"
                 />
                 <Typography className="project-picks__row__thin-text">
-                  {projects.length > 1 ? 'Multiple' : projects[0].name}
+                  {projects && projects.length > 1
+                    ? 'Multiple'
+                    : projects && projects[0].name}
                 </Typography>
               </div>
             </div>
