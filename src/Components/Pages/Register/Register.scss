@@ -1,6 +1,6 @@
 .Register {
   background-color: var(--color-grey);
-  padding-top: 3.75rem;
+  padding: 3.5rem 1.25rem;
   min-height: calc(100vh - 66px);
 
   @media (min-width: 1024px) {
@@ -17,19 +17,20 @@
 
   &__title {
     font-style: normal;
-    font-weight: 500;
-    font-size: 30px;
+    font-weight: 700;
+    font-size: 1.5rem;
     line-height: 36px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.125rem;
     padding: 1rem;
     text-align: center;
   }
 
   &__img {
     margin-bottom: 3.125rem;
-    height: 11.75rem;
-
+    height: 5.5rem;
+    
     @media (min-width: 1024px) {
+      height: 11.75rem;
       margin-bottom: 2.5rem;
     }
   }
@@ -42,14 +43,23 @@
     font-size: 12px;
     line-height: 22px;
     text-align: center;
+    max-width: 24rem;
+    letter-spacing: -0.02em;
+    line-height: 14px;
 
     @media (min-width: 1024px) {
       margin-bottom: 1.5rem;
+    }
+
+    &-link {
+      text-transform: uppercase;
+      font-weight: 700;
     }
   }
 
   &__input {
     width: 100%;
+    margin-bottom: 1rem;
 
     @media (min-width: 1024px) {
       width: 24rem;
@@ -58,7 +68,7 @@
 
   &__button {
     width: 100%;
-    max-width: 11.875rem;
-    margin: 0 auto 3rem auto;
+    max-width: 16rem;
+    margin: 0.5rem auto 3rem auto;
   }
 }

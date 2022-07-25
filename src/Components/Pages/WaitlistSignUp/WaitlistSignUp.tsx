@@ -58,7 +58,6 @@ export const WaitlistSignUp = () => {
             value={surname}
             onChange={handleSurnameChange}
             placeholder="Name Surname"
-            margin="0 0 1.875rem 0"
             required={true}
             className="WaitlistSignUp__input"
           />
@@ -69,7 +68,6 @@ export const WaitlistSignUp = () => {
             value={email}
             onChange={handleEmailChange}
             placeholder="Email"
-            margin="0 0 1.875rem 0"
             required={true}
             error={error}
             className="WaitlistSignUp__input"
@@ -79,7 +77,7 @@ export const WaitlistSignUp = () => {
             {success}
           </div> }
 
-          <Button className="WaitlistSignUp__button" onClick={handleFormSubmit}>
+          <Button textWeight='heavy' className="WaitlistSignUp__button" onClick={handleFormSubmit}>
             {registerInProgress
               ? "Signing up ..."
               : "Sign up for the waitlist"
