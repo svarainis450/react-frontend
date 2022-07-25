@@ -31,15 +31,13 @@ export const applyRequestSuffix = (config: AxiosRequestConfig) => {
 };
 
 export const setAuthToken = (config: AxiosRequestConfig) => {
-  if (Cookies.get("token") !== undefined) {
-    return {
-      ...config,
-      headers: {
-        ...config.headers,
-        Authorization: `Bearer ${Cookies.get("token")}`,
-      },
-    };
-  }
+  return {
+    ...config,
+    headers: {
+      ...config.headers,
+      Authorization: `Bearer ${Cookies.get("token") || ''}`,
+    },
+  };
 };
 
 // `Bearer ${Cookies.get("token")}`
