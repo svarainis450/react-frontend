@@ -13,7 +13,6 @@ export const fetchProjects = createAsyncThunk(
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());
-      console.log('effect');
       return resp.result;
     } catch (e) {
       console.log(e);

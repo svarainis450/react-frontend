@@ -30,7 +30,7 @@ export const Trends: React.FC = () => {
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
-  console.log(projectPicks);
+  console.log(trendingProjects);
 
   useEffect(() => {
     dispatch(fetchTrendingProjects());
