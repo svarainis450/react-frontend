@@ -112,7 +112,7 @@ const App = () => {
                 path={LinkList.Login}
                 element={
                   isLoggedIn() ? (
-                    <Navigate to={LinkList.DASHBOARD} />
+                    <Navigate to={LinkList.TRENDS} />
                   ) : (
                     <Login />
                   )
@@ -122,7 +122,7 @@ const App = () => {
                 path={LinkList.Register}
                 element={
                   isLoggedIn() ? (
-                    <Navigate to={LinkList.DASHBOARD} />
+                    <Navigate to={LinkList.TRENDS} />
                   ) : (
                     <Register />
                   )
