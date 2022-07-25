@@ -7,7 +7,7 @@ import {
   SyntheticEvent,
 } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Button } from 'src/Components/Global/Button';
 import rocketTicket from 'src/Assets/images/rocketTicket.svg';
@@ -43,10 +43,9 @@ export const Login = () => {
       })
       .catch((err) => {
         setLoginInProgress(false);
-        console.log(err);
 
         err
-          ? setError(err.data)
+          ? setError(err.data.message)
           : setError(
               `We're experiencing some internal problems. Try in few minutes`
             );
@@ -73,9 +72,7 @@ export const Login = () => {
             value={email}
             onChange={handleEmailChange}
             placeholder="Email"
-            margin="0 0 1.875rem 0"
             className="Login__input"
-            // error={error}
           />
 
           <Input
@@ -84,28 +81,20 @@ export const Login = () => {
             value={pass}
             onChange={handlePassChange}
             placeholder="Password"
-            margin="0 0 1.875rem 0"
             error={error}
             className="Login__input"
           />
 
-          <Button className="Login__button" type="submit" onClick={handleLogin}>
+          <Button textWeight='heavy' className="Login__button" type="submit" onClick={handleLogin}>
             {loginInProgress ? 'Logging in ...' : 'Log in'}
           </Button>
 
           <img className="Login__img" src={rocketTicket} alt="rocketTicket" />
 
-          <p className="Login__teaser">
-            New to Potato? Potato is a crypto influencer marketplace to help
-            people discover x100 opportunities on time
+          <p className="Login__teaser"> 
+            New to Potato?
+            <Link to={LinkList.Register}>&nbsp; Sign Up here.</Link>
           </p>
-
-          <Button
-            className="Login__button"
-            onClick={() => navigate(LinkList.Register)}
-          >
-            Sign up
-          </Button>
         </div>
       </div>
     </LayoutWithHeader>
