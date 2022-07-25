@@ -13,7 +13,6 @@ export const fetchProjects = createAsyncThunk(
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());
-      console.log('effect');
       return resp.result;
     } catch (e) {
       console.log(e);
@@ -30,7 +29,7 @@ export const fetchTrendingProjects = createAsyncThunk(
           Authorization: `Bearer ${demoToken}`,
         },
       }).then((res) => res.json());
-      return resp.result;
+      return resp;
     } catch (e) {
       console.log(e);
     }
