@@ -42,6 +42,18 @@ export const faqItemsFull = [
     title: "DO YOU TAKE CUSTOM ENRICHMENT REQUESTS?", 
     text: "Yes, we have a custom enrichment service. We take requests that are based on a profile URL extraction, or selection of a location.",
   },
+  {
+    title: "Can I cancel my plan at any time?", 
+    text: "If paying with credit card, you will not be charged if you cancel your plan before the next billing cycle. If you cancel during your subscription period, you will continue to enjoy unlimited access to your account until the end of your subscription period. We will not issue a refund. Your subscription will not renew automatically at the end of your current subscription period and you will not be charged unless you purchase another subscription.",
+  },
+  {
+    title: "How do I get an invoice for my subscription?", 
+    text: "Simply drop us a request at info@potato.to",
+  },
+  {
+    title: "Can I upgrade my plan at any time?", 
+    text: "If you'd like to upgrade your plan, just make payment for a different tier and you'll get an email on how to activate your account.",
+  },
 ]
 
 export const potatoItems = [
