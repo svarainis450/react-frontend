@@ -22,7 +22,7 @@
 
     @media (min-width: 1024px) {
       text-align: left;
-      max-width: 30rem;
+      max-width: 33rem;
     }
   }
 
@@ -39,6 +39,11 @@
     &-emphasize {
       color: var(--color-link);
       font-weight: 600;
+      display: none;
+
+      @media (min-width: 1024px) {
+        display: inline;
+      }
     }
   }
 

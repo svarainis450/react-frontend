@@ -58,6 +58,10 @@
     }
   }
 
+  &__item-title {
+    text-transform: uppercase;
+  }
+
   &__button {
     width: 100%;
     margin: 1.625rem auto 0;

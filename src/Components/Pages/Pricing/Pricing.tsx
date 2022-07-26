@@ -37,7 +37,7 @@ export const Pricing = () => {
     <Layout>
       <div className="Pricing">
         <PageTitle
-          title="Reduce trading risks by recording & tracking crypto influencers"
+          title="Stay ahead of trends. Choose the best Potato plan."
           className="Pricing__hero"
         />
         <PaymentOptions

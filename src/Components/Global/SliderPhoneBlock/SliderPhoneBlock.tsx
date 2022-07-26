@@ -23,8 +23,7 @@ export const SliderPhoneBlock = () => {
   return (
     <div className='SliderPhoneBlock'>
       <HeroTitle 
-        title='Reduce trading risks by recording & tracking crypto influencers'
-        subtitle=' Get updated news on the most discussed IDO, crypto & NFT projects and join the next 100x crypto gem early'
+        title='Invest smartly by recording & tracking crypto influencers'
       />
 
       <Swiper 
