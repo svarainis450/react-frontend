@@ -1,3 +1,5 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
 .influencer-card {
   position: relative;
 
@@ -10,6 +12,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    &__flex.border {
+      padding: 8px 0;
+      width: 100%;
+      border-bottom: 1.5px solid var(--color-grey);
+
+      @include desktop {
+        padding: 0;
+        border: none;
+      }
     }
 
     .grey-text {
@@ -27,8 +40,14 @@
 
     &__top-expert {
       position: absolute;
-      top: -24px;
-      right: 0;
+      top: -13px;
+      left: -12px;
+
+      @include desktop {
+        top: -24px;
+        left: unset;
+        right: 0;
+      }
     }
 
     &__social-icon {
@@ -38,5 +57,63 @@
   &__border-wrapper.flex {
     display: flex;
     align-items: center;
+  }
+
+  .flex-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  .stats {
+    margin-right: 16px;
+  }
+
+  .rate-desc {
+    max-width: calc(100% - 54px);
+    margin-left: 16px;
+
+    .rate-change-wrapper {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 6px 0;
+
+      .triangle {
+        margin: 0 6px 0 0;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 6px solid var(--color-green);
+      }
+
+      .triangle.negative {
+        border-bottom: 6px solid var(--color-red);
+        transform: scaleY(-1);
+      }
+
+      p {
+        font-weight: 500;
+        font-size: 12px;
+      }
+    }
+  }
+  .learn-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 12px 0 0;
+    width: 100%;
+
+    p {
+      margin: 0 0 0 6px;
+
+      color: var(--color-grey-text);
+      font-size: 10px;
+      line-height: 14px;
+      text-transform: uppercase;
+    }
   }
 }

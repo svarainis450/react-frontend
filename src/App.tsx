@@ -24,6 +24,7 @@ import {
   Register,
   Influencers,
   Funds,
+  ForYou,
 } from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
@@ -39,6 +40,7 @@ import './App.scss';
 import '../src/utils/breakpointsMixins.scss';
 import 'normalize.css';
 import _ from 'lodash';
+import { YourInfluencers } from './Components/Pages/YourInfluencers/YourInfluencers';
 
 const App = () => {
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
@@ -111,11 +113,7 @@ const App = () => {
               <Route
                 path={LinkList.Login}
                 element={
-                  isLoggedIn() ? (
-                    <Navigate to={LinkList.TRENDS} />
-                  ) : (
-                    <Login />
-                  )
+                  isLoggedIn() ? <Navigate to={LinkList.TRENDS} /> : <Login />
                 }
               />
               <Route
@@ -170,6 +168,22 @@ const App = () => {
                 path={LinkList.FUNDS}
                 element={
                   isLoggedIn() ? <Funds /> : <Navigate to={LinkList.TRENDS} />
+                }
+              />
+              <Route
+                path={LinkList.FORYOU}
+                element={
+                  isLoggedIn() ? <ForYou /> : <Navigate to={LinkList.TRENDS} />
+                }
+              />
+              <Route
+                path={LinkList.YOUR_INFLUENCERS}
+                element={
+                  isLoggedIn() ? (
+                    <YourInfluencers />
+                  ) : (
+                    <Navigate to={LinkList.YOUR_INFLUENCERS} />
+                  )
                 }
               />
             </Routes>

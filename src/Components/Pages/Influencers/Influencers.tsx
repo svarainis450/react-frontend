@@ -7,10 +7,7 @@ import {
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import {
-  influencersSelector,
-  projectFilterKeySelector,
-} from 'src/state/reduxstate/projects/selectors';
+import { influencersSelector } from 'src/state/reduxstate/projects/selectors';
 import { fetchInfluencers } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { submenuList } from '../Discover/Discover';

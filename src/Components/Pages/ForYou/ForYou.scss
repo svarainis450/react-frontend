@@ -1,0 +1,44 @@
+@import '../../../utils/breakpointsMixins.scss';
+
+.For-you {
+  background-color: var(--color-grey);
+  max-width: 100%;
+
+  .card {
+    padding: 12px;
+    height: 100%;
+
+    @include desktop {
+      padding: 24px 30px;
+    }
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    min-height: 80vh;
+
+    @include desktop {
+      grid-template-columns: repeat(4, 1fr);
+      margin: 0 auto;
+      max-width: 1300px;
+      min-height: 60vh;
+    }
+  }
+
+  .empty-dashboard {
+    max-width: 100%;
+
+    @include desktop {
+      max-width: 527px;
+      margin: 30px auto 0;
+    }
+
+    p {
+      color: var(--color-grey-text);
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+}

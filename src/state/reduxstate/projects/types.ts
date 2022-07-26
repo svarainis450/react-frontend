@@ -53,7 +53,7 @@ export interface Influencer extends ProjectPicks {
   rateData: {
     reviewer: number;
   };
-  followers: number;
+  followers: string;
   posts: number;
   focus: CategoryTags[];
 }
