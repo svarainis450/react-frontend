@@ -16,3 +16,4 @@ export * from './WaitlistSignUp';
 export * from './Register';
 export * from './Influencers/Influencers';
 export * from './Funds/Funds';
+export * from './ForYou/ForYou';

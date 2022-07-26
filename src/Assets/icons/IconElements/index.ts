@@ -10,3 +10,4 @@ export * from './Today';
 export * from './LastWeek';
 export * from './Upcomming';
 export * from './CommingSoon';
+export * from './Suggestion';

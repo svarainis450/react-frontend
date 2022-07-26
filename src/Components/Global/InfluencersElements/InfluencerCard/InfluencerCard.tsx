@@ -1,29 +1,16 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import {
-  Influencer,
-  Project,
-  ProjectPicks,
-  tags,
-} from 'src/state/reduxstate/projects/types';
+import { Influencer, tags } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import {
-  favoriteProjectsSelector,
-  subscribedInfluencersSelector,
-} from 'src/state/reduxstate/user/selectors';
-import {
-  setFavoriteProjects,
-  setSubscribedInfluencers,
-} from 'src/state/reduxstate/user/slice';
+import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
+import { setSubscribedInfluencers } from 'src/state/reduxstate/user/slice';
 import { icons } from 'src/utils/icons';
 import { SubscribeButton } from '../../Button/SubscribeButton/SubscribeButton';
 import { IndexAxis } from '../../DiscoverElements/IndexAxis/IndexAxis';
-import { PositiveBullsBlock } from '../../DiscoverElements/ProjectCard/PositiveBullsBlock';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
 import { CategoryTag } from '../../TrendsElements/CategoryTag/CategoryTag';
-import { CategoryTags } from '../../TrendsElements/types';
 import {
   Typography,
   TypographyWeight,
