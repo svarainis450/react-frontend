@@ -4,6 +4,7 @@ import { NavClassTypes, UserState } from './types';
 const initialState: UserState = {
   profile_block: 'notifications',
   favorite_projects: [],
+  subscribed_influencers: [],
 };
 
 const userSlice = createSlice({
@@ -31,8 +32,27 @@ const userSlice = createSlice({
         return;
       }
     },
+    setSubscribedInfluencers: (
+      state: { subscribed_influencers: number[] },
+      action: PayloadAction<number | number[]>
+    ) => {
+      if (
+        !Array.isArray(action.payload) &&
+        !state.subscribed_influencers.includes(action.payload)
+      ) {
+        state.subscribed_influencers.push(action.payload);
+      } else if (Array.isArray(action.payload)) {
+        state.subscribed_influencers = action.payload;
+      } else {
+        return;
+      }
+    },
   },
 });
 
-export const { setProfileBlock, setFavoriteProjects } = userSlice.actions;
+export const {
+  setProfileBlock,
+  setFavoriteProjects,
+  setSubscribedInfluencers,
+} = userSlice.actions;
 export default userSlice;

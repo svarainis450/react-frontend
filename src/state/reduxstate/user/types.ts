@@ -8,4 +8,5 @@ export type NavClassTypes =
 export interface UserState {
   profile_block: NavClassTypes;
   favorite_projects: number[];
+  subscribed_influencers: number[];
 }

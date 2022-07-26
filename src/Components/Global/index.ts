@@ -1,3 +1,6 @@
+// BUTTONS
+export * from './Button/SubscribeButton/SubscribeButton';
+
 // TRENDS
 export * from './TrendsElements/CardWrapper/CardWrapper';
 export * from './TrendsElements/TrendingCategory/TrendingCategory';

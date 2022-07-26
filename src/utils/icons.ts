@@ -14,6 +14,8 @@ import link_arrow from '../Assets/icons/link_arrow.svg';
 import search_magnifier from '../Assets/icons/search_magnifier.svg';
 import arrow_right from '../Assets/icons/arrow_right.svg';
 import envelope from '../Assets/icons/envelope.svg';
+import subscribe from '../Assets/icons/subscribe.svg';
+import subscribed from '../Assets/icons/subscribed.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -24,6 +26,7 @@ import positive_element from '../Assets/icons/positive_element.svg';
 import bull_element from '../Assets/icons/bull_element.svg';
 import coin_base from '../Assets/icons/coin_base_icon.svg';
 import top_expert from '../Assets/icons/top_expert.svg';
+import top_expert_mobile from '../Assets/icons/top_expert_mobile.svg';
 
 //Influencers page icons
 import first_mover from '../Assets/icons/first_mover.svg';
@@ -44,6 +47,8 @@ import paypal_logo from '../Assets/icons/payments/paypal_logo.svg';
 import cards_logos from '../Assets/icons/payments/cards_logos.svg';
 
 export const icons = {
+  subscribe,
+  subscribed,
   reviewer,
   first_mover,
   envelope,
@@ -56,6 +61,7 @@ export const icons = {
   youtube,
   reddit,
   top_expert,
+  top_expert_mobile,
   account_icon,
   search_magnifier,
   link_arrow,
