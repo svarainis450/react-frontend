@@ -9,8 +9,13 @@ import manWithRocket from "../../../Assets/images/manWithRocket.svg";
 
 import "./HeroBlock.scss";
 import { LinkList } from '../../../types/links'
+import { CountdownTimer } from "../CountdownTimer";
 
 export const HeroBlock = ({} : HeroBlockProps) => {
+  const THREE_DAYS_IN_MS = 5 * 24 * 60 * 60 * 1000;
+  const NOW_IN_MS = new Date().getTime();
+
+  const dateTimeAfterThreeDays = NOW_IN_MS + THREE_DAYS_IN_MS;
 
   return (
     <div className="HeroBlock">
@@ -25,16 +30,18 @@ export const HeroBlock = ({} : HeroBlockProps) => {
         <Typography 
           className="HeroBlock__subtitle"
         >
-          Join the game before it's too late. Discover which coins & NFTs are being talked about before they rocket to the moon. 🚀
+          Discover which coins & NFTs are being talked about before they rocket to the moon. <span className="HeroBlock__subtitle-emphasize">🚀 Save up to 42% with plans from $5/mo.</span>
         </Typography>
         
+
+        <CountdownTimer targetDate={dateTimeAfterThreeDays} title="Deal ends in:"/>
 
         <Link to={LinkList.WAITLIST}>
           <Button
             onClick={() => console.log('click')}
             className="HeroBlock__cta"
           >
-            Join the Waiting List
+            Get started
           </Button>
         </Link>
 

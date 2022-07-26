@@ -93,6 +93,7 @@ const App = () => {
                 <Route path={LinkList.Checkout} element={<CheckoutPage />} />
                 <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
                 <Route path={LinkList.Success} element={<SuccessPage />} />
+                <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
                 <Route
                   path={LinkList.TermsAndConditions}
                   element={<TermsAndConditions />}
@@ -111,7 +112,7 @@ const App = () => {
                 path={LinkList.Login}
                 element={
                   isLoggedIn() ? (
-                    <Navigate to={LinkList.DASHBOARD} />
+                    <Navigate to={LinkList.TRENDS} />
                   ) : (
                     <Login />
                   )
@@ -121,7 +122,7 @@ const App = () => {
                 path={LinkList.Register}
                 element={
                   isLoggedIn() ? (
-                    <Navigate to={LinkList.DASHBOARD} />
+                    <Navigate to={LinkList.TRENDS} />
                   ) : (
                     <Register />
                   )

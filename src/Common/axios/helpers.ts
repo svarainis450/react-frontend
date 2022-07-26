@@ -35,7 +35,9 @@ export const setAuthToken = (config: AxiosRequestConfig) => {
     ...config,
     headers: {
       ...config.headers,
-      Authorization: Cookies.get("token"),
+      Authorization: `Bearer ${Cookies.get("token") || ''}`,
     },
   };
 };
+
+// `Bearer ${Cookies.get("token")}`
