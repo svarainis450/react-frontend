@@ -24,7 +24,7 @@ export const HeroBlock = ({} : HeroBlockProps) => {
           variant={TypographyVariant.HEADING_MAX}
           className="HeroBlock__title"
         >
-          Easiest way to find the next crypto gem
+          Stay ahead of trends by tracking crypto influencers
         </Typography>
 
         <Typography 

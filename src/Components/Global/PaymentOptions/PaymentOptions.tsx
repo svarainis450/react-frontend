@@ -115,7 +115,7 @@ export const PaymentOptions = ({
               </ul>
 
               <p className="PaymentOptions__card-tobegin">
-                {getCookie?.currencySymbol}{item.beginPrice} to begin
+                Plan renews at {getCookie?.currencySymbol}{item.beginPrice} after 1 year. VAT may apply.
               </p>
             </div>
           );

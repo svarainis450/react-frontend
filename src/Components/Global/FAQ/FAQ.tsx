@@ -33,7 +33,7 @@ export const FAQ = ({faqItems, noTitle, className, noCta} : FAQprops) => {
                 id="panel1a-header"
                 className="FAQ__accordeon-item__summary"
               >
-                <Typography weight={TypographyWeight.MEDIUM}>
+                <Typography weight={TypographyWeight.MEDIUM} className="FAQ__item-title">
                   {item.title}
                 </Typography>
               </AccordionSummary>
