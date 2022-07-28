@@ -1,8 +1,9 @@
+import { Influencer, tags } from 'src/state/reduxstate/projects/types';
+import { calculateFollowers } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
-import { InfluencerData } from './InfluencersTable';
 
 const HEADLINES = [
   'Influencer',
@@ -12,11 +13,10 @@ const HEADLINES = [
   'Post count',
   'Channel',
   'Project',
-  'Link to post',
 ];
 
 interface InfluencersTableRowProps {
-  influencersData: InfluencerData[];
+  influencersData: Influencer[];
 }
 
 export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
@@ -38,13 +38,11 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
             tagName,
             img,
             followers,
-            bullseyeIndex,
-            category,
+            bullseye,
             postCount,
             channel,
-            projectImg,
-            projectName,
-            linkToPost,
+            projects,
+            tag,
           },
           index
         ) => (
@@ -64,13 +62,13 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
               </div>
             </div>
             <div className="influencers-picks__influencers-table__row__thin-text">
-              <Typography>{followers} M</Typography>
+              <Typography>{calculateFollowers(followers)}</Typography>
             </div>
             <div className="influencers-picks__influencers-table__row__bullseye">
-              <TalkRateElement type="bullseye" rate={bullseyeIndex} />
+              <TalkRateElement type="bullseye" rate={bullseye} />
             </div>
             <div>
-              <CategoryTag tagTitle={category} />
+              <CategoryTag tagTitle={tag.name} />
             </div>
             <div className="influencers-picks__influencers-table__row__thin-text">
               <Typography>{postCount}</Typography>
@@ -79,12 +77,17 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
               <Typography>{channel}</Typography>
             </div>
             <div className="influencers-picks__influencers-table__row__projects">
-              <img className="icon" src={projectImg} alt={projectName} />
-              <Typography>{projectName}</Typography>
+              <img
+                className="icon"
+                src={(projects && projects[0].img) || icons.coin_base}
+                alt={(projects && projects[0].name) || ''}
+              />
+              <Typography>{projects && projects[0].name}</Typography>
             </div>
-            <div className="influencers-picks__influencers-table__row__link">
+            {/* TODO: LINk TO POSt */}
+            {/* <div className="influencers-picks__influencers-table__row__link">
               <img src={icons.link_arrow} alt="Link to post" />
-            </div>
+            </div> */}
           </div>
         )
       )}

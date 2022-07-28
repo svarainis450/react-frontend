@@ -33,16 +33,21 @@ export const Top3Element: React.FC<ElementProps> = ({
   };
   return (
     <li className="element">
-      <Typography
-        className="element__diff-color"
-        weight={TypographyWeight.THIN}
-      >{`#${id}`}</Typography>
-      <img className="element__icon" src={icon} alt={projectName} />
-      <div>
-        <Typography className="project-title" weight={TypographyWeight.MEDIUM}>
-          {projectName}
-        </Typography>
-        <CategoryTag tagTitle={tagTitle} />
+      <div className="element__flex">
+        <Typography
+          className="element__flex__diff-color"
+          weight={TypographyWeight.THIN}
+        >{`#${id}`}</Typography>
+        <img className="element__flex__icon" src={icon} alt={projectName} />
+        <div>
+          <Typography
+            className="project-title"
+            weight={TypographyWeight.MEDIUM}
+          >
+            {projectName}
+          </Typography>
+          <CategoryTag tagTitle={tagTitle} />
+        </div>
       </div>
       <>{visual[blockType]}</>
     </li>

@@ -1,5 +1,5 @@
 import { useMediaQuery } from 'src/hooks';
-import { ProjectPicks } from 'src/state/reduxstate/projects/types';
+import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
@@ -9,6 +9,7 @@ import './ProjectPicksTable.scss';
 
 interface ProjectPicksProps {
   pickedProjects: ProjectPicks[];
+  influencerProjects: Project[];
 }
 
 const HEADLINES = [
@@ -21,11 +22,14 @@ const HEADLINES = [
 
 export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   pickedProjects,
+  influencerProjects,
 }) => {
   const { isTablet } = useMediaQuery();
   return (
     <div className="project-picks">
-      {pickedProjects && <ProjectPicksList pickedProjects={pickedProjects} />}
+      {influencerProjects && (
+        <ProjectPicksList pickedProjects={influencerProjects} />
+      )}
       {!isTablet && (
         <div className="project-picks__row titles">
           {HEADLINES.map((item) => (

@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { tags } from 'src/state/reduxstate/projects/types';
+import { Influencer, tags } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import {
   Typography,
@@ -10,22 +10,22 @@ import { CategoryTags } from '../types';
 import './InfluencersTable.scss';
 import { InfluencersTableRows } from './InfluencersTableRows';
 
-export interface InfluencerData {
-  tagName: string;
-  name: string;
-  img: string;
-  followers: number;
-  bullseyeIndex: number;
-  category: CategoryTags;
-  postCount: number;
-  channel: string;
-  projectName: string;
-  projectImg: string;
-  linkToPost: string;
-}
+// export interface InfluencerData {
+//   tagName: string;
+//   name: string;
+//   img: string;
+//   followers: number;
+//   bullseyeIndex: number;
+//   category: CategoryTags;
+//   postCount: number;
+//   channel: string;
+//   projectName: string;
+//   projectImg: string;
+//   linkToPost: string;
+// }
 
 interface InfluencersTableProps {
-  influencersData: InfluencerData[];
+  influencersData: Influencer[];
 }
 
 type SortTypes = 'followers' | 'bullseye';
@@ -34,13 +34,13 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   influencersData,
 }) => {
   const [filteredInfluencers, setfilteredInfluencers] =
-    useState<InfluencerData[]>(influencersData);
+    useState<Influencer[]>(influencersData);
   const [sortType, setSortType] = useState<SortTypes | null>(null);
 
   useEffect(() => {
     if (sortType === 'bullseye') {
       const filterByBullseye = influencersData.sort(
-        (a, b) => b.bullseyeIndex - a.bullseyeIndex
+        (a, b) => b.bullseye - a.bullseye
       );
       setfilteredInfluencers(filterByBullseye);
       setSortType(null);
@@ -55,18 +55,18 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
     }
   }, [sortType, filteredInfluencers, influencersData]);
 
-  const handleCategorySelection = (option: ChangeEvent<HTMLSelectElement>) => {
-    option.preventDefault();
-    const optionValue = option.target.value;
-    if (optionValue === 'category') {
-      setfilteredInfluencers(influencersData);
-    } else {
-      const filteredByCategories = influencersData.filter(
-        (item) => item.category === optionValue
-      );
-      setfilteredInfluencers(filteredByCategories);
-    }
-  };
+  // const handleCategorySelection = (option: ChangeEvent<HTMLSelectElement>) => {
+  //   option.preventDefault();
+  //   const optionValue = option.target.value;
+  //   if (optionValue === 'category') {
+  //     setfilteredInfluencers(influencersData);
+  //   } else {
+  //     const filteredByCategories = influencersData.filter(
+  //       (item) => item.focus === (optionValue as CategoryTags)
+  //     );
+  //     setfilteredInfluencers(filteredByCategories);
+  //   }
+  // };
 
   return (
     <div className="influencers-picks">
@@ -104,9 +104,9 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
           </Typography>
           <select
             className="select"
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              handleCategorySelection(e)
-            }
+            // onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            //   handleCategorySelection(e)
+            // }
           >
             <option value="category" defaultValue="category">
               Category

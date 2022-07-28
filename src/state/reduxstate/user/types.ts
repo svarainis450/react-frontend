@@ -9,4 +9,5 @@ export interface UserState {
   profile_block: NavClassTypes;
   favorite_projects: number[];
   subscribed_influencers: number[];
+  user_token: string | null;
 }

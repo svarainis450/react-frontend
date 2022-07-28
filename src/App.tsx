@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import TagManager from 'react-gtm-module';
 import { useCookies } from 'react-cookie';
-import { PersistGate } from 'redux-persist/integration/react';
 import * as qs from 'query-string';
 
 import {
@@ -31,7 +29,7 @@ import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnN
 
 import { LinkList } from './types';
 import { AddToCardPage, CheckoutPage, SuccessPage } from './pages';
-import { persistor, store } from './state/reduxstate/store';
+import { useAppDispatch } from './state/reduxstate/store';
 
 import { UserInfoContext } from './state/UserInfoContextProvider';
 import { isLoggedIn } from './Common/utils/isLoggedIn';
@@ -41,8 +39,10 @@ import '../src/utils/breakpointsMixins.scss';
 import 'normalize.css';
 import _ from 'lodash';
 import { YourInfluencers } from './Components/Pages/YourInfluencers/YourInfluencers';
+import { setUserToken } from './state/reduxstate/user/slice';
 
 const App = () => {
+  const dispatch = useAppDispatch();
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
   const [currecy, setCurrency] = useState('$');
   const { userInfo, getUserInfo } = useContext(UserInfoContext);
@@ -77,6 +77,8 @@ const App = () => {
   useEffect(() => {
     if (isLoggedIn()) {
       getUserInfo();
+      const token = JSON.parse(String(localStorage.getItem('token')));
+      dispatch(setUserToken(token));
     }
   }, []);
 
@@ -84,111 +86,96 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <ScrollOnNavigation />
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <Routes>
-              <Route>
-                <Route index element={<Frontpage />} />
-                <Route path={LinkList.Faq} element={<FAQpage />} />
-                <Route path={LinkList.Pricing} element={<Pricing />} />
-                <Route path={LinkList.Membership} element={<SalesFunnel />} />
-                <Route path={LinkList.Checkout} element={<CheckoutPage />} />
-                <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
-                <Route path={LinkList.Success} element={<SuccessPage />} />
-                <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
-                <Route
-                  path={LinkList.TermsAndConditions}
-                  element={<TermsAndConditions />}
-                />
-                <Route
-                  path={LinkList.PrivacyPolicy}
-                  element={<PrivacyPolicy />}
-                />
-                <Route path={LinkList.Demo} element={<DemoPage />} />
-                <Route path={LinkList.About} element={<AboutPage />} />
-              </Route>
+        <Routes>
+          <Route>
+            <Route index element={<Frontpage />} />
+            <Route path={LinkList.Faq} element={<FAQpage />} />
+            <Route path={LinkList.Pricing} element={<Pricing />} />
+            <Route path={LinkList.Membership} element={<SalesFunnel />} />
+            <Route path={LinkList.Checkout} element={<CheckoutPage />} />
+            <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
+            <Route path={LinkList.Success} element={<SuccessPage />} />
+            <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
+            <Route
+              path={LinkList.TermsAndConditions}
+              element={<TermsAndConditions />}
+            />
+            <Route path={LinkList.PrivacyPolicy} element={<PrivacyPolicy />} />
+            <Route path={LinkList.Demo} element={<DemoPage />} />
+            <Route path={LinkList.About} element={<AboutPage />} />
+          </Route>
 
-              <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
+          <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
 
-              <Route
-                path={LinkList.Login}
-                element={
-                  isLoggedIn() ? <Navigate to={LinkList.TRENDS} /> : <Login />
-                }
-              />
-              <Route
-                path={LinkList.Register}
-                element={
-                  isLoggedIn() ? (
-                    <Navigate to={LinkList.TRENDS} />
-                  ) : (
-                    <Register />
-                  )
-                }
-              />
-              <Route
-                path={LinkList.DASHBOARD}
-                element={
-                  isLoggedIn() ? (
-                    <Dashboard />
-                  ) : (
-                    <Navigate to={LinkList.Login} />
-                  )
-                }
-              />
-              <Route
-                path={LinkList.TRENDS}
-                element={
-                  isLoggedIn() ? <Trends /> : <Navigate to={LinkList.Login} />
-                }
-              />
-              <Route
-                path={LinkList.DISCOVER}
-                element={
-                  isLoggedIn() ? <Discover /> : <Navigate to={LinkList.Login} />
-                }
-              />
-              <Route
-                path={LinkList.PROFILE}
-                element={
-                  isLoggedIn() ? <Profile /> : <Navigate to={LinkList.Login} />
-                }
-              />
-              <Route
-                path={LinkList.INFLUENCERS}
-                element={
-                  isLoggedIn() ? (
-                    <Influencers />
-                  ) : (
-                    <Navigate to={LinkList.INFLUENCERS} />
-                  )
-                }
-              />
-              <Route
-                path={LinkList.FUNDS}
-                element={
-                  isLoggedIn() ? <Funds /> : <Navigate to={LinkList.TRENDS} />
-                }
-              />
-              <Route
-                path={LinkList.FORYOU}
-                element={
-                  isLoggedIn() ? <ForYou /> : <Navigate to={LinkList.TRENDS} />
-                }
-              />
-              <Route
-                path={LinkList.YOUR_INFLUENCERS}
-                element={
-                  isLoggedIn() ? (
-                    <YourInfluencers />
-                  ) : (
-                    <Navigate to={LinkList.YOUR_INFLUENCERS} />
-                  )
-                }
-              />
-            </Routes>
-          </PersistGate>
-        </Provider>
+          <Route
+            path={LinkList.Login}
+            element={
+              isLoggedIn() ? <Navigate to={LinkList.TRENDS} /> : <Login />
+            }
+          />
+          <Route
+            path={LinkList.Register}
+            element={
+              isLoggedIn() ? <Navigate to={LinkList.TRENDS} /> : <Register />
+            }
+          />
+          <Route
+            path={LinkList.DASHBOARD}
+            element={
+              isLoggedIn() ? <Dashboard /> : <Navigate to={LinkList.Login} />
+            }
+          />
+          <Route
+            path={LinkList.TRENDS}
+            element={
+              isLoggedIn() ? <Trends /> : <Navigate to={LinkList.Login} />
+            }
+          />
+          <Route
+            path={LinkList.DISCOVER}
+            element={
+              isLoggedIn() ? <Discover /> : <Navigate to={LinkList.Login} />
+            }
+          />
+          <Route
+            path={LinkList.PROFILE}
+            element={
+              isLoggedIn() ? <Profile /> : <Navigate to={LinkList.Login} />
+            }
+          />
+          <Route
+            path={LinkList.INFLUENCERS}
+            element={
+              isLoggedIn() ? (
+                <Influencers />
+              ) : (
+                <Navigate to={LinkList.INFLUENCERS} />
+              )
+            }
+          />
+          <Route
+            path={LinkList.FUNDS}
+            element={
+              isLoggedIn() ? <Funds /> : <Navigate to={LinkList.TRENDS} />
+            }
+          />
+          <Route
+            path={LinkList.FORYOU}
+            element={
+              isLoggedIn() ? <ForYou /> : <Navigate to={LinkList.TRENDS} />
+            }
+          />
+          <Route
+            path={LinkList.YOUR_INFLUENCERS}
+            element={
+              isLoggedIn() ? (
+                <YourInfluencers />
+              ) : (
+                <Navigate to={LinkList.YOUR_INFLUENCERS} />
+              )
+            }
+          />
+        </Routes>
       </BrowserRouter>
       <script
         type="text/javascript"

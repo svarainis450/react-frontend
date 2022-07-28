@@ -1,6 +1,9 @@
 // BUTTONS
 export * from './Button/SubscribeButton/SubscribeButton';
 
+// Loader
+export * from './Loader/Loader';
+
 // TRENDS
 export * from './TrendsElements/CardWrapper/CardWrapper';
 export * from './TrendsElements/TrendingCategory/TrendingCategory';

@@ -1,18 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { LoadError, ProjectCard, ProjectFilters } from 'src/Components/Global';
+import {
+  Loader,
+  LoadError,
+  ProjectCard,
+  ProjectFilters,
+} from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import {
-  projectFilterKeySelector,
-  projectsSelector,
-} from 'src/state/reduxstate/projects/selectors';
+import { projectsSelector } from 'src/state/reduxstate/projects/selectors';
 import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 
 import './Discover.scss';
 import { SubmenuListProps } from 'src/Components/Global/Submenu';
 import { Star, Influencers, Funds } from '../../../Assets/icons/IconElements';
+import {
+  ProjectFilterKeys,
+  Statuses,
+} from 'src/state/reduxstate/projects/types';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -33,22 +39,31 @@ export const submenuList: SubmenuListProps[] = [
 ];
 
 export const Discover: React.FC = () => {
-  const projects = useSelector(projectsSelector);
-  const projectFilterKey = useSelector(projectFilterKeySelector);
   const dispatch = useAppDispatch();
 
+  const projects = useSelector(projectsSelector);
+  const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
+  const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
+
   console.log(projects);
+
   useEffect(() => {
-    dispatch(fetchProjects(projectFilterKey || undefined));
-  }, [dispatch, projectFilterKey]);
+    dispatch(
+      fetchProjects({
+        filter: projectsFilter,
+        callBack: setProjectStatus,
+        pagination: 50,
+      })
+    );
+  }, [projectsFilter]);
 
   return (
     <div className="Discover">
       <LoggedInLayout>
         <Submenu menuItems={submenuList} />
-        <ProjectFilters />
+        <ProjectFilters callBack={setProjectsFilter} />
         <div className="Discover__wrapper">
-          {projects ? (
+          {projectsStatus === 'success' &&
             projects.map(
               ({
                 id,
@@ -72,10 +87,9 @@ export const Discover: React.FC = () => {
                   started={started}
                 />
               )
-            )
-          ) : (
-            <LoadError />
-          )}
+            )}
+          {projectsStatus === 'pending' && <Loader />}
+          {projectsStatus === 'error' && <LoadError />}
         </div>
       </LoggedInLayout>
     </div>

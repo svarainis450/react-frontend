@@ -4,8 +4,9 @@ import {
   fetchProjects,
   fetchProjectsPick,
   fetchInfluencers,
+  fetchProjectsByInfluencers,
 } from './thunks';
-import { ProjectFilterKeys, ProjectsState, Statuses } from './types';
+import { Project, ProjectFilterKeys, ProjectsState, Statuses } from './types';
 
 const initialState: ProjectsState = {
   projects: [] as ProjectsState['projects'],
@@ -15,12 +16,40 @@ const initialState: ProjectsState = {
   influencers_picks: [],
   project_picks: [] as ProjectsState['project_picks'],
   influencers: [] as ProjectsState['influencers'],
+  top_3_bull: [],
+  top_3_positive: [],
+  top_3_talk_rate: [],
+  projects_by_influencers: [],
 };
 
 const projectsSlice = createSlice({
   name: 'projects',
   initialState,
   reducers: {
+    setTop3TalkRateProjects: (
+      state: {
+        top_3_talk_rate: ProjectsState['top_3_talk_rate'];
+      },
+      action: PayloadAction<ProjectsState['top_3_talk_rate']>
+    ) => {
+      state.top_3_talk_rate = action.payload;
+    },
+    setTop3PositiveProjects: (
+      state: {
+        top_3_positive: ProjectsState['top_3_positive'];
+      },
+      action: PayloadAction<ProjectsState['top_3_positive']>
+    ) => {
+      state.top_3_positive = action.payload;
+    },
+    setTop3bullProjects: (
+      state: {
+        top_3_bull: ProjectsState['top_3_bull'];
+      },
+      action: PayloadAction<ProjectsState['top_3_bull']>
+    ) => {
+      state.top_3_bull = action.payload;
+    },
     setProjectsFilterKey: (
       state: {
         project_filter_key: ProjectFilterKeys | null;
@@ -65,8 +94,23 @@ const projectsSlice = createSlice({
         state.influencers = action.payload;
       }
     );
+    builder.addCase(
+      fetchProjectsByInfluencers.fulfilled,
+      (
+        state,
+        action: PayloadAction<ProjectsState['projects_by_influencers']>
+      ) => {
+        state.projects_by_influencers = action.payload;
+      }
+    );
   },
 });
 
-export const { setStatus, setProjectsFilterKey } = projectsSlice.actions;
+export const {
+  setStatus,
+  setProjectsFilterKey,
+  setTop3PositiveProjects,
+  setTop3bullProjects,
+  setTop3TalkRateProjects,
+} = projectsSlice.actions;
 export default projectsSlice;

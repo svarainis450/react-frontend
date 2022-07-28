@@ -5,12 +5,19 @@ const initialState: UserState = {
   profile_block: 'notifications',
   favorite_projects: [],
   subscribed_influencers: [],
+  user_token: null,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setUserToken: (
+      state: { user_token: string | null },
+      action: PayloadAction<string>
+    ) => {
+      state.user_token = action.payload;
+    },
     setProfileBlock: (
       state: { profile_block: NavClassTypes },
       action: PayloadAction<NavClassTypes>
@@ -54,5 +61,6 @@ export const {
   setProfileBlock,
   setFavoriteProjects,
   setSubscribedInfluencers,
+  setUserToken,
 } = userSlice.actions;
 export default userSlice;

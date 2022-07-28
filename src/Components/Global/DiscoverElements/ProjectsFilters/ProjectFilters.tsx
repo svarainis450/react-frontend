@@ -1,6 +1,5 @@
-import { setProjectsFilterKey } from 'src/state/reduxstate/projects/slice';
+import { Dispatch, SetStateAction } from 'react';
 import { ProjectFilterKeys, tags } from 'src/state/reduxstate/projects/types';
-import { useAppDispatch } from 'src/state/reduxstate/store';
 import { icons } from 'src/utils/icons';
 import { CategoryTags } from '../../TrendsElements/types';
 import {
@@ -21,13 +20,11 @@ const FILTERS = [
   { title: 'Oldest', key: ProjectFilterKeys.OLDEST },
 ];
 
-export const ProjectFilters: React.FC = () => {
-  const dispatch = useAppDispatch();
+interface ProjectFiltersProps {
+  callBack: Dispatch<SetStateAction<ProjectFilterKeys>>;
+}
 
-  const handleFilters = (filterKey: ProjectFilterKeys) => {
-    dispatch(setProjectsFilterKey(filterKey));
-  };
-
+export const ProjectFilters: React.FC<ProjectFiltersProps> = ({ callBack }) => {
   return (
     <div className="project-filters">
       <div className="project-filters__input-wrapper">
@@ -53,7 +50,7 @@ export const ProjectFilters: React.FC = () => {
           <Typography
             key={title}
             className="project-filters__sort__option"
-            onClick={() => handleFilters(key)}
+            onClick={() => callBack(key)}
           >
             {title}
           </Typography>

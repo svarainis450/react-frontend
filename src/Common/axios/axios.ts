@@ -1,14 +1,14 @@
-import axios, { Canceler } from "axios";
+import axios, { Canceler } from 'axios';
 import {
   cleanUpSessionWhenUnauthorized,
   applyRequestSuffix,
   setAuthToken,
-} from "./helpers";
+} from './helpers';
 
 const API_URL =
-  process.env.NODE_ENV === "development"
-    ? "https://api.potato.to" //change to dev
-    : "https://api.potato.to"
+  process.env.NODE_ENV === 'development'
+    ? 'https://api.potato.to' //change to dev
+    : 'https://api.potato.to';
 
 export const axiosInstance = axios.create({
   baseURL: API_URL,
