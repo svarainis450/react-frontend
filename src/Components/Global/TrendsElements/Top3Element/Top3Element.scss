@@ -10,17 +10,22 @@
 
   list-style: none;
 
-  &__icon {
-    margin: 0 6px 0 0;
-    width: 54px;
-    height: 54px;
-  }
+  &__flex {
+    display: flex;
+    align-items: center;
 
-  &__diff-color {
-    color: var(--color-grey-text);
-  }
+    &__icon {
+      margin: 0 6px 0;
+      width: 54px;
+      height: 54px;
+    }
 
-  .project-title {
-    margin: 0 0 8px;
+    &__diff-color {
+      color: var(--color-grey-text);
+    }
+
+    .project-title {
+      margin: 0 0 8px;
+    }
   }
 }

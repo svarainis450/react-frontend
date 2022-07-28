@@ -16,7 +16,10 @@ export interface Project {
   rateData: RateData;
   influencers?: [];
   coinbaseUrl?: string | null;
-  tag: CategoryTags; //should be added to BE response
+  tag: {
+    name: CategoryTags;
+    color: string;
+  }; //should be added to BE response
 }
 
 export interface TrendingProject {
@@ -53,7 +56,7 @@ export interface Influencer extends ProjectPicks {
   rateData: {
     reviewer: number;
   };
-  followers: string;
+  followers: number;
   posts: number;
   focus: CategoryTags[];
 }
@@ -66,6 +69,10 @@ export interface ProjectsState {
   influencers: Influencer[];
   influencers_picks: [];
   project_picks: ProjectPicks[];
+  top_3_bull: Project[];
+  top_3_talk_rate: Project[];
+  top_3_positive: Project[];
+  projects_by_influencers: Project[];
 }
 
 export const tags = [
@@ -84,6 +91,7 @@ export enum ProjectFilterKeys {
   BEAR = 'bear',
   NEWEST = 'newest',
   OLDEST = 'oldest',
+  NONE = '',
 }
 
 export enum InfluencerFilterKeys {
@@ -100,3 +108,5 @@ export enum PaymentMethodTypes {
   PAYPAL = 'paypal',
   CARDS = 'card',
 }
+
+export type SubmenuFilters = 'today' | 'last-week' | 'upcomming';

@@ -5,6 +5,7 @@ import { Influencer, tags } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
 import { setSubscribedInfluencers } from 'src/state/reduxstate/user/slice';
+import { calculateFollowers } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { SubscribeButton } from '../../Button/SubscribeButton/SubscribeButton';
 import { IndexAxis } from '../../DiscoverElements/IndexAxis/IndexAxis';
@@ -34,7 +35,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   influence = 55,
   influenceChange = -6,
   flag,
-  followers = '550k',
+  followers = 28000,
   posts = 859,
   bullseye,
 }) => {
@@ -45,6 +46,8 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   const [showMore, setShowMore] = useState(false);
   const isPositiveBullseye = bullseyeChange > 0;
   const isPositiveInfluence = influenceChange > 0;
+
+  const followersCalculated = calculateFollowers(followers);
 
   const handleSubscribeBtn = (id: number) => {
     if (!isSubscribedInfluencer) {
@@ -131,7 +134,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
               <div className="flex-wrapper">
                 <div className="stats">
                   <Typography weight={TypographyWeight.BOLD700}>
-                    {followers}
+                    {followersCalculated}
                   </Typography>
                   <Typography
                     className="grey-text"

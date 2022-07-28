@@ -1,176 +1,102 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   CardWrapper,
   InfluencersTable,
+  Loader,
   ProjectPicksTable,
   Top3ElementsSlider,
   TrendingCategory,
 } from 'src/Components/Global';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import { Submenu } from 'src/Components/Global/Submenu';
 import { submenuList } from './constants';
 
 import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
+  fetchInfluencers,
+  fetchProjectsByInfluencers,
   fetchProjectsPick,
+  fetchTop3Projects,
   fetchTrendingProjects,
 } from 'src/state/reduxstate/projects/thunks';
 import {
+  influencersSelector,
   projectPicksSelector,
+  projectsByInfluencersSelector,
+  top3BullProjectsSelector,
+  top3PositiveProjectsSelector,
+  top3TalkRateProjectsSelector,
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
-import { icons } from 'src/utils/icons';
-import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
-import { Project } from 'src/state/reduxstate/projects/types';
+import { Statuses, SubmenuFilters } from 'src/state/reduxstate/projects/types';
+import { Submenu } from './Submenu';
 
 export const Trends: React.FC = () => {
+  const [filter, setFilter] = useState<SubmenuFilters>('today');
+  const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
+
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
-  console.log(trendingProjects);
+  const top3BullProjects = useSelector(top3BullProjectsSelector);
+  const top3PositiveProjects = useSelector(top3PositiveProjectsSelector);
+  const top3TalkRateProjects = useSelector(top3TalkRateProjectsSelector);
+  const influencers = useSelector(influencersSelector);
+  const projectsByInfluencers = useSelector(projectsByInfluencersSelector);
+
+  console.log(projectsByInfluencers);
 
   useEffect(() => {
-    dispatch(fetchTrendingProjects());
+    console.log(filter);
+    dispatch(
+      fetchTrendingProjects({
+        filter: filter,
+        callBack: setTrendingStatus,
+      })
+    );
     dispatch(fetchProjectsPick());
-  }, [dispatch]);
-
-  const demoTop3: Project[] = [
-    {
-      id: 1,
-      img: icons.coin_base,
-      name: 'Bitcoin (BTC)',
-      tag: CategoryTags.coins,
-      rateData: {
-        talkRate: 67,
-        positiveRatio: 66,
-        bullRatio: 33,
-        talkRateChanges: 12,
-      },
-    },
-    {
-      id: 2,
-      img: icons.coin_base,
-      name: 'Dogecoin (DOGE)',
-      tag: CategoryTags.coins,
-      rateData: {
-        talkRate: 67,
-        positiveRatio: 66,
-        bullRatio: 33,
-        talkRateChanges: 12,
-      },
-    },
-    {
-      id: 3,
-      img: icons.coin_base,
-      name: 'Dogecoin (DOGE)',
-      tag: CategoryTags.coins,
-      rateData: {
-        talkRate: 67,
-        positiveRatio: 66,
-        bullRatio: 33,
-        talkRateChanges: 12,
-      },
-    },
-  ];
-
-  const influencersDemo = [
-    {
-      id: 1,
-      name: 'Vitalik Buterin',
-      tagName: '@VitalikButerin',
-      img: icons.coin_base,
-      followers: 540,
-      bullseyeIndex: 23,
-      category: CategoryTags.coins,
-      postCount: 3,
-      channel: 'Twitter',
-      projectName: 'Etherium',
-      projectImg: icons.coin_base,
-      linkToPost: 'asdasd',
-    },
-    {
-      id: 2,
-      name: 'Vitalik Buterin',
-      tagName: '@VitalikButerin',
-      img: icons.coin_base,
-      followers: 120,
-      bullseyeIndex: 84,
-      category: CategoryTags.NFT,
-      postCount: 3,
-      channel: 'Twitter',
-      projectName: 'Etherium',
-      projectImg: icons.coin_base,
-      linkToPost: 'asdasd',
-    },
-    {
-      id: 3,
-      name: 'Vitalik Buterin',
-      tagName: '@VitalikButerin',
-      img: icons.coin_base,
-      followers: 140,
-      bullseyeIndex: 90,
-      category: CategoryTags.meta,
-      postCount: 3,
-      channel: 'Twitter',
-      projectName: 'Etherium',
-      projectImg: icons.coin_base,
-      linkToPost: 'asdasd',
-    },
-    {
-      id: 4,
-      name: 'Vitalik Buterin',
-      tagName: '@VitalikButerin',
-      img: icons.coin_base,
-      followers: 240,
-      bullseyeIndex: 84,
-      category: CategoryTags.meta,
-      postCount: 3,
-      channel: 'Twitter',
-      projectName: 'Etherium',
-      projectImg: icons.coin_base,
-      linkToPost: 'asdasd',
-    },
-    {
-      id: 4,
-      name: 'Vitalik Buterin',
-      tagName: '@VitalikButerin',
-      img: icons.coin_base,
-      followers: 840,
-      bullseyeIndex: 77,
-      category: CategoryTags.defi,
-      postCount: 3,
-      channel: 'Twitter',
-      projectName: 'Etherium',
-      projectImg: icons.coin_base,
-      linkToPost: 'asdasd',
-    },
-  ];
+    dispatch(fetchTop3Projects('bull'));
+    dispatch(fetchTop3Projects('positive'));
+    dispatch(fetchTop3Projects('talk_rate'));
+    dispatch(fetchInfluencers());
+    dispatch(fetchProjectsByInfluencers());
+  }, [filter, dispatch]);
 
   return (
     <div className="Trends">
       <LoggedInLayout>
-        <Submenu menuItems={submenuList} />
+        <Submenu callBack={setFilter} menuItems={submenuList} />
         <section className="wrapper two-columns">
           <CardWrapper title="Trending Category" subtitle="Today">
-            <TrendingCategory trendingProjects={trendingProjects.slice(0, 5)} />
+            {trendingStatus === 'pending' ? (
+              <Loader />
+            ) : (
+              <TrendingCategory trendingProjects={trendingProjects} />
+            )}
           </CardWrapper>
           <CardWrapper
             title="Project picks by most followed crypto experts"
             subtitle="Today"
           >
-            <ProjectPicksTable pickedProjects={projectPicks} />
+            <ProjectPicksTable
+              influencerProjects={projectsByInfluencers}
+              pickedProjects={projectPicks}
+            />
           </CardWrapper>
         </section>
-        <Top3ElementsSlider projects={demoTop3} />
+        <Top3ElementsSlider
+          topBull={top3BullProjects}
+          topPositive={top3PositiveProjects}
+          topTalkRate={top3TalkRateProjects}
+        />
         <section className="wrapper one-column">
           <CardWrapper
             title="List of influencers and their picks"
             subtitle="Today"
           >
-            <InfluencersTable influencersData={influencersDemo} />
+            <InfluencersTable influencersData={influencers} />
           </CardWrapper>
         </section>
       </LoggedInLayout>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ProjectCard, ProjectFilters } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
@@ -19,6 +19,10 @@ import {
 } from '../../../Assets/icons/IconElements';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
+import {
+  ProjectFilterKeys,
+  Statuses,
+} from 'src/state/reduxstate/projects/types';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -40,9 +44,10 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 
 export const ForYou: React.FC = () => {
   const projects = useSelector(projectsSelector);
-  const projectFilterKey = useSelector(projectFilterKeySelector);
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
+  const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
+  const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
 
   const subscribedProjects = projects.filter((project) => {
     return favoriteProjects.some((item) => {
@@ -51,14 +56,20 @@ export const ForYou: React.FC = () => {
   });
 
   useEffect(() => {
-    dispatch(fetchProjects(projectFilterKey || undefined));
-  }, [dispatch, projectFilterKey]);
+    dispatch(
+      fetchProjects({
+        filter: projectsFilter,
+        callBack: setProjectStatus,
+        pagination: 50,
+      })
+    );
+  }, []);
 
   return (
     <div className="For-you">
       <LoggedInLayout>
         <Submenu menuItems={forYouSubmenuList} />
-        <ProjectFilters />
+        {/* <ProjectFilters /> */}
         {subscribedProjects.length === 0 && (
           <div className="empty-dashboard">
             <Typography>

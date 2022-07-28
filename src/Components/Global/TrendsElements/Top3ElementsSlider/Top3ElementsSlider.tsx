@@ -14,11 +14,15 @@ import './Top3ElementsSlider.scss';
 import { Pagination } from 'swiper';
 
 interface Top3ElementsSliderProps {
-  projects: Project[];
+  topPositive: Project[];
+  topBull: Project[];
+  topTalkRate: Project[];
 }
 
 export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
-  projects,
+  topPositive,
+  topBull,
+  topTalkRate,
 }) => {
   const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
     null
@@ -43,15 +47,15 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
             onCloseClick={() => setShowInfoBlock(null)}
             showInfoBlock={showInfoBlock === InfoBlockTypes.rate}
           >
-            {projects ? (
+            {topTalkRate ? (
               <ul className="cards-grid">
-                {projects.map(({ id, img, name, tag, rateData }) => (
+                {topTalkRate.map(({ id, img, name, tag, rateData }) => (
                   <Top3Element
                     key={id}
                     id={id}
                     icon={img}
                     projectName={name}
-                    tagTitle={tag}
+                    tagTitle={tag.name}
                     talkRate={rateData.talkRate}
                     blockType={InfoBlockTypes.rate}
                   />
@@ -73,15 +77,15 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
             onCloseClick={() => setShowInfoBlock(null)}
             showInfoBlock={showInfoBlock === InfoBlockTypes.positive}
           >
-            {projects ? (
+            {topPositive ? (
               <ul className="cards-grid">
-                {projects.map(({ id, img, name, tag, rateData }) => (
+                {topPositive.map(({ id, img, name, tag, rateData }) => (
                   <Top3Element
                     key={id}
                     id={id}
                     icon={img}
                     projectName={name}
-                    tagTitle={tag}
+                    tagTitle={tag.name}
                     talkRate={rateData.talkRate}
                     blockType={InfoBlockTypes.positive}
                   />
@@ -103,15 +107,15 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
             onCloseClick={() => setShowInfoBlock(null)}
             showInfoBlock={showInfoBlock === InfoBlockTypes.bullish}
           >
-            {projects ? (
+            {topBull ? (
               <ul className="cards-grid">
-                {projects.map(({ id, img, name, tag, rateData }) => (
+                {topBull.map(({ id, img, name, tag, rateData }) => (
                   <Top3Element
                     key={id}
                     id={id}
                     icon={img}
                     projectName={name}
-                    tagTitle={tag}
+                    tagTitle={tag.name}
                     talkRate={rateData.talkRate}
                     blockType={InfoBlockTypes.bullish}
                   />
