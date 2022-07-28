@@ -63,7 +63,7 @@ export const fetchTrendingProjects = createAsyncThunk(
       callBack('pending');
 
       try {
-        const resp = await fetch(`${api}/projects/trending/today?limit=5`, {
+        const resp = await fetch(`${api}/projects/trending/${filter}?limit=5`, {
           headers: {
             Authorization: `Bearer ${user.user_token}`,
           },
