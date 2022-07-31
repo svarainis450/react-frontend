@@ -46,31 +46,17 @@ export const ForYou: React.FC = () => {
   const projects = useSelector(projectsSelector);
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
-  const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
-  const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
 
   const subscribedProjects = projects.filter((project) => {
-    return favoriteProjects.some((item) => {
-      return item === project.id;
-    });
+    return favoriteProjects.some((item) => item === project.id);
   });
-
-  useEffect(() => {
-    dispatch(
-      fetchProjects({
-        filter: projectsFilter,
-        callBack: setProjectStatus,
-        pagination: 50,
-      })
-    );
-  }, []);
 
   return (
     <div className="For-you">
       <LoggedInLayout>
         <Submenu menuItems={forYouSubmenuList} />
         {/* <ProjectFilters /> */}
-        {subscribedProjects.length === 0 && (
+        {favoriteProjects.length === 0 && (
           <div className="empty-dashboard">
             <Typography>
               Welcome to your dashboard of interest. To add your favorite

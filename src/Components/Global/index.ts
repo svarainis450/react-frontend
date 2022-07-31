@@ -21,6 +21,7 @@ export * from './DiscoverElements/ProjectsFilters/ProjectFilters';
 
 // INFLUENCERS
 export * from './InfluencersElements/InfluencerCard/InfluencerCard';
+export * from './InfluencersElements/InfluencerFilters/InfluencerFilters';
 
 // MISC
 export * from './TalkRateElement/TalkRateElement';

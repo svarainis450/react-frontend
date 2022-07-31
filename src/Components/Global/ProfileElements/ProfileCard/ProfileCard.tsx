@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { tags } from 'src/state/reduxstate/projects/types';
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
+import { icons } from 'src/utils/icons';
 import { images } from 'src/utils/images';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
 import { CategoryTag } from '../../TrendsElements/CategoryTag/CategoryTag';
@@ -24,11 +25,13 @@ export const ProfileCard: React.FC = () => {
     <div className="profile-card">
       <img
         className="profile-card__avatar"
-        src={images.avatar}
+        src={userInfo.image || icons.no_image}
         alt="Profile avatar"
       />
       <CardWrapper>
-        <Typography className="profile-card__name">Vardas Pavarde</Typography>
+        <Typography className="profile-card__name">
+          {userInfo.name || 'Name'} {userInfo.surname || 'Surname'}
+        </Typography>
         <div className="profile-card__border-wrapper">
           <div className="profile-card__border-wrapper__edit">
             <Typography className="bolded-text">Selected Interests</Typography>
@@ -57,7 +60,7 @@ export const ProfileCard: React.FC = () => {
             <label>First name</label>
             {/* TODO: billing. value={name from state} */}
             <input
-              value="First Name"
+              value={userInfo.name || 'Name'}
               type="text"
               disabled={editData.information}
             />
@@ -90,7 +93,7 @@ export const ProfileCard: React.FC = () => {
             <label>Email</label>
             {/* TODO: billing. value={email from state} */}
             <input
-              value="First Name"
+              value={userInfo.email || 'your@email.com'}
               type="email"
               disabled={editData.account}
             />
@@ -98,13 +101,17 @@ export const ProfileCard: React.FC = () => {
           <div className="profile-card__border-wrapper__input-wrapper">
             <label>Password</label>
             {/* TODO: billing. value={pasw from state}  not sure if this a good decision*/}
-
             <input
               value="Password"
               type="password"
               disabled={editData.account}
             />
           </div>
+          {(!editData.account ||
+            !editData.information ||
+            !editData.interests) && (
+            <button className="done-button">Done</button>
+          )}
         </div>
       </CardWrapper>
     </div>

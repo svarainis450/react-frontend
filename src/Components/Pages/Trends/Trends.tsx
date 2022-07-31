@@ -30,12 +30,18 @@ import {
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
-import { Statuses, SubmenuFilters } from 'src/state/reduxstate/projects/types';
+import {
+  InfluencerFilterKeys,
+  Statuses,
+  SubmenuFilters,
+} from 'src/state/reduxstate/projects/types';
 import { Submenu } from './Submenu';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('today');
   const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
+  const [influencersStatus, setinfluencersStatus] = useState<Statuses>('idle');
 
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
@@ -45,11 +51,11 @@ export const Trends: React.FC = () => {
   const top3TalkRateProjects = useSelector(top3TalkRateProjectsSelector);
   const influencers = useSelector(influencersSelector);
   const projectsByInfluencers = useSelector(projectsByInfluencersSelector);
+  const token = useSelector(userTokenSelector);
 
   console.log(projectsByInfluencers);
 
   useEffect(() => {
-    console.log(filter);
     dispatch(
       fetchTrendingProjects({
         filter: filter,
@@ -60,9 +66,15 @@ export const Trends: React.FC = () => {
     dispatch(fetchTop3Projects('bull'));
     dispatch(fetchTop3Projects('positive'));
     dispatch(fetchTop3Projects('talk_rate'));
-    dispatch(fetchInfluencers());
+    dispatch(
+      fetchInfluencers({
+        callBack: setinfluencersStatus,
+        filter: InfluencerFilterKeys.FOLLOWERS,
+        limit: 10,
+      })
+    );
     dispatch(fetchProjectsByInfluencers());
-  }, [filter, dispatch]);
+  }, [filter, dispatch, token]);
 
   return (
     <div className="Trends">

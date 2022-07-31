@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { ProjectFilterKeys, tags } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { CategoryTags } from '../../TrendsElements/types';
@@ -22,9 +22,19 @@ const FILTERS = [
 
 interface ProjectFiltersProps {
   callBack: Dispatch<SetStateAction<ProjectFilterKeys>>;
+  categoryCallBack: Dispatch<SetStateAction<CategoryTags | undefined>>;
 }
 
-export const ProjectFilters: React.FC<ProjectFiltersProps> = ({ callBack }) => {
+export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
+  callBack,
+  categoryCallBack,
+}) => {
+  const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    callBack(ProjectFilterKeys.CATEGORY);
+    categoryCallBack(e.target.value as CategoryTags);
+  };
+
   return (
     <div className="project-filters">
       <div className="project-filters__input-wrapper">
@@ -58,9 +68,9 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({ callBack }) => {
 
         <select
           className="select"
-          //   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-          //     handleCategorySelection(e)
-          //   }
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            handleCategorySelection(e)
+          }
         >
           <option value="category" defaultValue="category">
             Category

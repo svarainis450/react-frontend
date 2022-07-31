@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
-import { RootState } from '../slice';
-import { api, demoToken } from '../types';
-import { UserState } from '../user/types';
+import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { api } from '../types';
 import {
   setTop3bullProjects,
   setTop3PositiveProjects,
@@ -18,24 +17,32 @@ import {
 interface ProjectsPayload {
   callBack: Dispatch<SetStateAction<Statuses>>;
   filter: ProjectFilterKeys;
-  pagination: number;
+  offset: number;
+  filterValue?: CategoryTags | number | string;
 }
+
+const token = JSON.parse(String(localStorage.getItem('token')));
 
 export const fetchProjects = createAsyncThunk(
   'projects/GET_PROJECTS',
-  async ({ callBack, filter, pagination }: ProjectsPayload, { getState }) => {
-    const { user } = getState() as RootState;
-    const url = filter
-      ? `${api}/projects/today?filters[${filter}]=1&limit=50&offset=30`
-      : `${api}/projects/today?limit=50&offset=0`;
+  async ({ callBack, filter, offset, filterValue = 1 }: ProjectsPayload) => {
+    const setFilterValue =
+      filter === ProjectFilterKeys.CATEGORY
+        ? String(filterValue).toLowerCase()
+        : 1;
 
-    console.log(url);
-    if (user.user_token) {
+    const url =
+      filter.length > 0
+        ? `${api}/projects/today?filters[${filter}]=${setFilterValue}&limit=50&offset=${offset}`
+        : `${api}/projects/today?limit=50&offset=${offset}`;
+
+    console.log(token);
+    if (token) {
       try {
         callBack('pending');
         const resp = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${user.user_token}`,
+            Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
         callBack('success');
@@ -55,17 +62,14 @@ interface TrendingProjectsPayload {
 
 export const fetchTrendingProjects = createAsyncThunk(
   'projects/GET_TRENDING_PROJECTS',
-  async ({ filter, callBack }: TrendingProjectsPayload, { getState }) => {
-    const { user } = getState() as RootState;
-
-    console.log(user.user_token);
-    if (user.user_token && filter) {
+  async ({ filter, callBack }: TrendingProjectsPayload) => {
+    if (token && filter) {
       callBack('pending');
 
       try {
         const resp = await fetch(`${api}/projects/trending/${filter}?limit=5`, {
           headers: {
-            Authorization: `Bearer ${user.user_token}`,
+            Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
         callBack('success');
@@ -81,31 +85,51 @@ export const fetchTrendingProjects = createAsyncThunk(
 export const fetchProjectsPick = createAsyncThunk(
   'projects/GET_PROJECT_PICKS',
   async () => {
-    try {
-      const resp = await fetch(`${api}/influencers/today?limit=10&offset=0`, {
-        headers: {
-          Authorization: `Bearer ${demoToken}`,
-        },
-      }).then((res) => res.json());
-      return resp.result;
-    } catch (e) {
-      console.log(e);
+    if (token) {
+      try {
+        const resp = await fetch(`${api}/influencers/today?limit=10`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((res) => res.json());
+        return resp.result;
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 );
 
+interface InfluencersPayload {
+  callBack: Dispatch<SetStateAction<Statuses>>;
+  filter: InfluencerFilterKeys;
+  limit?: number;
+  offset?: number;
+}
+
 export const fetchInfluencers = createAsyncThunk(
   'projects/GET_INFLUENCERS',
-  async (filterKey?: InfluencerFilterKeys) => {
-    try {
-      const resp = await fetch(`${api}/influencers?limit=10&offset=0`, {
-        headers: {
-          Authorization: `Bearer ${demoToken}`,
-        },
-      }).then((res) => res.json());
-      return resp.result;
-    } catch (e) {
-      console.log(e);
+  async ({ callBack, filter, limit = 50, offset = 0 }: InfluencersPayload) => {
+    const filterType = String(filter).toLowerCase();
+    const url = filter
+      ? `${api}/influencers?filter[${filterType}]=1&limit=${limit}&offset=${offset}`
+      : `${api}/influencers?limit=${limit}`;
+
+    callBack('pending');
+    if (token) {
+      try {
+        const resp = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((res) => res.json());
+        console.log(resp);
+        callBack('success');
+        return resp.result;
+      } catch (e) {
+        callBack('error');
+        console.log(e);
+      }
     }
   }
 );
@@ -114,15 +138,14 @@ type FilterKey = 'talk_rate' | 'positive' | 'bull';
 
 export const fetchTop3Projects = createAsyncThunk(
   'projects/GET_TOP3_PROJECTS',
-  async (filter: FilterKey, { getState, dispatch }) => {
-    const { user } = getState() as RootState;
-    if (user.user_token) {
+  async (filter: FilterKey, { dispatch }) => {
+    if (token) {
       try {
         const resp = await fetch(
           `${api}/projects/today?filters[${filter}]=1&limit=3`,
           {
             headers: {
-              Authorization: `Bearer ${user.user_token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         ).then((res) => res.json());
@@ -146,18 +169,20 @@ export const fetchTop3Projects = createAsyncThunk(
 export const fetchProjectsByInfluencers = createAsyncThunk(
   'projects/GET_PROJECTS_BY_INFLUENCERS',
   async () => {
-    try {
-      const resp = await fetch(
-        `${api}/projects?filters[top]=influencer&limit=5`,
-        {
-          headers: {
-            Authorization: `Bearer ${demoToken}`,
-          },
-        }
-      ).then((res) => res.json());
-      return resp.result;
-    } catch (e) {
-      console.log(e);
+    if (token) {
+      try {
+        const resp = await fetch(
+          `${api}/projects?filters[top]=influencer&limit=5`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        ).then((res) => res.json());
+        return resp.result;
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 );
