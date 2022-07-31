@@ -8,6 +8,8 @@ import { HeroMiniBlock } from 'src/Components/Global/HeroMiniBlock';
 import { LinkList } from 'src/types';
 import { useMediaQuery } from 'src/hooks';
 import { Layout } from '../Layout';
+import { TwoSideBlock } from 'src/Components/Global/TwoSideBlock';
+import { HeroTitle } from 'src/Components/Global/HeroTitle';
 
 export const Partnerships = () => {
   const { isDesktop } = useMediaQuery();
@@ -32,6 +34,16 @@ export const Partnerships = () => {
           
         </HeroMiniBlock>
 
+        <HeroTitle 
+          className='Partnerships__heroTitle'
+          title='Why partner with Potato?'/>
+
+        <TwoSideBlock
+          className="Partnerships__TwoSideBlock"
+          title="Join the Potato Partnership Program and start earning money now!"
+          ctaText="For Influencers & Brand Ambassadors"
+          url={LinkList.INFLUENCERS}
+        />
       </div>
     </Layout>
   );

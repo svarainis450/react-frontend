@@ -41,4 +41,22 @@
       margin: 0 1.625rem;
     }
   }
+
+  &__heroTitle {
+    margin-top: 2.875rem;
+    
+    @media (min-width: 1024px) {
+      margin-top: 3.75rem;
+    }
+  }
+
+  &__TwoSideBlock {
+    .TwoSideBlock__cta {
+      margin-top: 2.125rem;
+
+      @media (min-width: 1024px) {
+        width: 20.5rem;
+      }
+    }
+  }
 }

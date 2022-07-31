@@ -1,6 +1,6 @@
 export interface TwoSideBlockProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   url?: string;
   img?: string;
   className?: string;
