@@ -24,4 +24,24 @@
   &__next {
     margin-left: 3rem;
   }
+
+  .arrowLeft {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../../Assets/images/arrowLeft.svg") !important;
+
+    &:hover {
+      background-image: url("../../../../Assets/images/arrowLeftHover.svg") !important;
+    }
+  }
+
+  .arrowRight {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../../Assets/images/arrowRight.svg") !important;
+
+    &:hover {
+      background-image: url("../../../../Assets/images/arrowRightHover.svg") !important;
+    }
+  }
 }

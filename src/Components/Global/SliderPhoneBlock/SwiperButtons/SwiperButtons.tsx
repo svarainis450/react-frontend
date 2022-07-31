@@ -11,11 +11,11 @@ export const SwiperButtons = () => {
   return (
     <div className='SwiperButtons'>
       <button className='SwiperButtons__prev' onClick={() => swiper.slidePrev()}>
-        <img src={arrowLeft} alt="previous" />
+        <div className="arrowLeft"/>
       </button>
 
       <button className='SwiperButtons__next'onClick={() => swiper.slideNext()}>
-        <img src={arrowright} alt="next" />
+        <div className="arrowRight"/>
       </button>
     </div>
   );

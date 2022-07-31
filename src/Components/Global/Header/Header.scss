@@ -31,6 +31,10 @@
 
     &__link {
       margin: 0 1.125rem;
+
+      &:hover{ 
+        font-weight: 600;
+      }
     }
   }
 
