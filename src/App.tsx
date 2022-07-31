@@ -23,6 +23,7 @@ import {
   Influencers,
   Funds,
   ForYou,
+  Partnerships
 } from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
@@ -96,6 +97,7 @@ const App = () => {
             <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
             <Route path={LinkList.Success} element={<SuccessPage />} />
             <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
+            <Route path={LinkList.PARTNERSHIPS} element={<Partnerships />} />
             <Route
               path={LinkList.TermsAndConditions}
               element={<TermsAndConditions />}

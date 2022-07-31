@@ -1,35 +1,31 @@
 import { Button } from "../Button";
-import { Typography, TypographyVariant } from "../Typography";
-import { StatisticsHero } from "../StatisticsHero";
 import { HeroMiniBlockProps } from "./types";
 import { Link } from 'react-router-dom'
 
-import rocketImg from "../../../Assets/images/rocket.svg";
-
 import "./HeroMiniBlock.scss";
-import { LinkList } from '../../../types/links'
+import classNames from "classnames";
 
-export const HeroMiniBlock = ({} : HeroMiniBlockProps) => {
+export const HeroMiniBlock = ({children, ctaText, ctaLink, img, className}  : HeroMiniBlockProps) => {
 
   return (
-    <div className="HeroMiniBlock">
+    <div className={classNames('HeroMiniBlock', className)} >
       <div className="HeroMiniBlock__content">
         <p className="HeroMiniBlock__title">
-          We’re on a mission to help people discover <b>x100 opportunities</b> before it’s too late
+          {children}
         </p>
 
-        <Link to={LinkList.WAITLIST}>
+        <Link to={ctaLink}>
           <Button
             onClick={() => undefined}
             className="HeroMiniBlock__cta"
           >
-            Join the Waiting List
+            {ctaText}
           </Button>
         </Link>
       </div>
 
       <div className="HeroMiniBlock__img">
-        <img className="HeroMiniBlock__mainimg" src={rocketImg} alt="rocketImg" />
+        <img className="HeroMiniBlock__mainimg" src={img} alt="rocketImg" />
       </div>
     </div>
   );

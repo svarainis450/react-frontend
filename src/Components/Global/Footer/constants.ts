@@ -20,6 +20,7 @@ export const pageListLarge = [
       {title: 'About', url: LinkList.About},
       {title: 'Pricing', url: LinkList.Pricing},
       {title: 'Demo tour', url: LinkList.Demo},
+      {title: 'Partnerships', url: LinkList.PARTNERSHIPS},
     ]
   },
   {
