@@ -12,8 +12,20 @@
       }
     }
 
+    .TwoSideBlock__img {
+      @media (max-width: 1023px) {
+        width: 100%;
+      }
+      
+    }
+    
     img {
-      height: 17.5rem;
+      @media (max-width: 1023px) {
+        padding-left: 2rem;
+        width: 22rem;
+        max-height: initial;
+        max-width: initial;
+      }
 
       @media (min-width: 1024px) {
         height: 22.75rem;

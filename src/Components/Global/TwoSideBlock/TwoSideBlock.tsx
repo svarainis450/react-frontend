@@ -42,7 +42,7 @@ export const TwoSideBlock = ({title, subtitle, url, img, ctaText, className} : T
             alt="heroMessage"
           />
 
-          <Link to={url || "/"}>
+          <Link to={url || "/"} >
             <Button
               onClick={() => console.log('click')}
               className="TwoSideBlock__cta mobile"

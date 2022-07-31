@@ -37,7 +37,7 @@ export const Footer = () => {
            className="Footer__copyright desktop"
            variant={TypographyVariant.TEXT_SMALL}
         >
-          © Potato.to   |  All Rights Reserved
+          © 2022 Potato.to  –  crypto, NFT & web3 insight aggregator   |  All Rights Reserved
         </Typography>
       </div>
 
@@ -72,7 +72,7 @@ export const Footer = () => {
             className="Footer__copyright mobile"
             variant={TypographyVariant.TEXT_SMALL}
           >
-            © Potato.to   |  All Rights Reserved
+            © 2022 Potato.to  –  crypto, NFT & web3 insight aggregator   |  All Rights Reserved
           </Typography>
 
           {generatePaymentBlocks()}

@@ -35,7 +35,7 @@ export const Reasoning = () => {
               <HeroTitle 
                 className='Reasoning__text-block'
                 smallTitle
-                title="Experienced team"
+                title="Market experience"
                 subtitle="We're a team of the most experienced web data extraction professionals, entrepreneurs, and marketers"
               />
             </div>
@@ -95,7 +95,7 @@ export const Reasoning = () => {
                 </div>
 
                 <Typography weight={TypographyWeight.MEDIUM}>
-                  Experienced team
+                Market experience
                 </Typography>
               </AccordionSummary>
 
