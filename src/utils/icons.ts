@@ -16,6 +16,7 @@ import arrow_right from '../Assets/icons/arrow_right.svg';
 import envelope from '../Assets/icons/envelope.svg';
 import subscribe from '../Assets/icons/subscribe.svg';
 import subscribed from '../Assets/icons/subscribed.svg';
+import no_image from '../Assets/icons/no_image.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -47,6 +48,7 @@ import paypal_logo from '../Assets/icons/payments/paypal_logo.svg';
 import cards_logos from '../Assets/icons/payments/cards_logos.svg';
 
 export const icons = {
+  no_image,
   subscribe,
   subscribed,
   reviewer,

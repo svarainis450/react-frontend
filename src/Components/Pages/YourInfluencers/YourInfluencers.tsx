@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { InfluencerCard, ProjectFilters } from 'src/Components/Global';
+import { InfluencerCard, InfluencerFilters } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import { influencersSelector } from 'src/state/reduxstate/projects/selectors';
@@ -11,15 +11,17 @@ import './YourInfluencers.scss';
 import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import { forYouSubmenuList } from '../ForYou/ForYou';
-import { ProjectFilterKeys } from 'src/state/reduxstate/projects/types';
+import {
+  InfluencerFilterKeys,
+  ProjectFilterKeys,
+  Statuses,
+} from 'src/state/reduxstate/projects/types';
 
 export const YourInfluencers: React.FC = () => {
   const influencers = useSelector(influencersSelector);
-  const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(subscribedInfluencersSelector);
-  const [influencersFilter, setInfluencersFilter] = useState<ProjectFilterKeys>(
-    ProjectFilterKeys.NONE
-  );
+  const [influencersFilter, setInfluencersFilter] =
+    useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
 
   const subscribedInfluencers = influencers.filter((influencer) => {
     return favoriteProjects.some((item) => {
@@ -27,15 +29,12 @@ export const YourInfluencers: React.FC = () => {
     });
   });
 
-  useEffect(() => {
-    dispatch(fetchInfluencers());
-  }, [dispatch]);
-
   return (
     <div className="Your-influencers">
       <LoggedInLayout>
         <Submenu menuItems={forYouSubmenuList} />
-        <ProjectFilters callBack={setInfluencersFilter} />
+        {/* TODO: waiting for backend post request */}
+        {/* <InfluencerFilters callBack={setInfluencersFilter} /> */}
         {subscribedInfluencers.length === 0 && (
           <div className="empty-dashboard">
             <Typography>

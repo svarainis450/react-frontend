@@ -1,3 +1,7 @@
 import './Loader.scss';
 
-export const Loader: React.FC = () => <span className="loader" />;
+export const Loader: React.FC = () => (
+  <div className="loader-wrapper">
+    <span className="loader" />
+  </div>
+);

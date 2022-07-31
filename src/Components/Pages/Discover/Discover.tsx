@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import {
   Loader,
   LoadError,
@@ -19,6 +20,9 @@ import {
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
+import InfiniteScroll from 'react-infinite-scroller';
+import { Button } from 'src/Components/Global/Button';
+import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -43,25 +47,46 @@ export const Discover: React.FC = () => {
 
   const projects = useSelector(projectsSelector);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
+  const [categoryValue, setCategoryValue] = useState<CategoryTags | undefined>(
+    undefined
+  );
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
-
-  console.log(projects);
+  const [offsetCount, setOffsetCount] = useState(0);
+  const notAllToShow = offsetCount < 3000;
 
   useEffect(() => {
     dispatch(
       fetchProjects({
         filter: projectsFilter,
         callBack: setProjectStatus,
-        pagination: 50,
+        offset: offsetCount,
+        filterValue: categoryValue,
       })
     );
-  }, [projectsFilter]);
+  }, [projectsFilter, offsetCount, dispatch, categoryValue]);
+
+  const handleLoadMoreBtn = () => {
+    if (notAllToShow) {
+      setOffsetCount(offsetCount + 50);
+    } else {
+      const seenAll = 'You`ve seen it all';
+      return seenAll;
+    }
+  };
+
+  console.log(offsetCount);
+  console.log(projectsStatus);
 
   return (
     <div className="Discover">
       <LoggedInLayout>
         <Submenu menuItems={submenuList} />
-        <ProjectFilters callBack={setProjectsFilter} />
+        <ProjectFilters
+          callBack={setProjectsFilter}
+          categoryCallBack={setCategoryValue}
+        />
+
+        {projectsStatus === 'pending' && <Loader />}
         <div className="Discover__wrapper">
           {projectsStatus === 'success' &&
             projects.map(
@@ -88,9 +113,11 @@ export const Discover: React.FC = () => {
                 />
               )
             )}
-          {projectsStatus === 'pending' && <Loader />}
-          {projectsStatus === 'error' && <LoadError />}
         </div>
+        {notAllToShow && projectsStatus !== 'pending' && (
+          <Button onClick={() => handleLoadMoreBtn()}>Load more</Button>
+        )}
+        {projectsStatus === 'error' && <LoadError />}
       </LoggedInLayout>
     </div>
   );

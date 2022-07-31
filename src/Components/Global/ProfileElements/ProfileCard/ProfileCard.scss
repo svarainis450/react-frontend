@@ -85,6 +85,16 @@
 
       width: 100%;
     }
+
+    .done-button {
+      all: unset;
+      margin: 16px 0 0;
+
+      float: right;
+      color: var(--color-blue);
+      font-weight: 700;
+      cursor: pointer;
+    }
   }
 
   .bolded-text {

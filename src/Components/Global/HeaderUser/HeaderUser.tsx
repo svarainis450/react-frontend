@@ -13,9 +13,10 @@ import Bell from '../../../Assets/icons/bell.svg';
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 
 import './HeaderUser.scss';
+import { icons } from 'src/utils/icons';
 
 export const HeaderUser = ({ onMenuToggle }: HeaderUserProps) => {
-  const {userInfo, setUserInfo, isLoggedIn} = useContext(UserInfoContext);
+  const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
   const [notificationsActive, setNotificationsActive] = useState(false);
 
   return (
@@ -37,16 +38,19 @@ export const HeaderUser = ({ onMenuToggle }: HeaderUserProps) => {
       </div>
 
       <div className="HeaderUser__notifications-wrapper">
-        <button className="HeaderUser__notifications" onClick={() => setNotificationsActive((value) => !value)}>
+        <button
+          className="HeaderUser__notifications"
+          onClick={() => setNotificationsActive((value) => !value)}
+        >
           <img src={Bell} alt="logo" />
         </button>
 
-        {notificationsActive && (<>Notif component</>)}
+        {notificationsActive && <>Notif component</>}
       </div>
 
       <Link to={LinkList.PROFILE} className="HeaderUser__profile desktop">
-        <img src={userInfo.img} alt="user img" />
-      </Link> 
+        <img src={userInfo.img || icons.no_image} alt="user img" />
+      </Link>
     </div>
   );
 };

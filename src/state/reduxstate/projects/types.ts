@@ -91,6 +91,7 @@ export enum ProjectFilterKeys {
   BEAR = 'bear',
   NEWEST = 'newest',
   OLDEST = 'oldest',
+  CATEGORY = 'category',
   NONE = '',
 }
 
@@ -102,6 +103,7 @@ export enum InfluencerFilterKeys {
   FIRST_MOVER = 'first_mover',
   REVIEWER = 'reviewer',
   RATE = 'rate',
+  NONE = '',
 }
 
 export enum PaymentMethodTypes {
