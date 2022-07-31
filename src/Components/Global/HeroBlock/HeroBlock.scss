@@ -48,11 +48,12 @@
   }
 
   &__cta {
-    width: 11.875rem;
+    width: 100%;
     display: block;
     margin: 0 auto 0.5rem;
-
+    
     @media (min-width: 1024px) {
+      width: 11.875rem;
       margin: 0 0 5.438rem;
     }
   }
