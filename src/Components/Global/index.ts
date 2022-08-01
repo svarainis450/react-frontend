@@ -14,6 +14,9 @@ export * from './TrendsElements/Top3ElementsSlider/Top3ElementsSlider';
 export * from './TrendsElements/InfluencersTable/InfluencersTable';
 export * from './TrendsElements/ProjectPicks/ProjectPicksTable';
 
+// UPCOMMING PROJECTS
+export * from './UpcommingProjects/UpcommingLayout/UpcommingLayout';
+
 // DISCOVER
 export * from './DiscoverElements/ProjectCard/ProjectCard';
 export * from './DiscoverElements/IndexAxis/IndexAxis';
