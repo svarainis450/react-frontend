@@ -18,15 +18,17 @@ export const UpcommingElement: React.FC = () => {
     <div className="upcomming-element">
       {!isTablet && (
         <>
-          <div>
-            <Typography className="grey-text">#1</Typography>
-          </div>
-          <img className="project-icon" src={icons.no_image} alt="name" />
-          <div>
-            <Typography weight={TypographyWeight.MEDIUM}>
-              Stellar (XML)
-            </Typography>
-            <CategoryTag tagTitle={CategoryTags.coins} />
+          <div className="flex-start">
+            <div>
+              <Typography className="grey-text">#1</Typography>
+            </div>
+            <img className="project-icon" src={icons.no_image} alt="name" />
+            <div>
+              <Typography weight={TypographyWeight.MEDIUM} className="title">
+                Stellar (XML)
+              </Typography>
+              <CategoryTag tagTitle={CategoryTags.coins} />
+            </div>
           </div>
           <div className="project-desc">
             <Typography
@@ -42,12 +44,17 @@ export const UpcommingElement: React.FC = () => {
             <Typography variant={TypographyVariant.TEXT_SMALL}>
               Opening in
             </Typography>
-            <Typography weight={TypographyWeight.BOLD700}>3 days</Typography>
+            <Typography
+              variant={TypographyVariant.DEFAULT}
+              weight={TypographyWeight.BOLD700}
+            >
+              3 days
+            </Typography>
           </div>
           <TalkRateElement rate={67} />
           <img src={icons.positive_element} alt="positive" />
           <img src={icons.bull_element} alt="bull" />
-          <button>Learn More</button>
+          <button className="learn-more-btn">Learn More</button>
         </>
       )}
       {isTablet && (
@@ -55,12 +62,16 @@ export const UpcommingElement: React.FC = () => {
           <div className="upcomming-element__mobile-wrapper bordered">
             <img className="project-icon" src={icons.no_image} alt="name" />
             <div>
-              <Typography weight={TypographyWeight.MEDIUM} className="title">
+              <Typography
+                variant={TypographyVariant.SUBHEADING}
+                weight={TypographyWeight.MEDIUM}
+                className="title"
+              >
                 Stellar (XML)
               </Typography>
               <CategoryTag tagTitle={CategoryTags.coins} />
             </div>
-            <button>Learn More</button>
+            <button className="learn-more-btn">Learn More</button>
           </div>
           <div className="project-desc">
             <Typography

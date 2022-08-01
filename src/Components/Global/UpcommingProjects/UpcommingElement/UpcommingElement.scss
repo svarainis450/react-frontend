@@ -19,9 +19,12 @@
   }
 
   .project-icon {
-    margin: 0 24px 0 10px;
     width: 54px;
     height: 54px;
+
+    @include desktop {
+      margin: 0 24px 0 10px;
+    }
   }
 
   .grey-text {
@@ -39,7 +42,7 @@
   }
 
   .project-opening {
-    max-width: 60px;
+    max-width: 65px;
 
     text-align: center;
   }
@@ -58,5 +61,28 @@
 
   .title {
     margin: 0 0 6px;
+  }
+
+  .learn-more-btn {
+    all: unset;
+    display: block;
+    padding: 8px;
+    max-width: 100px;
+    width: 100%;
+
+    border-radius: 50px;
+    border: 1px solid var(--color-black);
+    text-align: center;
+
+    @include desktop {
+      max-width: 140px;
+    }
+  }
+
+  .flex-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 20%;
   }
 }
