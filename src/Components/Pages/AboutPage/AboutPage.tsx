@@ -8,31 +8,37 @@ import { Commitments, commitmentsList } from '../../Global/Commitments';
 import { PotatoFactsBlock } from '../../Global/PotatoFactsBlock';
 import { TwoSideBlock } from '../../Global/TwoSideBlock';
 
-import drawer from '../../../Assets/images/allFeatureCards/drawer.svg';
-
-import './AboutPage.scss';
+import memojiDesktop from '../../../Assets/images/aboutPage/memoji_desktop.svg';
+import memojiMobile from '../../../Assets/images/aboutPage/memoji_mobile.svg';
 import { LinkList } from '../../../types';
 
+import rocketImg from "../../../Assets/images/rocket.svg";
+
+import './AboutPage.scss';
+
+import { useMediaQuery } from '../../../hooks';
+
 export const AboutPage = () => {
+  const { isDesktop } = useMediaQuery();
+
   return (
     <Layout>
         <div className="AboutPage">
-          {/* <PageTitle 
-            className='AboutPage__title'
-            title='All-in-one platform to discover the next x100 crypto opportunity'
-            subtitle='Potato makes it easier than ever to track top crypto influencers’ picks and stay ahead of trading trends'
-          /> */}
-
-
-        <HeroMiniBlock />
+        <HeroMiniBlock
+          ctaLink={LinkList.WAITLIST}
+          ctaText="Join the Waiting List"
+          img={rocketImg}
+        >
+          We’re on a mission to help people discover <b>x100 opportunities</b> before it’s too late
+        </HeroMiniBlock>
         <Commitments commitmentsList={commitmentsList}/>
         <PotatoFactsBlock/>
         <TwoSideBlock 
           className='AboutPage__twoSideBlock'
           title='Our Team'
-          subtitle='The Potato team includes some of the most experienced web data extraction professionals in the industry coming from big data, lead generation, data science and e-commerce backgrounds. Our combined experience and a culture of knowledge sharing allows us to help people utilize the data in the most efficient way and easily achieve related goals.'
+          subtitle='The Potato team includes some of the most experienced web data extraction professionals in the industry coming from big data, lead generation and data science backgrounds. Our combined experience and a culture of knowledge sharing allows us to help people utilize the data in the most efficient way and easily achieve related goals.'
           ctaText="Join the Waiting List"
-          img={drawer}
+          img={!isDesktop ? memojiDesktop : memojiMobile}
           url={LinkList.WAITLIST}
         />
         <GetStarted />

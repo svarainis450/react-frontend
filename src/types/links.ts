@@ -23,4 +23,5 @@ export enum LinkList {
   FUNDS = '/funds',
   YOUR_INFLUENCERS = '/your-influencers',
   SUGGESTIONS = '/suggestions',
+  PARTNERSHIPS = '/partnerships',
 }

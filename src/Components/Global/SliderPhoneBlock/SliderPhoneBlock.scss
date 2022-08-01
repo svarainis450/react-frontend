@@ -109,9 +109,17 @@
 
   .swiper-button-prev {
     background-image: url("../../../Assets/images/arrowLeft.svg") !important;
+
+    &:hover {
+      background-image: url("../../../Assets/images/arrowLeftHover.svg") !important;
+    }
   } 
   
   .swiper-button-next {
     background-image: url("../../../Assets/images/arrowRight.svg") !important;
+
+    &:hover {
+      background-image: url("../../../Assets/images/arrowRightHover.svg") !important;
+    }
   }
 }

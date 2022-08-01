@@ -21,9 +21,11 @@ export const TwoSideBlock = ({title, subtitle, url, img, ctaText, className} : T
             {title}
           </Typography>
 
-          <p className="TwoSideBlock__subtitle">
-            {subtitle}
-          </p>
+          {subtitle && 
+            <p className="TwoSideBlock__subtitle">
+              {subtitle}
+            </p>
+          }
 
           <Link to={url || "/"}>
             <Button
@@ -42,7 +44,7 @@ export const TwoSideBlock = ({title, subtitle, url, img, ctaText, className} : T
             alt="heroMessage"
           />
 
-          <Link to={url || "/"}>
+          <Link to={url || "/"} >
             <Button
               onClick={() => console.log('click')}
               className="TwoSideBlock__cta mobile"
