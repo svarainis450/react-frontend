@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Element } from 'react-scroll';
 
 import {
   Loader,
@@ -20,9 +21,9 @@ import {
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
-import InfiniteScroll from 'react-infinite-scroller';
 import { Button } from 'src/Components/Global/Button';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { some } from 'lodash';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -74,9 +75,7 @@ export const Discover: React.FC = () => {
     }
   };
 
-  console.log(offsetCount);
-  console.log(projectsStatus);
-
+  console.log(projects);
   return (
     <div className="Discover">
       <LoggedInLayout>
@@ -87,6 +86,7 @@ export const Discover: React.FC = () => {
         />
 
         {projectsStatus === 'pending' && <Loader />}
+
         <div className="Discover__wrapper">
           {projectsStatus === 'success' &&
             projects.map(

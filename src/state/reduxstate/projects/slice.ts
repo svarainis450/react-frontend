@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { stat } from 'fs';
+import { concat } from 'lodash';
 import {
   fetchTrendingProjects,
   fetchProjects,
@@ -64,15 +66,24 @@ const projectsSlice = createSlice({
     ) => {
       state.status = action.payload;
     },
+    setProjects: (
+      state: { projects: ProjectsState['projects'] },
+      action: PayloadAction<Project[]>
+    ) => {
+      state.projects = action.payload;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      fetchProjects.fulfilled,
-      (state, action: PayloadAction<ProjectsState['projects']>) => {
-        state.projects = action.payload;
-        state.status = 'success';
-      }
-    );
+    // builder.addCase(
+    //   fetchProjects.fulfilled,
+    //   (state, action: PayloadAction<ProjectsState['projects']>) => {
+    //     state.projects = [
+    //       state.projects,
+    //       ...action.payload,
+    //     ] as unknown as Project[];
+    //     state.status = 'success';
+    //   }
+    // );
     builder.addCase(fetchProjects.rejected, (state) => {
       state.status = 'error';
     });
@@ -112,5 +123,6 @@ export const {
   setTop3PositiveProjects,
   setTop3bullProjects,
   setTop3TalkRateProjects,
+  setProjects,
 } = projectsSlice.actions;
 export default projectsSlice;

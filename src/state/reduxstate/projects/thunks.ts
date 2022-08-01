@@ -1,8 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { concat } from 'lodash';
+import { off } from 'process';
 import { Dispatch, SetStateAction } from 'react';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { RootState } from '../slice';
 import { api } from '../types';
 import {
+  setProjects,
   setTop3bullProjects,
   setTop3PositiveProjects,
   setTop3TalkRateProjects,
@@ -25,7 +29,10 @@ const token = JSON.parse(String(localStorage.getItem('token')));
 
 export const fetchProjects = createAsyncThunk(
   'projects/GET_PROJECTS',
-  async ({ callBack, filter, offset, filterValue = 1 }: ProjectsPayload) => {
+  async (
+    { callBack, filter, offset, filterValue = 1 }: ProjectsPayload,
+    { dispatch, getState }
+  ) => {
     const setFilterValue =
       filter === ProjectFilterKeys.CATEGORY
         ? String(filterValue).toLowerCase()
@@ -45,8 +52,15 @@ export const fetchProjects = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
+
+        const { projects } = getState() as RootState;
+
+        if (offset >= 50) {
+          dispatch(setProjects(concat(projects.projects, resp.result)));
+        } else {
+          dispatch(setProjects(resp.result));
+        }
         callBack('success');
-        return resp.result;
       } catch (e) {
         console.log(e);
         callBack('error');
