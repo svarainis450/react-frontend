@@ -23,6 +23,7 @@ import {
   Influencers,
   Funds,
   ForYou,
+  Partnerships
 } from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
@@ -96,6 +97,7 @@ const App = () => {
             <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
             <Route path={LinkList.Success} element={<SuccessPage />} />
             <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
+            <Route path={LinkList.PARTNERSHIPS} element={<Partnerships />} />
             <Route
               path={LinkList.TermsAndConditions}
               element={<TermsAndConditions />}
@@ -149,20 +151,20 @@ const App = () => {
               isLoggedIn() ? (
                 <Influencers />
               ) : (
-                <Navigate to={LinkList.INFLUENCERS} />
+                <Navigate to={LinkList.Login} />
               )
             }
           />
           <Route
             path={LinkList.FUNDS}
             element={
-              isLoggedIn() ? <Funds /> : <Navigate to={LinkList.TRENDS} />
+              isLoggedIn() ? <Funds /> : <Navigate to={LinkList.Login} />
             }
           />
           <Route
             path={LinkList.FORYOU}
             element={
-              isLoggedIn() ? <ForYou /> : <Navigate to={LinkList.TRENDS} />
+              isLoggedIn() ? <ForYou /> : <Navigate to={LinkList.Login} />
             }
           />
           <Route
@@ -171,7 +173,7 @@ const App = () => {
               isLoggedIn() ? (
                 <YourInfluencers />
               ) : (
-                <Navigate to={LinkList.YOUR_INFLUENCERS} />
+                <Navigate to={LinkList.Login} />
               )
             }
           />

@@ -51,7 +51,11 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
             className="influencers-picks__influencers-table__row"
           >
             <div className="influencers-picks__influencers-table__row__influencer">
-              <img className="icon" src={img} alt={name} />
+              <img
+                className="icon"
+                src={img || icons.no_image}
+                alt={name || 'project'}
+              />
               <div>
                 <Typography className="influencers-picks__influencers-table__row__influencer__tag-name">
                   {tagName}
@@ -79,10 +83,18 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
             <div className="influencers-picks__influencers-table__row__projects">
               <img
                 className="icon"
-                src={(projects && projects[0].img) || icons.coin_base}
-                alt={(projects && projects[0].name) || ''}
+                src={
+                  (projects && projects.length > 0 && projects[0].img) ||
+                  icons.no_image
+                }
+                alt={
+                  (projects && projects.length > 0 && projects[0].name) || ''
+                }
               />
-              <Typography>{projects && projects[0].name}</Typography>
+              <Typography>
+                {(projects && projects.length > 0 && projects[0].name) ||
+                  'none'}
+              </Typography>
             </div>
             {/* TODO: LINk TO POSt */}
             {/* <div className="influencers-picks__influencers-table__row__link">

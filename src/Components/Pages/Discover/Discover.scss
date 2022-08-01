@@ -3,6 +3,7 @@
 .Discover {
   background-color: var(--color-grey);
   max-width: 100%;
+  overscroll-behavior-y: contain;
 
   .Button {
     margin: 16px auto 0;

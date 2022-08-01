@@ -48,19 +48,19 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
           ) => (
             <div key={index} className="project-picks__row">
               <div className="project-picks__row__influencer">
-                <img className="icon" src={img} alt={name} />
+                <img className="icon" src={img || icons.no_image} alt={name} />
                 <div>
                   <Typography className="project-picks__row__influencer__tag-name">
                     {tagName}
                   </Typography>
-                  <Typography className="project-picks__row__influencer__name">
+                  {/* <Typography className="project-picks__row__influencer__name">
                     {name}
-                  </Typography>
+                  </Typography> */}
                 </div>
               </div>
-              <div>
+              {/* <div>
                 <CategoryTag tagTitle={tag.name} />
-              </div>
+              </div> */}
               <Typography className="project-picks__row__thin-text__positioned">
                 {postCount}
               </Typography>
@@ -71,16 +71,16 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                 <img
                   className="icon"
                   src={
-                    projects && projects[0].img
+                    projects && projects.length > 0 && projects[0].img
                       ? projects[0].img
-                      : icons.coin_base
+                      : icons.no_image
                   }
                   alt="Project picks"
                 />
                 <Typography className="project-picks__row__thin-text">
                   {projects && projects.length > 1
                     ? 'Multiple'
-                    : projects && projects[0].name}
+                    : projects && projects.length > 0 && projects[0].name}
                 </Typography>
               </div>
             </div>

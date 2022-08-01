@@ -12,6 +12,8 @@ import memojiDesktop from '../../../Assets/images/aboutPage/memoji_desktop.svg';
 import memojiMobile from '../../../Assets/images/aboutPage/memoji_mobile.svg';
 import { LinkList } from '../../../types';
 
+import rocketImg from "../../../Assets/images/rocket.svg";
+
 import './AboutPage.scss';
 
 import { useMediaQuery } from '../../../hooks';
@@ -22,7 +24,13 @@ export const AboutPage = () => {
   return (
     <Layout>
         <div className="AboutPage">
-        <HeroMiniBlock />
+        <HeroMiniBlock
+          ctaLink={LinkList.WAITLIST}
+          ctaText="Join the Waiting List"
+          img={rocketImg}
+        >
+          We’re on a mission to help people discover <b>x100 opportunities</b> before it’s too late
+        </HeroMiniBlock>
         <Commitments commitmentsList={commitmentsList}/>
         <PotatoFactsBlock/>
         <TwoSideBlock 

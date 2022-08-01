@@ -1,0 +1,62 @@
+.Partnerships {
+  $block: &;
+  &__hero {
+    padding: 0;
+    background-color: var(--color-yellow-hero);
+
+    .HeroMiniBlock__img {
+      @media (max-width: 1023px) {
+        margin-left: auto;
+        margin-top: 1rem;
+      }
+    }
+
+    .HeroMiniBlock__cta {
+      @media (max-width: 1023px) {
+        width: calc(100% - 1.625rem * 2);
+        margin: 0 1.625rem 1.625rem;
+      }
+
+      margin-left: 1.625rem;
+      width: 20.5rem;
+    }
+
+    #{$block}__title {
+      margin: 0 1.625rem 0.75rem;      
+      font-weight: 400;
+      font-size: 35px;
+      line-height: 42px;
+
+      @media (min-width: 1024px) {
+        font-weight: 400;
+        font-size: 45px;
+        line-height: 54px;
+      }
+    }
+
+    #{$block}__subtitle {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 26px;
+      margin: 0 1.625rem;
+    }
+  }
+
+  &__heroTitle {
+    margin-top: 2.875rem;
+    
+    @media (min-width: 1024px) {
+      margin-top: 3.75rem;
+    }
+  }
+
+  &__TwoSideBlock {
+    .TwoSideBlock__cta {
+      margin-top: 2.125rem;
+
+      @media (min-width: 1024px) {
+        width: 20.5rem;
+      }
+    }
+  }
+}
