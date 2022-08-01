@@ -1,17 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
-import { off } from 'process';
 import { Dispatch, SetStateAction } from 'react';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { RootState } from '../slice';
 import { api } from '../types';
 import {
+  setInfluencers,
   setProjects,
   setTop3bullProjects,
   setTop3PositiveProjects,
   setTop3TalkRateProjects,
 } from './slice';
 import {
+  Influencer,
   InfluencerFilterKeys,
   Project,
   ProjectFilterKeys,
@@ -44,7 +45,6 @@ export const fetchProjects = createAsyncThunk(
         ? `${api}/projects/today?filters[${filter}]=${setFilterValue}&limit=50&offset=${offset}`
         : `${api}/projects/today?limit=50&offset=${offset}`;
 
-    console.log(token);
     if (token) {
       try {
         callBack('pending');
@@ -123,16 +123,19 @@ interface InfluencersPayload {
   callBack: Dispatch<SetStateAction<Statuses>>;
   filter: InfluencerFilterKeys;
   limit?: number;
-  offset?: number;
+  offset: number;
 }
 
 export const fetchInfluencers = createAsyncThunk(
   'projects/GET_INFLUENCERS',
-  async ({ callBack, filter, limit = 50, offset = 0 }: InfluencersPayload) => {
+  async (
+    { callBack, filter, limit = 50, offset }: InfluencersPayload,
+    { dispatch, getState }
+  ) => {
     const filterType = String(filter).toLowerCase();
     const url = filter
-      ? `${api}/influencers?filter[${filterType}]=1&limit=${limit}&offset=${offset}`
-      : `${api}/influencers?limit=${limit}`;
+      ? `${api}/influencers/today?filter[${filterType}]=1&limit=${limit}&offset=${offset}`
+      : `${api}/influencers/today?limit=${limit}&offset=${offset}`;
 
     callBack('pending');
     if (token) {
@@ -143,8 +146,20 @@ export const fetchInfluencers = createAsyncThunk(
           },
         }).then((res) => res.json());
         console.log(resp);
+
+        const { projects } = getState() as RootState;
+
+        if (offset >= 50) {
+          const expandedInfluencers = concat(projects.influencers, resp.result);
+          const uniqueInfluencers = [
+            ...(new Set(expandedInfluencers) as unknown as Influencer[]),
+          ];
+          console.log(uniqueInfluencers);
+          dispatch(setInfluencers(uniqueInfluencers));
+        } else {
+          dispatch(setInfluencers(resp.result));
+        }
         callBack('success');
-        return resp.result;
       } catch (e) {
         callBack('error');
         console.log(e);

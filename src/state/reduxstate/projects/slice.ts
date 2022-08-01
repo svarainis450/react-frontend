@@ -8,7 +8,13 @@ import {
   fetchInfluencers,
   fetchProjectsByInfluencers,
 } from './thunks';
-import { Project, ProjectFilterKeys, ProjectsState, Statuses } from './types';
+import {
+  Influencer,
+  Project,
+  ProjectFilterKeys,
+  ProjectsState,
+  Statuses,
+} from './types';
 
 const initialState: ProjectsState = {
   projects: [] as ProjectsState['projects'],
@@ -72,18 +78,14 @@ const projectsSlice = createSlice({
     ) => {
       state.projects = action.payload;
     },
+    setInfluencers: (
+      state: { influencers: ProjectsState['influencers'] },
+      action: PayloadAction<Influencer[]>
+    ) => {
+      state.influencers = action.payload;
+    },
   },
   extraReducers: (builder) => {
-    // builder.addCase(
-    //   fetchProjects.fulfilled,
-    //   (state, action: PayloadAction<ProjectsState['projects']>) => {
-    //     state.projects = [
-    //       state.projects,
-    //       ...action.payload,
-    //     ] as unknown as Project[];
-    //     state.status = 'success';
-    //   }
-    // );
     builder.addCase(fetchProjects.rejected, (state) => {
       state.status = 'error';
     });
@@ -99,12 +101,12 @@ const projectsSlice = createSlice({
         state.project_picks = action.payload;
       }
     );
-    builder.addCase(
-      fetchInfluencers.fulfilled,
-      (state, action: PayloadAction<ProjectsState['influencers']>) => {
-        state.influencers = action.payload;
-      }
-    );
+    // builder.addCase(
+    //   fetchInfluencers.fulfilled,
+    //   (state, action: PayloadAction<ProjectsState['influencers']>) => {
+    //     state.influencers = action.payload;
+    //   }
+    // );
     builder.addCase(
       fetchProjectsByInfluencers.fulfilled,
       (
@@ -124,5 +126,6 @@ export const {
   setTop3bullProjects,
   setTop3TalkRateProjects,
   setProjects,
+  setInfluencers,
 } = projectsSlice.actions;
 export default projectsSlice;

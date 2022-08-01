@@ -61,196 +61,204 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   };
 
   return (
-    <CardWrapper>
-      <div className="influencer-card">
-        <div className="influencer-card__border-wrapper__flex border">
-          <div className="flex-wrapper border">
-            <img
-              className="influencer-card__border-wrapper__avatar"
-              src={img}
-              alt={name}
-            />
-            <div>
-              <Typography weight={TypographyWeight.MEDIUM}>
-                {tagName}
-              </Typography>
-              <Typography className="grey-text">{name}</Typography>
+    <div className="wrapper">
+      <CardWrapper>
+        <div className="influencer-card">
+          <div className="influencer-card__border-wrapper__flex border">
+            <div className="flex-wrapper border">
+              <img
+                className="influencer-card__border-wrapper__avatar"
+                src={img}
+                alt={name}
+              />
+              <div>
+                <Typography weight={TypographyWeight.MEDIUM}>
+                  {tagName}
+                </Typography>
+                <Typography className="grey-text">{name}</Typography>
+              </div>
             </div>
+            {flag === 'expert' && (
+              <img
+                className="influencer-card__border-wrapper__top-expert"
+                src={isTablet ? icons.top_expert_mobile : icons.top_expert}
+                alt="Top Expert"
+              />
+            )}
+            {isTablet && (
+              <TalkRateElement
+                rate={bullseye}
+                type="bullseye"
+                isBiggerBullseye
+              />
+            )}
           </div>
-          {flag === 'expert' && (
-            <img
-              className="influencer-card__border-wrapper__top-expert"
-              src={isTablet ? icons.top_expert_mobile : icons.top_expert}
-              alt="Top Expert"
-            />
+          {(!isTablet || showMore) && (
+            <div>
+              <div className="influencer-card__border-wrapper">
+                <Typography
+                  className="grey-text"
+                  weight={TypographyWeight.MEDIUM}
+                >
+                  Active social channels
+                </Typography>
+                <img
+                  className="influencer-card__border-wrapper__social-icon"
+                  src={icons.twitter}
+                  alt="twitter"
+                />
+                <img
+                  className="influencer-card__border-wrapper__social-icon"
+                  src={icons.discord}
+                  alt="discord"
+                />
+                <img
+                  className="influencer-card__border-wrapper__social-icon"
+                  src={icons.youtube}
+                  alt="youtube"
+                />
+                <img
+                  className="influencer-card__border-wrapper__social-icon"
+                  src={icons.telegram}
+                  alt="telegram"
+                />
+                <img
+                  className="influencer-card__border-wrapper__social-icon"
+                  src={icons.reddit}
+                  alt="reddit"
+                />
+              </div>
+              <div className="influencer-card__border-wrapper">
+                <Typography
+                  variant={TypographyVariant.TEXT_SMALL}
+                  className="grey-text"
+                  weight={TypographyWeight.MEDIUM}
+                >
+                  Statistics
+                </Typography>
+                <div className="flex-wrapper">
+                  <div className="stats">
+                    <Typography weight={TypographyWeight.BOLD700}>
+                      {followersCalculated}
+                    </Typography>
+                    <Typography
+                      className="grey-text"
+                      variant={TypographyVariant.TEXT_SMALL}
+                      weight={TypographyWeight.THIN}
+                    >
+                      followers
+                    </Typography>
+                  </div>
+                  <div className="stats">
+                    <Typography weight={TypographyWeight.BOLD700}>
+                      {posts}
+                    </Typography>
+                    <Typography
+                      className="grey-text"
+                      variant={TypographyVariant.TEXT_SMALL}
+                      weight={TypographyWeight.THIN}
+                    >
+                      posts
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+              <div className="influencer-card__border-wrapper">
+                <Typography
+                  variant={TypographyVariant.TEXT_SMALL}
+                  className="grey-text"
+                  weight={TypographyWeight.MEDIUM}
+                >
+                  Focus areas
+                </Typography>
+                <div className="influencer-card__border-wrapper__flex">
+                  {tags.map((item) => (
+                    <CategoryTag key={item} tagTitle={item} />
+                  ))}
+                </div>
+              </div>
+              <div className="influencer-card__border-wrapper flex">
+                <div>
+                  <TalkRateElement
+                    rate={bullseye}
+                    type="bullseye"
+                    isBiggerBullseye
+                  />
+                </div>
+                <div className="rate-desc">
+                  <div className="rate-change-wrapper">
+                    <div
+                      className={`triangle ${
+                        isPositiveBullseye ? '' : 'negative'
+                      }`}
+                    />
+                    <Typography>{bullseyeChange}% than yesterday</Typography>
+                  </div>
+                  <Typography
+                    variant={TypographyVariant.TEXT_SMALL}
+                    className="grey-text"
+                    weight={TypographyWeight.MEDIUM}
+                  >
+                    <strong>Bullseye</strong> indicates how often an expert has
+                    told about a project that has grown in value
+                  </Typography>
+                </div>
+              </div>
+              <div className="influencer-card__border-wrapper">
+                <IndexAxis type="mover" rating={66} />
+                <Typography
+                  variant={TypographyVariant.TEXT_SMALL}
+                  className="grey-text"
+                  weight={TypographyWeight.MEDIUM}
+                >
+                  <strong>First Mover v.s. Reviewer Index</strong> shows whether
+                  an expert has a direct impact on the industry or is just a
+                  commentator{' '}
+                </Typography>
+              </div>
+              <div className="influencer-card__border-wrapper flex">
+                <div>
+                  <TalkRateElement
+                    rate={influence}
+                    type="influence"
+                    isBiggerBullseye
+                  />
+                </div>
+                <div className="rate-desc">
+                  <div className="rate-change-wrapper">
+                    <div
+                      className={`triangle ${
+                        isPositiveInfluence ? '' : 'negative'
+                      }`}
+                    />
+                    <Typography>{influenceChange}% than yesterday</Typography>
+                  </div>
+                  <Typography
+                    variant={TypographyVariant.TEXT_SMALL}
+                    className="grey-text"
+                    weight={TypographyWeight.MEDIUM}
+                  >
+                    <strong>The influence rate</strong> indicates how many
+                    people follow, share, like, tweet, and repost an expert
+                  </Typography>
+                </div>
+              </div>
+              <SubscribeButton
+                onClick={() => handleSubscribeBtn(id)}
+                isSubscribed={isSubscribedInfluencer}
+              />
+            </div>
           )}
           {isTablet && (
-            <TalkRateElement rate={bullseye} type="bullseye" isBiggerBullseye />
+            <div className="learn-more" onClick={() => setShowMore(!showMore)}>
+              <img src={icons.finger_tap} alt="Learn more" />
+              <Typography>
+                {showMore ? 'Tap to shrink' : 'Learn more'}
+              </Typography>
+            </div>
           )}
         </div>
-        {(!isTablet || showMore) && (
-          <div>
-            <div className="influencer-card__border-wrapper">
-              <Typography
-                className="grey-text"
-                weight={TypographyWeight.MEDIUM}
-              >
-                Active social channels
-              </Typography>
-              <img
-                className="influencer-card__border-wrapper__social-icon"
-                src={icons.twitter}
-                alt="twitter"
-              />
-              <img
-                className="influencer-card__border-wrapper__social-icon"
-                src={icons.discord}
-                alt="discord"
-              />
-              <img
-                className="influencer-card__border-wrapper__social-icon"
-                src={icons.youtube}
-                alt="youtube"
-              />
-              <img
-                className="influencer-card__border-wrapper__social-icon"
-                src={icons.telegram}
-                alt="telegram"
-              />
-              <img
-                className="influencer-card__border-wrapper__social-icon"
-                src={icons.reddit}
-                alt="reddit"
-              />
-            </div>
-            <div className="influencer-card__border-wrapper">
-              <Typography
-                variant={TypographyVariant.TEXT_SMALL}
-                className="grey-text"
-                weight={TypographyWeight.MEDIUM}
-              >
-                Statistics
-              </Typography>
-              <div className="flex-wrapper">
-                <div className="stats">
-                  <Typography weight={TypographyWeight.BOLD700}>
-                    {followersCalculated}
-                  </Typography>
-                  <Typography
-                    className="grey-text"
-                    variant={TypographyVariant.TEXT_SMALL}
-                    weight={TypographyWeight.THIN}
-                  >
-                    followers
-                  </Typography>
-                </div>
-                <div className="stats">
-                  <Typography weight={TypographyWeight.BOLD700}>
-                    {posts}
-                  </Typography>
-                  <Typography
-                    className="grey-text"
-                    variant={TypographyVariant.TEXT_SMALL}
-                    weight={TypographyWeight.THIN}
-                  >
-                    posts
-                  </Typography>
-                </div>
-              </div>
-            </div>
-            <div className="influencer-card__border-wrapper">
-              <Typography
-                variant={TypographyVariant.TEXT_SMALL}
-                className="grey-text"
-                weight={TypographyWeight.MEDIUM}
-              >
-                Focus areas
-              </Typography>
-              <div className="influencer-card__border-wrapper__flex">
-                {tags.map((item) => (
-                  <CategoryTag key={item} tagTitle={item} />
-                ))}
-              </div>
-            </div>
-            <div className="influencer-card__border-wrapper flex">
-              <div>
-                <TalkRateElement
-                  rate={bullseye}
-                  type="bullseye"
-                  isBiggerBullseye
-                />
-              </div>
-              <div className="rate-desc">
-                <div className="rate-change-wrapper">
-                  <div
-                    className={`triangle ${
-                      isPositiveBullseye ? '' : 'negative'
-                    }`}
-                  />
-                  <Typography>{bullseyeChange}% than yesterday</Typography>
-                </div>
-                <Typography
-                  variant={TypographyVariant.TEXT_SMALL}
-                  className="grey-text"
-                  weight={TypographyWeight.MEDIUM}
-                >
-                  <strong>Bullseye</strong> indicates how often an expert has
-                  told about a project that has grown in value
-                </Typography>
-              </div>
-            </div>
-            <div className="influencer-card__border-wrapper">
-              <IndexAxis type="mover" rating={66} />
-              <Typography
-                variant={TypographyVariant.TEXT_SMALL}
-                className="grey-text"
-                weight={TypographyWeight.MEDIUM}
-              >
-                <strong>First Mover v.s. Reviewer Index</strong> shows whether
-                an expert has a direct impact on the industry or is just a
-                commentator{' '}
-              </Typography>
-            </div>
-            <div className="influencer-card__border-wrapper flex">
-              <div>
-                <TalkRateElement
-                  rate={influence}
-                  type="influence"
-                  isBiggerBullseye
-                />
-              </div>
-              <div className="rate-desc">
-                <div className="rate-change-wrapper">
-                  <div
-                    className={`triangle ${
-                      isPositiveInfluence ? '' : 'negative'
-                    }`}
-                  />
-                  <Typography>{influenceChange}% than yesterday</Typography>
-                </div>
-                <Typography
-                  variant={TypographyVariant.TEXT_SMALL}
-                  className="grey-text"
-                  weight={TypographyWeight.MEDIUM}
-                >
-                  <strong>The influence rate</strong> indicates how many people
-                  follow, share, like, tweet, and repost an expert
-                </Typography>
-              </div>
-            </div>
-            <SubscribeButton
-              onClick={() => handleSubscribeBtn(id)}
-              isSubscribed={isSubscribedInfluencer}
-            />
-          </div>
-        )}
-        {isTablet && (
-          <div className="learn-more" onClick={() => setShowMore(!showMore)}>
-            <img src={icons.finger_tap} alt="Learn more" />
-            <Typography>{showMore ? 'Tap to shrink' : 'Learn more'}</Typography>
-          </div>
-        )}
-      </div>
-    </CardWrapper>
+      </CardWrapper>
+    </div>
   );
 };

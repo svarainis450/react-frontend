@@ -53,14 +53,14 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                   <Typography className="project-picks__row__influencer__tag-name">
                     {tagName}
                   </Typography>
-                  {/* <Typography className="project-picks__row__influencer__name">
+                  <Typography className="project-picks__row__influencer__name">
                     {name}
-                  </Typography> */}
+                  </Typography>
                 </div>
               </div>
-              {/* <div>
+              <div>
                 <CategoryTag tagTitle={tag.name} />
-              </div> */}
+              </div>
               <Typography className="project-picks__row__thin-text__positioned">
                 {postCount}
               </Typography>
