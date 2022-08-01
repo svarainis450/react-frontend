@@ -23,7 +23,7 @@ import {
 } from 'src/state/reduxstate/projects/types';
 import { Button } from 'src/Components/Global/Button';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
-import { some } from 'lodash';
+import { scrollToElement } from 'src/utils/scrollers';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -64,6 +64,7 @@ export const Discover: React.FC = () => {
         filterValue: categoryValue,
       })
     );
+    scrollToElement('card-to-scroll');
   }, [projectsFilter, offsetCount, dispatch, categoryValue]);
 
   const handleLoadMoreBtn = () => {
@@ -100,17 +101,21 @@ export const Discover: React.FC = () => {
                 img,
                 started,
               }) => (
-                <ProjectCard
-                  id={id}
-                  key={id}
-                  name={name}
-                  img={img}
-                  coinbaseUrl={coinbaseUrl}
-                  influencers={influencers}
-                  rateData={rateData}
-                  tag={tag}
-                  started={started}
-                />
+                <Element
+                  name={id === offsetCount ? 'card-to-scroll' : 'no-scroll'}
+                >
+                  <ProjectCard
+                    id={id}
+                    key={id}
+                    name={name}
+                    img={img}
+                    coinbaseUrl={coinbaseUrl}
+                    influencers={influencers}
+                    rateData={rateData}
+                    tag={tag}
+                    started={started}
+                  />
+                </Element>
               )
             )}
         </div>

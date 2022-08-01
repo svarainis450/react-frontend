@@ -13,6 +13,7 @@ import {
 } from './slice';
 import {
   InfluencerFilterKeys,
+  Project,
   ProjectFilterKeys,
   Statuses,
   SubmenuFilters,
@@ -56,7 +57,11 @@ export const fetchProjects = createAsyncThunk(
         const { projects } = getState() as RootState;
 
         if (offset >= 50) {
-          dispatch(setProjects(concat(projects.projects, resp.result)));
+          const expandedProjects = concat(projects.projects, resp.result);
+          const uniqueProjects = [
+            ...(new Set(expandedProjects) as unknown as Project[]),
+          ];
+          dispatch(setProjects(uniqueProjects));
         } else {
           dispatch(setProjects(resp.result));
         }
