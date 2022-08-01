@@ -23,7 +23,7 @@ import {
   Influencers,
   Funds,
   ForYou,
-  Partnerships
+  Partnerships,
 } from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
@@ -47,6 +47,9 @@ const App = () => {
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
   const [currecy, setCurrency] = useState('$');
   const { userInfo, getUserInfo } = useContext(UserInfoContext);
+  const [token, setToken] = useState('');
+
+  console.log(token);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -80,6 +83,7 @@ const App = () => {
       getUserInfo();
       const token = JSON.parse(String(localStorage.getItem('token')));
       dispatch(setUserToken(token));
+      setToken(token);
     }
   }, []);
 
@@ -148,11 +152,7 @@ const App = () => {
           <Route
             path={LinkList.INFLUENCERS}
             element={
-              isLoggedIn() ? (
-                <Influencers />
-              ) : (
-                <Navigate to={LinkList.Login} />
-              )
+              isLoggedIn() ? <Influencers /> : <Navigate to={LinkList.Login} />
             }
           />
           <Route

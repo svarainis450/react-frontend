@@ -55,6 +55,8 @@ export const Trends: React.FC = () => {
 
   console.log(projectsByInfluencers);
 
+  console.log(influencers);
+
   useEffect(() => {
     dispatch(
       fetchTrendingProjects({
