@@ -1,14 +1,25 @@
+import Lottie from 'react-lottie';
 import { Button } from '../Button';
 import { Typography, TypographyVariant, TypographyWeight } from '../Typography';
 import { TwoSideBlockProps } from './types';
 
 import rocketTicket from '../../../Assets/images/rocketTicket.svg';
+import * as animationData from 'src/Assets/lotties/Lottie_ticket.json'
 
 import './TwoSideBlock.scss';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 export const TwoSideBlock = ({title, subtitle, url, img, ctaText, className} : TwoSideBlockProps) => {
+    const defaultOptions = {
+      loop: true,
+      autoplay: true, 
+      animationData: animationData,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+      }
+    };
+
   return (
     <div className={classNames("TwoSideBlock", className)}>
       <div className="TwoSideBlock__wrapper">
@@ -38,12 +49,17 @@ export const TwoSideBlock = ({title, subtitle, url, img, ctaText, className} : T
         </div>
 
         <div className="TwoSideBlock__img">
-          <img
-            className="TwoSideBlock__message"
-            src={img || rocketTicket}
-            alt="heroMessage"
-          />
+          {
+            img 
+              ?           <img
+              className="TwoSideBlock__message"
+              src={img || rocketTicket}
+              alt="heroMessage"
+            />
+            :   <Lottie options={defaultOptions}/>
+          }
 
+          
           <Link to={url || "/"} >
             <Button
               onClick={() => console.log('click')}

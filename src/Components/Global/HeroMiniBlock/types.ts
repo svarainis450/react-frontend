@@ -4,7 +4,7 @@ export interface HeroMiniBlockProps {
   children: React.ReactNode;
   ctaText: string;
   ctaLink: string;
-  img: string;
+  img?: string;
   color?: string;
   className?: string;
 }

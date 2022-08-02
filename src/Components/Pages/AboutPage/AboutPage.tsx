@@ -27,7 +27,6 @@ export const AboutPage = () => {
         <HeroMiniBlock
           ctaLink={LinkList.WAITLIST}
           ctaText="Join the Waiting List"
-          img={rocketImg}
         >
           We’re on a mission to help people discover <b>x100 opportunities</b> before it’s too late
         </HeroMiniBlock>
