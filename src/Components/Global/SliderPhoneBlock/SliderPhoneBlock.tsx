@@ -23,7 +23,7 @@ export const SliderPhoneBlock = () => {
   return (
     <div className='SliderPhoneBlock'>
       <HeroTitle 
-        title='Invest smartly by recording & tracking crypto influencers'
+        title='Invest smartly by tracking crypto influencers'
       />
 
       <Swiper 
