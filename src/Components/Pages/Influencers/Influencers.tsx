@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Element } from 'react-scroll';
+
 import {
   InfluencerCard,
   InfluencerFilters,
@@ -13,10 +15,10 @@ import { influencersSelector } from 'src/state/reduxstate/projects/selectors';
 import { fetchInfluencers } from 'src/state/reduxstate/projects/thunks';
 import {
   InfluencerFilterKeys,
-  ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
+import { scrollToElement } from 'src/utils/scrollers';
 import { submenuList } from '../Discover/Discover';
 
 import './Influencers.scss';
@@ -35,9 +37,11 @@ export const Influencers: React.FC = () => {
       fetchInfluencers({
         filter: influencersFilter,
         callBack: setInfluencersStatus,
+        offset: offsetCount,
       })
     );
-  }, [influencersFilter, dispatch]);
+    scrollToElement('infl-to-scroll');
+  }, [influencersFilter, dispatch, offsetCount]);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow) {
@@ -48,6 +52,8 @@ export const Influencers: React.FC = () => {
     }
   };
 
+  console.log(offsetCount);
+
   return (
     <div className="Influencers">
       <LoggedInLayout>
@@ -57,8 +63,15 @@ export const Influencers: React.FC = () => {
         {influencersStatus === 'error' && <LoadError />}
         <div className="Influencers__wrapper">
           {influencersStatus === 'success' &&
-            influencers.map(({ id, ...rest }) => (
-              <InfluencerCard id={id} key={id} {...rest} />
+            influencers.map(({ id, ...rest }, index) => (
+              <Element
+                key={id}
+                name={
+                  index + 1 === offsetCount ? 'infl-to-scroll' : 'no-scroll'
+                }
+              >
+                <InfluencerCard id={id} {...rest} />
+              </Element>
             ))}
         </div>
         {notAllToShow && influencersStatus !== 'pending' && (

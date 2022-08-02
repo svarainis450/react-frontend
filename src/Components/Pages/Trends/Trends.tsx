@@ -7,6 +7,7 @@ import {
   ProjectPicksTable,
   Top3ElementsSlider,
   TrendingCategory,
+  UpcommingLayout,
 } from 'src/Components/Global';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import { submenuList } from './constants';
@@ -55,6 +56,8 @@ export const Trends: React.FC = () => {
 
   console.log(projectsByInfluencers);
 
+  console.log(influencers);
+
   useEffect(() => {
     dispatch(
       fetchTrendingProjects({
@@ -71,6 +74,7 @@ export const Trends: React.FC = () => {
         callBack: setinfluencersStatus,
         filter: InfluencerFilterKeys.FOLLOWERS,
         limit: 10,
+        offset: 0,
       })
     );
     dispatch(fetchProjectsByInfluencers());
@@ -80,37 +84,43 @@ export const Trends: React.FC = () => {
     <div className="Trends">
       <LoggedInLayout>
         <Submenu callBack={setFilter} menuItems={submenuList} />
-        <section className="wrapper two-columns">
-          <CardWrapper title="Trending Category" subtitle="Today">
-            {trendingStatus === 'pending' ? (
-              <Loader />
-            ) : (
-              <TrendingCategory trendingProjects={trendingProjects} />
-            )}
-          </CardWrapper>
-          <CardWrapper
-            title="Project picks by most followed crypto experts"
-            subtitle="Today"
-          >
-            <ProjectPicksTable
-              influencerProjects={projectsByInfluencers}
-              pickedProjects={projectPicks}
+        {filter === 'upcomming' ? (
+          <UpcommingLayout />
+        ) : (
+          <>
+            <section className="wrapper two-columns">
+              <CardWrapper title="Trending Category" subtitle="Today">
+                {trendingStatus === 'pending' ? (
+                  <Loader />
+                ) : (
+                  <TrendingCategory trendingProjects={trendingProjects} />
+                )}
+              </CardWrapper>
+              <CardWrapper
+                title="Project picks by most followed crypto experts"
+                subtitle="Today"
+              >
+                <ProjectPicksTable
+                  influencerProjects={projectsByInfluencers}
+                  pickedProjects={projectPicks}
+                />
+              </CardWrapper>
+            </section>
+            <Top3ElementsSlider
+              topBull={top3BullProjects}
+              topPositive={top3PositiveProjects}
+              topTalkRate={top3TalkRateProjects}
             />
-          </CardWrapper>
-        </section>
-        <Top3ElementsSlider
-          topBull={top3BullProjects}
-          topPositive={top3PositiveProjects}
-          topTalkRate={top3TalkRateProjects}
-        />
-        <section className="wrapper one-column">
-          <CardWrapper
-            title="List of influencers and their picks"
-            subtitle="Today"
-          >
-            <InfluencersTable influencersData={influencers} />
-          </CardWrapper>
-        </section>
+            <section className="wrapper one-column">
+              <CardWrapper
+                title="List of influencers and their picks"
+                subtitle="Today"
+              >
+                <InfluencersTable influencersData={influencers} />
+              </CardWrapper>
+            </section>
+          </>
+        )}
       </LoggedInLayout>
     </div>
   );

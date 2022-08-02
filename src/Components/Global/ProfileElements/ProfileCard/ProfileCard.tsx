@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { tags } from 'src/state/reduxstate/projects/types';
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { icons } from 'src/utils/icons';
-import { images } from 'src/utils/images';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
 import { CategoryTag } from '../../TrendsElements/CategoryTag/CategoryTag';
 import {
