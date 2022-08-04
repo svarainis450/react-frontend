@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 
 import {
   Typography,
@@ -17,10 +17,12 @@ import { icons } from 'src/utils/icons';
 
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
+  categoryCallback: Dispatch<SetStateAction<CategoryTags>>;
 }
 
 export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   trendingProjects,
+  categoryCallback,
 }) => {
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
@@ -37,11 +39,21 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
         <Typography className="Category__subtitle">
           The most discussed category today
         </Typography>
-        <div className="Category__tags-wrapper">
+        <select
+          className="Category__select"
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            categoryCallback(e.target.value as CategoryTags)
+          }
+        >
+          <option value="category" defaultValue="category">
+            Category
+          </option>
           {tags.map((item, index) => (
-            <CategoryTag key={index} tagTitle={item} />
+            <option key={index} value={item as CategoryTags}>
+              {item}
+            </option>
           ))}
-        </div>
+        </select>
       </div>
       {isTablet && (
         <div
@@ -73,7 +85,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
                   projectTitle={item.name}
                   mentions={item.additional}
                   categoryTitle={item.tag.name as CategoryTags}
-                  img={item.img}
+                  img={item.img || icons.no_image}
                 />
               ))}
             </ul>

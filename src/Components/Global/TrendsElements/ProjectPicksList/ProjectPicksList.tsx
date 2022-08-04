@@ -20,7 +20,7 @@ export const ProjectPicksList: React.FC<ProjectPicksListProps> = ({
           <div key={id} className="picks-list__projects__project">
             <div className="picks-list__projects__project__flex">
               <Typography>#{index + 1}</Typography>
-              <img src={img} alt="project name" />
+              <img src={img || icons.no_image} alt="project name" />
             </div>
             <Typography
               className="picks-list__projects__project__title"

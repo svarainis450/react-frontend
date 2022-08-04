@@ -36,13 +36,18 @@
     color: var(--color-grey-text);
   }
 
-  &__tags-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin: 20px auto;
-    max-width: 230px;
+  &__select {
+    display: block;
+
+    margin: 24px auto;
+    padding: 16px 24px;
+    width: 234px;
+
+    border-radius: 10px;
+
+    option:hover {
+      color: var(--color-yellow-hero) !important;
+    }
   }
 
   &__projects-wrapper {

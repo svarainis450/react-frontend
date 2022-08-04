@@ -1,11 +1,8 @@
 import React, { ReactNode } from 'react';
 import { icons } from 'src/utils/icons';
+import { InfoBlock } from '../../InfoBlock/InfoBlock';
 
-import {
-  Typography,
-  TypographyVariant,
-  TypographyWeight,
-} from '../../Typography';
+import { Typography } from '../../Typography';
 import './CardWrapper.scss';
 
 interface CardWrapperProps {
@@ -31,36 +28,15 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
   subtitle,
   title,
 }) => {
-  const showInfClass = showInfoBlock ? 'show-info' : '';
-
   return (
     <div className="card">
       {showInfoBlock && (
-        <div className={`info ${showInfClass}`}>
-          <img
-            className="close-icon"
-            src={icons.closeXBlack}
-            alt="Info label"
-            onClick={onCloseClick}
-          />
-          <div className="flex-wrapper">
-            <img
-              className="info-label"
-              src={icons.info_label}
-              alt="Info label"
-            />
-            {infoTitle && (
-              <Typography className="info-title" weight={TypographyWeight.BOLD}>
-                {infoTitle}
-              </Typography>
-            )}
-          </div>
-          {infoDesc && (
-            <Typography variant={TypographyVariant.SUBHEADING}>
-              {infoDesc}
-            </Typography>
-          )}
-        </div>
+        <InfoBlock
+          showInfoBlock={showInfoBlock}
+          onCloseClick={onCloseClick}
+          infoTitle={infoTitle}
+          infoDesc={infoDesc}
+        />
       )}
       {(title || subtitle) && (
         <div className="flex-wrapper">

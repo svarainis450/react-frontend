@@ -1,6 +1,6 @@
 export enum CategoryTags {
   coins = 'Coins',
-  NFT = 'NFT',
+  NFT = 'Nft',
   DAO = 'DAO',
   meta = 'Metaverse',
   defi = 'DeFi',

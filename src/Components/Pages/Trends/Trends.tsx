@@ -38,6 +38,7 @@ import {
 } from 'src/state/reduxstate/projects/types';
 import { Submenu } from './Submenu';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('today');
@@ -53,10 +54,13 @@ export const Trends: React.FC = () => {
   const influencers = useSelector(influencersSelector);
   const projectsByInfluencers = useSelector(projectsByInfluencersSelector);
   const token = useSelector(userTokenSelector);
+  const [selectCategory, setSelectCategory] = useState<CategoryTags>(
+    CategoryTags.coins
+  );
 
   console.log(projectsByInfluencers);
 
-  console.log(influencers);
+  console.log(top3PositiveProjects);
 
   useEffect(() => {
     dispatch(
@@ -93,7 +97,10 @@ export const Trends: React.FC = () => {
                 {trendingStatus === 'pending' ? (
                   <Loader />
                 ) : (
-                  <TrendingCategory trendingProjects={trendingProjects} />
+                  <TrendingCategory
+                    categoryCallback={setSelectCategory}
+                    trendingProjects={trendingProjects}
+                  />
                 )}
               </CardWrapper>
               <CardWrapper

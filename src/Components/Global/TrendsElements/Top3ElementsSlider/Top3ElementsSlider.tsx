@@ -49,15 +49,18 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           >
             {topTalkRate ? (
               <ul className="cards-grid">
-                {topTalkRate.map(({ id, img, name, tag, rateData }) => (
+                {topTalkRate.map(({ id, img, name, tag, rateData }, index) => (
                   <Top3Element
                     key={id}
                     id={id}
+                    rank={index + 1}
                     icon={img}
                     projectName={name}
                     tagTitle={tag.name}
                     talkRate={rateData.talkRate}
                     blockType={InfoBlockTypes.rate}
+                    positiveRatio={rateData.positiveRatio}
+                    bullRatio={rateData.bullRatio}
                   />
                 ))}
               </ul>
@@ -79,15 +82,18 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           >
             {topPositive ? (
               <ul className="cards-grid">
-                {topPositive.map(({ id, img, name, tag, rateData }) => (
+                {topPositive.map(({ id, img, name, tag, rateData }, index) => (
                   <Top3Element
                     key={id}
+                    rank={index + 1}
                     id={id}
                     icon={img}
                     projectName={name}
                     tagTitle={tag.name}
                     talkRate={rateData.talkRate}
                     blockType={InfoBlockTypes.positive}
+                    positiveRatio={rateData.positiveRatio}
+                    bullRatio={rateData.bullRatio}
                   />
                 ))}
               </ul>
@@ -109,8 +115,9 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           >
             {topBull ? (
               <ul className="cards-grid">
-                {topBull.map(({ id, img, name, tag, rateData }) => (
+                {topBull.map(({ id, img, name, tag, rateData }, index) => (
                   <Top3Element
+                    rank={index + 1}
                     key={id}
                     id={id}
                     icon={img}
@@ -118,6 +125,8 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     tagTitle={tag.name}
                     talkRate={rateData.talkRate}
                     blockType={InfoBlockTypes.bullish}
+                    positiveRatio={rateData.positiveRatio}
+                    bullRatio={rateData.bullRatio}
                   />
                 ))}
               </ul>

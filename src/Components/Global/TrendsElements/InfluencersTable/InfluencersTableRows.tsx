@@ -1,4 +1,4 @@
-import { Influencer, tags } from 'src/state/reduxstate/projects/types';
+import { Influencer } from 'src/state/reduxstate/projects/types';
 import { calculateFollowers } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';

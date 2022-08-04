@@ -1,4 +1,5 @@
 import { icons } from 'src/utils/icons';
+import { IndexAxis } from '../../DiscoverElements/IndexAxis/IndexAxis';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
@@ -12,23 +13,28 @@ interface ElementProps {
   tagTitle: CategoryTags;
   talkRate: number;
   blockType: InfoBlockTypes;
+  positiveRatio: number;
+  bullRatio: number;
+  rank: number;
 }
 
 export const Top3Element: React.FC<ElementProps> = ({
-  id,
+  rank,
   icon,
   projectName,
   talkRate,
+  bullRatio,
+  positiveRatio,
   tagTitle,
   blockType,
 }) => {
   const visual = {
     [InfoBlockTypes.rate]: <TalkRateElement rate={talkRate} />,
     [InfoBlockTypes.positive]: (
-      <img src={icons.positive_element} alt="Positive project" />
+      <IndexAxis isHalfAxis type="positive" rating={positiveRatio} />
     ),
     [InfoBlockTypes.bullish]: (
-      <img src={icons.bull_element} alt="Bull project" />
+      <IndexAxis isHalfAxis type="bull" rating={bullRatio} />
     ),
   };
   return (
@@ -37,8 +43,12 @@ export const Top3Element: React.FC<ElementProps> = ({
         <Typography
           className="element__flex__diff-color"
           weight={TypographyWeight.THIN}
-        >{`#${id}`}</Typography>
-        <img className="element__flex__icon" src={icon} alt={projectName} />
+        >{`#${rank}`}</Typography>
+        <img
+          className="element__flex__icon"
+          src={icon || icons.no_image}
+          alt={projectName}
+        />
         <div>
           <Typography
             className="project-title"
@@ -49,7 +59,7 @@ export const Top3Element: React.FC<ElementProps> = ({
           <CategoryTag tagTitle={tagTitle} />
         </div>
       </div>
-      <>{visual[blockType]}</>
+      <div>{visual[blockType]}</div>
     </li>
   );
 };
