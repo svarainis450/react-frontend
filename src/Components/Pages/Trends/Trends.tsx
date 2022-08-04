@@ -58,10 +58,6 @@ export const Trends: React.FC = () => {
     CategoryTags.coins
   );
 
-  console.log(projectsByInfluencers);
-
-  console.log(top3PositiveProjects);
-
   useEffect(() => {
     dispatch(
       fetchTrendingProjects({

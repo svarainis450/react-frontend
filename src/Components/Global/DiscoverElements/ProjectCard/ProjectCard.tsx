@@ -53,7 +53,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="project-card">
           <div className="flex border-wrapper">
             <div className="flex">
-              <img className="icon" src={img} alt="bitkoin" />
+              <img className="icon" src={img || icons.no_image} alt="bitkoin" />
               <div>
                 <Typography className="title" weight={TypographyWeight.MEDIUM}>
                   {name}

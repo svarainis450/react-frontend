@@ -12,7 +12,6 @@ interface ProjectPicksListProps {
 export const ProjectPicksList: React.FC<ProjectPicksListProps> = ({
   pickedProjects,
 }) => {
-  console.log(pickedProjects);
   return (
     <div className="picks-list">
       <div className="picks-list__projects">

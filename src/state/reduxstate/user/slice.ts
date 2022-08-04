@@ -1,11 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NavClassTypes, UserState } from './types';
+import { NavClassTypes, UserDataType, UserState } from './types';
 
 const initialState: UserState = {
   profile_block: 'notifications',
   favorite_projects: [],
   subscribed_influencers: [],
   user_token: null,
+  user_data: {
+    email: '',
+    firstName: '',
+    lastName: '',
+    market: 50,
+  },
 };
 
 const userSlice = createSlice({
@@ -54,6 +60,12 @@ const userSlice = createSlice({
         return;
       }
     },
+    setUserData: (
+      state: { user_data: UserDataType },
+      action: PayloadAction<UserDataType>
+    ) => {
+      state.user_data = action.payload;
+    },
   },
 });
 
@@ -62,5 +74,6 @@ export const {
   setFavoriteProjects,
   setSubscribedInfluencers,
   setUserToken,
+  setUserData,
 } = userSlice.actions;
 export default userSlice;

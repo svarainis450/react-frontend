@@ -5,9 +5,17 @@ export type NavClassTypes =
   | 'billing'
   | 'account';
 
+export interface UserDataType {
+  email: string;
+  firstName: string;
+  lastName: string;
+  market: number;
+}
+
 export interface UserState {
   profile_block: NavClassTypes;
   favorite_projects: number[];
   subscribed_influencers: number[];
   user_token: string | null;
+  user_data: UserDataType;
 }

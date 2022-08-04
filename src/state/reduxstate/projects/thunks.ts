@@ -145,7 +145,6 @@ export const fetchInfluencers = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
-        console.log(resp);
 
         const { projects } = getState() as RootState;
 
@@ -154,7 +153,6 @@ export const fetchInfluencers = createAsyncThunk(
           const uniqueInfluencers = [
             ...(new Set(expandedInfluencers) as unknown as Influencer[]),
           ];
-          console.log(uniqueInfluencers);
           dispatch(setInfluencers(uniqueInfluencers));
         } else {
           dispatch(setInfluencers(resp.result));

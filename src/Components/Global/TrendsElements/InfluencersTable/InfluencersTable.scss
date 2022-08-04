@@ -51,6 +51,7 @@
 
   &__influencers-table {
     padding: 17px 0 0;
+    width: 1200px;
     overflow-x: scroll;
 
     &__row {
@@ -60,7 +61,7 @@
       grid-gap: 80px;
       align-items: center;
       justify-items: center;
-      width: fit-content;
+      width: 1200px;
 
       padding: 7px 0;
 
@@ -76,6 +77,7 @@
         display: flex;
         align-items: center;
         justify-self: flex-start;
+        width: 140px;
 
         &__tag-name {
           margin: 0 0 2px;

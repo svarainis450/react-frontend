@@ -55,6 +55,8 @@ export const Discover: React.FC = () => {
   const [offsetCount, setOffsetCount] = useState(0);
   const notAllToShow = offsetCount < 3000;
 
+  console.log(projects);
+
   useEffect(() => {
     dispatch(
       fetchProjects({
@@ -76,7 +78,6 @@ export const Discover: React.FC = () => {
     }
   };
 
-  console.log(projects);
   return (
     <div className="Discover">
       <LoggedInLayout>

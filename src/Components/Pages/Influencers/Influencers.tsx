@@ -52,8 +52,6 @@ export const Influencers: React.FC = () => {
     }
   };
 
-  console.log(offsetCount);
-
   return (
     <div className="Influencers">
       <LoggedInLayout>
