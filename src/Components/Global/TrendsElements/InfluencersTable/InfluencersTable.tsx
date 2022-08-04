@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { influencersPagesSelector } from 'src/state/reduxstate/projects/selectors';
 import {
@@ -21,6 +21,7 @@ interface InfluencersTableProps {
   callBack: Dispatch<SetStateAction<InfluencerFilterKeys>>;
   categoryCallBack: Dispatch<SetStateAction<CategoryTags | string>>;
   nameFilterCallBack: Dispatch<SetStateAction<string>>;
+  offsetCallBack: Dispatch<SetStateAction<number>>;
 }
 
 export const InfluencersTable: React.FC<InfluencersTableProps> = ({
@@ -28,8 +29,10 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   callBack,
   nameFilterCallBack,
   categoryCallBack,
+  offsetCallBack,
 }) => {
   const pages = useSelector(influencersPagesSelector);
+  const [offsetCount, setOffsetCount] = useState(0);
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
   };
@@ -51,7 +54,17 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
     }
   };
 
-  console.log(pages);
+  const handlePrevousBtn = () => {
+    if (offsetCount > 0) {
+      setOffsetCount(offsetCount - 10);
+      offsetCallBack(offsetCount - 10);
+    }
+  };
+
+  const handleNextBtn = () => {
+    setOffsetCount(offsetCount + 10);
+    offsetCallBack(offsetCount + 10);
+  };
 
   return (
     <div className="influencers-picks">
@@ -112,8 +125,18 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
         <div>
           <strong>{pages.page} </strong>of {pages.pages}
         </div>
-        <div className="influencers-picks__pagination-wrapper__prev">{'<'}</div>
-        <div className="influencers-picks__pagination-wrapper__next">{'>'}</div>
+        <button
+          className="influencers-picks__pagination-wrapper__prev"
+          onClick={handlePrevousBtn}
+        >
+          {'<'}
+        </button>
+        <button
+          className="influencers-picks__pagination-wrapper__next"
+          onClick={handleNextBtn}
+        >
+          {'>'}
+        </button>
       </div>
     </div>
   );

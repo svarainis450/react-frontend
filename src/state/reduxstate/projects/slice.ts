@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { stat } from 'fs';
-import { concat } from 'lodash';
 import {
   fetchTrendingProjects,
   fetchProjects,
   fetchProjectsPick,
-  fetchInfluencers,
   fetchProjectsByInfluencers,
   fetchMostFollowedInfluencers,
 } from './thunks';

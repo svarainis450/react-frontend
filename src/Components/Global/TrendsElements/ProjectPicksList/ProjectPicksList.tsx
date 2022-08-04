@@ -1,8 +1,7 @@
-import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
+import { Project } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
-import { CategoryTags } from '../types';
 import './ProjectPicksList.scss';
 
 interface ProjectPicksListProps {

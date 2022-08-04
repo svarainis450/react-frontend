@@ -1,11 +1,4 @@
-import {
-  useState,
-  ChangeEvent,
-  useCallback,
-  FormEvent,
-  useContext,
-  SyntheticEvent,
-} from 'react';
+import { useState, ChangeEvent, useContext } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 

@@ -13,6 +13,7 @@ import finger_tap from '../Assets/icons/finger_tap.svg';
 import link_arrow from '../Assets/icons/link_arrow.svg';
 import search_magnifier from '../Assets/icons/search_magnifier.svg';
 import arrow_right from '../Assets/icons/arrow_right.svg';
+import arrow_down from '../Assets/icons/arrow_down.svg';
 import envelope from '../Assets/icons/envelope.svg';
 import subscribe from '../Assets/icons/subscribe.svg';
 import subscribed from '../Assets/icons/subscribed.svg';
@@ -60,6 +61,7 @@ export const icons = {
   envelope,
   paypal_logo,
   arrow_right,
+  arrow_down,
   cards_logos,
   telegram,
   twitter,

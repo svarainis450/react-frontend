@@ -16,7 +16,6 @@ import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
   fetchInfluencers,
-  fetchMostFollowedInfluencers,
   fetchProjectsByInfluencers,
   fetchProjectsPick,
   fetchTop3Projects,
@@ -24,7 +23,6 @@ import {
 } from 'src/state/reduxstate/projects/thunks';
 import {
   influencersSelector,
-  mostFollowedInfluencersSelector,
   projectPicksSelector,
   projectsByInfluencersSelector,
   top3BullProjectsSelector,
@@ -89,9 +87,17 @@ export const Trends: React.FC = () => {
       fetchTrendingProjects({
         filter: filter,
         callBack: setTrendingStatus,
+        categoryFilter: selectCategory,
       })
     );
-  }, [filter, inflFilterValue, influencersFilter, dispatch, offsetCount]);
+  }, [
+    filter,
+    inflFilterValue,
+    influencersFilter,
+    dispatch,
+    offsetCount,
+    selectCategory,
+  ]);
 
   return (
     <div className="Trends">
@@ -137,6 +143,7 @@ export const Trends: React.FC = () => {
                   callBack={setInfluencersFilter}
                   nameFilterCallBack={setInflFilterValue}
                   categoryCallBack={setInflFilterValue}
+                  offsetCallBack={setOffsetCount}
                 />
               </CardWrapper>
             </section>

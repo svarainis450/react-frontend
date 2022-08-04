@@ -73,16 +73,21 @@ export const fetchProjects = createAsyncThunk(
 interface TrendingProjectsPayload {
   callBack: Dispatch<SetStateAction<Statuses>>;
   filter: SubmenuFilters;
+  categoryFilter?: CategoryTags;
 }
 
 export const fetchTrendingProjects = createAsyncThunk(
   'projects/GET_TRENDING_PROJECTS',
-  async ({ filter, callBack }: TrendingProjectsPayload) => {
+  async ({ filter, callBack, categoryFilter }: TrendingProjectsPayload) => {
     if (token && filter) {
       callBack('pending');
 
+      const url = categoryFilter
+        ? `${api}/projects/trending/${filter}?filter[category]=${categoryFilter.toLocaleLowerCase()}&limit=5`
+        : `${api}/projects/trending/${filter}?limit=5`;
+
       try {
-        const resp = await fetch(`${api}/projects/trending/${filter}?limit=5`, {
+        const resp = await fetch(url, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

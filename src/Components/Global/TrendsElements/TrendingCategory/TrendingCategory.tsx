@@ -1,19 +1,19 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import {
   Typography,
   TypographyVariant,
   TypographyWeight,
 } from '../../Typography';
-import { CategoryTag } from '../CategoryTag/CategoryTag';
 import { TrendingProjectCard } from '../TrendingProjectCard/TrendingProjectCard';
 import './TrendingCategory.scss';
 import { TrendsCategoryEllipse } from './TrendsCategoryEllipse';
 import { CategoryTags } from '../types';
-import { tags, TrendingProject } from 'src/state/reduxstate/projects/types';
+import { TrendingProject } from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { useMediaQuery } from 'src/hooks';
 import { icons } from 'src/utils/icons';
+import { CustomSelectDropdown } from './CustomSelectDropdown';
 
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
@@ -39,21 +39,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
         <Typography className="Category__subtitle">
           The most discussed category today
         </Typography>
-        <select
-          className="Category__select"
-          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            categoryCallback(e.target.value as CategoryTags)
-          }
-        >
-          <option value="category" defaultValue="category">
-            Category
-          </option>
-          {tags.map((item, index) => (
-            <option key={index} value={item as CategoryTags}>
-              {item}
-            </option>
-          ))}
-        </select>
+        <CustomSelectDropdown categoryCallBack={categoryCallback} />
       </div>
       {isTablet && (
         <div

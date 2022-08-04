@@ -141,7 +141,7 @@
 
   &__pagination-wrapper {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
 
     margin: 20px 0 0;
@@ -151,13 +151,18 @@
     font-weight: 300;
     color: var(--color-grey-text);
 
-    &__prev {
-      margin: 0 20px 0 20px;
+    @include desktop {
+      justify-content: flex-end;
     }
 
     &__prev,
     &__next {
+      all: unset;
       cursor: pointer;
+    }
+
+    &__prev {
+      margin: 0 20px 0 20px;
     }
   }
 }

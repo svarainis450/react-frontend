@@ -38,16 +38,13 @@
 
   &__select {
     display: block;
+    box-sizing: border-box;
 
     margin: 24px auto;
     padding: 16px 24px;
     width: 234px;
 
     border-radius: 10px;
-
-    option:hover {
-      color: var(--color-yellow-hero) !important;
-    }
   }
 
   &__projects-wrapper {

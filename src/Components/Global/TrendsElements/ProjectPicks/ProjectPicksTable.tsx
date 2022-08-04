@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useMediaQuery } from 'src/hooks';
 import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
-import { idText } from 'typescript';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
 

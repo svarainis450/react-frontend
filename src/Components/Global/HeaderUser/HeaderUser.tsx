@@ -33,7 +33,7 @@ export const HeaderUser = ({ onMenuToggle }: HeaderUserProps) => {
 
   useEffect(() => {
     dispatch(fetchUserData());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="HeaderUser">
