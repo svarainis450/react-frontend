@@ -49,8 +49,6 @@ const App = () => {
   const { userInfo, getUserInfo } = useContext(UserInfoContext);
   const [token, setToken] = useState('');
 
-  console.log(token);
-
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
       TagManager.initialize({ gtmId: 'GTM-NDCWF47' });

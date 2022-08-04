@@ -1,12 +1,13 @@
-import {createContext, useState} from 'react';
+import { createContext, useState } from 'react';
 import _ from 'lodash';
-import {UserInfoContextProps} from "./types"
+import { UserInfoContextProps } from './types';
 import { API_USER_INFO } from 'src/Common/services/userInfo';
 
 const DEFAULT_USER = {
-  email: "",
-  firstName: "",
-  lastName: ""
+  email: '',
+  firstName: '',
+  lastName: '',
+  market: null,
 };
 
 export const UserInfoContext = createContext<any>({
@@ -15,22 +16,26 @@ export const UserInfoContext = createContext<any>({
   getUserInfo: () => undefined,
 });
 
-export const UserInfoContextProvider = ({children} : UserInfoContextProps) => {
-  const [userInfo, setUserInfo] = useState(DEFAULT_USER)
+export const UserInfoContextProvider = ({ children }: UserInfoContextProps) => {
+  const [userInfo, setUserInfo] = useState(DEFAULT_USER);
 
   const getUserInfo = () => {
     API_USER_INFO()
-      .then((res: any) => setUserInfo(res.data))
-      .catch((err: any) => console.error(err))
-  }
+      .then((res: any) => {
+        setUserInfo(res.data);
+      })
+      .catch((err: any) => console.error(err));
+  };
 
   const exportValue = {
     userInfo,
     setUserInfo,
     getUserInfo,
-  }
+  };
 
-  return <UserInfoContext.Provider value={exportValue}>
-    {children}
-  </UserInfoContext.Provider>;
+  return (
+    <UserInfoContext.Provider value={exportValue}>
+      {children}
+    </UserInfoContext.Provider>
+  );
 };

@@ -1,8 +1,7 @@
-import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
+import { Project } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
-import { CategoryTags } from '../types';
 import './ProjectPicksList.scss';
 
 interface ProjectPicksListProps {
@@ -12,7 +11,6 @@ interface ProjectPicksListProps {
 export const ProjectPicksList: React.FC<ProjectPicksListProps> = ({
   pickedProjects,
 }) => {
-  console.log(pickedProjects);
   return (
     <div className="picks-list">
       <div className="picks-list__projects">
@@ -20,7 +18,7 @@ export const ProjectPicksList: React.FC<ProjectPicksListProps> = ({
           <div key={id} className="picks-list__projects__project">
             <div className="picks-list__projects__project__flex">
               <Typography>#{index + 1}</Typography>
-              <img src={img} alt="project name" />
+              <img src={img || icons.no_image} alt="project name" />
             </div>
             <Typography
               className="picks-list__projects__project__title"

@@ -1,26 +1,28 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import {
   Typography,
   TypographyVariant,
   TypographyWeight,
 } from '../../Typography';
-import { CategoryTag } from '../CategoryTag/CategoryTag';
 import { TrendingProjectCard } from '../TrendingProjectCard/TrendingProjectCard';
 import './TrendingCategory.scss';
 import { TrendsCategoryEllipse } from './TrendsCategoryEllipse';
 import { CategoryTags } from '../types';
-import { tags, TrendingProject } from 'src/state/reduxstate/projects/types';
+import { TrendingProject } from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { useMediaQuery } from 'src/hooks';
 import { icons } from 'src/utils/icons';
+import { CustomSelectDropdown } from './CustomSelectDropdown';
 
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
+  categoryCallback: Dispatch<SetStateAction<CategoryTags>>;
 }
 
 export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   trendingProjects,
+  categoryCallback,
 }) => {
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
@@ -37,11 +39,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
         <Typography className="Category__subtitle">
           The most discussed category today
         </Typography>
-        <div className="Category__tags-wrapper">
-          {tags.map((item, index) => (
-            <CategoryTag key={index} tagTitle={item} />
-          ))}
-        </div>
+        <CustomSelectDropdown categoryCallBack={categoryCallback} />
       </div>
       {isTablet && (
         <div
@@ -73,7 +71,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
                   projectTitle={item.name}
                   mentions={item.additional}
                   categoryTitle={item.tag.name as CategoryTags}
-                  img={item.img}
+                  img={item.img || icons.no_image}
                 />
               ))}
             </ul>

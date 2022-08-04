@@ -1,6 +1,9 @@
 // BUTTONS
 export * from './Button/SubscribeButton/SubscribeButton';
 
+// MISC
+export * from './InfoBlock/InfoBlock';
+
 // Loader
 export * from './Loader/Loader';
 

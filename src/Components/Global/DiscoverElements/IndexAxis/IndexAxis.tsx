@@ -4,18 +4,27 @@ import styled from 'styled-components';
 import './IndexAxis.scss';
 import { theme } from 'src/theme';
 import { icons } from 'src/utils/icons';
+import { calculateRangeWidth } from 'src/utils/calculations';
 
 interface IndexAxisProps {
   rating: number;
-  type: 'bull' | 'positive' | 'mover';
+  type: 'bull' | 'positive' | 'mover' | 'overall';
+  isHalfAxis?: boolean;
 }
 
-const BULLS = ['bear', 'neutral', 'bull'];
-const POSITIVE = ['negative', 'neutral', 'positive'];
-const MOVER = ['reviewer', 'neutral', 'first mover'];
+export const IndexAxis: React.FC<IndexAxisProps> = ({
+  rating,
+  type,
+  isHalfAxis = false,
+}) => {
+  const BULLS = isHalfAxis ? ['bull'] : ['bear', 'neutral', 'bull'];
+  const POSITIVE = isHalfAxis
+    ? ['positive']
+    : ['negative', 'neutral', 'positive'];
+  const MOVER = isHalfAxis
+    ? ['first mover']
+    : ['reviewer', 'neutral', 'first mover'];
 
-export const IndexAxis: React.FC<IndexAxisProps> = ({ rating, type }) => {
-  const isBullType = type === 'bull';
   const axisData = {
     bull: {
       titles: BULLS,
@@ -32,36 +41,71 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({ rating, type }) => {
       iconNegative: icons.reviewer,
       iconPositive: icons.first_mover,
     },
+    overall: {
+      titles: POSITIVE,
+    },
   };
-  const isPositive = rating >= 0;
-  const rangeWidth = isPositive ? rating : Math.abs(rating);
+  const isNeutral = rating === 50;
+
+  const isPositive = rating > 50 || isNeutral;
+
+  const rangeWidth = calculateRangeWidth(rating);
+  const isOverallType = type === 'overall';
+  const halfClass = isHalfAxis ? 'half' : '';
+  const neutralClass = isNeutral ? 'neutral' : '';
 
   return (
-    <div className="axis-wrapper">
-      <div className="icons-wrapper">
-        <img src={axisData[type].iconNegative} alt={axisData[type].titles[0]} />
-        <img src={axisData[type].iconPositive} alt={axisData[type].titles[2]} />
+    <div className={`axis-wrapper ${halfClass}`}>
+      <div className={`icons-wrapper ${halfClass}`}>
+        {!isHalfAxis && !isOverallType && (
+          <img
+            src={axisData[type].iconNegative}
+            alt={axisData[type].titles[0]}
+          />
+        )}
+        {!isOverallType && (
+          <img
+            src={axisData[type].iconPositive}
+            alt={axisData[type].titles[2]}
+          />
+        )}
       </div>
       <div className="axis">
-        <div className="center-line" />
+        <div className={`center-line ${halfClass}`} />
         <div className="range-wrapper">
-          <div className="rating-wrapper negative">
-            {!isPositive && (
-              <Rating isPositive={isPositive} width={rangeWidth}>
-                <div className="circle negative" />
-              </Rating>
-            )}
-          </div>
-          <div className="rating-wrapper">
+          {!isHalfAxis && (
+            <div className={`rating-wrapper negative`}>
+              {!isPositive && (
+                <Rating isPositive={isPositive} width={rangeWidth}>
+                  <div
+                    className={`${
+                      isOverallType
+                        ? `market-rating negative ${neutralClass}`
+                        : 'circle negative'
+                    }`}
+                  >
+                    {isOverallType ? rating : ''}
+                  </div>
+                </Rating>
+              )}
+            </div>
+          )}
+          <div className={`rating-wrapper ${halfClass}`}>
             {isPositive && (
               <Rating isPositive={isPositive} width={rangeWidth}>
-                <div className="circle" />
+                <div
+                  className={`${
+                    isOverallType ? `market-rating ${neutralClass}` : 'circle'
+                  }`}
+                >
+                  {isOverallType ? rating : ''}
+                </div>
               </Rating>
             )}
           </div>
         </div>
       </div>
-      <div className="axis-titles">
+      <div className={`axis-titles ${halfClass}`}>
         {axisData[type].titles.map((item, index) => (
           <Typography key={index}>{item}</Typography>
         ))}

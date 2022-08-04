@@ -1,12 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { stat } from 'fs';
-import { concat } from 'lodash';
 import {
   fetchTrendingProjects,
   fetchProjects,
   fetchProjectsPick,
-  fetchInfluencers,
   fetchProjectsByInfluencers,
+  fetchMostFollowedInfluencers,
 } from './thunks';
 import {
   Influencer,
@@ -28,6 +26,8 @@ const initialState: ProjectsState = {
   top_3_positive: [],
   top_3_talk_rate: [],
   projects_by_influencers: [],
+  most_followed_influencers: [],
+  influencers_pages_data: { page: 0, pages: 0 },
 };
 
 const projectsSlice = createSlice({
@@ -84,6 +84,14 @@ const projectsSlice = createSlice({
     ) => {
       state.influencers = action.payload;
     },
+    setInfluencersPages: (
+      state: {
+        influencers_pages_data: ProjectsState['influencers_pages_data'];
+      },
+      action: PayloadAction<{ page: number; pages: number }>
+    ) => {
+      state.influencers_pages_data = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProjects.rejected, (state) => {
@@ -101,12 +109,6 @@ const projectsSlice = createSlice({
         state.project_picks = action.payload;
       }
     );
-    // builder.addCase(
-    //   fetchInfluencers.fulfilled,
-    //   (state, action: PayloadAction<ProjectsState['influencers']>) => {
-    //     state.influencers = action.payload;
-    //   }
-    // );
     builder.addCase(
       fetchProjectsByInfluencers.fulfilled,
       (
@@ -114,6 +116,15 @@ const projectsSlice = createSlice({
         action: PayloadAction<ProjectsState['projects_by_influencers']>
       ) => {
         state.projects_by_influencers = action.payload;
+      }
+    );
+    builder.addCase(
+      fetchMostFollowedInfluencers.fulfilled,
+      (
+        state,
+        action: PayloadAction<ProjectsState['most_followed_influencers']>
+      ) => {
+        state.most_followed_influencers = action.payload;
       }
     );
   },
@@ -127,5 +138,6 @@ export const {
   setTop3TalkRateProjects,
   setProjects,
   setInfluencers,
+  setInfluencersPages,
 } = projectsSlice.actions;
 export default projectsSlice;

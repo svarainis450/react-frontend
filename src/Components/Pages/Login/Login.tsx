@@ -1,11 +1,4 @@
-import {
-  useState,
-  ChangeEvent,
-  useCallback,
-  FormEvent,
-  useContext,
-  SyntheticEvent,
-} from 'react';
+import { useState, ChangeEvent, useContext } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -19,8 +12,12 @@ import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 
 import './Login.scss';
 import { LinkList } from 'src/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { setUserData } from 'src/state/reduxstate/user/slice';
+import { UserDataType } from 'src/state/reduxstate/user/types';
 
 export const Login = () => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>('');
   const [pass, setPass] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -36,6 +33,7 @@ export const Login = () => {
     API_USER_LOGIN(email, pass)
       .then((response: any) => {
         setUserInfo(response.data);
+        dispatch(setUserData(response.data as UserDataType));
       })
       .then(() => {
         setLoginInProgress(false);
@@ -85,13 +83,18 @@ export const Login = () => {
             className="Login__input"
           />
 
-          <Button textWeight='heavy' className="Login__button" type="submit" onClick={handleLogin}>
+          <Button
+            textWeight="heavy"
+            className="Login__button"
+            type="submit"
+            onClick={handleLogin}
+          >
             {loginInProgress ? 'Logging in ...' : 'Log in'}
           </Button>
 
           <img className="Login__img" src={rocketTicket} alt="rocketTicket" />
 
-          <p className="Login__teaser"> 
+          <p className="Login__teaser">
             New to Potato?
             <Link to={LinkList.Register}>&nbsp; Sign Up here.</Link>
           </p>

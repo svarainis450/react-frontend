@@ -1,4 +1,4 @@
-import { Influencer, tags } from 'src/state/reduxstate/projects/types';
+import { Influencer } from 'src/state/reduxstate/projects/types';
 import { calculateFollowers } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
@@ -8,7 +8,7 @@ import { CategoryTag } from '../CategoryTag/CategoryTag';
 const HEADLINES = [
   'Influencer',
   'Followers',
-  //'Bullseye Index',
+  'Bullseye Index',
   'Category',
   'Post count',
   'Channel',

@@ -51,6 +51,7 @@
 
   &__influencers-table {
     padding: 17px 0 0;
+    width: 1200px;
     overflow-x: scroll;
 
     &__row {
@@ -60,7 +61,7 @@
       grid-gap: 80px;
       align-items: center;
       justify-items: center;
-      width: fit-content;
+      width: 1200px;
 
       padding: 7px 0;
 
@@ -76,6 +77,7 @@
         display: flex;
         align-items: center;
         justify-self: flex-start;
+        width: 140px;
 
         &__tag-name {
           margin: 0 0 2px;
@@ -134,6 +136,33 @@
       :nth-child(7) {
         justify-self: flex-start;
       }
+    }
+  }
+
+  &__pagination-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin: 20px 0 0;
+    width: 100%;
+
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--color-grey-text);
+
+    @include desktop {
+      justify-content: flex-end;
+    }
+
+    &__prev,
+    &__next {
+      all: unset;
+      cursor: pointer;
+    }
+
+    &__prev {
+      margin: 0 20px 0 20px;
     }
   }
 }

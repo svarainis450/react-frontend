@@ -38,6 +38,7 @@ import {
 } from 'src/state/reduxstate/projects/types';
 import { Submenu } from './Submenu';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('today');
@@ -53,32 +54,50 @@ export const Trends: React.FC = () => {
   const influencers = useSelector(influencersSelector);
   const projectsByInfluencers = useSelector(projectsByInfluencersSelector);
   const token = useSelector(userTokenSelector);
+  const [selectCategory, setSelectCategory] = useState<CategoryTags>(
+    CategoryTags.coins
+  );
+  const [offsetCount, setOffsetCount] = useState(0);
 
-  console.log(projectsByInfluencers);
-
-  console.log(influencers);
+  const [influencersFilter, setInfluencersFilter] =
+    useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
+  const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
+    '1'
+  );
 
   useEffect(() => {
-    dispatch(
-      fetchTrendingProjects({
-        filter: filter,
-        callBack: setTrendingStatus,
-      })
-    );
     dispatch(fetchProjectsPick());
     dispatch(fetchTop3Projects('bull'));
     dispatch(fetchTop3Projects('positive'));
     dispatch(fetchTop3Projects('talk_rate'));
+    dispatch(fetchProjectsByInfluencers());
+  }, [dispatch, token]);
+
+  useEffect(() => {
     dispatch(
       fetchInfluencers({
         callBack: setinfluencersStatus,
-        filter: InfluencerFilterKeys.FOLLOWERS,
+        filter: influencersFilter,
+        filterValue: inflFilterValue,
         limit: 10,
-        offset: 0,
+        offset: offsetCount,
       })
     );
-    dispatch(fetchProjectsByInfluencers());
-  }, [filter, dispatch, token]);
+    dispatch(
+      fetchTrendingProjects({
+        filter: filter,
+        callBack: setTrendingStatus,
+        categoryFilter: selectCategory,
+      })
+    );
+  }, [
+    filter,
+    inflFilterValue,
+    influencersFilter,
+    dispatch,
+    offsetCount,
+    selectCategory,
+  ]);
 
   return (
     <div className="Trends">
@@ -93,7 +112,10 @@ export const Trends: React.FC = () => {
                 {trendingStatus === 'pending' ? (
                   <Loader />
                 ) : (
-                  <TrendingCategory trendingProjects={trendingProjects} />
+                  <TrendingCategory
+                    categoryCallback={setSelectCategory}
+                    trendingProjects={trendingProjects}
+                  />
                 )}
               </CardWrapper>
               <CardWrapper
@@ -116,7 +138,13 @@ export const Trends: React.FC = () => {
                 title="List of influencers and their picks"
                 subtitle="Today"
               >
-                <InfluencersTable influencersData={influencers} />
+                <InfluencersTable
+                  influencersData={influencers}
+                  callBack={setInfluencersFilter}
+                  nameFilterCallBack={setInflFilterValue}
+                  categoryCallBack={setInflFilterValue}
+                  offsetCallBack={setOffsetCount}
+                />
               </CardWrapper>
             </section>
           </>

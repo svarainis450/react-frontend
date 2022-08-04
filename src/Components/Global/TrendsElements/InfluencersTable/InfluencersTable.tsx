@@ -1,5 +1,11 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { Influencer, tags } from 'src/state/reduxstate/projects/types';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { influencersPagesSelector } from 'src/state/reduxstate/projects/selectors';
+import {
+  Influencer,
+  InfluencerFilterKeys,
+  tags,
+} from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import {
   Typography,
@@ -10,63 +16,55 @@ import { CategoryTags } from '../types';
 import './InfluencersTable.scss';
 import { InfluencersTableRows } from './InfluencersTableRows';
 
-// export interface InfluencerData {
-//   tagName: string;
-//   name: string;
-//   img: string;
-//   followers: number;
-//   bullseyeIndex: number;
-//   category: CategoryTags;
-//   postCount: number;
-//   channel: string;
-//   projectName: string;
-//   projectImg: string;
-//   linkToPost: string;
-// }
-
 interface InfluencersTableProps {
   influencersData: Influencer[];
+  callBack: Dispatch<SetStateAction<InfluencerFilterKeys>>;
+  categoryCallBack: Dispatch<SetStateAction<CategoryTags | string>>;
+  nameFilterCallBack: Dispatch<SetStateAction<string>>;
+  offsetCallBack: Dispatch<SetStateAction<number>>;
 }
-
-type SortTypes = 'followers' | 'bullseye';
 
 export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   influencersData,
+  callBack,
+  nameFilterCallBack,
+  categoryCallBack,
+  offsetCallBack,
 }) => {
-  const [filteredInfluencers, setfilteredInfluencers] =
-    useState<Influencer[]>(influencersData);
-  const [sortType, setSortType] = useState<SortTypes | null>(null);
+  const pages = useSelector(influencersPagesSelector);
+  const [offsetCount, setOffsetCount] = useState(0);
+  const handleFilters = (filterKey: InfluencerFilterKeys) => {
+    callBack(filterKey);
+  };
 
-  useEffect(() => {
-    if (sortType === 'bullseye') {
-      const filterByBullseye = influencersData.sort(
-        (a, b) => b.bullseye - a.bullseye
-      );
-      setfilteredInfluencers(filterByBullseye);
-      setSortType(null);
-    } else if (sortType === 'followers') {
-      const filteredByFollowers = influencersData.sort(
-        (a, b) => b.followers - a.followers
-      );
-      setfilteredInfluencers(filteredByFollowers);
-      setSortType(null);
-    } else {
-      setfilteredInfluencers(influencersData);
+  const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    callBack(InfluencerFilterKeys.CATEGORY);
+    categoryCallBack(e.target.value as CategoryTags);
+  };
+
+  const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.value.length >= 3) {
+      nameFilterCallBack(e.target.value);
+      callBack(InfluencerFilterKeys.NAME);
+    } else if (e.target.value.length === 0) {
+      callBack(InfluencerFilterKeys.NONE);
+      nameFilterCallBack('1');
     }
-  }, [sortType, filteredInfluencers, influencersData]);
+  };
 
-  // const handleCategorySelection = (option: ChangeEvent<HTMLSelectElement>) => {
-  //   option.preventDefault();
-  //   const optionValue = option.target.value;
-  //   if (optionValue === 'category') {
-  //     setfilteredInfluencers(influencersData);
-  //   } else {
-  //     const filteredByCategories = influencersData.filter(
-  //       (item) => item.focus === (optionValue as CategoryTags)
-  //     );
-  //     setfilteredInfluencers(filteredByCategories);
-  //   }
-  // };
+  const handlePrevousBtn = () => {
+    if (offsetCount > 0) {
+      setOffsetCount(offsetCount - 10);
+      offsetCallBack(offsetCount - 10);
+    }
+  };
+
+  const handleNextBtn = () => {
+    setOffsetCount(offsetCount + 10);
+    offsetCallBack(offsetCount + 10);
+  };
 
   return (
     <div className="influencers-picks">
@@ -81,6 +79,9 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
             className="influencers-picks__filters__input-wrapper__input"
             type="text"
             placeholder="Filter by name..."
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              handleNameInputChange(e)
+            }
           />
         </div>
         <div className="influencers-picks__filters__sort">
@@ -92,21 +93,21 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
           </Typography>
           <Typography
             className="influencers-picks__filters__sort__option"
-            onClick={() => setSortType('followers')}
+            onClick={() => handleFilters(InfluencerFilterKeys.FOLLOWERS)}
           >
             Followers
           </Typography>
           <Typography
             className="influencers-picks__filters__sort__option"
-            onClick={() => setSortType('bullseye')}
+            onClick={() => handleFilters(InfluencerFilterKeys.BULLSEYE)}
           >
             Bullseye
           </Typography>
           <select
             className="select"
-            // onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            //   handleCategorySelection(e)
-            // }
+            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+              handleCategorySelection(e)
+            }
           >
             <option value="category" defaultValue="category">
               Category
@@ -119,7 +120,24 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
           </select>
         </div>
       </div>
-      <InfluencersTableRows influencersData={filteredInfluencers} />
+      <InfluencersTableRows influencersData={influencersData} />
+      <div className="influencers-picks__pagination-wrapper">
+        <div>
+          <strong>{pages.page} </strong>of {pages.pages}
+        </div>
+        <button
+          className="influencers-picks__pagination-wrapper__prev"
+          onClick={handlePrevousBtn}
+        >
+          {'<'}
+        </button>
+        <button
+          className="influencers-picks__pagination-wrapper__next"
+          onClick={handleNextBtn}
+        >
+          {'>'}
+        </button>
+      </div>
     </div>
   );
 };

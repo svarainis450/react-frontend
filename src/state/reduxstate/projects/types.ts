@@ -73,6 +73,11 @@ export interface ProjectsState {
   top_3_talk_rate: Project[];
   top_3_positive: Project[];
   projects_by_influencers: Project[];
+  most_followed_influencers: Influencer[];
+  influencers_pages_data: {
+    page: number;
+    pages: number;
+  };
 }
 
 export const tags = [
@@ -92,6 +97,7 @@ export enum ProjectFilterKeys {
   NEWEST = 'newest',
   OLDEST = 'oldest',
   CATEGORY = 'category',
+  NAME = 'name',
   NONE = '',
 }
 
@@ -102,7 +108,9 @@ export enum InfluencerFilterKeys {
   BULLSEYE = 'bullseye',
   FIRST_MOVER = 'first_mover',
   REVIEWER = 'reviewer',
+  CATEGORY = 'category',
   RATE = 'rate',
+  NAME = 'name',
   NONE = '',
 }
 
