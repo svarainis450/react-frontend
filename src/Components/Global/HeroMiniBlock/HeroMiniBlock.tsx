@@ -1,11 +1,19 @@
+import Lottie from 'react-lottie';
 import { Button } from "../Button";
 import { HeroMiniBlockProps } from "./types";
 import { Link } from 'react-router-dom'
+
+import * as animationData from 'src/Assets/lotties/Lottie_rocket.json';
 
 import "./HeroMiniBlock.scss";
 import classNames from "classnames";
 
 export const HeroMiniBlock = ({children, ctaText, ctaLink, img, className}  : HeroMiniBlockProps) => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true, 
+    animationData: animationData,
+  };
 
   return (
     <div className={classNames('HeroMiniBlock', className)} >
@@ -25,7 +33,12 @@ export const HeroMiniBlock = ({children, ctaText, ctaLink, img, className}  : He
       </div>
 
       <div className="HeroMiniBlock__img">
-        <img className="HeroMiniBlock__mainimg" src={img} alt="rocketImg" />
+        {
+          img 
+            ? <img className="HeroMiniBlock__mainimg" src={img} alt="rocketImg" />
+            : <Lottie options={defaultOptions}/>
+        }
+
       </div>
     </div>
   );

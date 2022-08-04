@@ -1,3 +1,4 @@
+import Lottie from 'react-lottie';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -5,7 +6,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { Typography, TypographyVariant, TypographyWeight } from "../Typography";
 import { HeroTitle } from '../HeroTitle';
 
-import browserWindow from "../../../Assets/images/browserWindow.png";
+import * as animationData from 'src/Assets/lotties/Lottie_mac.json';
+
 import people from "../../../Assets/images/reasoning/people.svg";
 import download from "../../../Assets/images/reasoning/download.svg";
 import target from "../../../Assets/images/reasoning/target.svg";
@@ -15,6 +17,14 @@ import arrowDown from "../../../Assets/images/arrowDown.svg";
 import "./Reasoning.scss";
 
 export const Reasoning = () => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true, 
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
   return (
     <div className="Reasoning">
@@ -179,7 +189,8 @@ export const Reasoning = () => {
         </div>
 
         <div className="Reasoning__img">
-          <img className="Reasoning__message" src={browserWindow} alt="heroMessage" />
+          {/* <img className="Reasoning__message" src={browserWindow} alt="heroMessage" /> */}
+          <Lottie options={defaultOptions}/>
         </div>
       </div>
     </div>

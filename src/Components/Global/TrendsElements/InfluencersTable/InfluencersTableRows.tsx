@@ -8,7 +8,7 @@ import { CategoryTag } from '../CategoryTag/CategoryTag';
 const HEADLINES = [
   'Influencer',
   'Followers',
-  'Bullseye Index',
+  //'Bullseye Index',
   'Category',
   'Post count',
   'Channel',
