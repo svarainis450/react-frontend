@@ -138,4 +138,26 @@
       }
     }
   }
+
+  &__pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    margin: 20px 0 0;
+    width: 100%;
+
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--color-grey-text);
+
+    &__prev {
+      margin: 0 20px 0 20px;
+    }
+
+    &__prev,
+    &__next {
+      cursor: pointer;
+    }
+  }
 }

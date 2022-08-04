@@ -14,3 +14,7 @@ export const top3TalkRateProjectsSelector = (s: AppState) =>
   s.projects.top_3_talk_rate;
 export const projectsByInfluencersSelector = (s: AppState) =>
   s.projects.projects_by_influencers;
+export const mostFollowedInfluencersSelector = (s: AppState) =>
+  s.projects.most_followed_influencers;
+export const influencersPagesSelector = (s: AppState) =>
+  s.projects.influencers_pages_data;

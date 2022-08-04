@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  Dispatch,
+  SetStateAction,
+  useState,
+} from 'react';
 import { ProjectFilterKeys, tags } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { CategoryTags } from '../../TrendsElements/types';
@@ -22,17 +28,30 @@ const FILTERS = [
 
 interface ProjectFiltersProps {
   callBack: Dispatch<SetStateAction<ProjectFilterKeys>>;
-  categoryCallBack: Dispatch<SetStateAction<CategoryTags | undefined>>;
+  categoryCallBack: Dispatch<SetStateAction<CategoryTags | string>>;
+  nameFilterCallBack: Dispatch<SetStateAction<string>>;
 }
 
 export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   callBack,
   categoryCallBack,
+  nameFilterCallBack,
 }) => {
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     callBack(ProjectFilterKeys.CATEGORY);
     categoryCallBack(e.target.value as CategoryTags);
+  };
+
+  const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.value.length >= 3) {
+      nameFilterCallBack(e.target.value);
+      callBack(ProjectFilterKeys.NAME);
+    } else if (e.target.value.length === 0) {
+      callBack(ProjectFilterKeys.NONE);
+      nameFilterCallBack('1');
+    }
   };
 
   return (
@@ -47,6 +66,9 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
           className="project-filters__input-wrapper__input"
           type="text"
           placeholder="Filter by name..."
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            handleNameInputChange(e)
+          }
         />
       </div>
       <div className="project-filters__sort">
@@ -56,9 +78,9 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
         >
           Sort by:
         </Typography>
-        {FILTERS.map(({ title, key }) => (
+        {FILTERS.map(({ title, key }, index) => (
           <Typography
-            key={title}
+            key={index}
             className="project-filters__sort__option"
             onClick={() => callBack(key)}
           >

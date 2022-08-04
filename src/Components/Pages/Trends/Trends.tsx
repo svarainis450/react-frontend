@@ -16,6 +16,7 @@ import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
   fetchInfluencers,
+  fetchMostFollowedInfluencers,
   fetchProjectsByInfluencers,
   fetchProjectsPick,
   fetchTop3Projects,
@@ -23,6 +24,7 @@ import {
 } from 'src/state/reduxstate/projects/thunks';
 import {
   influencersSelector,
+  mostFollowedInfluencersSelector,
   projectPicksSelector,
   projectsByInfluencersSelector,
   top3BullProjectsSelector,
@@ -57,28 +59,39 @@ export const Trends: React.FC = () => {
   const [selectCategory, setSelectCategory] = useState<CategoryTags>(
     CategoryTags.coins
   );
+  const [offsetCount, setOffsetCount] = useState(0);
+
+  const [influencersFilter, setInfluencersFilter] =
+    useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
+  const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
+    '1'
+  );
 
   useEffect(() => {
+    dispatch(fetchProjectsPick());
+    dispatch(fetchTop3Projects('bull'));
+    dispatch(fetchTop3Projects('positive'));
+    dispatch(fetchTop3Projects('talk_rate'));
+    dispatch(fetchProjectsByInfluencers());
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    dispatch(
+      fetchInfluencers({
+        callBack: setinfluencersStatus,
+        filter: influencersFilter,
+        filterValue: inflFilterValue,
+        limit: 10,
+        offset: offsetCount,
+      })
+    );
     dispatch(
       fetchTrendingProjects({
         filter: filter,
         callBack: setTrendingStatus,
       })
     );
-    dispatch(fetchProjectsPick());
-    dispatch(fetchTop3Projects('bull'));
-    dispatch(fetchTop3Projects('positive'));
-    dispatch(fetchTop3Projects('talk_rate'));
-    dispatch(
-      fetchInfluencers({
-        callBack: setinfluencersStatus,
-        filter: InfluencerFilterKeys.FOLLOWERS,
-        limit: 10,
-        offset: 0,
-      })
-    );
-    dispatch(fetchProjectsByInfluencers());
-  }, [filter, dispatch, token]);
+  }, [filter, inflFilterValue, influencersFilter, dispatch, offsetCount]);
 
   return (
     <div className="Trends">
@@ -119,7 +132,12 @@ export const Trends: React.FC = () => {
                 title="List of influencers and their picks"
                 subtitle="Today"
               >
-                <InfluencersTable influencersData={influencers} />
+                <InfluencersTable
+                  influencersData={influencers}
+                  callBack={setInfluencersFilter}
+                  nameFilterCallBack={setInflFilterValue}
+                  categoryCallBack={setInflFilterValue}
+                />
               </CardWrapper>
             </section>
           </>

@@ -28,6 +28,7 @@ export const Influencers: React.FC = () => {
   const dispatch = useAppDispatch();
   const [influencersFilter, setInfluencersFilter] =
     useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
+  const [filterValue, setFilterValue] = useState<string>('1');
   const [influencersStatus, setInfluencersStatus] = useState<Statuses>('idle');
   const [offsetCount, setOffsetCount] = useState(0);
   const notAllToShow = offsetCount < 3000;
@@ -38,10 +39,11 @@ export const Influencers: React.FC = () => {
         filter: influencersFilter,
         callBack: setInfluencersStatus,
         offset: offsetCount,
+        filterValue: filterValue,
       })
     );
     scrollToElement('infl-to-scroll');
-  }, [influencersFilter, dispatch, offsetCount]);
+  }, [influencersFilter, dispatch, offsetCount, filterValue]);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow) {
@@ -56,7 +58,10 @@ export const Influencers: React.FC = () => {
     <div className="Influencers">
       <LoggedInLayout>
         <Submenu menuItems={submenuList} />
-        <InfluencerFilters callBack={setInfluencersFilter} />
+        <InfluencerFilters
+          callBack={setInfluencersFilter}
+          nameFilterCallBack={setFilterValue}
+        />
         {influencersStatus === 'pending' && <Loader />}
         {influencersStatus === 'error' && <LoadError />}
         <div className="Influencers__wrapper">

@@ -48,14 +48,13 @@ export const Discover: React.FC = () => {
 
   const projects = useSelector(projectsSelector);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
-  const [categoryValue, setCategoryValue] = useState<CategoryTags | undefined>(
-    undefined
-  );
+  const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
   const [offsetCount, setOffsetCount] = useState(0);
   const notAllToShow = offsetCount < 3000;
 
-  console.log(projects);
+  console.log(projectsFilter);
+  console.log(filterValue);
 
   useEffect(() => {
     dispatch(
@@ -63,11 +62,11 @@ export const Discover: React.FC = () => {
         filter: projectsFilter,
         callBack: setProjectStatus,
         offset: offsetCount,
-        filterValue: categoryValue,
+        filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );
     scrollToElement('card-to-scroll');
-  }, [projectsFilter, offsetCount, dispatch, categoryValue]);
+  }, [projectsFilter, offsetCount, dispatch, filterValue]);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow) {
@@ -84,7 +83,8 @@ export const Discover: React.FC = () => {
         <Submenu menuItems={submenuList} />
         <ProjectFilters
           callBack={setProjectsFilter}
-          categoryCallBack={setCategoryValue}
+          categoryCallBack={setFilterValue}
+          nameFilterCallBack={setFilterValue}
         />
 
         {projectsStatus === 'pending' && <Loader />}
@@ -92,22 +92,25 @@ export const Discover: React.FC = () => {
         <div className="Discover__wrapper">
           {projectsStatus === 'success' &&
             projects.map(
-              ({
-                id,
-                coinbaseUrl,
-                tag,
-                rateData,
-                name,
-                influencers,
-                img,
-                started,
-              }) => (
+              (
+                {
+                  id,
+                  coinbaseUrl,
+                  tag,
+                  rateData,
+                  name,
+                  influencers,
+                  img,
+                  started,
+                },
+                index
+              ) => (
                 <Element
-                  name={id === offsetCount ? 'card-to-scroll' : 'no-scroll'}
+                  key={id}
+                  name={index === offsetCount ? 'card-to-scroll' : 'no-scroll'}
                 >
                   <ProjectCard
                     id={id}
-                    key={id}
                     name={name}
                     img={img}
                     coinbaseUrl={coinbaseUrl}

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import {
   InfluencerFilterKeys,
   tags,
@@ -25,13 +25,26 @@ const FILTERS = [
 
 interface InfluencerFiltersProps {
   callBack: Dispatch<SetStateAction<InfluencerFilterKeys>>;
+  nameFilterCallBack: Dispatch<SetStateAction<string>>;
 }
 
 export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
   callBack,
+  nameFilterCallBack,
 }) => {
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
+  };
+
+  const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.value.length >= 3) {
+      nameFilterCallBack(e.target.value);
+      callBack(InfluencerFilterKeys.NAME);
+    } else if (e.target.value.length === 0) {
+      callBack(InfluencerFilterKeys.NONE);
+      nameFilterCallBack('1');
+    }
   };
 
   return (
@@ -46,6 +59,9 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
           className="influencer-filters__input-wrapper__input"
           type="text"
           placeholder="Filter by name..."
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            handleNameInputChange(e)
+          }
         />
       </div>
       <div className="influencer-filters__sort">

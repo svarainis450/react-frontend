@@ -6,6 +6,7 @@ import { RootState } from '../slice';
 import { api } from '../types';
 import {
   setInfluencers,
+  setInfluencersPages,
   setProjects,
   setTop3bullProjects,
   setTop3PositiveProjects,
@@ -35,14 +36,9 @@ export const fetchProjects = createAsyncThunk(
     { callBack, filter, offset, filterValue = 1 }: ProjectsPayload,
     { dispatch, getState }
   ) => {
-    const setFilterValue =
-      filter === ProjectFilterKeys.CATEGORY
-        ? String(filterValue).toLowerCase()
-        : 1;
-
     const url =
       filter.length > 0
-        ? `${api}/projects/today?filters[${filter}]=${setFilterValue}&limit=50&offset=${offset}`
+        ? `${api}/projects/today?filters[${filter}]=${filterValue}&limit=50&offset=${offset}`
         : `${api}/projects/today?limit=50&offset=${offset}`;
 
     if (token) {
@@ -124,17 +120,24 @@ interface InfluencersPayload {
   filter: InfluencerFilterKeys;
   limit?: number;
   offset: number;
+  filterValue?: string | CategoryTags;
 }
 
 export const fetchInfluencers = createAsyncThunk(
   'projects/GET_INFLUENCERS',
   async (
-    { callBack, filter, limit = 50, offset }: InfluencersPayload,
+    {
+      callBack,
+      filter,
+      limit = 50,
+      offset,
+      filterValue = '1',
+    }: InfluencersPayload,
     { dispatch, getState }
   ) => {
     const filterType = String(filter).toLowerCase();
     const url = filter
-      ? `${api}/influencers/today?filter[${filterType}]=1&limit=${limit}&offset=${offset}`
+      ? `${api}/influencers/today?filter[${filterType}]=${filterValue}&limit=${limit}&offset=${offset}`
       : `${api}/influencers/today?limit=${limit}&offset=${offset}`;
 
     callBack('pending');
@@ -147,6 +150,7 @@ export const fetchInfluencers = createAsyncThunk(
         }).then((res) => res.json());
 
         const { projects } = getState() as RootState;
+        console.log(resp);
 
         if (offset >= 50) {
           const expandedInfluencers = concat(projects.influencers, resp.result);
@@ -157,7 +161,15 @@ export const fetchInfluencers = createAsyncThunk(
         } else {
           dispatch(setInfluencers(resp.result));
         }
+
         callBack('success');
+
+        dispatch(
+          setInfluencersPages({
+            page: resp.page,
+            pages: resp.pages,
+          })
+        );
       } catch (e) {
         callBack('error');
         console.log(e);
@@ -205,6 +217,27 @@ export const fetchProjectsByInfluencers = createAsyncThunk(
       try {
         const resp = await fetch(
           `${api}/projects?filters[top]=influencer&limit=5`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        ).then((res) => res.json());
+        return resp.result;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const fetchMostFollowedInfluencers = createAsyncThunk(
+  'projects/GET_MOST_FOLLOWED_INFLUENCERS',
+  async () => {
+    if (token) {
+      try {
+        const resp = await fetch(
+          `${api}/projects?filters[followers]=1&limit=10`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
