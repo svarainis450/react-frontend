@@ -80,7 +80,7 @@ export const Discover: React.FC = () => {
   return (
     <div className="Discover">
       <LoggedInLayout>
-        <Submenu menuItems={submenuList} />
+        <Submenu pageTitleMob="Discover" menuItems={submenuList} />
         <ProjectFilters
           callBack={setProjectsFilter}
           categoryCallBack={setFilterValue}
@@ -88,7 +88,6 @@ export const Discover: React.FC = () => {
         />
 
         {projectsStatus === 'pending' && <Loader />}
-
         <div className="Discover__wrapper">
           {projectsStatus === 'success' &&
             projects.map(

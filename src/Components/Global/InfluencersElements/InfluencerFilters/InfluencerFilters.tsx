@@ -1,10 +1,8 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import {
-  InfluencerFilterKeys,
-  tags,
-} from 'src/state/reduxstate/projects/types';
+import { MobileFilter } from 'src/Components/MobileFilter/MobileFilter';
+import { useMediaQuery } from 'src/hooks';
+import { InfluencerFilterKeys } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
-import { CategoryTags } from '../../TrendsElements/types';
 import {
   Typography,
   TypographyVariant,
@@ -32,6 +30,8 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
   callBack,
   nameFilterCallBack,
 }) => {
+  const { isTablet } = useMediaQuery();
+
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
   };
@@ -64,23 +64,32 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
           }
         />
       </div>
-      <div className="influencer-filters__sort">
-        <Typography
-          variant={TypographyVariant.SUBHEADING}
-          weight={TypographyWeight.BOLD700}
-        >
-          Sort by:
-        </Typography>
-        {FILTERS.map(({ title, key }) => (
+      {!isTablet && (
+        <div className="influencer-filters__sort">
           <Typography
-            key={title}
-            className="influencer-filters__sort__option"
-            onClick={() => handleFilters(key)}
+            variant={TypographyVariant.SUBHEADING}
+            weight={TypographyWeight.BOLD700}
           >
-            {title}
+            Sort by:
           </Typography>
-        ))}
-      </div>
+          {FILTERS.map(({ title, key }) => (
+            <Typography
+              key={title}
+              className="influencer-filters__sort__option"
+              onClick={() => handleFilters(key)}
+            >
+              {title}
+            </Typography>
+          ))}
+        </div>
+      )}
+      {isTablet && (
+        <MobileFilter
+          whatFiltering="influencers"
+          influencersCallBack={callBack}
+          options={FILTERS}
+        />
+      )}
     </div>
   );
 };

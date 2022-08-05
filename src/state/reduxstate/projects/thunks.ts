@@ -141,8 +141,9 @@ export const fetchInfluencers = createAsyncThunk(
     { dispatch, getState }
   ) => {
     const filterType = String(filter).toLowerCase();
+    const filterValuePure = filterValue.toLocaleLowerCase();
     const url = filter
-      ? `${api}/influencers/today?filter[${filterType}]=${filterValue}&limit=${limit}&offset=${offset}`
+      ? `${api}/influencers/today?filter[${filterType}]=${filterValuePure}&limit=${limit}&offset=${offset}`
       : `${api}/influencers/today?limit=${limit}&offset=${offset}`;
 
     callBack('pending');

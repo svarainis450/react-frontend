@@ -1,12 +1,13 @@
 @import '../../../../utils/breakpointsMixins.scss';
 
 .influencer-filters {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0 0 20px;
 
   @include desktop {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin: 0 auto 16px;
     padding: 16px 0 0 0;
 

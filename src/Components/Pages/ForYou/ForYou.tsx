@@ -54,7 +54,7 @@ export const ForYou: React.FC = () => {
   return (
     <div className="For-you">
       <LoggedInLayout>
-        <Submenu menuItems={forYouSubmenuList} />
+        <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
         {/* <ProjectFilters /> */}
         {favoriteProjects.length === 0 && (
           <div className="empty-dashboard">

@@ -1,5 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { MobileFilter } from 'src/Components/MobileFilter/MobileFilter';
+import { useMediaQuery } from 'src/hooks';
 import { influencersPagesSelector } from 'src/state/reduxstate/projects/selectors';
 import {
   Influencer,
@@ -24,6 +26,11 @@ interface InfluencersTableProps {
   offsetCallBack: Dispatch<SetStateAction<number>>;
 }
 
+const FILTERS = [
+  { title: 'Followers', key: InfluencerFilterKeys.FOLLOWERS },
+  { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
+];
+
 export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   influencersData,
   callBack,
@@ -36,6 +43,7 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
   };
+  const { isTablet } = useMediaQuery();
 
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -84,41 +92,52 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
             }
           />
         </div>
-        <div className="influencers-picks__filters__sort">
-          <Typography
-            variant={TypographyVariant.SUBHEADING}
-            weight={TypographyWeight.BOLD700}
-          >
-            Sort by:
-          </Typography>
-          <Typography
-            className="influencers-picks__filters__sort__option"
-            onClick={() => handleFilters(InfluencerFilterKeys.FOLLOWERS)}
-          >
-            Followers
-          </Typography>
-          <Typography
-            className="influencers-picks__filters__sort__option"
-            onClick={() => handleFilters(InfluencerFilterKeys.BULLSEYE)}
-          >
-            Bullseye
-          </Typography>
-          <select
-            className="select"
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              handleCategorySelection(e)
-            }
-          >
-            <option value="category" defaultValue="category">
-              Category
-            </option>
-            {tags.map((item, index) => (
-              <option key={index} value={item as CategoryTags}>
-                {item}
+        {!isTablet && (
+          <div className="influencers-picks__filters__sort">
+            <Typography
+              variant={TypographyVariant.SUBHEADING}
+              weight={TypographyWeight.BOLD700}
+            >
+              Sort by:
+            </Typography>
+            <Typography
+              className="influencers-picks__filters__sort__option"
+              onClick={() => handleFilters(InfluencerFilterKeys.FOLLOWERS)}
+            >
+              Followers
+            </Typography>
+            <Typography
+              className="influencers-picks__filters__sort__option"
+              onClick={() => handleFilters(InfluencerFilterKeys.BULLSEYE)}
+            >
+              Bullseye
+            </Typography>
+            <select
+              className="select"
+              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                handleCategorySelection(e)
+              }
+            >
+              <option value="category" defaultValue="category">
+                Category
               </option>
-            ))}
-          </select>
-        </div>
+              {tags.map((item, index) => (
+                <option key={index} value={item as CategoryTags}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        {isTablet && (
+          <MobileFilter
+            whatFiltering="influencers"
+            influencersCallBack={callBack}
+            options={FILTERS}
+            hasCategory
+            categoryCallBack={categoryCallBack}
+          />
+        )}
       </div>
       <InfluencersTableRows influencersData={influencersData} />
       <div className="influencers-picks__pagination-wrapper">

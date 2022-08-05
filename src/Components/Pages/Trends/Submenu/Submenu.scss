@@ -8,15 +8,27 @@
     max-width: 1300px;
   }
 
+  &__page-title {
+    margin: 0 0 20px;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
   &__list {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
+
+    @media (min-width: 1024px) {
+      justify-content: flex-start;
+    }
   }
 
   &__item {
-    margin-right: 2.25rem;
     position: relative;
 
     @media (min-width: 1024px) {
@@ -53,6 +65,12 @@
 
   &__icon {
     margin-right: 0.25rem;
+  }
+
+  &__icon.selected {
+    path {
+      fill: var(--color-black);
+    }
   }
 
   &__children {
