@@ -17,12 +17,14 @@ interface Top3ElementsSliderProps {
   topPositive: Project[];
   topBull: Project[];
   topTalkRate: Project[];
+  isForYouProject?: boolean;
 }
 
 export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
   topPositive,
   topBull,
   topTalkRate,
+  isForYouProject,
 }) => {
   const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
     null
@@ -38,7 +40,8 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
       >
         <SwiperSlide>
           <CardWrapper
-            title="Top 3 Talk Rate Projects"
+            isForYouProject={isForYouProject}
+            title="Highest Talk Rate Project"
             subtitle="Today"
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.rate].title}
@@ -53,7 +56,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                   <Top3Element
                     key={id}
                     id={id}
-                    rank={index + 1}
                     icon={img}
                     projectName={name}
                     tagTitle={tag.name}
@@ -71,7 +73,8 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         </SwiperSlide>
         <SwiperSlide>
           <CardWrapper
-            title="Top 3 Positive Projects"
+            isForYouProject={isForYouProject}
+            title="Highest Positive Rate Project"
             subtitle="Today"
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.positive].title}
@@ -82,10 +85,9 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           >
             {topPositive ? (
               <ul className="cards-grid">
-                {topPositive.map(({ id, img, name, tag, rateData }, index) => (
+                {topPositive.map(({ id, img, name, tag, rateData }) => (
                   <Top3Element
                     key={id}
-                    rank={index + 1}
                     id={id}
                     icon={img}
                     projectName={name}
@@ -104,7 +106,8 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         </SwiperSlide>
         <SwiperSlide>
           <CardWrapper
-            title="Top 3 Bull Projects"
+            isForYouProject={isForYouProject}
+            title="Highest Bull Project"
             subtitle="Today"
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.bullish].title}
@@ -117,7 +120,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topBull.map(({ id, img, name, tag, rateData }, index) => (
                   <Top3Element
-                    rank={index + 1}
                     key={id}
                     id={id}
                     icon={img}

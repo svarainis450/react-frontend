@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ProjectCard, ProjectFilters } from 'src/Components/Global';
+import {
+  ProjectCard,
+  ProjectFilters,
+  Top3ElementsSlider,
+} from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import {
@@ -51,10 +55,20 @@ export const ForYou: React.FC = () => {
     return favoriteProjects.some((item) => item === project.id);
   });
 
+  const topBullProject = [projects[0]];
+
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
         <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
+        {favoriteProjects.length > 0 && (
+          <Top3ElementsSlider
+            isForYouProject
+            topBull={topBullProject}
+            topPositive={topBullProject}
+            topTalkRate={topBullProject}
+          />
+        )}
         {/* <ProjectFilters /> */}
         {favoriteProjects.length === 0 && (
           <div className="empty-dashboard">
