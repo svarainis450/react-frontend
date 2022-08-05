@@ -31,7 +31,7 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
       </div>
 
       <div className="Header__button-wrapper">
-        {/* <Link to={LinkList.Login}>
+        <Link to={LinkList.Login}>
           <Button
             className="Header__button--login"
             buttonType="transparent"
@@ -43,11 +43,11 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
 
         <Link to={LinkList.Pricing}>
           <Button className="Header__button--signup desktop">Sign up</Button>
-        </Link> */}
+        </Link>
 
-        <Link to={LinkList.WAITLIST}>
+        {/* <Link to={LinkList.WAITLIST}>
           <Button className="Header__button--signup desktop">Join waitlist</Button>
-        </Link> 
+        </Link>  */}
       </div>
     </div>
   );

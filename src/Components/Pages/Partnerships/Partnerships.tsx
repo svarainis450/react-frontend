@@ -25,7 +25,7 @@ export const Partnerships = () => {
       <div className="Partnerships">
         <HeroMiniBlock
           className='Partnerships__hero'
-          ctaLink={LinkList.INFLUENCERS}
+          ctaLink={"#"}
           ctaText="For Influencers & Brand Ambassadors"
           img={!isDesktop ? heroDesktop : heroMobile}
         >
@@ -138,7 +138,7 @@ export const Partnerships = () => {
           className="Partnerships__TwoSideBlock"
           title="Join the Potato Partnership Program and start earning money now!"
           ctaText="For Influencers & Brand Ambassadors"
-          url={LinkList.INFLUENCERS}
+          url={"#"}
         />
       </div>
     </Layout>

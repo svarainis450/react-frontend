@@ -4,5 +4,7 @@ export interface TwoSideBlockProps {
   url?: string;
   img?: string;
   className?: string;
-  ctaText?: string
+  ctaText?: string; 
+  subText?: string;
+  subUrl?: string;
 }

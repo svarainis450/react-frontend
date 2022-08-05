@@ -42,7 +42,7 @@ export const HeroBlock = ({} : HeroBlockProps) => {
         <Typography 
           className="HeroBlock__subtitle"
         >
-          Discover which Crypto & NFTs are being talked about before they rocket to the moon. 🚀 
+          Discover which Crypto & NFTs are being talked about before they rocket to the moon.
           {/* <span className="HeroBlock__subtitle-emphasize"></span> */}
         </Typography>
 
