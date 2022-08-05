@@ -24,7 +24,7 @@ export const ProfileCard: React.FC = () => {
     <div className="profile-card">
       <img
         className="profile-card__avatar"
-        src={userInfo.image || icons.no_image}
+        src={userInfo.image || icons.no_profile_pic}
         alt="Profile avatar"
       />
       <CardWrapper>

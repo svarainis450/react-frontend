@@ -1,5 +1,6 @@
 .wrapper {
   display: block;
+  height: 100%;
 
   .flex-wrapper {
     margin: 0;
@@ -46,8 +47,8 @@
     }
 
     .small-text {
-      font-size: 12px;
-      line-height: 14px;
+      font-size: 11px;
+      line-height: 13px;
       color: var(--color-grey-text);
     }
   }

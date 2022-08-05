@@ -22,7 +22,7 @@ import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { fetchUserData } from 'src/state/reduxstate/user/thunks';
 
-export const HeaderUser = ({ onMenuToggle }: HeaderUserProps) => {
+export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const dispatch = useAppDispatch();
   const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
   const [notificationsActive, setNotificationsActive] = useState(false);
@@ -50,7 +50,7 @@ export const HeaderUser = ({ onMenuToggle }: HeaderUserProps) => {
       </Link>
 
       <div className="desktop">
-        <NavigationList list={userNavList} />
+        <NavigationList activeLink={activeLink} list={userNavList} />
       </div>
 
       {/* <div className="HeaderUser__notifications-wrapper"> */}
@@ -109,7 +109,7 @@ export const HeaderUser = ({ onMenuToggle }: HeaderUserProps) => {
       </div>
 
       <Link to={LinkList.PROFILE} className="HeaderUser__profile desktop">
-        <img src={userInfo.img || icons.no_image} alt="user img" />
+        <img src={userInfo.img || icons.no_profile_pic} alt="user img" />
       </Link>
     </div>
   );

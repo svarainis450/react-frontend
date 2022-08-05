@@ -16,10 +16,11 @@ export const ProjectPicksList: React.FC<ProjectPicksListProps> = ({
       <div className="picks-list__projects">
         {pickedProjects.map(({ id, img, name, tag }, index) => (
           <div key={id} className="picks-list__projects__project">
-            <div className="picks-list__projects__project__flex">
-              <Typography>#{index + 1}</Typography>
-              <img src={img || icons.no_image} alt="project name" />
-            </div>
+            <img
+              className="picks-list__projects__project__icon"
+              src={img || icons.no_image}
+              alt="project name"
+            />
             <Typography
               className="picks-list__projects__project__title"
               weight={TypographyWeight.MEDIUM}

@@ -1,3 +1,4 @@
 export interface LoggedInLayoutProps {
-  children? : React.ReactNode
+  children?: React.ReactNode;
+  activeLink?: string;
 }

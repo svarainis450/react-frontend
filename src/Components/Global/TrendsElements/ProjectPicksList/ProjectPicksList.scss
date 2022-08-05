@@ -8,8 +8,10 @@
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 20px;
     justify-content: center;
+    align-content: center;
 
     margin: 20px 0 0;
+    height: 100%;
 
     @include desktop {
       grid-gap: 0;
@@ -18,26 +20,15 @@
     &__project {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       align-items: center;
 
       max-width: 132px;
+      height: 100%;
 
-      &__flex {
-        display: flex;
-        align-items: flex-end;
-
-        margin: 0 0 7px;
-
-        p {
-          margin-right: 4px;
-          font-weight: 300;
-          color: var(--color-grey-text);
-        }
-
-        img {
-          width: 54px;
-          height: 54px;
-        }
+      &__icon {
+        width: 54px;
+        height: 54px;
       }
 
       &__title {

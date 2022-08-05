@@ -1,10 +1,6 @@
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
-  useState,
-} from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { MobileFilter } from 'src/Components/MobileFilter/MobileFilter';
+import { useMediaQuery } from 'src/hooks';
 import { ProjectFilterKeys, tags } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { CategoryTags } from '../../TrendsElements/types';
@@ -37,6 +33,7 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   categoryCallBack,
   nameFilterCallBack,
 }) => {
+  const { isTablet } = useMediaQuery();
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     callBack(ProjectFilterKeys.CATEGORY);
@@ -71,39 +68,50 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
           }
         />
       </div>
-      <div className="project-filters__sort">
-        <Typography
-          variant={TypographyVariant.SUBHEADING}
-          weight={TypographyWeight.BOLD700}
-        >
-          Sort by:
-        </Typography>
-        {FILTERS.map(({ title, key }, index) => (
+      {!isTablet && (
+        <div className="project-filters__sort">
           <Typography
-            key={index}
-            className="project-filters__sort__option"
-            onClick={() => callBack(key)}
+            variant={TypographyVariant.SUBHEADING}
+            weight={TypographyWeight.BOLD700}
           >
-            {title}
+            Sort by:
           </Typography>
-        ))}
-
-        <select
-          className="select"
-          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            handleCategorySelection(e)
-          }
-        >
-          <option value="category" defaultValue="category">
-            Category
-          </option>
-          {tags.map((item, index) => (
-            <option key={index} value={item as CategoryTags}>
-              {item}
-            </option>
+          {FILTERS.map(({ title, key }, index) => (
+            <div key={index}>
+              <Typography
+                className="project-filters__sort__option"
+                onClick={() => callBack(key)}
+              >
+                {title}
+              </Typography>
+            </div>
           ))}
-        </select>
-      </div>
+          <select
+            className="select"
+            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+              handleCategorySelection(e)
+            }
+          >
+            <option value="category" defaultValue="category">
+              Category
+            </option>
+            {tags.map((item, index) => (
+              <option key={index} value={item as CategoryTags}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+      {isTablet && (
+        <MobileFilter
+          whatFiltering="projects"
+          projectsCallBack={callBack}
+          options={FILTERS}
+          hasCategory
+          categoryCallBack={categoryCallBack}
+        />
+      )}
     </div>
   );
 };

@@ -40,10 +40,6 @@ export const Top3Element: React.FC<ElementProps> = ({
   return (
     <li className="element">
       <div className="element__flex">
-        <Typography
-          className="element__flex__diff-color"
-          weight={TypographyWeight.THIN}
-        >{`#${rank}`}</Typography>
         <img
           className="element__flex__icon"
           src={icon || icons.no_image}

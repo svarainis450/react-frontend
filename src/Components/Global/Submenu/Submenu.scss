@@ -15,6 +15,14 @@
     overflow-y: hidden;
   }
 
+  &__page-title {
+    margin: 0 0 20px;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
   &__item {
     margin-right: 2.25rem;
     position: relative;
@@ -52,6 +60,12 @@
 
   &__icon {
     margin-right: 0.25rem;
+  }
+
+  &__icon.selected {
+    path {
+      fill: var(--color-black);
+    }
   }
 
   &__children {

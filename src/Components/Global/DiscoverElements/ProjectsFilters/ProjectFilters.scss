@@ -1,12 +1,14 @@
 @import '../../../../utils/breakpointsMixins.scss';
 
 .project-filters {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0 0 16px;
+  max-width: 100%;
 
   @include desktop {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin: 0 auto 16px;
     padding: 16px 0 0 0;
 
@@ -41,15 +43,26 @@
     gap: 24px;
 
     &__option {
+      width: fit-content;
       font-size: 14px;
       font-weight: 300;
       cursor: pointer;
     }
 
+    &__option:hover {
+      font-weight: bold;
+    }
+
     .select {
-      all: unset;
+      border: none;
+      background-color: transparent;
       font-size: 14px;
       font-weight: 300;
+      outline: none;
+
+      *:focus {
+        outline: none;
+      }
     }
   }
 }

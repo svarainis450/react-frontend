@@ -18,7 +18,10 @@ import envelope from '../Assets/icons/envelope.svg';
 import subscribe from '../Assets/icons/subscribe.svg';
 import subscribed from '../Assets/icons/subscribed.svg';
 import no_image from '../Assets/icons/no_image.svg';
+import no_profile_pic from '../Assets/icons/no_profile_pic.svg';
+
 import question_mark from '../Assets/icons/question_mark.svg';
+import filter_icon from '../Assets/icons/filter_icon.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -52,8 +55,10 @@ import paypal_logo from '../Assets/icons/payments/paypal_logo.svg';
 import cards_logos from '../Assets/icons/payments/cards_logos.svg';
 
 export const icons = {
+  filter_icon,
   question_mark,
   no_image,
+  no_profile_pic,
   subscribe,
   subscribed,
   reviewer,
