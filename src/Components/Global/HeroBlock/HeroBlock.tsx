@@ -48,7 +48,7 @@ export const HeroBlock = ({} : HeroBlockProps) => {
 
         {/* <CountdownTimer targetDate={dateTimeAfterThreeDays} title="Deal ends in:"/> */}
 
-        <Link to={LinkList.WAITLIST}>
+        <Link to={LinkList.Pricing}>
           <Button
             onClick={() => console.log('click')}
             className="HeroBlock__cta"

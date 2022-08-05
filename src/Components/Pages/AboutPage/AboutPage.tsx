@@ -25,8 +25,8 @@ export const AboutPage = () => {
     <Layout>
         <div className="AboutPage">
         <HeroMiniBlock
-          ctaLink={LinkList.WAITLIST}
-          ctaText="Join the Waiting List"
+          ctaLink={LinkList.Pricing}
+          ctaText="Get started"
         >
           We’re on a mission to help people discover <b>x100 opportunities</b> before it’s too late
         </HeroMiniBlock>
@@ -36,9 +36,9 @@ export const AboutPage = () => {
           className='AboutPage__twoSideBlock'
           title='Our Team'
           subtitle='The Potato team includes some of the most experienced web data extraction professionals in the industry coming from big data, lead generation and data science backgrounds. Our combined experience and a culture of knowledge sharing allows us to help people utilize the data in the most efficient way and easily achieve related goals.'
-          ctaText="Join the Waiting List"
+          ctaText="Get started"
           img={!isDesktop ? memojiDesktop : memojiMobile}
-          url={LinkList.WAITLIST}
+          url={LinkList.Pricing}
         />
         <GetStarted />
       </div>
