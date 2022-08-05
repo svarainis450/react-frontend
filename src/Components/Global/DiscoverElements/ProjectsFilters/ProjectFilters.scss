@@ -43,15 +43,26 @@
     gap: 24px;
 
     &__option {
+      width: fit-content;
       font-size: 14px;
       font-weight: 300;
       cursor: pointer;
     }
 
+    &__option:hover {
+      font-weight: bold;
+    }
+
     .select {
-      all: unset;
+      border: none;
+      background-color: transparent;
       font-size: 14px;
       font-weight: 300;
+      outline: none;
+
+      *:focus {
+        outline: none;
+      }
     }
   }
 }

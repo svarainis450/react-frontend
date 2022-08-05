@@ -53,7 +53,7 @@ export const ForYou: React.FC = () => {
 
   return (
     <div className="For-you">
-      <LoggedInLayout>
+      <LoggedInLayout activeLink="For you">
         <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
         {/* <ProjectFilters /> */}
         {favoriteProjects.length === 0 && (

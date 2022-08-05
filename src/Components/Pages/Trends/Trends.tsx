@@ -101,7 +101,7 @@ export const Trends: React.FC = () => {
 
   return (
     <div className="Trends">
-      <LoggedInLayout>
+      <LoggedInLayout activeLink="Trends">
         <Submenu callBack={setFilter} menuItems={submenuList} />
         {filter === 'upcomming' ? (
           <UpcommingLayout />

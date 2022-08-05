@@ -37,7 +37,7 @@ export const TalkRateElement: React.FC<TalkRateProps> = ({
     >
       <CircularProgressbar
         styles={buildStyles({
-          textSize: isBiggerBullseye ? '1.75rem' : '1.25rem',
+          textSize: isBiggerBullseye ? '1.5rem' : '1.20rem',
           textColor: `${theme.colors.black}`,
           pathColor: `${pathColorHandler(rate)}`,
           trailColor: `${theme.colors.grey}`,

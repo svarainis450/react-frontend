@@ -66,7 +66,7 @@ export const Profile: React.FC = () => {
 
   return (
     <div className="profile">
-      <LoggedInLayout>
+      <LoggedInLayout activeLink="Profile">
         <section className="profile__wrapper">
           {!isDesktop && <ProfileCard />}
           <div className="profile__wrapper__container">

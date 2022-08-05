@@ -14,6 +14,7 @@ import { UserMenu } from './UserMenu';
 export const UserSideMenu = ({
   isActive,
   isActiveToggler,
+  activeLink,
 }: UserSideMenuProps) => {
   const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
 
@@ -40,7 +41,7 @@ export const UserSideMenu = ({
           </button>
         </div>
 
-        <NavigationList list={userNavList} />
+        <NavigationList activeLink={activeLink} list={userNavList} />
 
         <UserMenu isActiveToggler={() => isActiveToggler(false)} />
       </div>

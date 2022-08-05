@@ -77,13 +77,14 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
             Sort by:
           </Typography>
           {FILTERS.map(({ title, key }, index) => (
-            <Typography
-              key={index}
-              className="project-filters__sort__option"
-              onClick={() => callBack(key)}
-            >
-              {title}
-            </Typography>
+            <div key={index}>
+              <Typography
+                className="project-filters__sort__option"
+                onClick={() => callBack(key)}
+              >
+                {title}
+              </Typography>
+            </div>
           ))}
           <select
             className="select"

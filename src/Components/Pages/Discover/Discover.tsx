@@ -79,7 +79,7 @@ export const Discover: React.FC = () => {
 
   return (
     <div className="Discover">
-      <LoggedInLayout>
+      <LoggedInLayout activeLink="Discover">
         <Submenu pageTitleMob="Discover" menuItems={submenuList} />
         <ProjectFilters
           callBack={setProjectsFilter}
