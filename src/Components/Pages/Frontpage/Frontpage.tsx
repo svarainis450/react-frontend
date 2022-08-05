@@ -10,7 +10,7 @@ import { faqItems } from '../../Global/FAQ/constants';
 import { SliderBigBlock } from '../../Global/SliderBigBlock';
 
 import { LinkList } from '../../../types/links';
-
+import graphImg from 'src/Assets/images/graph.png'
 import './Frontpage.scss';
 import { Layout } from '../Layout';
 
@@ -31,6 +31,14 @@ export const Frontpage = () => {
         <Reasoning />
         <SliderBigBlock />
         <GetStarted />
+        <TwoSideBlock
+          title="Track sentiment, correlate with price"
+          subtitle="Social sentiment has been shown to be useful in predicting whether Crypto & NFT prices will increase or decrease."
+          ctaText="Learn more"
+          subText='Click here for scientific information about sentiment tracking'
+          subUrl="https://jfin-swufe.springeropen.com/articles/10.1186/s40854-022-00352-7"
+          img={graphImg}
+        />
         <FAQ faqItems={faqItems} />
       </div>
     </Layout>

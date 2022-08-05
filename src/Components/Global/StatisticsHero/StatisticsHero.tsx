@@ -24,15 +24,15 @@ export const StatisticsHero = ({ className } : StatisticsHeroProps) => {
 
       <div className="StatisticsHero__block">
         <div className="StatisticsHero__text">        
-          <Typography className="StatisticsHero__number">10</Typography>
-          <Typography className="StatisticsHero__subtitle">data sources</Typography>
+          <Typography className="StatisticsHero__number">500+</Typography>
+          <Typography className="StatisticsHero__subtitle">crypto projects</Typography>
         </div>
       </div>
 
       <div className="StatisticsHero__block">
         <div className="StatisticsHero__text">
-          <Typography className="StatisticsHero__number">100K</Typography>
-          <Typography className="StatisticsHero__subtitle">page views daily</Typography>
+          <Typography className="StatisticsHero__number">2300+</Typography>
+          <Typography className="StatisticsHero__subtitle">NFT projects</Typography>
         </div>
       </div>
     </div>

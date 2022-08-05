@@ -22,9 +22,9 @@ export const SliderPhoneBlock = () => {
 
   return (
     <div className='SliderPhoneBlock'>
-      <HeroTitle 
+      {/* <HeroTitle 
         title='Invest smartly by tracking crypto influencers'
-      />
+      /> */}
 
       <Swiper 
         modules={[Navigation]}
