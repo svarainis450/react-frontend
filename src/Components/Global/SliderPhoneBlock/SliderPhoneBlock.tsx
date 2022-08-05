@@ -40,7 +40,7 @@ export const SliderPhoneBlock = () => {
                 </div>
 
                 <div className="SliderPhoneBlock__context">
-                  <div className="SliderPhoneBlock__no">#{item.number}</div>
+                  {/* <div className="SliderPhoneBlock__no">#{item.number}</div> */}
 
                   <HeroTitle 
                     className='SliderPhoneBlock__hero'
