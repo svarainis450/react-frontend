@@ -1,9 +1,9 @@
 export enum CategoryTags {
-  coins = 'Coins',
+  coins = 'Crypto',
   NFT = 'Nft',
-  DAO = 'DAO',
-  meta = 'Metaverse',
-  defi = 'DeFi',
+  // DAO = 'DAO',
+  // meta = 'Metaverse',
+  // defi = 'DeFi',
 }
 
 export enum InfoBlockTypes {
