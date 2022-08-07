@@ -4,7 +4,7 @@ import phoneSliderImg2 from '../../../Assets/images/phoneSlider/phoneSliderImg2.
 import phoneSliderImg3 from '../../../Assets/images/phoneSlider/phoneSliderImg3.png'
 import phoneSliderImg4 from '../../../Assets/images/phoneSlider/phoneSliderImg4.png'
 import phoneSliderImg5 from '../../../Assets/images/phoneSlider/phoneSliderImg5.png'
-import phoneSliderImg6 from '../../../Assets/images/phoneSlider/phoneSliderImg5.png'
+import phoneSliderImg6 from '../../../Assets/images/phoneSlider/phoneSliderImg6.png'
 
 export const phoneSliderContent = [
   {
@@ -15,7 +15,7 @@ export const phoneSliderContent = [
   },
   {
     number: '2',
-    title: "DIscover important events on any day",
+    title: "Discover important events on any day",
     description: 'We track social sentiment, mentions, followers, and content across Twitter, Discord, Telegram, and Youtube and correlate that to the price.',
     img: phoneSliderImg2
   },

@@ -1,15 +1,13 @@
+import classNames from 'classnames';
 import { useSwiper } from 'swiper/react';
-
-import arrowLeft from '../../../../Assets/images/arrowLeft.svg';
-import arrowright from '../../../../Assets/images/arrowRight.svg';
 
 import './SwiperButtons.scss';
 
-export const SwiperButtons = () => {
+export const SwiperButtons = ({className} : {className?: string}) => {
   const swiper = useSwiper();
 
   return (
-    <div className='SwiperButtons'>
+    <div className={classNames('SwiperButtons', className)}>
       <button className='SwiperButtons__prev' onClick={() => swiper.slidePrev()}>
         <div className="arrowLeft"/>
       </button>

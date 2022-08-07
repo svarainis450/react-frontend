@@ -38,6 +38,7 @@ export const Frontpage = () => {
           subText='Click here for scientific information about sentiment tracking'
           subUrl="https://jfin-swufe.springeropen.com/articles/10.1186/s40854-022-00352-7"
           img={graphImg}
+          className="Frontpage__graphBlock"
         />
         <FAQ faqItems={faqItems} />
       </div>
