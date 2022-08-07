@@ -111,7 +111,7 @@ export const Reasoning = () => {
 
               <AccordionDetails>
                 <Typography className='Reasoning__accordeon-item__text' variant={TypographyVariant.SUBHEADING}>
-                  We're a team of the most experienced web data extraction professionals, entrepreneurs, and marketers
+                We're a team of the most experienced web data extraction professionals, entrepreneurs, and data scientists
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -128,13 +128,13 @@ export const Reasoning = () => {
                 </div>
 
                 <Typography weight={TypographyWeight.MEDIUM}>
-                  Parsed, ready-to-use data
+                Parsed, ready-to-use data
                 </Typography>
               </AccordionSummary>
 
               <AccordionDetails>
                 <Typography className='Reasoning__accordeon-item__text' variant={TypographyVariant.SUBHEADING}>
-                  Boost your data-driven insights with parsed, ready-to-use data delivered in the most comfortable formats in one place
+                Boost your data-driven insights with parsed, ready-to-use data delivered in the most comfortable formats in one place
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -151,7 +151,7 @@ export const Reasoning = () => {
                 </div>
 
                 <Typography weight={TypographyWeight.MEDIUM}>
-                  Simple and accurate records
+                Simple and accurate records
                 </Typography>
               </AccordionSummary>
 
@@ -174,13 +174,13 @@ export const Reasoning = () => {
                 </div>
 
                 <Typography weight={TypographyWeight.MEDIUM}>
-                  Crypto community approved
+                Crypto community approved
                 </Typography>
               </AccordionSummary>
 
               <AccordionDetails>
                 <Typography className='Reasoning__accordeon-item__text' variant={TypographyVariant.SUBHEADING}>
-                  We have more than 5,000 users who love our service
+                We have tested our product with 100+ crypto traders
                 </Typography>
               </AccordionDetails>
             </Accordion>

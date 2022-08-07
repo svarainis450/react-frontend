@@ -116,8 +116,8 @@ export const PaymentOptions = ({
 
               <p className="PaymentOptions__card-tobegin">
                 {currentOption === planTypes.yearly 
-                  ? `{Plan renews at ${getCookie?.currencySymbol}${item.beginPrice} after 1 year. VAT may apply.`
-                  : `{Plan renews at ${getCookie?.currencySymbol}${item.beginPrice} after 1 month. VAT may apply.`
+                  ? `Plan renews at ${getCookie?.currencySymbol}${item.beginPrice} after 1 year. VAT may apply.`
+                  : `Plan renews at ${getCookie?.currencySymbol}${item.beginPrice} after 1 month. VAT may apply.`
                 }
               </p>
             </div>

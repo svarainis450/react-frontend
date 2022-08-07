@@ -5,4 +5,18 @@
   @media (min-width: 1024px) {
 
   }
+
+  &__graphBlock {
+    .TwoSideBlock__title {
+      padding: 0 1rem;
+
+      @media (min-width: 1024px) {
+        padding: 0;
+      }
+    }
+
+    .TwoSideBlock__img img {
+      max-width: 100%;
+    }
+  }
 }

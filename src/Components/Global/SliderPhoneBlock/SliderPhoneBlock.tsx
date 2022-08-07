@@ -49,7 +49,7 @@ export const SliderPhoneBlock = () => {
                     subtitle={item.description}
                   />
 
-                  <SwiperButtons />
+                  <SwiperButtons className='desktop' />
 
                   <div className="SliderPhoneBlock__disclosure" onClick={() => setDisclosureOpen((isOpen) => !isOpen)}>
                     <img src={infoIco} className="SliderPhoneBlock__icon" alt='info icon'/>
