@@ -36,7 +36,7 @@ export const SliderBigBlock = () => {
             </div>
 
             <div className="SliderBigBlock__img">
-              <img className="SliderBigBlock__message" src={ss1} alt="heroMessage" />
+              <img className="SliderBigBlock__message" src={ss2} alt="heroMessage" />
             </div>
           </div>
         </SwiperSlide>
@@ -56,7 +56,7 @@ export const SliderBigBlock = () => {
             </div>
 
             <div className="SliderBigBlock__img">
-              <img className="SliderBigBlock__message" src={ss2} alt="heroMessage" />
+              <img className="SliderBigBlock__message" src={ss1} alt="heroMessage" />
             </div>
           </div>
         </SwiperSlide>
