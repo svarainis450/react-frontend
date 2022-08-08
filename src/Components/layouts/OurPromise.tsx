@@ -6,7 +6,7 @@ import { images } from '../../utils/images';
 import { Box } from '../wrappers/Box';
 import { Flex } from '../wrappers/Flex';
 
-export const OurPromise: FC = memo(() => {
+export const OurPromise: FC = () => {
   return (
     <Background alignItems="center" padding="2rem 6rem">
       <div>
@@ -28,7 +28,7 @@ export const OurPromise: FC = memo(() => {
       </div>
     </Background>
   );
-});
+};
 
 OurPromise.displayName = 'OurPromise';
 
