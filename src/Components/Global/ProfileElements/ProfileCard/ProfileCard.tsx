@@ -1,5 +1,9 @@
-import { useContext, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { tags } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { userDataSelector } from 'src/state/reduxstate/user/selectors';
+import { setUserData } from 'src/state/reduxstate/user/slice';
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { icons } from 'src/utils/icons';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
@@ -17,16 +21,39 @@ export const ProfileCard: React.FC = () => {
     information: true,
     account: true,
   });
+  const dispatch = useAppDispatch();
+  const userData = useSelector(userDataSelector);
+  const [profileImg, setProfileImg] = useState<any>();
+  const [imgUrl, setImgUrl] = useState('');
+
+  useEffect(() => {
+    if (profileImg) {
+      const url = URL.createObjectURL(profileImg);
+      setImgUrl(url);
+      dispatch(setUserData({ ...userData, img: url }));
+    }
+  }, [profileImg]);
 
   const { userInfo } = useContext(UserInfoContext);
 
   return (
     <div className="profile-card">
-      <img
-        className="profile-card__avatar"
-        src={userInfo.image || icons.no_profile_pic}
-        alt="Profile avatar"
-      />
+      <label>
+        <img
+          className="profile-card__avatar"
+          src={userInfo.image || imgUrl || icons.no_profile_pic}
+          alt="Profile avatar"
+        />
+        <input
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files) {
+              setProfileImg(e.target.files[0]);
+            }
+          }}
+          type="file"
+          className="profile-card__picture-upload"
+        />
+      </label>
       <CardWrapper>
         <Typography className="profile-card__name">
           {userInfo.name || 'Name'} {userInfo.surname || 'Surname'}

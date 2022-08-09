@@ -11,6 +11,7 @@ const initialState: UserState = {
     firstName: '',
     lastName: '',
     market: 50,
+    img: undefined,
   },
 };
 

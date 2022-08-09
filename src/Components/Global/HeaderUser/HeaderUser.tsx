@@ -82,6 +82,8 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
             src={icons.question_mark}
             alt="What’s the overall social sentiment?"
             onMouseOver={() => setShowMarketDesc(true)}
+            onMouseLeave={() => setShowMarketDesc(false)}
+            onTouchEnd={() => setShowMarketDesc(false)}
             onClick={() => setShowMarketDesc(true)}
           />
         )}
@@ -109,7 +111,7 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
       </div>
 
       <Link to={LinkList.PROFILE} className="HeaderUser__profile desktop">
-        <img src={userInfo.img || icons.no_profile_pic} alt="user img" />
+        <img src={userData.img || icons.no_profile_pic} alt="user img" />
       </Link>
     </div>
   );

@@ -51,6 +51,11 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
     }
   };
 
+  const handleFilterCallBack = (key: ProjectFilterKeys) => {
+    callBack(key);
+    nameFilterCallBack('1');
+  };
+
   return (
     <div className="project-filters">
       <div className="project-filters__input-wrapper">
@@ -80,7 +85,7 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
             <div key={index}>
               <Typography
                 className="project-filters__sort__option"
-                onClick={() => callBack(key)}
+                onClick={() => handleFilterCallBack(key)}
               >
                 {title}
               </Typography>

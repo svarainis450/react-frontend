@@ -10,6 +10,7 @@ export interface UserDataType {
   firstName: string;
   lastName: string;
   market: number;
+  img?: string;
 }
 
 export interface UserState {

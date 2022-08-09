@@ -42,6 +42,7 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   const [offsetCount, setOffsetCount] = useState(0);
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
+    nameFilterCallBack('1');
   };
   const { isTablet } = useMediaQuery();
 
