@@ -39,11 +39,11 @@ export const forYouSubmenuList: SubmenuListProps[] = [
     url: '/your-influencers',
     icon: <Influencers />,
   },
-  {
-    title: 'Suggestions',
-    url: '/suggestions',
-    icon: <Suggestion />,
-  },
+  // {
+  //   title: 'Suggestions',
+  //   url: '/suggestions',
+  //   icon: <Suggestion />,
+  // },
 ];
 
 export const ForYou: React.FC = () => {
