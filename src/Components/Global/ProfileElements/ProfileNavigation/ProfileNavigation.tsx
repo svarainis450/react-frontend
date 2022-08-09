@@ -9,7 +9,7 @@ import { PROFILE_NAVIGATION } from '../../SideMenu/types';
 
 export const ProfileNavigation: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [selected, setSelected] = useState<NavClassTypes>('notifications');
+  const [selected, setSelected] = useState<NavClassTypes>('reports');
 
   const handleNavSelection = (key: NavClassTypes) => {
     setSelected(key);

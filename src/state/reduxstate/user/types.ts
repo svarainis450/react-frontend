@@ -1,4 +1,5 @@
 export type NavClassTypes =
+  | 'reports'
   | 'notifications'
   | 'terms'
   | 'privacy'
