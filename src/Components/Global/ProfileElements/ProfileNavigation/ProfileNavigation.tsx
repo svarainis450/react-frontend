@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { setProfileBlock } from 'src/state/reduxstate/user/slice';
 import { NavClassTypes } from 'src/state/reduxstate/user/types';
@@ -9,12 +9,15 @@ import { PROFILE_NAVIGATION } from '../../SideMenu/types';
 
 export const ProfileNavigation: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [selected, setSelected] = useState<NavClassTypes>('notifications');
+  const [selected, setSelected] = useState<NavClassTypes>('reports');
 
   const handleNavSelection = (key: NavClassTypes) => {
     setSelected(key);
-    dispatch(setProfileBlock(key));
   };
+
+  useEffect(() => {
+    dispatch(setProfileBlock(selected));
+  }, [dispatch, selected]);
 
   return (
     <>

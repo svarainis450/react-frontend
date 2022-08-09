@@ -15,7 +15,7 @@ export const Submenu = ({
   children,
   callBack,
 }: SubmenuProps) => {
-  const [selected, setSelected] = useState('today');
+  const [selected, setSelected] = useState('Today');
   return (
     <div className={classNames('Submenu', className)}>
       <div className="Submenu__page-title">

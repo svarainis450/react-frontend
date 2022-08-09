@@ -1,4 +1,5 @@
 export type NavClassTypes =
+  | 'reports'
   | 'notifications'
   | 'terms'
   | 'privacy'
@@ -10,6 +11,8 @@ export interface UserDataType {
   firstName: string;
   lastName: string;
   market: number;
+  img?: any;
+  password?: string;
 }
 
 export interface UserState {

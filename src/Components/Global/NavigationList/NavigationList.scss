@@ -1,6 +1,8 @@
 .NavigationList {
-  display: flex;
-  align-items: center;
+  @media (min-width: 1024px) {
+    display: flex;
+    align-items: center;
+  }
 
   &__link {
     padding: 6px;

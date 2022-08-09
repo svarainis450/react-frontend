@@ -2,6 +2,7 @@ import {
   Billing,
   Notifications,
   Privacy,
+  Reports,
   Terms,
 } from 'src/Assets/icons/IconElements';
 import { NavClassTypes } from 'src/state/reduxstate/user/types';
@@ -17,6 +18,18 @@ export const PROFILE_NAVIGATION: Array<{
   icon: JSX.Element;
   key: NavClassTypes;
 }> = [
+  {
+    id: 5,
+    name: 'Reports',
+    icon: <Reports />,
+    key: 'reports',
+  },
+  {
+    id: 4,
+    name: 'Billing',
+    icon: <Billing />,
+    key: 'billing',
+  },
   {
     id: 1,
     name: 'Notifications',
@@ -34,11 +47,5 @@ export const PROFILE_NAVIGATION: Array<{
     name: 'Privacy Policy',
     icon: <Privacy />,
     key: 'privacy',
-  },
-  {
-    id: 4,
-    name: 'Billing',
-    icon: <Billing />,
-    key: 'billing',
   },
 ];

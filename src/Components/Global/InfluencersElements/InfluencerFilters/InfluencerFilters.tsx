@@ -34,6 +34,7 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
 
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
+    nameFilterCallBack('1');
   };
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -2,8 +2,10 @@ import { useSelector } from 'react-redux';
 import {
   Account,
   Billing as BillingIcon,
+  CommingSoon,
   Notifications,
   Privacy,
+  Reports,
   Terms,
 } from 'src/Assets/icons/IconElements';
 import {
@@ -57,6 +59,15 @@ export const Profile: React.FC = () => {
       element: <PrivacyPolicyContent />,
       title: 'Privacy Policy',
       icon: <Privacy />,
+    },
+    reports: {
+      element: (
+        <div className="comming-soon">
+          <CommingSoon />
+        </div>
+      ),
+      title: 'Reports',
+      icon: <Reports />,
     },
   };
 

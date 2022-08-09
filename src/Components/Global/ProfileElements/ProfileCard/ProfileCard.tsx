@@ -1,5 +1,18 @@
-import { useContext, useState } from 'react';
+import {
+  ChangeEvent,
+  FormEvent,
+  FormEventHandler,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import { useSelector } from 'react-redux';
+import { CancelXmark } from 'src/Assets/icons/IconElements';
 import { tags } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { userDataSelector } from 'src/state/reduxstate/user/selectors';
+import { setUserData } from 'src/state/reduxstate/user/slice';
+import { UserDataType } from 'src/state/reduxstate/user/types';
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { icons } from 'src/utils/icons';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
@@ -17,16 +30,80 @@ export const ProfileCard: React.FC = () => {
     information: true,
     account: true,
   });
+  const dispatch = useAppDispatch();
+  const userData = useSelector(userDataSelector);
+  const [profileImg, setProfileImg] = useState<any>();
+  const [imgUrl, setImgUrl] = useState('');
+  const [newData, setNewData] = useState<Omit<UserDataType, 'market'>>({
+    img: profileImg,
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    email: userData.email,
+    password: userData.password,
+  });
+
+  useEffect(() => {
+    if (profileImg) {
+      const url = URL.createObjectURL(profileImg);
+      setImgUrl(url);
+      dispatch(setUserData({ ...userData, img: url }));
+    }
+  }, [profileImg]);
+
+  const updateProfileData = (
+    e: FormEvent,
+    data: Omit<UserDataType, 'market'>
+  ) => {
+    e.preventDefault();
+    dispatch(setUserData({ ...userData, ...data }));
+    setEditData({
+      interests: true,
+      information: true,
+      account: true,
+    });
+  };
+
+  const handleCancelInput = (editingData: keyof typeof editData) => {
+    setEditData({ ...editData, [editingData]: !editData[editingData] });
+    if (editingData === 'information') {
+      setNewData({
+        ...newData,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+      });
+    } else if (editingData === 'account') {
+      setNewData({
+        ...newData,
+        email: userData.email,
+        password: userData.password,
+      });
+    }
+  };
 
   const { userInfo } = useContext(UserInfoContext);
 
   return (
-    <div className="profile-card">
-      <img
-        className="profile-card__avatar"
-        src={userInfo.image || icons.no_profile_pic}
-        alt="Profile avatar"
-      />
+    <form
+      className="profile-card"
+      onSubmit={(e: FormEvent) => updateProfileData(e, newData)}
+    >
+      <label>
+        <img
+          className="profile-card__avatar"
+          src={userInfo.image || imgUrl || icons.no_profile_pic}
+          alt="Profile avatar"
+        />
+        <input
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files) {
+              setProfileImg(e.target.files[0]);
+            }
+          }}
+          type="file"
+          className="profile-card__picture-upload"
+        />
+        <div className="profile-card__active-bubble" />
+      </label>
       <CardWrapper>
         <Typography className="profile-card__name">
           {userInfo.name || 'Name'} {userInfo.surname || 'Surname'}
@@ -55,23 +132,39 @@ export const ProfileCard: React.FC = () => {
               Edit
             </Typography>
           </div>
-          <div className="profile-card__border-wrapper__input-wrapper">
+          <div
+            className={`profile-card__border-wrapper__input-wrapper ${
+              editData.information ? '' : 'active'
+            }`}
+          >
             <label>First name</label>
             {/* TODO: billing. value={name from state} */}
             <input
-              value={userInfo.name || 'Name'}
+              value={newData.firstName || 'Name'}
               type="text"
               disabled={editData.information}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setNewData({ ...newData, firstName: e.target.value })
+              }
             />
+            <CancelXmark onClick={() => handleCancelInput('information')} />
           </div>
-          <div className="profile-card__border-wrapper__input-wrapper">
+          <div
+            className={`profile-card__border-wrapper__input-wrapper ${
+              editData.information ? '' : 'active'
+            }`}
+          >
             <label>Last name</label>
             {/* TODO: billing. value={last name from state} */}
             <input
-              value="Last Name"
+              value={newData.lastName || 'Last Name'}
               type="text"
               disabled={editData.information}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setNewData({ ...newData, lastName: e.target.value })
+              }
             />
+            <CancelXmark onClick={() => handleCancelInput('information')} />
           </div>
         </div>
         <div className="profile-card__border-wrapper">
@@ -88,31 +181,49 @@ export const ProfileCard: React.FC = () => {
               Edit
             </Typography>
           </div>
-          <div className="profile-card__border-wrapper__input-wrapper">
+          <div
+            className={`profile-card__border-wrapper__input-wrapper ${
+              editData.account ? '' : 'active'
+            }`}
+          >
             <label>Email</label>
             {/* TODO: billing. value={email from state} */}
             <input
-              value={userInfo.email || 'your@email.com'}
+              value={newData.email || 'your@email.com'}
               type="email"
               disabled={editData.account}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setNewData({ ...newData, email: e.target.value })
+              }
             />
+            <CancelXmark onClick={() => handleCancelInput('account')} />
           </div>
-          <div className="profile-card__border-wrapper__input-wrapper">
+          <div
+            className={`profile-card__border-wrapper__input-wrapper ${
+              editData.account ? '' : 'active'
+            }`}
+          >
             <label>Password</label>
             {/* TODO: billing. value={pasw from state}  not sure if this a good decision*/}
             <input
-              value="Password"
+              value={newData.password || 'unknown'}
               type="password"
               disabled={editData.account}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setNewData({ ...newData, password: e.target.value })
+              }
             />
+            <CancelXmark onClick={() => handleCancelInput('account')} />
           </div>
           {(!editData.account ||
             !editData.information ||
             !editData.interests) && (
-            <button className="done-button">Done</button>
+            <button className="done-button" type="submit">
+              Done
+            </button>
           )}
         </div>
       </CardWrapper>
-    </div>
+    </form>
   );
 };

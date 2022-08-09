@@ -11,3 +11,5 @@ export * from './LastWeek';
 export * from './Upcomming';
 export * from './CommingSoon';
 export * from './Suggestion';
+export * from './CancelXmark';
+export * from './Reports';

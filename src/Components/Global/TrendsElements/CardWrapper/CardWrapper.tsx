@@ -15,12 +15,14 @@ interface CardWrapperProps {
   showInfoLabel?: boolean;
   infoTitle?: string;
   infoDesc?: string;
+  isForYouProject?: boolean;
 }
 
 export const CardWrapper: React.FC<CardWrapperProps> = ({
   children,
   infoDesc,
   infoTitle,
+  isForYouProject,
   onCloseClick,
   onInfoClick,
   showInfoBlock,
@@ -29,7 +31,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
   title,
 }) => {
   return (
-    <div className="card">
+    <div className={`card ${isForYouProject ? 'yellow' : ''}`}>
       {showInfoBlock && (
         <InfoBlock
           showInfoBlock={showInfoBlock}

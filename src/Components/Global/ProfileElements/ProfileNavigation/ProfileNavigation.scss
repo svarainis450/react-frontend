@@ -16,7 +16,7 @@
         display: flex;
         justify-content: space-between;
 
-        max-width: 593px;
+        max-width: 700px;
         width: 100%;
       }
 
@@ -78,23 +78,28 @@
       transition: width ease-in 0.3s;
     }
 
+    &__progress.reports {
+      width: 90px;
+    }
+
     &__progress.notifications {
-      width: 120px;
+      width: 115px;
+      margin: 0 0 0 24%;
     }
 
     &__progress.terms {
-      margin: 0 0 0 17%;
+      margin: 0 0 0 41%;
       width: 160px;
     }
 
     &__progress.privacy {
-      margin: 0 0 0 38%;
+      margin: 0 0 0 62%;
       width: 130px;
     }
 
     &__progress.billing {
-      margin: 0 0 0 55%;
-      width: 100px;
+      margin: 0 0 0 11%;
+      width: 90px;
     }
   }
 }

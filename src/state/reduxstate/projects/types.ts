@@ -117,6 +117,14 @@ export enum InfluencerFilterKeys {
 export enum PaymentMethodTypes {
   PAYPAL = 'paypal',
   CARDS = 'card',
+  CRYPTO = 'crypto',
+}
+
+export enum PaymentDetailTypes {
+  COINGATE = 'Coingate',
+  PAYPAl = 'Paypal Account',
+  VISA = 'Visa',
+  MASTERCARD = 'Mastercard',
 }
 
 export type SubmenuFilters = 'today' | 'last-week' | 'upcomming';

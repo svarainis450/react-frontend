@@ -15,11 +15,9 @@ interface ElementProps {
   blockType: InfoBlockTypes;
   positiveRatio: number;
   bullRatio: number;
-  rank: number;
 }
 
 export const Top3Element: React.FC<ElementProps> = ({
-  rank,
   icon,
   projectName,
   talkRate,

@@ -8,31 +8,20 @@ import {
 } from '../../Typography';
 
 import './Billing.scss';
+import { BillingHistory } from './BillingHistory/BillingHistory';
+import { PAYMENT_METHODS } from './constants';
 import { EmailInfo } from './EmailInfo';
+import { PaymentDetails } from './PaymentDetails';
 import { PaymentMethod } from './PaymentMethod';
 
-const PAYMENT_METHODS = [
-  {
-    id: 1,
-    title: 'Paypal',
-    icon: icons.paypal_logo,
-    method: PaymentMethodTypes.PAYPAL,
-  },
-  {
-    id: 2,
-    title: 'Credit or debit card',
-    icon: icons.cards_logos,
-    method: PaymentMethodTypes.CARDS,
-  },
-];
-
 export const Billing: React.FC = () => {
-  const [selectedMethod, setSelectedMethod] =
-    useState<PaymentMethodTypes | null>(null);
+  const [selectedMethod, setSelectedMethod] = useState<PaymentMethodTypes>(
+    PaymentMethodTypes.CARDS
+  );
 
   const handleMethodSelection = (method: PaymentMethodTypes) => {
     if (selectedMethod === method) {
-      setSelectedMethod(null);
+      setSelectedMethod(PaymentMethodTypes.CARDS);
     } else {
       setSelectedMethod(method);
     }
@@ -40,14 +29,11 @@ export const Billing: React.FC = () => {
 
   return (
     <div className="Billing">
-      <div>
-        <Typography
-          variant={TypographyVariant.HEADING_SMALL}
-          weight={TypographyWeight.BOLD}
-        >
+      <div className="Billing__section-titles">
+        <Typography className="Billing__section-titles__title">
           Payment method
         </Typography>
-        <Typography weight={TypographyWeight.THIN}>
+        <Typography className="grey-text" weight={TypographyWeight.THIN}>
           Update your billing details and address
         </Typography>
       </div>
@@ -70,6 +56,8 @@ export const Billing: React.FC = () => {
         ))}
       </div>
       <EmailInfo />
+      <PaymentDetails selectedPaymentMethod={selectedMethod} />
+      <BillingHistory />
     </div>
   );
 };
