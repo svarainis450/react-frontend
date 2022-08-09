@@ -31,7 +31,7 @@ export const UserMenu: React.FC<UserMenuProps> = ({ isActiveToggler }) => {
     <div className="UserMenu">
       <div className="UserMenu__top">
         <div className="UserMenu__userimg">
-          <img src={userInfo.img || icons.no_image} alt="userimg" />
+          <img src={userInfo.img || icons.no_profile_pic} alt="userimg" />
         </div>
 
         <div
