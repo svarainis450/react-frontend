@@ -21,6 +21,21 @@
     border: 2px solid var(--color-white);
     border-radius: 50%;
     z-index: 1;
+    cursor: pointer;
+  }
+
+  &__active-bubble {
+    position: absolute;
+    top: 20px;
+    right: calc(50% - 114px / 2);
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+    background-color: var(--color-green);
+
+    z-index: 9;
   }
 
   &__picture-upload {
@@ -78,6 +93,26 @@
         font-weight: 500;
         font-size: 14px;
         line-height: 22px;
+      }
+
+      svg {
+        position: absolute;
+        top: 35%;
+        right: 8px;
+
+        cursor: pointer;
+
+        path {
+          fill: var(--color-grey-text);
+        }
+      }
+    }
+
+    &__input-wrapper.active {
+      svg {
+        path {
+          fill: var(--color-black);
+        }
       }
     }
 
