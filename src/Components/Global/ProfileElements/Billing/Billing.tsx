@@ -8,6 +8,7 @@ import {
 } from '../../Typography';
 
 import './Billing.scss';
+import { BillingHistory } from './BillingHistory/BillingHistory';
 import { PAYMENT_METHODS } from './constants';
 import { EmailInfo } from './EmailInfo';
 import { PaymentDetails } from './PaymentDetails';
@@ -56,6 +57,7 @@ export const Billing: React.FC = () => {
       </div>
       <EmailInfo />
       <PaymentDetails selectedPaymentMethod={selectedMethod} />
+      <BillingHistory />
     </div>
   );
 };

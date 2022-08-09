@@ -1,0 +1,52 @@
+.Billing-history {
+  overflow-x: scroll;
+  width: 900px;
+
+  &__table {
+    display: grid;
+    grid-template-columns: 0.5fr 1.4fr repeat(4, 0.9fr);
+    justify-content: center;
+
+    margin: 18px 0 0;
+    padding: 9px;
+    overflow-x: scroll;
+
+    font-weight: 300;
+    text-align: center;
+
+    &__radio-wrapper {
+      &__circle {
+        margin: 0 auto;
+        width: 18px;
+        height: 18px;
+
+        border-radius: 50%;
+        border: 2px solid var(--color-grey);
+        box-sizing: border-box;
+        cursor: pointer;
+      }
+
+      &__circle.selected,
+      &__download-btn.selected {
+        background-color: var(--color-blue);
+      }
+
+      &__radio-input {
+        display: none;
+      }
+    }
+
+    &__download-btn {
+      all: unset;
+      cursor: pointer;
+    }
+  }
+
+  &__table.headlines {
+    background-color: var(--color-grey);
+  }
+
+  &__table.selected {
+    color: var(--color-blue);
+  }
+}
