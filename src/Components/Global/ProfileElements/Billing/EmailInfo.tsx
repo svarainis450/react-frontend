@@ -1,12 +1,14 @@
-import { useContext } from 'react';
-import { UserInfoContext } from 'src/state/UserInfoContextProvider';
+import { ChangeEvent, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { icons } from 'src/utils/icons';
 import { Typography } from '../../Typography';
 
 import './Billing.scss';
 
 export const EmailInfo: React.FC = () => {
-  const { userInfo } = useContext(UserInfoContext);
+  const userInfo = useSelector(userDataSelector);
+  const [contactEmail, setContactEmail] = useState(userInfo.email);
 
   return (
     <div className="Billing__border-wrapper">
@@ -38,8 +40,11 @@ export const EmailInfo: React.FC = () => {
             />
             {/* TODO: add submit, when email submit visuals appears */}
             <input
-              value={userInfo.email || 'email@email.com'}
+              value={contactEmail || 'email@email.com'}
               className="Billing__border-wrapper__texts__input-wrapper__input"
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setContactEmail(e.target.value)
+              }
             />
           </form>
         </div>

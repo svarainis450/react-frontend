@@ -1,6 +1,15 @@
 @import '../../../../utils/breakpointsMixins.scss';
 
 .Billing {
+  &__section-titles {
+    &__title {
+      margin: 0 0 4px;
+
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+
   &__border-wrapper {
     display: grid;
     grid-gap: 8px;
@@ -57,6 +66,7 @@
     }
 
     &__texts {
+      width: 310px;
       p {
         font-size: 14px;
         line-height: 14px;
@@ -85,11 +95,57 @@
 
         &__input {
           padding: 8px 14px 8px 32px;
+          width: 310px;
 
           border: 1px solid var(--color-sand);
           border-radius: 5px;
           font-weight: 500;
         }
+      }
+    }
+
+    &__payment-details {
+      display: grid;
+      grid-gap: 8px;
+      width: 310px;
+
+      &__payment-type {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 11px 20px 11px 30px;
+
+        border: 1px solid var(--color-sand);
+        border-radius: 5px;
+
+        &__card-icon {
+          margin-right: 8px;
+          width: 33px;
+        }
+
+        &__default {
+          display: flex;
+          margin-top: 11px;
+
+          p {
+            margin: 0 6px 0 0;
+            color: var(--color-blue);
+            font-size: 12px;
+          }
+
+          &__remove-btn {
+            all: unset;
+            color: var(--color-blue);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+          }
+        }
+      }
+
+      &__payment-type.selected {
+        background: rgba(43, 89, 209, 0.1);
+        border: 1px solid var(--color-blue);
       }
     }
   }
@@ -107,5 +163,9 @@
       max-width: 70%;
       gap: 4px;
     }
+  }
+
+  .grey-text {
+    color: var(--color-grey-text);
   }
 }
