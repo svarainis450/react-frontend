@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import { Project } from 'src/state/reduxstate/projects/types';
+import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 import { setFavoriteProjects } from 'src/state/reduxstate/user/slice';
+import {
+  deleteFromFavorites,
+  sendFavProjectOrInfluencer,
+} from 'src/state/reduxstate/user/thunks';
 import { icons } from 'src/utils/icons';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
@@ -31,19 +35,28 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
-  const isFavoriteProject = favoriteProjects.includes(id);
+  const isFavoriteProject = favoriteProjects.find(
+    (project) => project.id === id
+  );
   const isPositiveRateChange = rateData.talkRateChanges > 0;
   const { isTablet } = useMediaQuery();
   const [showMore, setShowMore] = useState(false);
+  const [status, setStatus] = useState<Statuses>('idle');
 
   const handleFavoritesIcon = (id: number) => {
+    console.log(isFavoriteProject);
     if (!isFavoriteProject) {
-      dispatch(setFavoriteProjects(id));
-    } else if (isFavoriteProject) {
-      const favoriteExcluded = favoriteProjects.filter(
-        (item) => Number(item) !== id
+      dispatch(
+        sendFavProjectOrInfluencer({
+          id,
+          callBack: setStatus,
+          fav_type: 'project',
+        })
       );
-      dispatch(setFavoriteProjects(favoriteExcluded));
+    } else if (isFavoriteProject) {
+      dispatch(
+        deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })
+      );
     }
   };
 

@@ -24,6 +24,7 @@ import {
 import { Button } from 'src/Components/Global/Button';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { scrollToElement } from 'src/utils/scrollers';
+import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -65,6 +66,7 @@ export const Discover: React.FC = () => {
         filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );
+    dispatch(getFavProjects());
     scrollToElement('card-to-scroll');
   }, [projectsFilter, offsetCount, dispatch, filterValue]);
 

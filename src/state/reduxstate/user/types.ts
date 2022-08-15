@@ -1,3 +1,5 @@
+import { Influencer, Project } from '../projects/types';
+
 export type NavClassTypes =
   | 'reports'
   | 'notifications'
@@ -17,8 +19,8 @@ export interface UserDataType {
 
 export interface UserState {
   profile_block: NavClassTypes;
-  favorite_projects: number[];
-  subscribed_influencers: number[];
+  favorite_projects: Project[];
+  subscribed_influencers: Influencer[];
   user_token: string | null;
   user_data: UserDataType;
 }

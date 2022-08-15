@@ -16,18 +16,18 @@ import {
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
+import { getFavInfluencers } from 'src/state/reduxstate/user/thunks';
 
 export const YourInfluencers: React.FC = () => {
+  const dispatch = useAppDispatch();
   const influencers = useSelector(influencersSelector);
-  const favoriteProjects = useSelector(subscribedInfluencersSelector);
+  const subscribedInfluencers = useSelector(subscribedInfluencersSelector);
   const [influencersFilter, setInfluencersFilter] =
     useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
 
-  const subscribedInfluencers = influencers.filter((influencer) => {
-    return favoriteProjects.some((item) => {
-      return item === influencer.id;
-    });
-  });
+  useEffect(() => {
+    dispatch(getFavInfluencers());
+  }, []);
 
   return (
     <div className="Your-influencers">

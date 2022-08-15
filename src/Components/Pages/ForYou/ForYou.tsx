@@ -51,9 +51,9 @@ export const ForYou: React.FC = () => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
 
-  const subscribedProjects = projects.filter((project) => {
-    return favoriteProjects.some((item) => item === project.id);
-  });
+  // const subscribedProjects = projects.filter((project) => {
+  //   return favoriteProjects.some((item) => item === project.id);
+  // });
 
   const topBullProject = [projects[0]];
 
@@ -80,8 +80,8 @@ export const ForYou: React.FC = () => {
           </div>
         )}
         <div className="For-you__wrapper">
-          {subscribedProjects.length > 0 &&
-            subscribedProjects.map(
+          {favoriteProjects.length > 0 &&
+            favoriteProjects.map(
               ({
                 id,
                 coinbaseUrl,

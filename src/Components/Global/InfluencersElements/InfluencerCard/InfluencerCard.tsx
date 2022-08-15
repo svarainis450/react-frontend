@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import { Influencer, tags } from 'src/state/reduxstate/projects/types';
+import {
+  Influencer,
+  Statuses,
+  tags,
+} from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
 import { setSubscribedInfluencers } from 'src/state/reduxstate/user/slice';
+import {
+  deleteFromFavorites,
+  getFavInfluencers,
+  sendFavProjectOrInfluencer,
+} from 'src/state/reduxstate/user/thunks';
 import { calculateFollowers } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { SubscribeButton } from '../../Button/SubscribeButton/SubscribeButton';
@@ -41,24 +50,47 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const subscribedInfluencers = useSelector(subscribedInfluencersSelector);
-  const isSubscribedInfluencer = subscribedInfluencers.includes(id);
   const { isTablet } = useMediaQuery();
   const [showMore, setShowMore] = useState(false);
   const isPositiveBullseye = bullseyeChange > 0;
   const isPositiveInfluence = influenceChange > 0;
+  const [subscribed, setSubscribed] = useState(false);
+  const [status, setStatus] = useState<Statuses>('idle');
 
   const followersCalculated = calculateFollowers(followers);
+  const isSubscribedInfluencer = subscribedInfluencers.find(
+    (influencer) => influencer.id === id
+  );
+
+  console.log(subscribedInfluencers);
 
   const handleSubscribeBtn = (id: number) => {
+    console.log(img);
+
     if (!isSubscribedInfluencer) {
-      dispatch(setSubscribedInfluencers(id));
-    } else if (isSubscribedInfluencer) {
-      const subscribedExcluded = subscribedInfluencers.filter(
-        (item) => Number(item) !== id
+      setSubscribed(true);
+      dispatch(
+        sendFavProjectOrInfluencer({
+          id,
+          callBack: setStatus,
+          fav_type: 'influencer',
+        })
       );
-      dispatch(setSubscribedInfluencers(subscribedExcluded));
+    } else if (isSubscribedInfluencer !== undefined) {
+      setSubscribed(false);
+      dispatch(
+        deleteFromFavorites({
+          id,
+          callBack: setStatus,
+          fav_type: 'influencer',
+        })
+      );
     }
   };
+
+  useEffect(() => {
+    dispatch(getFavInfluencers());
+  }, [subscribed]);
 
   return (
     <div className="wrapper">
@@ -68,7 +100,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
             <div className="flex-wrapper border">
               <img
                 className="influencer-card__border-wrapper__avatar"
-                src={img}
+                src={img || icons.no_image}
                 alt={name}
               />
               <div>
@@ -245,7 +277,8 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
               </div>
               <SubscribeButton
                 onClick={() => handleSubscribeBtn(id)}
-                isSubscribed={isSubscribedInfluencer}
+                isSubscribed={subscribed || !!isSubscribedInfluencer}
+                isLoading={status === 'pending'}
               />
             </div>
           )}
