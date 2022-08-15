@@ -1,4 +1,5 @@
-import { Influencer, Project } from '../projects/types';
+import { Dispatch, SetStateAction } from 'react';
+import { Influencer, Project, Statuses } from '../projects/types';
 
 export type NavClassTypes =
   | 'reports'
@@ -23,4 +24,10 @@ export interface UserState {
   subscribed_influencers: Influencer[];
   user_token: string | null;
   user_data: UserDataType;
+}
+
+export interface FavInfluencersProjectsPayload {
+  callBack: Dispatch<SetStateAction<Statuses>>;
+  id: number;
+  fav_type: 'project' | 'influencer';
 }

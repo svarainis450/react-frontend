@@ -16,6 +16,7 @@ export interface Project {
   rateData: RateData;
   influencers?: [];
   coinbaseUrl?: string | null;
+  openSeaUrl?: string | null;
   tag: {
     name: CategoryTags;
     color: string;

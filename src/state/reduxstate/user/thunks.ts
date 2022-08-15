@@ -1,16 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { Dispatch, SetStateAction } from 'react';
-import { NumberLiteralType } from 'typescript';
-import { Statuses } from '../projects/types';
 import { api } from '../types';
 import {
   setFavoriteProjects,
   setSubscribedInfluencers,
   setUserData,
 } from './slice';
+import { FavInfluencersProjectsPayload, UserDataType } from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
+
+//USER INFO
 
 export const fetchUserData = createAsyncThunk(
   'user/GET_USER_DATA',
@@ -23,8 +22,6 @@ export const fetchUserData = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        console.log(resp);
-
         dispatch(setUserData(resp));
 
         return resp;
@@ -34,6 +31,30 @@ export const fetchUserData = createAsyncThunk(
     }
   }
 );
+
+export const updateUserInfo = createAsyncThunk(
+  'user/UPDATE_USER_DATA',
+  async (data: Omit<UserDataType, 'market'>) => {
+    if (token) {
+      try {
+        const resp = await fetch(`${api}/me`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }).then((res) => res.json());
+
+        return resp;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+//FAVORITE PROJECTS AND INFLUENCERS MANAGEMENT
 
 export const getFavProjects = createAsyncThunk(
   'user/GET_FAV_PROJECTS',
@@ -56,11 +77,26 @@ export const getFavProjects = createAsyncThunk(
   }
 );
 
-interface FavInfluencersProjectsPayload {
-  callBack: Dispatch<SetStateAction<Statuses>>;
-  id: number;
-  fav_type: 'project' | 'influencer';
-}
+export const getFavInfluencers = createAsyncThunk(
+  'user/GET_FAV_INFLUENCERS',
+  async (_, { dispatch }) => {
+    if (token) {
+      try {
+        const resp = await fetch(`${api}/fav/influencer`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((res) => res.json());
+
+        dispatch(setSubscribedInfluencers(resp));
+
+        return resp;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
 
 export const sendFavProjectOrInfluencer = createAsyncThunk(
   'user/POST_FAV_PROJECT_OR_INFLUENCER',
@@ -79,27 +115,6 @@ export const sendFavProjectOrInfluencer = createAsyncThunk(
         return resp;
       } catch (e) {
         callBack('error');
-        console.log(e);
-      }
-    }
-  }
-);
-
-export const getFavInfluencers = createAsyncThunk(
-  'user/GET_FAV_INFLUENCERS',
-  async (_, { dispatch }) => {
-    if (token) {
-      try {
-        const resp = await fetch(`${api}/fav/influencer`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }).then((res) => res.json());
-
-        dispatch(setSubscribedInfluencers(resp));
-
-        return resp;
-      } catch (e) {
         console.log(e);
       }
     }

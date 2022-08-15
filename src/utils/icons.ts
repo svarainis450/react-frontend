@@ -34,6 +34,7 @@ import negative_element from '../Assets/icons/negative_element.svg';
 import bear_element from '../Assets/icons/bear_element.svg';
 import bull_element from '../Assets/icons/bull_element.svg';
 import coin_base from '../Assets/icons/coin_base_icon.svg';
+import open_sea from '../Assets/icons/open_sea_icon.svg';
 import top_expert from '../Assets/icons/top_expert.svg';
 import top_expert_mobile from '../Assets/icons/top_expert_mobile.svg';
 
@@ -97,6 +98,7 @@ export const icons = {
   bear_element,
   finger_tap,
   coin_base,
+  open_sea,
   bulls,
   bear,
   positive,

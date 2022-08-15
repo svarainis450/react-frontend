@@ -32,6 +32,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   name,
   started,
   img,
+  openSeaUrl,
+  coinbaseUrl,
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
@@ -42,6 +44,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const { isTablet } = useMediaQuery();
   const [showMore, setShowMore] = useState(false);
   const [status, setStatus] = useState<Statuses>('idle');
+  const url = openSeaUrl || coinbaseUrl || null;
+  const urlBtnType = openSeaUrl ? 'opensea' : 'coinbase';
 
   const handleFavoritesIcon = (id: number) => {
     console.log(isFavoriteProject);
@@ -124,7 +128,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   <strong>Top influencers taked about this coin</strong>
                 </Typography>
               </div>
-              <CoinBaseButton />
+              {url && <CoinBaseButton url={url} btnType={urlBtnType} />}
             </>
           )}
         </div>
