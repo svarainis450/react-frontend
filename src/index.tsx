@@ -11,16 +11,6 @@ import { persistor, store } from './state/reduxstate/store';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe(
-  'pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk'
-);
-
-const options = {
-  // passing the client secret obtained from the server
-  clientSecret:
-    'sk_test_51LSQG2LPHXTxUZlWQNxt7JKuBEHvrrMeMPhS9aBJc931zbxuH8FK7lolHpFvrXK1U0YzLCY8DMEgFs6Ae9tGFG4000WqtcLcU',
-};
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -30,9 +20,7 @@ root.render(
       <PersistGate persistor={persistor}>
         <UserContextProvider>
           <UserInfoContextProvider>
-            <Elements stripe={stripePromise} options={options}>
-              <App />
-            </Elements>
+            <App />
           </UserInfoContextProvider>
         </UserContextProvider>
       </PersistGate>

@@ -41,6 +41,17 @@ import 'normalize.css';
 import _ from 'lodash';
 import { YourInfluencers } from './Components/Pages/YourInfluencers/YourInfluencers';
 import { setUserToken } from './state/reduxstate/user/slice';
+import {
+  Appearance,
+  loadStripe,
+  StripeElementsOptions,
+} from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutForm from './Components/Payments/StripeCheckout';
+
+const stripePromise = loadStripe(
+  'pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk'
+);
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -48,6 +59,32 @@ const App = () => {
   const [currecy, setCurrency] = useState('$');
   const { userInfo, getUserInfo } = useContext(UserInfoContext);
   const [token, setToken] = useState('');
+  const [clientSecret, setClientSecret] = useState('');
+
+  // const options = {
+  //   // passing the client secret obtained from the server
+  //   clientSecret:
+  //     'sk_test_51LSQG2LPHXTxUZlWQNxt7JKuBEHvrrMeMPhS9aBJc931zbxuH8FK7lolHpFvrXK1U0YzLCY8DMEgFs6Ae9tGFG4000WqtcLcU',
+  // };
+
+  const appearance: Appearance = {
+    theme: 'stripe',
+  };
+  const options: StripeElementsOptions = {
+    clientSecret,
+    appearance,
+  };
+
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    fetch('/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: [{ id: 'xl-tshirt' }] }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, []);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -89,6 +126,11 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <ScrollOnNavigation />
+        {clientSecret && (
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm />
+          </Elements>
+        )}
         <Routes>
           <Route>
             <Route index element={<Frontpage />} />
