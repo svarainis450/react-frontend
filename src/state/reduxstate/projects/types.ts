@@ -20,7 +20,7 @@ export interface Project {
   tag: {
     name: CategoryTags;
     color: string;
-  }; //should be added to BE response
+  };
 }
 
 export interface TrendingProject {

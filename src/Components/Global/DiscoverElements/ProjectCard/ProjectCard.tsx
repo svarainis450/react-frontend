@@ -4,7 +4,6 @@ import { useMediaQuery } from 'src/hooks';
 import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
-import { setFavoriteProjects } from 'src/state/reduxstate/user/slice';
 import {
   deleteFromFavorites,
   sendFavProjectOrInfluencer,

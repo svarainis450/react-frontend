@@ -1,0 +1,65 @@
+@import '../../../utils/breakpointsMixins.scss';
+
+.metrics-wrapper {
+  width: 100%;
+  overflow-x: scroll;
+  background-color: var(--color-grey);
+
+  .metrics-flex {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 0 0 0 45%;
+    background-color: var(--color-grey);
+
+    @include desktop {
+      padding: 0;
+      flex: 1.4;
+    }
+  }
+
+  .metrics-flex.centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .metrics-flex.bordered {
+    @include desktop {
+      border-right: 1.5px solid var(--color-white);
+    }
+  }
+
+  .metrics-flex.smaller {
+    flex: 0.8;
+    padding: 0 16px;
+    background-color: var(--color-grey);
+  }
+  .metrics-flex.larger {
+    position: absolute;
+    width: 30%;
+    left: 42px;
+    flex: 1.8;
+    padding: 0 16px;
+    margin: 0 0 16px;
+    background-color: var(--color-grey);
+    z-index: 9;
+
+    @include desktop {
+      position: static;
+    }
+  }
+
+  .project-icon {
+    margin-right: 16px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .exchange-icon {
+    margin: 0 6px;
+  }
+
+  .price-title {
+    font-size: 1.5rem;
+  }
+}

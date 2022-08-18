@@ -61,10 +61,12 @@ export const fetchProjects = createAsyncThunk(
         } else {
           dispatch(setProjects(resp.result));
         }
+        console.log(resp);
         callBack('success');
       } catch (e) {
-        console.log(e);
         callBack('error');
+
+        console.log(e);
       }
     }
   }

@@ -54,7 +54,7 @@ export const Discover: React.FC = () => {
   const [offsetCount, setOffsetCount] = useState(0);
   const notAllToShow = offsetCount < 3000;
 
-  console.log(projectsFilter);
+  console.log(projectsStatus);
   console.log(filterValue);
 
   useEffect(() => {
@@ -88,10 +88,15 @@ export const Discover: React.FC = () => {
           categoryCallBack={setFilterValue}
           nameFilterCallBack={setFilterValue}
         />
-
+        {(projectsStatus === 'error' || !projects) && (
+          <div className="Discover__err-wrapper">
+            <LoadError />
+          </div>
+        )}
         {projectsStatus === 'pending' && <Loader />}
         <div className="Discover__wrapper">
           {projectsStatus === 'success' &&
+            projects &&
             projects.map(
               (
                 {
@@ -124,10 +129,9 @@ export const Discover: React.FC = () => {
               )
             )}
         </div>
-        {notAllToShow && projectsStatus !== 'pending' && (
+        {notAllToShow && projectsStatus !== 'pending' && projects && (
           <Button onClick={() => handleLoadMoreBtn()}>Load more</Button>
         )}
-        {projectsStatus === 'error' && <LoadError />}
       </LoggedInLayout>
     </div>
   );
