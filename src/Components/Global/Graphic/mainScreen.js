@@ -23,8 +23,7 @@ const toggleButtons = [
   },
 ];
 
-const MainScreen = () => {
-  const [projectId, setProjectId] = useState(295); // set another project to switch
+const MainScreen = ({ projectId }) => {
   const [projectPlotData, setProjectPlotData] = useState(null);
   const [sentimentData, setSentimentData] = useState(null);
   const [price, setPrice] = useState(null);

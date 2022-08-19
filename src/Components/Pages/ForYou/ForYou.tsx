@@ -96,7 +96,7 @@ export const ForYou: React.FC = () => {
               <ProjectMetrics project={demoProject} />
             </div>
             <div>
-              <MainScreen />
+              <MainScreen projectId={295} />
             </div>
           </div>
           <div className="For-you__wrapper__projects-list">

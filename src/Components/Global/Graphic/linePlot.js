@@ -1,11 +1,8 @@
-import React from 'react';
 import * as d3 from 'd3';
 import { useEffect, useState } from 'react';
 import './linePlot.css';
 
 const buttonIntervals = ['3H', '1D', '1W', '1M', '3M', 'All'];
-
-// #0267FF,
 
 // GRADIENT
 const createGradient = (selection, colorHex, id) => {
@@ -34,14 +31,13 @@ const createGradient = (selection, colorHex, id) => {
     .attr('style', `stop-color:${colorHex};stop-opacity:.2`);
 };
 
-function getWindowSize() {
-  const { innerWidth, innerHeight } = window;
-  return innerWidth;
-}
+// function getWindowSize() {
+//   return window;
+// }
 
 const toggleChartActivity = (toggleButtons) => {
   // turn off init inactive charts
-  toggleButtons.map((button) => {
+  toggleButtons.forEach((button) => {
     if (!button.active) {
       d3.select(`#gradientPath${button.title}`).style('opacity', 0); //0
       d3.select(`#gradientPathLine${button.title}`).style('opacity', 0); // 0
@@ -89,18 +85,19 @@ const parseDataByInterval = (interval, parsedData) => {
   const filteredData = parsedData.filter(
     (item) => item.date >= minDate && maxDate >= item.date
   );
-  return { filteredData, minDate, maxDate };
+  return { filteredData, minDate };
 };
 
 const getCanvasSvg = (width, height, margin) => {
   const svg = d3
     .select('#line-chart')
     .append('svg')
+    .classed("chart-svg", true)
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`)
-    .attr('viewBox', [0, 0, width, height]);
+    .attr('viewBox', [0, 0, width, height])
   svg.append('defs');
   return svg;
 };
@@ -130,9 +127,8 @@ const addLineWithGradient = (
     .attr('d', (d) => {
       const lineValues = line(d).slice(1);
       const splitedValues = lineValues.split(',');
-      return `M0,${dimensions.height},${lineValues},l0,${
-        dimensions.height - splitedValues[splitedValues.length - 1]
-      }`;
+      return `M0,${dimensions.height},${lineValues},l0,${dimensions.height - splitedValues[splitedValues.length - 1]
+        }`;
     })
     .style('fill', `url(#${ids.gradientId})`)
     .attr('id', `gradientPath${ids.pathId}`);
@@ -156,7 +152,7 @@ const LinePlot = ({
   toggleButtons,
 }) => {
   const [interval, setInterval] = useState('All');
-  const [windowSize, setWindowSize] = useState(getWindowSize());
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [talkRate, setTalkRate] = useState(null);
   const [talkRateDomain, setTalkRateDomain] = useState(null);
   const [sentiment, setSentiment] = useState(null);
@@ -192,6 +188,9 @@ const LinePlot = ({
       case 'Price':
         domain = priceDomain;
         break;
+      default:
+        domain = 'Sentiment';
+        break;
     }
     return domain;
   };
@@ -204,7 +203,7 @@ const LinePlot = ({
         date: parseTime(d.timestamp),
       };
     });
-    let { filteredData, minDate, maxDate } = parseDataByInterval(
+    let { filteredData, minDate } = parseDataByInterval(
       interval,
       talkRateParsed
     );
@@ -246,7 +245,7 @@ const LinePlot = ({
     setSentiment(filteredSentimentParsed);
     setPrice(filteredPriceParsed);
     setVolume(filteredVolumeParsed);
-  }, [interval]);
+  }, [interval, priceData, sentimentData, talkRateData, volumeData]);
 
   useEffect(() => {
     let width = d3.select('.plot-area').style('width');
@@ -262,7 +261,7 @@ const LinePlot = ({
     setDimensionsChart({ width, height });
 
     // drop old svg
-    d3.select('svg').remove();
+    d3.select('.chart-svg').remove();
 
     // create canvas
     const svg = getCanvasSvg(width, height, margin);
@@ -282,7 +281,7 @@ const LinePlot = ({
       setTalkRateDomain([0, d3.max(talkRate, (d) => d.value)]);
 
       // init add left y axis
-      d3.select('svg')
+      d3.select('.chart-svg')
         .append('g')
         .call(d3.axisLeft(yScaleTalkRate).ticks(6))
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
@@ -409,10 +408,6 @@ const LinePlot = ({
     let domainLeft;
     let domainRight;
 
-    console.log(
-      chartToggleButtons.filter((item) => item.active === true).length
-    );
-
     switch (chartToggleButtons.filter((item) => item.active === true).length) {
       case 1:
         d3.select('#leftAxis').remove();
@@ -433,13 +428,12 @@ const LinePlot = ({
               .scaleLinear()
               .domain(domainRight)
               .range([dimensionsChart.height, 0]);
-            d3.select('svg')
+            d3.select('.chart-svg')
               .append('g')
               .call(d3.axisRight(yScaleRight).ticks(6))
               .attr(
                 'transform',
-                `translate(${margin.left + dimensionsChart.width}, ${
-                  margin.top
+                `translate(${margin.left + dimensionsChart.width}, ${margin.top
                 })`
               )
               .attr('id', 'rightAxis');
@@ -448,14 +442,16 @@ const LinePlot = ({
 
         // left y axis
         domainLeft = getDomainByTitle(leftTitle);
+        if (!domainLeft && talkRate) domainLeft = [0, d3.max(talkRate, (d) => d.value)];
 
         if (domainLeft) {
           yScaleLeft = d3
             .scaleLinear()
             .domain(domainLeft)
             .range([dimensionsChart.height, 0]);
+
           const yTick = d3
-            .select('svg')
+            .select('.chart-svg')
             .append('g')
             .call(d3.axisLeft(yScaleLeft).ticks(6))
             .attr('transform', `translate(${margin.left}, ${margin.top})`)
@@ -468,6 +464,7 @@ const LinePlot = ({
             .attr('x2', `${dimensionsChart.width}px`);
         }
         break;
+
       case 2:
         d3.select('#leftAxis').remove();
         d3.select('#rightAxis').remove();
@@ -485,7 +482,7 @@ const LinePlot = ({
               .domain(domainLeft)
               .range([dimensionsChart.height, 0]);
             const yTick = d3
-              .select('svg')
+              .select('.chart-svg')
               .append('g')
               .call(d3.axisLeft(yScaleLeft).ticks(6))
               .attr('transform', `translate(${margin.left}, ${margin.top})`)
@@ -511,7 +508,7 @@ const LinePlot = ({
               .domain(domainLeft)
               .range([dimensionsChart.height, 0]);
             const yTick = d3
-              .select('svg')
+              .select('.chart-svg')
               .append('g')
               .call(d3.axisLeft(yScaleLeft).ticks(6))
               .attr('transform', `translate(${margin.left}, ${margin.top})`)
@@ -529,28 +526,28 @@ const LinePlot = ({
               .scaleLinear()
               .domain(domainRight)
               .range([dimensionsChart.height, 0]);
-            d3.select('svg')
+            d3.select('.chart-svg')
               .append('g')
               .call(d3.axisRight(yScaleRight).ticks(6))
               .attr(
                 'transform',
-                `translate(${margin.left + dimensionsChart.width}, ${
-                  margin.top
+                `translate(${margin.left + dimensionsChart.width}, ${margin.top
                 })`
               )
               .attr('id', 'rightAxis');
           }
         }
-
+        break;
+      default:
         break;
     }
 
     setChartToggleButtons(toggleButtons);
-  }, [toggleButtons, talkRate]);
+  }, [toggleButtons, talkRate, price, sentiment, volume, windowSize]);
 
   useEffect(() => {
     window.addEventListener('resize', () => {
-      setWindowSize(getWindowSize());
+      setWindowSize(window.innerWidth);
     });
   }, [windowSize]);
 
@@ -562,7 +559,7 @@ const LinePlot = ({
             key={idx}
             onClick={(event) => {
               if (event.target.textContent !== interval) {
-                d3.select('svg').remove();
+                d3.select('.chart-svg').remove();
               }
               return setInterval(event.target.textContent);
             }}
