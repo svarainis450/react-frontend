@@ -1,9 +1,8 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import { infoBlocks } from 'src/Components/Pages/Trends/constants';
 import { Project } from 'src/state/reduxstate/projects/types';
 
 import './ProjectsSliderMobile.scss';
