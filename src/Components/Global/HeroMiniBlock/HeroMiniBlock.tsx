@@ -1,44 +1,47 @@
+import { Button } from '../Button';
+import { HeroMiniBlockProps } from './types';
+import { Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
-import { Button } from "../Button";
-import { HeroMiniBlockProps } from "./types";
-import { Link } from 'react-router-dom'
 
 import * as animationData from 'src/Assets/lotties/Lottie_rocket.json';
 
-import "./HeroMiniBlock.scss";
-import classNames from "classnames";
+import './HeroMiniBlock.scss';
+import classNames from 'classnames';
 
-export const HeroMiniBlock = ({children, ctaText, ctaLink, img, className}  : HeroMiniBlockProps) => {
+export const HeroMiniBlock = ({
+  children,
+  ctaText,
+  ctaLink,
+  img,
+  className,
+}: HeroMiniBlockProps) => {
   const defaultOptions = {
     loop: true,
-    autoplay: true, 
+    autoplay: true,
     animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
   };
 
   return (
-    <div className={classNames('HeroMiniBlock', className)} >
+    <div className={classNames('HeroMiniBlock', className)}>
       <div className="HeroMiniBlock__content">
-        <p className="HeroMiniBlock__title">
-          {children}
-        </p>
+        <p className="HeroMiniBlock__title">{children}</p>
 
         <Link to={ctaLink}>
-          <Button
-            onClick={() => undefined}
-            className="HeroMiniBlock__cta"
-          >
+          <Button onClick={() => undefined} className="HeroMiniBlock__cta">
             {ctaText}
           </Button>
         </Link>
       </div>
 
       <div className="HeroMiniBlock__img">
-        {
-          img 
-            ? <img className="HeroMiniBlock__mainimg" src={img} alt="rocketImg" />
-            : <Lottie options={defaultOptions}/>
-        }
-
+        {img ? (
+          <img className="HeroMiniBlock__mainimg" src={img} alt="rocketImg" />
+        ) : (
+          <Lottie options={defaultOptions} />
+        )}
       </div>
     </div>
   );

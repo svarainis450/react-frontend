@@ -17,6 +17,7 @@ import {
 const initialState: ProjectsState = {
   projects: [] as ProjectsState['projects'],
   project_filter_key: null,
+  project_by_id: null as unknown as Project,
   trending_projects: [] as ProjectsState['trending_projects'],
   status: 'idle' as Statuses,
   influencers_picks: [],
@@ -92,6 +93,12 @@ const projectsSlice = createSlice({
     ) => {
       state.influencers_pages_data = action.payload;
     },
+    setProjectById: (
+      state: { project_by_id: ProjectsState['project_by_id'] },
+      action: PayloadAction<Project>
+    ) => {
+      state.project_by_id = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProjects.rejected, (state) => {
@@ -137,6 +144,7 @@ export const {
   setTop3bullProjects,
   setTop3TalkRateProjects,
   setProjects,
+  setProjectById,
   setInfluencers,
   setInfluencersPages,
 } = projectsSlice.actions;

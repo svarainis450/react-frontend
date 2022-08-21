@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Influencer, Project } from '../projects/types';
 import { NavClassTypes, UserDataType, UserState } from './types';
 
 const initialState: UserState = {
@@ -33,34 +34,16 @@ const userSlice = createSlice({
       state.profile_block = action.payload;
     },
     setFavoriteProjects: (
-      state: { favorite_projects: number[] },
-      action: PayloadAction<number | number[]>
+      state: { favorite_projects: Project[] },
+      action: PayloadAction<Project[]>
     ) => {
-      if (
-        !Array.isArray(action.payload) &&
-        !state.favorite_projects.includes(action.payload)
-      ) {
-        state.favorite_projects.push(action.payload);
-      } else if (Array.isArray(action.payload)) {
-        state.favorite_projects = action.payload;
-      } else {
-        return;
-      }
+      state.favorite_projects = action.payload;
     },
     setSubscribedInfluencers: (
-      state: { subscribed_influencers: number[] },
-      action: PayloadAction<number | number[]>
+      state: { subscribed_influencers: Influencer[] },
+      action: PayloadAction<Influencer[]>
     ) => {
-      if (
-        !Array.isArray(action.payload) &&
-        !state.subscribed_influencers.includes(action.payload)
-      ) {
-        state.subscribed_influencers.push(action.payload);
-      } else if (Array.isArray(action.payload)) {
-        state.subscribed_influencers = action.payload;
-      } else {
-        return;
-      }
+      state.subscribed_influencers = action.payload;
     },
     setUserData: (
       state: { user_data: UserDataType },

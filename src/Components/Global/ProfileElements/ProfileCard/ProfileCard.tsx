@@ -1,17 +1,11 @@
-import {
-  ChangeEvent,
-  FormEvent,
-  FormEventHandler,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CancelXmark } from 'src/Assets/icons/IconElements';
 import { tags } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { setUserData } from 'src/state/reduxstate/user/slice';
+import { updateUserInfo } from 'src/state/reduxstate/user/thunks';
 import { UserDataType } from 'src/state/reduxstate/user/types';
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { icons } from 'src/utils/icons';
@@ -50,6 +44,8 @@ export const ProfileCard: React.FC = () => {
     }
   }, [profileImg]);
 
+  console.log(newData);
+
   const updateProfileData = (
     e: FormEvent,
     data: Omit<UserDataType, 'market'>
@@ -61,6 +57,7 @@ export const ProfileCard: React.FC = () => {
       information: true,
       account: true,
     });
+    dispatch(updateUserInfo(data));
   };
 
   const handleCancelInput = (editingData: keyof typeof editData) => {

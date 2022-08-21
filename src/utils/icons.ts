@@ -22,7 +22,11 @@ import no_profile_pic from '../Assets/icons/no_profile_pic.svg';
 import input_arrow from '../Assets/icons/input_arrow.svg';
 import input_arrow_active from '../Assets/icons/input_arrow_active.svg';
 import question_mark from '../Assets/icons/question_mark.svg';
+import question_mark_grey from '../Assets/icons/question_mark_grey.svg';
 import filter_icon from '../Assets/icons/filter_icon.svg';
+import transfer_arrows from '../Assets/icons/transfer_arrows.svg';
+import remove from '../Assets/icons/remove.svg';
+import add_to_list from '../Assets/icons/add_to_list.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -34,6 +38,7 @@ import negative_element from '../Assets/icons/negative_element.svg';
 import bear_element from '../Assets/icons/bear_element.svg';
 import bull_element from '../Assets/icons/bull_element.svg';
 import coin_base from '../Assets/icons/coin_base_icon.svg';
+import open_sea from '../Assets/icons/open_sea_icon.svg';
 import top_expert from '../Assets/icons/top_expert.svg';
 import top_expert_mobile from '../Assets/icons/top_expert_mobile.svg';
 
@@ -61,6 +66,10 @@ import mastercard from '../Assets/icons/payments/mastercard.svg';
 import paypal_card from '../Assets/icons/payments/paypal_card.svg';
 
 export const icons = {
+  question_mark_grey,
+  remove,
+  add_to_list,
+  transfer_arrows,
   paypal_card,
   coingate,
   visa,
@@ -97,6 +106,7 @@ export const icons = {
   bear_element,
   finger_tap,
   coin_base,
+  open_sea,
   bulls,
   bear,
   positive,

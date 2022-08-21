@@ -1,0 +1,96 @@
+@import '../../../utils/breakpointsMixins.scss';
+
+.metrics-wrapper {
+  margin: 0 0 16px;
+  width: 100%;
+  overflow-x: scroll;
+  background-color: var(--color-grey);
+
+  .metrics-flex {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 0 0 45%;
+    background-color: var(--color-grey);
+
+    @include desktop {
+      padding: 0;
+      flex: 1.4;
+      width: 100%;
+    }
+  }
+
+  .metrics-flex.centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .metrics-flex.bordered {
+    @include desktop {
+      border-right: 1.5px solid var(--color-white);
+    }
+  }
+
+  .metrics-flex.smaller {
+    flex: 0.8;
+    padding: 0 16px;
+    background-color: var(--color-grey);
+  }
+  .metrics-flex.larger {
+    position: absolute;
+    width: 40%;
+    left: 0;
+    flex: 1.8;
+    padding: 5px 16px;
+    margin: 0 0 16px;
+    background-color: var(--color-grey);
+    z-index: 9;
+
+    @include desktop {
+      position: static;
+    }
+  }
+
+  .project-icon {
+    margin-right: 16px;
+    width: 30px;
+    height: 30px;
+
+    @include desktop {
+      width: 54px;
+      height: 54px;
+    }
+  }
+
+  .metrics-flex.centered.prices {
+    padding: 0;
+
+    @include desktop {
+      padding: 0;
+      width: unset;
+    }
+  }
+
+  .project-title {
+    margin: 0 0 4px;
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 500;
+
+    @include desktop {
+      font-size: 16px;
+      line-height: 18px;
+    }
+  }
+
+  .exchange-icon {
+    margin: 0 6px;
+  }
+
+  .price-title {
+    font-size: 1rem;
+
+    @include desktop {
+      font-size: 1.5rem;
+    }
+  }
+}

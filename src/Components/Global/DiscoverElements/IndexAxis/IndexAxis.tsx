@@ -17,12 +17,24 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({
   type,
   isHalfAxis = false,
 }) => {
-  const BULLS = isHalfAxis ? ['bull'] : ['bear', 'neutral', 'bull'];
+  const isNeutral = rating === 50;
+
+  const isPositive = rating > 50 || isNeutral;
+
+  const rangeWidth = calculateRangeWidth(rating, isHalfAxis);
+  const isOverallType = type === 'overall';
+  const halfClass = isHalfAxis ? 'half' : '';
+  const neutralClass = isNeutral ? 'neutral' : '';
+  const negativeClass = isPositive ? '' : 'negative';
+
+  const BULLS = isHalfAxis
+    ? [isPositive ? 'bull' : 'bear']
+    : ['bear', 'neutral', 'bull'];
   const POSITIVE = isHalfAxis
-    ? ['positive']
+    ? [isPositive ? 'positive' : 'negative']
     : ['negative', 'neutral', 'positive'];
   const MOVER = isHalfAxis
-    ? ['first mover']
+    ? [isPositive ? 'first mover' : 'reviewer']
     : ['reviewer', 'neutral', 'first mover'];
 
   const axisData = {
@@ -45,25 +57,17 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({
       titles: POSITIVE,
     },
   };
-  const isNeutral = rating === 50;
-
-  const isPositive = rating > 50 || isNeutral;
-
-  const rangeWidth = calculateRangeWidth(rating);
-  const isOverallType = type === 'overall';
-  const halfClass = isHalfAxis ? 'half' : '';
-  const neutralClass = isNeutral ? 'neutral' : '';
 
   return (
     <div className={`axis-wrapper ${halfClass}`}>
-      <div className={`icons-wrapper ${halfClass}`}>
-        {!isHalfAxis && !isOverallType && (
+      <div className={`icons-wrapper ${halfClass} ${negativeClass}`}>
+        {!isOverallType && ((isHalfAxis && !isPositive) || !isHalfAxis) && (
           <img
             src={axisData[type].iconNegative}
             alt={axisData[type].titles[0]}
           />
         )}
-        {!isOverallType && (
+        {!isOverallType && ((isHalfAxis && isPositive) || !isHalfAxis) && (
           <img
             src={axisData[type].iconPositive}
             alt={axisData[type].titles[2]}
@@ -71,9 +75,9 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({
         )}
       </div>
       <div className="axis">
-        <div className={`center-line ${halfClass}`} />
-        <div className="range-wrapper">
-          {!isHalfAxis && (
+        <div className={`center-line ${halfClass} ${negativeClass}`} />
+        {!isHalfAxis && (
+          <div className="range-wrapper">
             <div className={`rating-wrapper negative`}>
               {!isPositive && (
                 <Rating isPositive={isPositive} width={rangeWidth}>
@@ -81,7 +85,7 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({
                     className={`${
                       isOverallType
                         ? `market-rating negative ${neutralClass}`
-                        : 'circle negative'
+                        : `circle negative ${neutralClass}`
                     }`}
                   >
                     {isOverallType ? rating : ''}
@@ -89,21 +93,32 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({
                 </Rating>
               )}
             </div>
-          )}
-          <div className={`rating-wrapper ${halfClass}`}>
-            {isPositive && (
-              <Rating isPositive={isPositive} width={rangeWidth}>
-                <div
-                  className={`${
-                    isOverallType ? `market-rating ${neutralClass}` : 'circle'
-                  }`}
-                >
-                  {isOverallType ? rating : ''}
-                </div>
-              </Rating>
-            )}
+            <div className={`rating-wrapper ${halfClass}`}>
+              {isPositive && (
+                <Rating isPositive={isPositive} width={rangeWidth}>
+                  <div
+                    className={`${
+                      isOverallType
+                        ? `market-rating ${neutralClass}`
+                        : `circle ${neutralClass}`
+                    }`}
+                  >
+                    {isOverallType ? rating : ''}
+                  </div>
+                </Rating>
+              )}
+            </div>
           </div>
-        </div>
+        )}
+        {isHalfAxis && (
+          <div className={`range-wrapper ${negativeClass}`}>
+            <div className={`rating-wrapper ${halfClass} ${negativeClass}`}>
+              <Rating isPositive={isPositive} width={rangeWidth}>
+                <div className={`circle ${halfClass} ${negativeClass}`} />
+              </Rating>
+            </div>
+          </div>
+        )}
       </div>
       <div className={`axis-titles ${halfClass}`}>
         {axisData[type].titles.map((item, index) => (

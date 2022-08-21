@@ -7,6 +7,7 @@ import { api } from '../types';
 import {
   setInfluencers,
   setInfluencersPages,
+  setProjectById,
   setProjects,
   setTop3bullProjects,
   setTop3PositiveProjects,
@@ -61,10 +62,32 @@ export const fetchProjects = createAsyncThunk(
         } else {
           dispatch(setProjects(resp.result));
         }
+        console.log(resp);
         callBack('success');
       } catch (e) {
-        console.log(e);
         callBack('error');
+
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const fetchProjectById = createAsyncThunk(
+  'projects/GET_PROJECT_BY_ID',
+  async (id: number, { dispatch }) => {
+    if (token) {
+      try {
+        const resp = await fetch(`${api}/project/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((res) => res.json());
+        console.log(resp);
+
+        dispatch(setProjectById(resp));
+      } catch (e) {
+        console.log(e);
       }
     }
   }

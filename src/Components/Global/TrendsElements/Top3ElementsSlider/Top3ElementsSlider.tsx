@@ -54,7 +54,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topTalkRate.map(({ id, img, name, tag, rateData }, index) => (
                   <Top3Element
-                    key={id}
+                    key={`${id} + ${index}`}
                     id={id}
                     icon={img}
                     projectName={name}
