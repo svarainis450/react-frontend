@@ -1,3 +1,4 @@
+import CheckoutForm from 'src/Components/Payments/StripeCheckout';
 import { PaymentMethodTypes } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
@@ -43,8 +44,8 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
     </div>
     {isSelected && (
       <div className="Billing__border-wrapper__method__details">
-        iframe data
         {/* TODO: billing. payment iframe should come here */}
+        <CheckoutForm />
       </div>
     )}
   </div>
