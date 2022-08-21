@@ -1,3 +1,4 @@
+import { useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { PaymentMethodTypes } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';

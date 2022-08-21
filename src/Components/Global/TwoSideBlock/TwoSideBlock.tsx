@@ -4,6 +4,7 @@ import { Typography, TypographyVariant, TypographyWeight } from '../Typography';
 import { TwoSideBlockProps } from './types';
 
 import rocketTicket from '../../../Assets/images/rocketTicket.svg';
+import infoIcon from '../../../Assets/images/infoIcon.svg';
 import * as animationData from 'src/Assets/lotties/Lottie_ticket.json';
 
 import './TwoSideBlock.scss';
@@ -14,6 +15,8 @@ export const TwoSideBlock = ({
   title,
   subtitle,
   url,
+  subText = '',
+  subUrl = '',
   img,
   ctaText,
   className,
@@ -49,6 +52,17 @@ export const TwoSideBlock = ({
               {ctaText}
             </Button>
           </Link>
+
+          {subText?.length > 0 && (
+            <div className="TwoSideBlock__sublink desktop">
+              <img
+                src={infoIcon}
+                alt=""
+                className="TwoSideBlock__sublink-img"
+              />
+              <a href={subUrl}>{subText}</a>
+            </div>
+          )}
         </div>
 
         <div className="TwoSideBlock__img">
@@ -70,6 +84,17 @@ export const TwoSideBlock = ({
               {ctaText}
             </Button>
           </Link>
+
+          {subText?.length > 0 && (
+            <div className="TwoSideBlock__sublink mobile">
+              <img
+                src={infoIcon}
+                alt=""
+                className="TwoSideBlock__sublink-img"
+              />
+              <a href={subUrl}>{subText}</a>
+            </div>
+          )}
         </div>
       </div>
     </div>

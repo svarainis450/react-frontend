@@ -41,7 +41,7 @@
   &__subtitle {
     text-align: center;
     max-width: 25rem;
-    margin: 0 auto 1.563rem;
+    margin: 0 auto;
     font-style: normal;
     font-weight: 300;
     font-size: 14px;
@@ -68,7 +68,36 @@
     }
 
     &.mobile {
-      margin: 2rem auto 0.5rem;
+      margin: 1rem auto 0.5rem;
+    }
+  }
+
+  &__sublink {
+    margin-top: 1.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    @media (min-width: 1024px) {
+      margin-top: 1.25rem;
+    }
+
+    a {
+      color: #0022FF;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 22px;
+    }
+
+    &-img {
+      width: 1rem;
+      height: 1rem;
+      margin: 0 0.5rem 0 0 !important;
+
+      @media (min-width: 1024px) {
+        margin-bottom: -0.2rem !important;
+        margin-right: 0.5rem;
+      }
     }
   }
 
@@ -99,4 +128,6 @@
   &__mainimg {
     max-height: 100%;
   }
+
+
 }

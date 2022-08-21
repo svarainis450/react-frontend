@@ -42,7 +42,7 @@ export const Reasoning = () => {
                 className="Reasoning__text-block"
                 smallTitle
                 title="Market experience"
-                subtitle="We're a team of the most experienced web data extraction professionals, entrepreneurs, and marketers"
+                subtitle="We're a team of the most experienced web data extraction professionals, entrepreneurs, and data scientists"
               />
             </div>
 
@@ -81,7 +81,7 @@ export const Reasoning = () => {
                 className="Reasoning__text-block"
                 smallTitle
                 title="Crypto community approved"
-                subtitle="We have more than 5,000 users who love our service"
+                subtitle="We have tested our product with 100+ crypto traders"
               />
             </div>
           </div>
@@ -109,7 +109,7 @@ export const Reasoning = () => {
                   variant={TypographyVariant.SUBHEADING}
                 >
                   We're a team of the most experienced web data extraction
-                  professionals, entrepreneurs, and marketers
+                  professionals, entrepreneurs, and data scientists
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -188,7 +188,7 @@ export const Reasoning = () => {
                   className="Reasoning__accordeon-item__text"
                   variant={TypographyVariant.SUBHEADING}
                 >
-                  We have more than 5,000 users who love our service
+                  We have tested our product with 100+ crypto traders
                 </Typography>
               </AccordionDetails>
             </Accordion>

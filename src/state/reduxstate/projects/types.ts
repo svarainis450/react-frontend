@@ -85,9 +85,9 @@ export interface ProjectsState {
 export const tags = [
   CategoryTags.coins,
   CategoryTags.NFT,
-  CategoryTags.DAO,
-  CategoryTags.meta,
-  CategoryTags.defi,
+  // CategoryTags.DAO,
+  // CategoryTags.meta,
+  // CategoryTags.defi,
 ];
 
 export enum ProjectFilterKeys {

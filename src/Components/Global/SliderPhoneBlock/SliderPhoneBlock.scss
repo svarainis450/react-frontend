@@ -1,5 +1,5 @@
 .SliderPhoneBlock {
-  padding: 2.875rem 1rem;
+  padding: 1.125rem 1rem;
   position: relative;
   background-color: #F4F4F4;
   
@@ -11,7 +11,7 @@
   &__content {
     display: flex;
     flex-direction: column;
-    max-width: 60rem;
+    max-width: 90rem;
     margin: 1.375rem auto 0;
     
     @media (min-width: 1024px) {
@@ -93,18 +93,19 @@
 
   .swiper-button-prev,
   .swiper-button-next {
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 3rem;
-    top: 15rem;
+    // background-repeat: no-repeat;
+    // background-size: contain;
+    // width: 3rem;
+    // top: 15rem;
 
-    &::after {
-      display: none !important;
-    }
+    // &::after {
+    //   display: none !important;
+    // }
 
-    @media (min-width: 1024px) {
-      display: none;
-    }
+    // // @media (min-width: 1024px) {
+    // //   display: none;
+    // // }
+    display: none;
   }
 
   .swiper-button-prev {

@@ -22,9 +22,9 @@ export const SliderPhoneBlock = () => {
 
   return (
     <div className='SliderPhoneBlock'>
-      <HeroTitle 
+      {/* <HeroTitle 
         title='Invest smartly by tracking crypto influencers'
-      />
+      /> */}
 
       <Swiper 
         modules={[Navigation]}
@@ -40,7 +40,7 @@ export const SliderPhoneBlock = () => {
                 </div>
 
                 <div className="SliderPhoneBlock__context">
-                  <div className="SliderPhoneBlock__no">#{item.number}</div>
+                  {/* <div className="SliderPhoneBlock__no">#{item.number}</div> */}
 
                   <HeroTitle 
                     className='SliderPhoneBlock__hero'
@@ -49,7 +49,7 @@ export const SliderPhoneBlock = () => {
                     subtitle={item.description}
                   />
 
-                  <SwiperButtons />
+                  <SwiperButtons className='desktop' />
 
                   <div className="SliderPhoneBlock__disclosure" onClick={() => setDisclosureOpen((isOpen) => !isOpen)}>
                     <img src={infoIco} className="SliderPhoneBlock__icon" alt='info icon'/>

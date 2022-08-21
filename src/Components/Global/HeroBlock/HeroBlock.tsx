@@ -50,13 +50,13 @@ export const HeroBlock = ({}: HeroBlockProps) => {
 
         <Typography className="HeroBlock__subtitle">
           Discover which Crypto & NFTs are being talked about before they rocket
-          to the moon. 🚀
+          to the moon.
           {/* <span className="HeroBlock__subtitle-emphasize"></span> */}
         </Typography>
 
         {/* <CountdownTimer targetDate={dateTimeAfterThreeDays} title="Deal ends in:"/> */}
 
-        <Link to={LinkList.WAITLIST}>
+        <Link to={LinkList.Pricing}>
           <Button
             onClick={() => console.log('click')}
             className="HeroBlock__cta"

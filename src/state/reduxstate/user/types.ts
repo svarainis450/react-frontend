@@ -16,6 +16,7 @@ export interface UserDataType {
   market: number;
   img?: any;
   password?: string;
+  id?: number;
 }
 
 export interface UserState {

@@ -9,7 +9,6 @@ import { HeroTitle } from "../HeroTitle";
 
 import ss1 from "../../../Assets/images/screenshots/ss1.png";
 import ss2 from "../../../Assets/images/screenshots/ss2.png";
-import ss3 from "../../../Assets/images/screenshots/ss3.png";
 import infograph1 from "../../../Assets/images/screenshots/infograph1.svg";
 import infograph2 from "../../../Assets/images/screenshots/infograph2.svg";
 import infograph3 from "../../../Assets/images/screenshots/infograph3.svg";
@@ -37,7 +36,7 @@ export const SliderBigBlock = () => {
             </div>
 
             <div className="SliderBigBlock__img">
-              <img className="SliderBigBlock__message" src={ss1} alt="heroMessage" />
+              <img className="SliderBigBlock__message" src={ss2} alt="heroMessage" />
             </div>
           </div>
         </SwiperSlide>
@@ -57,7 +56,7 @@ export const SliderBigBlock = () => {
             </div>
 
             <div className="SliderBigBlock__img">
-              <img className="SliderBigBlock__message" src={ss2} alt="heroMessage" />
+              <img className="SliderBigBlock__message" src={ss1} alt="heroMessage" />
             </div>
           </div>
         </SwiperSlide>
@@ -77,7 +76,7 @@ export const SliderBigBlock = () => {
             </div>
 
             <div className="SliderBigBlock__img">
-              <img className="SliderBigBlock__message" src={ss3} alt="heroMessage" />
+              <img className="SliderBigBlock__message" src={ss1} alt="heroMessage" />
             </div>
           </div>
         </SwiperSlide>

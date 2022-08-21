@@ -100,8 +100,8 @@ export const PaymentOptions = ({
                 </button>
               )}
 
-              <Link to={LinkList.WAITLIST}>
-                <Button className="PaymentOptions__card-button">Join waitlist</Button>
+              <Link to={LinkList.Checkout}>
+                <Button className="PaymentOptions__card-button">Buy now</Button>
               </Link>
 
               <ul className="PaymentOptions__card-bulletlist">
@@ -115,7 +115,10 @@ export const PaymentOptions = ({
               </ul>
 
               <p className="PaymentOptions__card-tobegin">
-                Plan renews at {getCookie?.currencySymbol}{item.beginPrice} after 1 year. VAT may apply.
+                {currentOption === planTypes.yearly 
+                  ? `Plan renews at ${getCookie?.currencySymbol}${item.beginPrice} after 1 year. VAT may apply.`
+                  : `Plan renews at ${getCookie?.currencySymbol}${item.beginPrice} after 1 month. VAT may apply.`
+                }
               </p>
             </div>
           );
