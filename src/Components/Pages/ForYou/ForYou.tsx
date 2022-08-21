@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {
   ForYouListItem,
   ProjectMetrics,
+  ProjectsSliderMobile,
   Top3ElementsSlider,
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
@@ -34,6 +35,7 @@ import {
   filterProjectsByName,
   filterProjectsLocaly,
 } from 'src/utils/localFilters';
+import { useMediaQuery } from 'src/hooks';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -71,12 +73,9 @@ export const ForYou: React.FC = () => {
       })
     );
     dispatch(fetchProjectById(selectedProjectID));
-    if (projectsFilter === ProjectFilterKeys.NAME) {
-      const filtered = filterProjectsByName(favoriteProjects, filterValue);
-      console.log(filtered);
-    }
   }, [projectsFilter, offsetCount, dispatch, filterValue]);
 
+  const { isTablet } = useMediaQuery();
   const projects = useSelector(projectsSelector);
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
@@ -84,7 +83,8 @@ export const ForYou: React.FC = () => {
     favoriteProjects[0].id || projects[0].id
   );
 
-  console.log(selectedProjectID);
+  const [filteredFavProjects, setFilteredFavProjects] =
+    useState(favoriteProjects);
 
   const topTalkRateProject = filterProjectsLocaly(
     favoriteProjects,
@@ -105,9 +105,18 @@ export const ForYou: React.FC = () => {
     if (e.target.value.length >= 3) {
       setProjectsFilter(ProjectFilterKeys.NAME);
       setFilterValue(e.target.value);
+      setFilteredFavProjects(
+        favoriteProjects.filter(
+          (project) =>
+            project.name
+              .toLocaleLowerCase()
+              .includes(e.target.value.toLocaleLowerCase()) && project
+        )
+      );
     } else if (e.target.value.length === 0) {
       setProjectsFilter(ProjectFilterKeys.NONE);
       setFilterValue('1');
+      setFilteredFavProjects(favoriteProjects);
     }
   };
 
@@ -123,12 +132,14 @@ export const ForYou: React.FC = () => {
             </div>
           </div>
           <div className="For-you__wrapper__projects-list">
-            <div className="title-wrapper">
-              <Typography className="list-title">
-                List of projects you follow
-              </Typography>
-              <img src={icons.question_mark_grey} alt="question mark" />
-            </div>
+            {!isTablet && (
+              <div className="title-wrapper">
+                <Typography className="list-title">
+                  List of projects you follow
+                </Typography>
+                <img src={icons.question_mark_grey} alt="question mark" />
+              </div>
+            )}
             <div className="input-wrapper">
               <img
                 className="input-wrapper__magnifier"
@@ -144,21 +155,30 @@ export const ForYou: React.FC = () => {
                 }
               />
             </div>
-            {favoriteProjects.map((project, index) => (
-              <ForYouListItem
-                key={`${project.id + index}`}
-                project={project}
+            {!isTablet &&
+              filteredFavProjects.map((project, index) => (
+                <ForYouListItem
+                  key={`${project.id + index}`}
+                  project={project}
+                  projectIDCallback={setSelectedProjectID}
+                  isInFavorites
+                />
+              ))}
+            {!isTablet &&
+              projects.map((project, index) => (
+                <ForYouListItem
+                  key={`${project.id + index}`}
+                  project={project}
+                  projectIDCallback={setSelectedProjectID}
+                />
+              ))}
+            {isTablet && (
+              <ProjectsSliderMobile
                 projectIDCallback={setSelectedProjectID}
-                isInFavorites
+                favoriteProjects={filteredFavProjects}
+                projects={projects}
               />
-            ))}
-            {projects.map((project, index) => (
-              <ForYouListItem
-                key={`${project.id + index}`}
-                project={project}
-                projectIDCallback={setSelectedProjectID}
-              />
-            ))}
+            )}
           </div>
         </div>
         {favoriteProjects && favoriteProjects.length > 0 && (

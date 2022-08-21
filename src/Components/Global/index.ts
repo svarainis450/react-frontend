@@ -42,3 +42,4 @@ export * from './ProfileElements/Billing/Billing';
 // FOR YOU
 export * from './ForYourElements/ProjectMetrics';
 export * from './ForYourElements/ForYouListItem';
+export * from './ForYourElements/ProjectsSliderMobile';

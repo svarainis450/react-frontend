@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from 'src/hooks';
 import { projectByIdSelector } from 'src/state/reduxstate/projects/selectors';
 import { icons } from 'src/utils/icons';
 import { IndexAxis } from '../DiscoverElements/IndexAxis/IndexAxis';
@@ -9,6 +10,7 @@ import './ProjectMetrics.scss';
 
 export const ProjectMetrics: React.FC = () => {
   const projectById = useSelector(projectByIdSelector);
+  const { isTablet } = useMediaQuery();
 
   return (
     <div className="metrics-wrapper ">
@@ -22,8 +24,13 @@ export const ProjectMetrics: React.FC = () => {
             />
           </div>
           <div>
-            <Typography>{projectById.name}</Typography>
-            <CategoryTag tagTitle={projectById.tag.name} />
+            <Typography className="project-title">
+              {projectById.name}
+            </Typography>
+            <CategoryTag
+              isSmallerTag={isTablet}
+              tagTitle={projectById.tag.name}
+            />
           </div>
         </div>
         <div className="Metrics metrics-flex bordered centered smaller ">
@@ -52,7 +59,7 @@ export const ProjectMetrics: React.FC = () => {
             />
           </div>
         </div>
-        <div className="Metrics metrics-flex bordered centered">
+        <div className="Metrics metrics-flex bordered centered prices">
           <Typography
             variant={TypographyVariant.DEFAULT}
             weight={TypographyWeight.MEDIUM}
