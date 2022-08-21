@@ -44,7 +44,6 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
     </div>
     {isSelected && (
       <div className="Billing__border-wrapper__method__details">
-        iframe data
         {/* TODO: billing. payment iframe should come here */}
         <CheckoutForm />
       </div>

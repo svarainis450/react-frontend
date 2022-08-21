@@ -12,6 +12,7 @@ const initialState: UserState = {
     lastName: '',
     market: 50,
     img: undefined,
+    id: 123,
   },
 };
 

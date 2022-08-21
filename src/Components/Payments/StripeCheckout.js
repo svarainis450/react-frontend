@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import './StripeCheckout.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { userDataSelector } from 'src/state/reduxstate/user/selectors';
+import { secretKeySelector } from 'src/state/reduxstate/payments/selectors';
 import {
-  PaymentElement,
-  useStripe,
-  useElements,
-} from '@stripe/react-stripe-js';
+  completePaymentPost,
+  createPaymentIntent,
+} from 'src/state/reduxstate/payments/thunks';
 
 export default function CheckoutForm() {
+  const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const userData = useSelector(userDataSelector);
+  const [userName, setUserName] = useState('');
+  const secretKey = useSelector(secretKeySelector);
 
   useEffect(() => {
     if (!stripe) {
@@ -53,14 +61,25 @@ export default function CheckoutForm() {
     }
 
     setIsLoading(true);
+    dispatch(createPaymentIntent());
+    const cardElement = elements.getElement(CardElement);
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
+    const { error } = await stripe.confirmCardPayment(
+      secretKey,
+      {
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:3000',
+        // elements,
+        // return_url: `${api}/order/${userData.id}/completed`,
+
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: userName,
+          },
+        },
       },
-    });
+      dispatch(completePaymentPost(userData.id))
+    );
 
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
@@ -77,15 +96,29 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}
-        </span>
-      </button>
-      {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
-    </form>
+    <div className="stripe-payment">
+      <form id="payment-form" onSubmit={handleSubmit}>
+        {/* <PaymentElement id="payment-element" /> */}
+        <div>
+          <input
+            class="full-name-input"
+            placeholder="Name on card"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
+        <CardElement />
+        <button disabled={isLoading || !stripe || !elements} id="submit">
+          <span id="button-text">
+            {isLoading ? (
+              <div className="spinner" id="spinner"></div>
+            ) : (
+              'Pay now'
+            )}
+          </span>
+        </button>
+        {/* Show any error or success messages */}
+        {message && <div id="payment-message">{message}</div>}
+      </form>
+    </div>
   );
 }

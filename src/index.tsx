@@ -8,8 +8,6 @@ import { UserInfoContextProvider } from 'src/state/UserInfoContextProvider';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './state/reduxstate/store';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
