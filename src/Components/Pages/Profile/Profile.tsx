@@ -29,7 +29,7 @@ import { TermsContent } from '../TermsAndConditions/TermsContent';
 import './Profile.scss';
 
 export const Profile: React.FC = () => {
-  const block = useSelector(profileBlockSelector);
+  const block = useSelector(profileBlockSelector) as NavClassTypes;
   const { isDesktop } = useMediaQuery();
 
   const profileBlocks: {

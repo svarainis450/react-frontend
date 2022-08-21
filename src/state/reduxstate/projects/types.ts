@@ -65,6 +65,7 @@ export interface Influencer extends ProjectPicks {
 export interface ProjectsState {
   projects: Project[];
   project_filter_key: ProjectFilterKeys | null;
+  project_by_id: Project;
   status: Statuses;
   trending_projects: TrendingProject[];
   influencers: Influencer[];

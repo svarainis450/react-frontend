@@ -7,7 +7,7 @@ import { HeroBlockProps } from './types';
 import heroMessage from '../../../Assets/images/heroMessage.svg';
 import manWithRocket from '../../../Assets/images/manWithRocket.svg';
 
-import lottie from 'lottie-web';
+import Lottie from 'react-lottie';
 import * as animationData from 'src/Assets/lotties/Lottie_guy.json';
 
 import './HeroBlock.scss';
@@ -29,12 +29,14 @@ export const HeroBlock = ({}: HeroBlockProps) => {
   //   },
   // };
 
-  lottie.loadAnimation({
-    container: document.getElementById('#lottie-guy') as Element,
+  const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
-  });
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   return (
     <div className="HeroBlock">
@@ -67,7 +69,7 @@ export const HeroBlock = ({}: HeroBlockProps) => {
       </div>
 
       <div className="HeroBlock__img">
-        <div id="#lottie-guy" />
+        <Lottie options={defaultOptions} />
         {/* <img className="HeroBlock__message" src={heroMessage} alt="heroMessage" />
         <img className="HeroBlock__mainimg" src={manWithRocket} alt="manWithRocket" /> */}
       </div>

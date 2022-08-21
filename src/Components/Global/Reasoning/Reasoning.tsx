@@ -1,4 +1,4 @@
-import lottie from 'lottie-web';
+import Lottie from 'react-lottie';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -17,12 +17,14 @@ import arrowDown from '../../../Assets/images/arrowDown.svg';
 import './Reasoning.scss';
 
 export const Reasoning = () => {
-  lottie.loadAnimation({
-    container: document.querySelector('#lottie_mac') as Element,
+  const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
-  });
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   return (
     <div className="Reasoning">
@@ -195,7 +197,7 @@ export const Reasoning = () => {
 
         <div className="Reasoning__img">
           {/* <img className="Reasoning__message" src={browserWindow} alt="heroMessage" /> */}
-          <div id="lottie_mac" />
+          <Lottie options={defaultOptions} />
         </div>
       </div>
     </div>

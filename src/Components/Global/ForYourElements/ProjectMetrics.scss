@@ -1,6 +1,7 @@
 @import '../../../utils/breakpointsMixins.scss';
 
 .metrics-wrapper {
+  margin: 0 0 16px;
   width: 100%;
   overflow-x: scroll;
   background-color: var(--color-grey);

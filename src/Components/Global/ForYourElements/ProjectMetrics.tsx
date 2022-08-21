@@ -1,4 +1,5 @@
-import { Project } from 'src/state/reduxstate/projects/types';
+import { useSelector } from 'react-redux';
+import { projectByIdSelector } from 'src/state/reduxstate/projects/selectors';
 import { icons } from 'src/utils/icons';
 import { IndexAxis } from '../DiscoverElements/IndexAxis/IndexAxis';
 import { TalkRateElement } from '../TalkRateElement/TalkRateElement';
@@ -6,13 +7,9 @@ import { CategoryTag } from '../TrendsElements/CategoryTag/CategoryTag';
 import { Typography, TypographyVariant, TypographyWeight } from '../Typography';
 import './ProjectMetrics.scss';
 
-interface ProjectMetricsProps {
-  project: Project;
-}
+export const ProjectMetrics: React.FC = () => {
+  const projectById = useSelector(projectByIdSelector);
 
-export const ProjectMetrics: React.FC<ProjectMetricsProps> = ({ project }) => {
-  console.log(project);
-  const { img, name, tag, rateData } = project;
   return (
     <div className="metrics-wrapper ">
       <div className="metrics-flex">
@@ -20,28 +17,39 @@ export const ProjectMetrics: React.FC<ProjectMetricsProps> = ({ project }) => {
           <div>
             <img
               className="project-icon"
-              src={img || icons.no_image}
-              alt={name}
+              src={projectById.img || icons.no_image}
+              alt={projectById.name}
             />
           </div>
           <div>
-            <Typography>{name}</Typography>
-            <CategoryTag tagTitle={tag.name} />
+            <Typography>{projectById.name}</Typography>
+            <CategoryTag tagTitle={projectById.tag.name} />
           </div>
         </div>
         <div className="Metrics metrics-flex bordered centered smaller ">
           <div>
-            <TalkRateElement rate={rateData.talkRate} type="talk_rate" />
+            <TalkRateElement
+              rate={projectById.rateData.talkRate}
+              type="talk_rate"
+            />
           </div>
         </div>
         <div className="Metrics metrics-flex bordered centered smaller">
           <div>
-            <IndexAxis isHalfAxis rating={rateData.bullRatio} type="bull" />
+            <IndexAxis
+              isHalfAxis
+              rating={projectById.rateData.bullRatio}
+              type="bull"
+            />
           </div>
         </div>
         <div className="Metrics metrics-flex bordered centered smaller">
           <div>
-            <IndexAxis isHalfAxis rating={rateData.bullRatio} type="positive" />
+            <IndexAxis
+              isHalfAxis
+              rating={projectById.rateData.bullRatio}
+              type="positive"
+            />
           </div>
         </div>
         <div className="Metrics metrics-flex bordered centered">

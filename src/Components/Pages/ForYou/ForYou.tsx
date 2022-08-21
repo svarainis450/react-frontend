@@ -1,40 +1,39 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   ForYouListItem,
-  ProjectCard,
-  ProjectFilters,
   ProjectMetrics,
   Top3ElementsSlider,
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
+import { projectsSelector } from 'src/state/reduxstate/projects/selectors';
 import {
-  projectFilterKeySelector,
-  projectsSelector,
-} from 'src/state/reduxstate/projects/selectors';
-import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
+  fetchProjectById,
+  fetchProjects,
+} from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 
 import './ForYou.scss';
 import { SubmenuListProps } from 'src/Components/Global/Submenu';
-import {
-  Star,
-  Influencers,
-  Suggestion,
-} from '../../../Assets/icons/IconElements';
+import { Star, Influencers } from '../../../Assets/icons/IconElements';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import {
-  Project,
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
-import { isArray } from 'lodash';
-import { images } from 'src/utils/images';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { icons } from 'src/utils/icons';
 import MainScreen from 'src/Components/Global/Graphic/mainScreen';
+import {
+  getFavInfluencers,
+  getFavProjects,
+} from 'src/state/reduxstate/user/thunks';
+import {
+  filterProjectsByName,
+  filterProjectsLocaly,
+} from 'src/utils/localFilters';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -55,35 +54,61 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 ];
 
 export const ForYou: React.FC = () => {
-  const projects = useSelector(projectsSelector);
   const dispatch = useAppDispatch();
+  const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
+  const [offsetCount, setOffsetCount] = useState(0);
+  const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
+
+  useEffect(() => {
+    dispatch(getFavInfluencers());
+    dispatch(getFavProjects());
+    dispatch(
+      fetchProjects({
+        filter: projectsFilter,
+        callBack: setProjectStatus,
+        offset: offsetCount,
+        filterValue: String(filterValue).toLocaleLowerCase(),
+      })
+    );
+    dispatch(fetchProjectById(selectedProjectID));
+    if (projectsFilter === ProjectFilterKeys.NAME) {
+      const filtered = filterProjectsByName(favoriteProjects, filterValue);
+      console.log(filtered);
+    }
+  }, [projectsFilter, offsetCount, dispatch, filterValue]);
+
+  const projects = useSelector(projectsSelector);
   const favoriteProjects = useSelector(favoriteProjectsSelector);
+  const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
+  const [selectedProjectID, setSelectedProjectID] = useState(
+    favoriteProjects[0].id || projects[0].id
+  );
 
-  // const subscribedProjects = projects.filter((project) => {
-  //   return favoriteProjects.some((item) => item === project.id);
-  // });
+  console.log(selectedProjectID);
 
-  const topBullProject = projects && [projects[0]];
+  const topTalkRateProject = filterProjectsLocaly(
+    favoriteProjects,
+    ProjectFilterKeys.TALK_RATE
+  )?.slice(0, 1);
+  const topPositiveProject = filterProjectsLocaly(
+    favoriteProjects,
+    ProjectFilterKeys.POSITIVE
+  )?.slice(0, 1);
 
-  console.log(favoriteProjects);
+  const topBullProject = filterProjectsLocaly(
+    favoriteProjects,
+    ProjectFilterKeys.BULL
+  )?.slice(0, 1);
 
-  const demoProject: Project = {
-    id: 22,
-    name: 'Dofecoin (DOGE)',
-    img: images.bitkoin,
-    rateData: {
-      talkRate: 67,
-      talkRateChanges: 2,
-      positiveRatio: 56,
-      bullRatio: 30,
-    },
-    influencers: [],
-    coinbaseUrl: '',
-    openSeaUrl: null,
-    tag: {
-      name: CategoryTags.coins,
-      color: '',
-    },
+  const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.value.length >= 3) {
+      setProjectsFilter(ProjectFilterKeys.NAME);
+      setFilterValue(e.target.value);
+    } else if (e.target.value.length === 0) {
+      setProjectsFilter(ProjectFilterKeys.NONE);
+      setFilterValue('1');
+    }
   };
 
   return (
@@ -92,11 +117,9 @@ export const ForYou: React.FC = () => {
         <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
+            <div>{favoriteProjects.length > 0 && <ProjectMetrics />}</div>
             <div>
-              <ProjectMetrics project={demoProject} />
-            </div>
-            <div>
-              <MainScreen projectId={295} />
+              <MainScreen projectId={selectedProjectID} />
             </div>
           </div>
           <div className="For-you__wrapper__projects-list">
@@ -116,23 +139,40 @@ export const ForYou: React.FC = () => {
                 className="input-wrapper__input"
                 type="text"
                 placeholder="Filter by name..."
-                // onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                //   handleNameInputChange(e)
-                // }
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleNameInputChange(e)
+                }
               />
             </div>
-            <ForYouListItem project={demoProject} />
+            {favoriteProjects.map((project, index) => (
+              <ForYouListItem
+                key={`${project.id + index}`}
+                project={project}
+                projectIDCallback={setSelectedProjectID}
+                isInFavorites
+              />
+            ))}
+            {projects.map((project, index) => (
+              <ForYouListItem
+                key={`${project.id + index}`}
+                project={project}
+                projectIDCallback={setSelectedProjectID}
+              />
+            ))}
           </div>
         </div>
         {favoriteProjects && favoriteProjects.length > 0 && (
           <Top3ElementsSlider
             isForYouProject
-            topBull={topBullProject}
-            topPositive={topBullProject}
-            topTalkRate={topBullProject}
+            topBull={(topBullProject && topBullProject) || favoriteProjects}
+            topPositive={
+              (topPositiveProject && topPositiveProject) || favoriteProjects
+            }
+            topTalkRate={
+              (topTalkRateProject && topTalkRateProject) || favoriteProjects
+            }
           />
         )}
-        {/* <ProjectFilters /> */}
         {!favoriteProjects ||
           (!Array.isArray(favoriteProjects) && (
             <div className="empty-dashboard">

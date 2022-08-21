@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
 import { Project, Statuses } from 'src/state/reduxstate/projects/types';
@@ -36,6 +36,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
+  const [isFavInstance, setIsFavInstance] = useState(false);
   const isFavoriteProject = favoriteProjects.find(
     (project) => project.id === id
   );
@@ -48,7 +49,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const handleFavoritesIcon = (id: number) => {
     console.log(isFavoriteProject);
-    if (!isFavoriteProject) {
+    if (!isFavoriteProject || !isFavInstance) {
       dispatch(
         sendFavProjectOrInfluencer({
           id,
@@ -56,12 +57,22 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           fav_type: 'project',
         })
       );
-    } else if (isFavoriteProject) {
+      setIsFavInstance(true);
+    } else if (isFavoriteProject || isFavInstance) {
       dispatch(
         deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })
       );
+      setIsFavInstance(false);
     }
   };
+
+  useEffect(() => {
+    if (isFavoriteProject) {
+      setIsFavInstance(true);
+    }
+  }, [isFavoriteProject]);
+
+  console.log(isFavoriteProject);
 
   return (
     <div className="wrapper">
@@ -79,7 +90,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
             <img
               className="favorites"
-              src={isFavoriteProject ? icons.favorite_selected : icons.fav_star}
+              src={isFavInstance ? icons.favorite_selected : icons.fav_star}
               alt="Add to favorites"
               onClick={() => handleFavoritesIcon(id)}
             />

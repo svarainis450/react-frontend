@@ -1,7 +1,7 @@
 import { Button } from '../Button';
 import { HeroMiniBlockProps } from './types';
 import { Link } from 'react-router-dom';
-import lottie from 'lottie-web';
+import Lottie from 'react-lottie';
 
 import * as animationData from 'src/Assets/lotties/Lottie_rocket.json';
 
@@ -15,12 +15,14 @@ export const HeroMiniBlock = ({
   img,
   className,
 }: HeroMiniBlockProps) => {
-  lottie.loadAnimation({
-    container: document.querySelector('#lottie-rocket') as Element,
+  const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
-  });
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   return (
     <div className={classNames('HeroMiniBlock', className)}>
@@ -38,7 +40,7 @@ export const HeroMiniBlock = ({
         {img ? (
           <img className="HeroMiniBlock__mainimg" src={img} alt="rocketImg" />
         ) : (
-          <div id="lottie-rocket" />
+          <Lottie options={defaultOptions} />
         )}
       </div>
     </div>

@@ -123,18 +123,27 @@ export const sendFavProjectOrInfluencer = createAsyncThunk(
 
 export const deleteFromFavorites = createAsyncThunk(
   'user/DELETE_FAV_INFLUENCER_OR_PROJECT',
-  async ({ id, callBack, fav_type }: FavInfluencersProjectsPayload) => {
+  async (
+    { id, callBack, fav_type }: FavInfluencersProjectsPayload,
+    { dispatch }
+  ) => {
     if (token) {
       callBack('pending');
       try {
-        const resp = await fetch(`${api}/fav/${fav_type}/${id}`, {
+        await fetch(`${api}/fav/${fav_type}/${id}`, {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
+
+        if (fav_type === 'influencer') {
+          dispatch(getFavInfluencers());
+        } else if (fav_type === 'project') {
+          dispatch(getFavProjects());
+        }
+
         callBack('success');
-        return resp;
       } catch (e) {
         callBack('error');
         console.log(e);

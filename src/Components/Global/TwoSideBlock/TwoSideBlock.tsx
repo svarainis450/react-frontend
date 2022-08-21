@@ -1,4 +1,4 @@
-import lottie from 'lottie-web';
+import Lottie from 'react-lottie';
 import { Button } from '../Button';
 import { Typography, TypographyVariant, TypographyWeight } from '../Typography';
 import { TwoSideBlockProps } from './types';
@@ -18,12 +18,14 @@ export const TwoSideBlock = ({
   ctaText,
   className,
 }: TwoSideBlockProps) => {
-  lottie.loadAnimation({
-    container: document.querySelector('#lottie_ticket') as Element,
+  const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
-  });
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   return (
     <div className={classNames('TwoSideBlock', className)}>
@@ -57,7 +59,7 @@ export const TwoSideBlock = ({
               alt="heroMessage"
             />
           ) : (
-            <div id="lottie_ticket" />
+            <Lottie options={defaultOptions} />
           )}
 
           <Link to={url || '/'}>
