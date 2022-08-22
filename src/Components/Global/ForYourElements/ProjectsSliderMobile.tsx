@@ -26,7 +26,7 @@ export const ProjectsSliderMobile: React.FC<ProjectsSliderMobileProps> = ({
   const dispatch = useAppDispatch();
 
   const handleCheckStatsBtn = (id: number) => {
-    dispatch(fetchProjectById(id));
+    dispatch(fetchProjectById({ id }));
     projectIDCallback(id);
   };
   return (

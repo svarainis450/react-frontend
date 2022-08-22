@@ -1,5 +1,7 @@
 import { axiosInstance as instance, ENUM_API } from '../../axios';
 import Cookies from 'js-cookie';
+import { store } from 'src/state/reduxstate/store';
+import { setUserToken } from 'src/state/reduxstate/user/slice';
 
 export const API_USER_LOGIN = (email: string, pass: string) => {
   const postBody = {
@@ -13,9 +15,17 @@ export const API_USER_LOGIN = (email: string, pass: string) => {
       .then((res: any) => {
         Cookies.set('token', res.data['token'] ?? '');
         localStorage.setItem('token', JSON.stringify(res.data.token));
+        store.dispatch(setUserToken(res.data.token));
+
         return res;
       })
-      .then((res: any) => resolve(res))
+      .then((res: any) => {
+        console.log(res);
+        store.dispatch(setUserToken(res.data.token));
+        const localToken = localStorage.getItem('token');
+        console.log(localToken);
+        resolve(res);
+      })
       .catch((err) => reject(err.response));
   });
 };

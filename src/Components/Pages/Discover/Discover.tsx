@@ -25,6 +25,7 @@ import { Button } from 'src/Components/Global/Button';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { scrollToElement } from 'src/utils/scrollers';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -46,6 +47,7 @@ export const submenuList: SubmenuListProps[] = [
 
 export const Discover: React.FC = () => {
   const dispatch = useAppDispatch();
+  const userToken = useSelector(userTokenSelector);
 
   const projects = useSelector(projectsSelector);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
@@ -53,9 +55,6 @@ export const Discover: React.FC = () => {
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
   const [offsetCount, setOffsetCount] = useState(0);
   const notAllToShow = offsetCount < 3000;
-
-  console.log(projectsStatus);
-  console.log(filterValue);
 
   useEffect(() => {
     dispatch(
@@ -66,9 +65,11 @@ export const Discover: React.FC = () => {
         filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );
-    dispatch(getFavProjects());
+    if (userToken) {
+      dispatch(getFavProjects({ tokenValue: userToken }));
+    }
     scrollToElement('card-to-scroll');
-  }, [projectsFilter, offsetCount, dispatch, filterValue]);
+  }, [projectsFilter, offsetCount, dispatch, filterValue, userToken]);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow) {

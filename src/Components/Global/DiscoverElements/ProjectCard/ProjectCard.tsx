@@ -37,9 +37,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const [isFavInstance, setIsFavInstance] = useState(false);
-  const isFavoriteProject = favoriteProjects.find(
-    (project) => project.id === id
-  );
+  const isFavoriteProject =
+    favoriteProjects && favoriteProjects.find((project) => project.id === id);
   const isPositiveRateChange = rateData.talkRateChanges > 0;
   const { isTablet } = useMediaQuery();
   const [showMore, setShowMore] = useState(false);
@@ -48,7 +47,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const urlBtnType = openSeaUrl ? 'opensea' : 'coinbase';
 
   const handleFavoritesIcon = (id: number) => {
-    console.log(isFavoriteProject);
     if (!isFavoriteProject || !isFavInstance) {
       dispatch(
         sendFavProjectOrInfluencer({
@@ -70,9 +68,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     if (isFavoriteProject) {
       setIsFavInstance(true);
     }
-  }, [isFavoriteProject]);
-
-  console.log(isFavoriteProject);
+  }, [dispatch, isFavoriteProject]);
 
   return (
     <div className="wrapper">

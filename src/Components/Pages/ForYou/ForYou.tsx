@@ -8,7 +8,11 @@ import {
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import { projectsSelector } from 'src/state/reduxstate/projects/selectors';
+import {
+  projectByIdSelector,
+  projectsSelector,
+  trendingProjectsSelector,
+} from 'src/state/reduxstate/projects/selectors';
 import {
   fetchProjectById,
   fetchProjects,
@@ -18,9 +22,13 @@ import { useAppDispatch } from 'src/state/reduxstate/store';
 import './ForYou.scss';
 import { SubmenuListProps } from 'src/Components/Global/Submenu';
 import { Star, Influencers } from '../../../Assets/icons/IconElements';
-import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
+import {
+  favoriteProjectsSelector,
+  userTokenSelector,
+} from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import {
+  Project,
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
@@ -58,12 +66,58 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 export const ForYou: React.FC = () => {
   const dispatch = useAppDispatch();
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
+  const trending = useSelector(trendingProjectsSelector);
   const [offsetCount, setOffsetCount] = useState(0);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
+  const projects = useSelector(projectsSelector);
+
+  const favoriteProjects = useSelector(favoriteProjectsSelector);
+  const userToken = useSelector(userTokenSelector);
+  const token = localStorage.getItem('token');
+  const [filteredFavProjects, setFilteredFavProjects] =
+    useState(favoriteProjects);
+  const [favFetchStatus, setFavFetchStatus] = useState<Statuses>('idle');
+
+  const [projectByID, setProjectByID] = useState<Project>(favoriteProjects[0]);
+  console.log(projectByID);
+
+  const calculateDefaultId = () => {
+    if (favoriteProjects && favoriteProjects.length > 0) {
+      return favoriteProjects[0].id;
+    } else if (projects && projects.length > 0) {
+      return projects[0].id;
+    } else {
+      return trending[0].id;
+    }
+  };
+
+  const defaultID = calculateDefaultId();
+
+  const [selectedProjectID, setSelectedProjectID] = useState<number>(defaultID);
+  window.onload = function () {
+    if (!window.location.hash) {
+      //@ts-ignore
+      window.location = window.location + '#loaded';
+      window.location.reload();
+    }
+  };
+
+  // useEffect(() => {
+  //   dispatch(
+  //     fetchProjectById({
+  //       id: selectedProjectID,
+  //       projectIDCallback: setProjectByID,
+  //     })
+  //   );
+  // }, [dispatch, selectedProjectID, projectByID]);
 
   useEffect(() => {
-    dispatch(getFavInfluencers());
-    dispatch(getFavProjects());
+    if (token) {
+      dispatch(
+        getFavProjects({ tokenValue: token, favCallBack: setFavFetchStatus })
+      );
+    }
+
     dispatch(
       fetchProjects({
         filter: projectsFilter,
@@ -72,33 +126,38 @@ export const ForYou: React.FC = () => {
         filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );
-    dispatch(fetchProjectById(selectedProjectID));
-  }, [projectsFilter, offsetCount, dispatch, filterValue]);
+
+    dispatch(getFavInfluencers());
+  }, [
+    projectsFilter,
+    offsetCount,
+    dispatch,
+    filterValue,
+    selectedProjectID,
+    userToken,
+    token,
+  ]);
 
   const { isTablet } = useMediaQuery();
-  const projects = useSelector(projectsSelector);
-  const favoriteProjects = useSelector(favoriteProjectsSelector);
+
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
-  const [selectedProjectID, setSelectedProjectID] = useState(
-    favoriteProjects[0].id || projects[0].id
-  );
 
-  const [filteredFavProjects, setFilteredFavProjects] =
-    useState(favoriteProjects);
+  const topTalkRateProject =
+    favoriteProjects &&
+    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.TALK_RATE)?.slice(
+      0,
+      1
+    );
+  const topPositiveProject =
+    favoriteProjects &&
+    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.POSITIVE)?.slice(
+      0,
+      1
+    );
 
-  const topTalkRateProject = filterProjectsLocaly(
-    favoriteProjects,
-    ProjectFilterKeys.TALK_RATE
-  )?.slice(0, 1);
-  const topPositiveProject = filterProjectsLocaly(
-    favoriteProjects,
-    ProjectFilterKeys.POSITIVE
-  )?.slice(0, 1);
-
-  const topBullProject = filterProjectsLocaly(
-    favoriteProjects,
-    ProjectFilterKeys.BULL
-  )?.slice(0, 1);
+  const topBullProject =
+    favoriteProjects &&
+    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.BULL)?.slice(0, 1);
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -119,16 +178,24 @@ export const ForYou: React.FC = () => {
       setFilteredFavProjects(favoriteProjects);
     }
   };
-
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
         <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
-            <div>{favoriteProjects.length > 0 && <ProjectMetrics />}</div>
             <div>
-              <MainScreen projectId={selectedProjectID} />
+              {selectedProjectID && (
+                <ProjectMetrics projectByIdProp={selectedProjectID} />
+              )}
+            </div>
+
+            <div>
+              {(favFetchStatus === 'success' || favoriteProjects) && (
+                <MainScreen
+                  projectId={selectedProjectID || favoriteProjects[0]}
+                />
+              )}
             </div>
           </div>
           <div className="For-you__wrapper__projects-list">
@@ -156,15 +223,18 @@ export const ForYou: React.FC = () => {
               />
             </div>
             {!isTablet &&
+              (favFetchStatus === 'success' || favoriteProjects) &&
               filteredFavProjects.map((project, index) => (
                 <ForYouListItem
                   key={`${project.id + index}`}
                   project={project}
                   projectIDCallback={setSelectedProjectID}
+                  favProjectIdCallback={setProjectByID}
                   isInFavorites
                 />
               ))}
             {!isTablet &&
+              projects &&
               projects.map((project, index) => (
                 <ForYouListItem
                   key={`${project.id + index}`}
@@ -172,7 +242,7 @@ export const ForYou: React.FC = () => {
                   projectIDCallback={setSelectedProjectID}
                 />
               ))}
-            {isTablet && (
+            {isTablet && (filteredFavProjects || projects) && (
               <ProjectsSliderMobile
                 projectIDCallback={setSelectedProjectID}
                 favoriteProjects={filteredFavProjects}

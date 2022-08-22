@@ -30,7 +30,6 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
     id: null as unknown as number,
     isErr: false,
   });
-
   return (
     <div className="project-picks">
       {influencerProjects && (

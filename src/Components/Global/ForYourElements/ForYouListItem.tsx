@@ -2,7 +2,10 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { fetchProjectById } from 'src/state/reduxstate/projects/thunks';
 import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { deleteFromFavorites } from 'src/state/reduxstate/user/thunks';
+import {
+  deleteFromFavorites,
+  sendFavProjectOrInfluencer,
+} from 'src/state/reduxstate/user/thunks';
 import { icons } from 'src/utils/icons';
 import { Loader } from '../Loader/Loader';
 import { CategoryTag } from '../TrendsElements/CategoryTag/CategoryTag';
@@ -12,6 +15,7 @@ import './ForYouListItem.scss';
 interface ForYouListItemProps {
   project: Project;
   projectIDCallback: Dispatch<SetStateAction<number>>;
+  favProjectIdCallback?: Dispatch<SetStateAction<Project>>;
   isInFavorites?: boolean;
 }
 
@@ -19,19 +23,30 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
   isInFavorites,
   project,
   projectIDCallback,
+  favProjectIdCallback,
 }) => {
   const dispatch = useAppDispatch();
   const { img, name, tag, id } = project;
   const [status, setStatus] = useState<Statuses>('idle');
 
   const hanldeAddOrRemoveBtn = (id: number) => {
-    dispatch(
-      deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })
-    );
+    if (isInFavorites) {
+      dispatch(
+        deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })
+      );
+    } else {
+      dispatch(
+        sendFavProjectOrInfluencer({
+          id,
+          fav_type: 'project',
+          callBack: setStatus,
+        })
+      );
+    }
   };
 
   const handleCheckStatsBtn = (id: number) => {
-    dispatch(fetchProjectById(id));
+    // dispatch(fetchProjectById({ id, projectIDCallback: favProjectIdCallback }));
     projectIDCallback(id);
   };
 

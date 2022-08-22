@@ -1,4 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { Dispatch, SetStateAction } from 'react';
+import { fetchProjectById } from '../projects/thunks';
+import { Project, Statuses } from '../projects/types';
+import { RootState } from '../slice';
 import { api } from '../types';
 import {
   setFavoriteProjects,
@@ -13,12 +17,12 @@ const token = JSON.parse(String(localStorage.getItem('token')));
 
 export const fetchUserData = createAsyncThunk(
   'user/GET_USER_DATA',
-  async (_, { dispatch }) => {
-    if (token) {
+  async (tokenValue: string, { dispatch }) => {
+    if (tokenValue) {
       try {
         const resp = await fetch(`${api}/me`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenValue || token}`,
           },
         }).then((res) => res.json());
 
@@ -56,22 +60,41 @@ export const updateUserInfo = createAsyncThunk(
 
 //FAVORITE PROJECTS AND INFLUENCERS MANAGEMENT
 
+interface GetFavProjectsPayload {
+  favCallBack?: Dispatch<SetStateAction<Statuses>>;
+  tokenValue?: string;
+}
+
 export const getFavProjects = createAsyncThunk(
   'user/GET_FAV_PROJECTS',
-  async (_, { dispatch }) => {
-    if (token) {
+  async (
+    { tokenValue, favCallBack }: GetFavProjectsPayload,
+    { dispatch, getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+    if (favCallBack) {
+      favCallBack('pending');
+    }
+
+    if (tokenFromState || tokenValue) {
       try {
         const resp = await fetch(`${api}/fav/project`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenFromState || tokenValue}`,
           },
         }).then((res) => res.json());
 
-        dispatch(setFavoriteProjects(resp));
+        if (favCallBack) {
+          favCallBack('success');
+        }
 
         return resp;
       } catch (e) {
         console.log(e);
+        if (favCallBack) {
+          favCallBack('error');
+        }
       }
     }
   }
@@ -88,9 +111,7 @@ export const getFavInfluencers = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        dispatch(setSubscribedInfluencers(resp));
-
-        return resp;
+        dispatch(setSubscribedInfluencers(resp.result));
       } catch (e) {
         console.log(e);
       }
@@ -140,7 +161,7 @@ export const deleteFromFavorites = createAsyncThunk(
         if (fav_type === 'influencer') {
           dispatch(getFavInfluencers());
         } else if (fav_type === 'project') {
-          dispatch(getFavProjects());
+          dispatch(getFavProjects(token));
         }
 
         callBack('success');

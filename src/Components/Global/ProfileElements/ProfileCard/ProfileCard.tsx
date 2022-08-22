@@ -44,8 +44,6 @@ export const ProfileCard: React.FC = () => {
     }
   }, [profileImg]);
 
-  console.log(newData);
-
   const updateProfileData = (
     e: FormEvent,
     data: Omit<UserDataType, 'market'>
