@@ -51,7 +51,7 @@ export const SliderPhoneBlock = () => {
 
                   <SwiperButtons className='desktop' />
 
-                  <div className="SliderPhoneBlock__disclosure" onClick={() => setDisclosureOpen((isOpen) => !isOpen)}>
+                  <div className="SliderPhoneBlock__disclosure" onMouseOver={() => setDisclosureOpen((isOpen) => !isOpen)}>
                     <img src={infoIco} className="SliderPhoneBlock__icon" alt='info icon'/>
                     <Typography className='SliderPhoneBlock_text' variant={TypographyVariant.TEXT_SMALL}>Crypto Risk Disclosures</Typography>
                   </div>

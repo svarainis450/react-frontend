@@ -37,7 +37,7 @@ export const Pricing = () => {
     <Layout>
       <div className="Pricing">
         <PageTitle
-          title="Stay ahead of trends. Choose the best Potato plan."
+          title="Get an edge over everyone else by utilizing social sentiment and comparing it with the price."
           className="Pricing__hero"
         />
         <PaymentOptions

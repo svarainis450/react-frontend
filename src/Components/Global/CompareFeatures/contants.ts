@@ -5,7 +5,7 @@ export const CompareFeaturesList = [
     pro: true,
   },
   {
-    type: "1 month of historical data storage",
+    type: "3 month of historical data",
     starter: true,
     pro: true,
   },
