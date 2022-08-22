@@ -1,5 +1,5 @@
 import { FC, memo, useContext, useEffect, useState } from 'react';
-import { Link as LinkTag } from 'react-router-dom';
+import { Link, Link as LinkTag } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
@@ -16,6 +16,8 @@ import { LinkList } from '../types';
 import { icons } from '../utils/icons';
 import { images } from '../utils/images';
 
+import "./SuccessHero.scss";
+
 const TIME_UNTIL_ERROR = 6000;
 
 export const SuccessPage: FC = memo(() => {
@@ -23,9 +25,9 @@ export const SuccessPage: FC = memo(() => {
   const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsError(true);
-    }, TIME_UNTIL_ERROR);
+    // setTimeout(() => {
+    //   setIsError(true);
+    // }, TIME_UNTIL_ERROR);
   }, []);
 
   return (
@@ -43,15 +45,41 @@ export const SuccessPage: FC = memo(() => {
             </ContentWrapper>
           </FlexStyled>
         ) : (
-          <FormWrapper>
-            <SuccessImg src={images.success} alt="Success" />
-            <Title margin="-1.5rem 0 1.25rem 0">Thank you for your order</Title>
-            <OrderNumber margin="0 0 2rem 0">{`#${user.orderId}`}</OrderNumber>
-            <OrderSummary />
-            <LinkTag to={LinkList.Landing}>
-              <Button>Go to the homepage</Button>
-            </LinkTag>
-          </FormWrapper>
+          <div className="SuccessBlock">
+            <div className="SuccessHero">
+              <div className="SuccessHero__content">
+                <div className="SuccessHero__left">
+                  <div className="SuccessHero__title">
+                    <img className="SuccessHero__img"  src={images.successIcon} />
+                    Thank you for your order
+                  </div>
+                  <div className="SuccessHero__subtitle">
+                    To start using your plan, please login to your Potato dashboard.
+                  </div>
+
+                  <Link to={LinkList.Login} className='SuccessHero__cta'>
+                    <Button>
+                      Login to your dashboard
+                    </Button>
+                  </Link>
+                </div>
+
+                <img className="SuccessHero__img"  src={images.successHeroImg} />
+              </div>
+
+              <div className="SuccessHero__subcontent">
+                We’ve also sent you a letter with <b>app access link</b> to your email <b>{user.email}</b> (Didn’t get the link? <Link to="#"><b>Try one more time</b></Link>)
+              </div>
+            </div>
+
+            <FormWrapper>
+              <OrderNumber margin="0 0 2rem 0">{user.orderId}</OrderNumber>
+              <OrderSummary />
+              <LinkTag to={LinkList.Landing}>
+                <Button>Go to the homepage</Button>
+              </LinkTag>
+            </FormWrapper>
+          </div>
         )}
       </Background>
     </LayoutWithHeader>
@@ -61,10 +89,9 @@ export const SuccessPage: FC = memo(() => {
 SuccessPage.displayName = 'SuccessPage';
 
 const Background = styled(Flex)<{ isError: boolean }>`
-  padding: 2rem 0;
-  height: calc(100vh - 5.625rem);
-  background: ${theme.colors.heroYellow};
-  overflow-y: scroll;
+  padding: 0 0 2rem;
+  background: ${theme.colors.white};
+  overflow-y: hidden;
 
   ${({ isError }) =>
     isError &&
@@ -78,10 +105,6 @@ const Background = styled(Flex)<{ isError: boolean }>`
     width: 100%;
     max-width: 14rem;
     margin: 4rem auto 0 auto;
-  }
-
-  @media (max-width: ${theme.breakpoints.mobile}px) {
-    height: calc(100vh - 4rem);
   }
 `;
 
