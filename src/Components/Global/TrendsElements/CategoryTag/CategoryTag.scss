@@ -27,3 +27,12 @@
 .DeFi {
   background-color: var(--color-blue);
 }
+
+.Tag.smaller-tag {
+  padding: 2px;
+  width: 45px;
+
+  &__text {
+    font-size: 8px;
+  }
+}

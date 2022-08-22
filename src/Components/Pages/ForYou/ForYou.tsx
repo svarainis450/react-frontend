@@ -1,32 +1,41 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  ProjectCard,
-  ProjectFilters,
+  ForYouListItem,
+  ProjectMetrics,
+  ProjectsSliderMobile,
   Top3ElementsSlider,
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
+import { projectsSelector } from 'src/state/reduxstate/projects/selectors';
 import {
-  projectFilterKeySelector,
-  projectsSelector,
-} from 'src/state/reduxstate/projects/selectors';
-import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
+  fetchProjectById,
+  fetchProjects,
+} from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 
 import './ForYou.scss';
 import { SubmenuListProps } from 'src/Components/Global/Submenu';
-import {
-  Star,
-  Influencers,
-  Suggestion,
-} from '../../../Assets/icons/IconElements';
+import { Star, Influencers } from '../../../Assets/icons/IconElements';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import {
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
+import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { icons } from 'src/utils/icons';
+import MainScreen from 'src/Components/Global/Graphic/mainScreen';
+import {
+  getFavInfluencers,
+  getFavProjects,
+} from 'src/state/reduxstate/user/thunks';
+import {
+  filterProjectsByName,
+  filterProjectsLocaly,
+} from 'src/utils/localFilters';
+import { useMediaQuery } from 'src/hooks';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -47,65 +56,153 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 ];
 
 export const ForYou: React.FC = () => {
-  const projects = useSelector(projectsSelector);
   const dispatch = useAppDispatch();
+  const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
+  const [offsetCount, setOffsetCount] = useState(0);
+  const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
+
+  useEffect(() => {
+    dispatch(getFavInfluencers());
+    dispatch(getFavProjects());
+    dispatch(
+      fetchProjects({
+        filter: projectsFilter,
+        callBack: setProjectStatus,
+        offset: offsetCount,
+        filterValue: String(filterValue).toLocaleLowerCase(),
+      })
+    );
+    dispatch(fetchProjectById(selectedProjectID));
+  }, [projectsFilter, offsetCount, dispatch, filterValue]);
+
+  const { isTablet } = useMediaQuery();
+  const projects = useSelector(projectsSelector);
   const favoriteProjects = useSelector(favoriteProjectsSelector);
+  const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
+  const [selectedProjectID, setSelectedProjectID] = useState(
+    favoriteProjects[0].id || projects[0].id
+  );
 
-  const subscribedProjects = projects.filter((project) => {
-    return favoriteProjects.some((item) => item === project.id);
-  });
+  const [filteredFavProjects, setFilteredFavProjects] =
+    useState(favoriteProjects);
 
-  const topBullProject = [projects[0]];
+  const topTalkRateProject = filterProjectsLocaly(
+    favoriteProjects,
+    ProjectFilterKeys.TALK_RATE
+  )?.slice(0, 1);
+  const topPositiveProject = filterProjectsLocaly(
+    favoriteProjects,
+    ProjectFilterKeys.POSITIVE
+  )?.slice(0, 1);
+
+  const topBullProject = filterProjectsLocaly(
+    favoriteProjects,
+    ProjectFilterKeys.BULL
+  )?.slice(0, 1);
+
+  const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.value.length >= 3) {
+      setProjectsFilter(ProjectFilterKeys.NAME);
+      setFilterValue(e.target.value);
+      setFilteredFavProjects(
+        favoriteProjects.filter(
+          (project) =>
+            project.name
+              .toLocaleLowerCase()
+              .includes(e.target.value.toLocaleLowerCase()) && project
+        )
+      );
+    } else if (e.target.value.length === 0) {
+      setProjectsFilter(ProjectFilterKeys.NONE);
+      setFilterValue('1');
+      setFilteredFavProjects(favoriteProjects);
+    }
+  };
 
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
         <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
-        {favoriteProjects.length > 0 && (
+        <div className="For-you__wrapper">
+          <div className="For-you__wrapper__graph-wrapper">
+            <div>{favoriteProjects.length > 0 && <ProjectMetrics />}</div>
+            <div>
+              <MainScreen projectId={selectedProjectID} />
+            </div>
+          </div>
+          <div className="For-you__wrapper__projects-list">
+            {!isTablet && (
+              <div className="title-wrapper">
+                <Typography className="list-title">
+                  List of projects you follow
+                </Typography>
+                <img src={icons.question_mark_grey} alt="question mark" />
+              </div>
+            )}
+            <div className="input-wrapper">
+              <img
+                className="input-wrapper__magnifier"
+                src={icons.search_magnifier}
+                alt="Filter by name"
+              />
+              <input
+                className="input-wrapper__input"
+                type="text"
+                placeholder="Filter by name..."
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  handleNameInputChange(e)
+                }
+              />
+            </div>
+            {!isTablet &&
+              filteredFavProjects.map((project, index) => (
+                <ForYouListItem
+                  key={`${project.id + index}`}
+                  project={project}
+                  projectIDCallback={setSelectedProjectID}
+                  isInFavorites
+                />
+              ))}
+            {!isTablet &&
+              projects.map((project, index) => (
+                <ForYouListItem
+                  key={`${project.id + index}`}
+                  project={project}
+                  projectIDCallback={setSelectedProjectID}
+                />
+              ))}
+            {isTablet && (
+              <ProjectsSliderMobile
+                projectIDCallback={setSelectedProjectID}
+                favoriteProjects={filteredFavProjects}
+                projects={projects}
+              />
+            )}
+          </div>
+        </div>
+        {favoriteProjects && favoriteProjects.length > 0 && (
           <Top3ElementsSlider
             isForYouProject
-            topBull={topBullProject}
-            topPositive={topBullProject}
-            topTalkRate={topBullProject}
+            topBull={(topBullProject && topBullProject) || favoriteProjects}
+            topPositive={
+              (topPositiveProject && topPositiveProject) || favoriteProjects
+            }
+            topTalkRate={
+              (topTalkRateProject && topTalkRateProject) || favoriteProjects
+            }
           />
         )}
-        {/* <ProjectFilters /> */}
-        {favoriteProjects.length === 0 && (
-          <div className="empty-dashboard">
-            <Typography>
-              Welcome to your dashboard of interest. To add your favorite
-              projects to this page, you need to click on the star icon on the
-              Discover subpage.
-            </Typography>
-          </div>
-        )}
-        <div className="For-you__wrapper">
-          {subscribedProjects.length > 0 &&
-            subscribedProjects.map(
-              ({
-                id,
-                coinbaseUrl,
-                tag,
-                rateData,
-                name,
-                influencers,
-                img,
-                started,
-              }) => (
-                <ProjectCard
-                  id={id}
-                  key={id}
-                  name={name}
-                  img={img}
-                  coinbaseUrl={coinbaseUrl}
-                  influencers={influencers}
-                  rateData={rateData}
-                  tag={tag}
-                  started={started}
-                />
-              )
-            )}
-        </div>
+        {!favoriteProjects ||
+          (!Array.isArray(favoriteProjects) && (
+            <div className="empty-dashboard">
+              <Typography>
+                Welcome to your dashboard of interest. To add your favorite
+                projects to this page, you need to click on the star icon on the
+                Discover subpage.
+              </Typography>
+            </div>
+          ))}
       </LoggedInLayout>
     </div>
   );

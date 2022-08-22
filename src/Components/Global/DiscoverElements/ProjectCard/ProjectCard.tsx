@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import { Project } from 'src/state/reduxstate/projects/types';
+import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
-import { setFavoriteProjects } from 'src/state/reduxstate/user/slice';
+import {
+  deleteFromFavorites,
+  sendFavProjectOrInfluencer,
+} from 'src/state/reduxstate/user/thunks';
 import { icons } from 'src/utils/icons';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
@@ -28,24 +31,48 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   name,
   started,
   img,
+  openSeaUrl,
+  coinbaseUrl,
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
-  const isFavoriteProject = favoriteProjects.includes(id);
+  const [isFavInstance, setIsFavInstance] = useState(false);
+  const isFavoriteProject = favoriteProjects.find(
+    (project) => project.id === id
+  );
   const isPositiveRateChange = rateData.talkRateChanges > 0;
   const { isTablet } = useMediaQuery();
   const [showMore, setShowMore] = useState(false);
+  const [status, setStatus] = useState<Statuses>('idle');
+  const url = openSeaUrl || coinbaseUrl || null;
+  const urlBtnType = openSeaUrl ? 'opensea' : 'coinbase';
 
   const handleFavoritesIcon = (id: number) => {
-    if (!isFavoriteProject) {
-      dispatch(setFavoriteProjects(id));
-    } else if (isFavoriteProject) {
-      const favoriteExcluded = favoriteProjects.filter(
-        (item) => Number(item) !== id
+    console.log(isFavoriteProject);
+    if (!isFavoriteProject || !isFavInstance) {
+      dispatch(
+        sendFavProjectOrInfluencer({
+          id,
+          callBack: setStatus,
+          fav_type: 'project',
+        })
       );
-      dispatch(setFavoriteProjects(favoriteExcluded));
+      setIsFavInstance(true);
+    } else if (isFavoriteProject || isFavInstance) {
+      dispatch(
+        deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })
+      );
+      setIsFavInstance(false);
     }
   };
+
+  useEffect(() => {
+    if (isFavoriteProject) {
+      setIsFavInstance(true);
+    }
+  }, [isFavoriteProject]);
+
+  console.log(isFavoriteProject);
 
   return (
     <div className="wrapper">
@@ -63,7 +90,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
             <img
               className="favorites"
-              src={isFavoriteProject ? icons.favorite_selected : icons.fav_star}
+              src={isFavInstance ? icons.favorite_selected : icons.fav_star}
               alt="Add to favorites"
               onClick={() => handleFavoritesIcon(id)}
             />
@@ -111,7 +138,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   <strong>Top influencers taked about this coin</strong>
                 </Typography>
               </div>
-              <CoinBaseButton />
+              {url && <CoinBaseButton url={url} btnType={urlBtnType} />}
             </>
           )}
         </div>

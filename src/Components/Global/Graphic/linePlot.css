@@ -1,0 +1,85 @@
+.domain {
+  stroke: black;
+}
+
+.range-button-group {
+  background-color: white;
+  margin-left: 30px;
+  margin-top: 16px;
+  border-width: 1px;
+  overflow: hidden;
+}
+
+.range-button-group button {
+  background-color: white; /* Green background */
+  border: 1px solid #88898c; /* Green border */
+  color: white; /* White text */
+  padding: 10px 15px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+  transition: transform 1s ease-out;
+  overflow: hidden;
+}
+
+.range-button-group button:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.range-button-group button:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.range-button-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.range-button-group:after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.range-button-group button:hover {
+  box-shadow: 0 -2px 0 0 #2b59d1 inset;
+}
+
+.range-button-group button {
+  font-size: 12px;
+  color: black;
+}
+
+.range-button-group button:hover {
+  color: #2b59d1;
+  font-weight: 700;
+}
+
+.range-button-group button:active {
+  color: #2b59d1;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 780px) {
+  .range-button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0;
+    background-color: #f4f4f4;
+    margin: 0;
+  }
+
+  #line-chart {
+    background-color: white;
+    margin-top: 10px;
+    padding-top: 20px;
+    border-radius: 10px;
+  }
+
+  .range-button-group button {
+    box-shadow: 0 0 4px 0px rgb(0, 0, 0, 0.1);
+  }
+}

@@ -2,9 +2,9 @@ import Cookie from "js-cookie";
 import { useState, useEffect } from "react";
 import { ENUM_COOKIE_VALUES } from "src/Common/cookies";
 
-import './Cookies.scss';
+import './CookiesComponent.scss';
 
-export const Cookies = () => {
+export const CookiesComponent = () => {
   const [showCookeBar, setShowCookieBar] = useState(false);
 
   useEffect(() => {

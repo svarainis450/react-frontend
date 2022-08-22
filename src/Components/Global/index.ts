@@ -38,3 +38,8 @@ export * from './ProfileElements/ProfileCard/ProfileCard';
 export * from './ProfileElements/ProfileNavigation/ProfileNavigation';
 export * from './ProfileElements/Notifications/NotificationsBlock';
 export * from './ProfileElements/Billing/Billing';
+
+// FOR YOU
+export * from './ForYourElements/ProjectMetrics';
+export * from './ForYourElements/ForYouListItem';
+export * from './ForYourElements/ProjectsSliderMobile';
