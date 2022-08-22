@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { theme } from '../../theme';
 
 export const FormWrapper = styled.div`
-  width: 28rem;
+  padding-top: 4rem;
+  width: 22rem;
   margin: auto;
 
   @media (max-width: ${theme.breakpoints.mobile}px) {
     width: auto;
-    padding: 0 4%;
+    padding: 3rem 4% 0;
   }
 `;

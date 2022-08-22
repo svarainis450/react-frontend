@@ -15,8 +15,11 @@ export const OrderSummary: FC = memo(() => {
   return (
     <>
       <Subtitle margin="0 0 0.625rem 0">Order Summary</Subtitle>
+
+      <Line margin="0 0 0.875rem 0" />
+
       <Background>
-        <Row margin="0 0 0.875rem 0">
+        <Row margin="0 0 1rem 0">
           <Regular>Subtotal</Regular>
           <Regular>{getCookie?.currencySymbol}{`${
             Number(user.selectedPlan?.beginPrice) -
@@ -24,7 +27,7 @@ export const OrderSummary: FC = memo(() => {
           }.00`}</Regular>
         </Row>
         {user.selectedPlan?.discount ? (
-          <Row margin="0 0 0.875rem 0">
+          <Row margin="0 0 1rem 0">
             <Regular>
               {user.selectedPlan?.period} plan discount
             </Regular>
@@ -34,17 +37,18 @@ export const OrderSummary: FC = memo(() => {
           </Row>
         ) : null}
         {user.selectedPlan?.priceAfterDownsell ? (
-          <Row margin="0 0 0.875rem 0">
-            <Regular>Additional discount</Regular>
-            <Regular>
+          <Row margin="0 0 1rem 0">
+            <Regular color="#FA5000">Additional discount</Regular>
+            <Regular color="#FA5000">
               -
+              {getCookie?.currencySymbol}
               {parseFloat(
                 String(Number(user.selectedPlan?.beginPrice) * 0.15)
               ).toFixed(2)}
             </Regular>
           </Row>
         ) : null}
-        <Line margin="0 0 0.875rem 0" />
+
         <Row>
           <Regular>Billed now</Regular>
           <Regular>
@@ -59,7 +63,7 @@ export const OrderSummary: FC = memo(() => {
 OrderSummary.displayName = 'OrderSummary';
 
 const Background = styled.div`
-  padding: 1.5rem 1.75rem;
+  padding: 1.5rem 0;
   border-radius: 0.25rem;
 `;
 
@@ -81,5 +85,7 @@ const Regular = styled.p<{ color?: string }>`
 `;
 
 const Line = styled(Box)`
+  padding: 0 1.75rem;
+  display: block;
   border-top: 1px solid ${theme.colors.greyDark};
 `;
