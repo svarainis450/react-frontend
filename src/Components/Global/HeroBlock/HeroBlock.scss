@@ -61,8 +61,8 @@
   // IMG
   &__img {
     height: 21rem;
+    width: auto;
     position: relative;
-    // margin: auto;
 
     @media (min-width: 1024px) {
       height: 38rem;
