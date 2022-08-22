@@ -32,14 +32,14 @@ export const AboutPage = () => {
         </HeroMiniBlock>
         <Commitments commitmentsList={commitmentsList}/>
         <PotatoFactsBlock/>
-        <TwoSideBlock 
+        {/* <TwoSideBlock 
           className='AboutPage__twoSideBlock'
           title='Our Team'
           subtitle='The Potato team includes some of the most experienced web data extraction professionals in the industry coming from big data, lead generation and data science backgrounds. Our combined experience and a culture of knowledge sharing allows us to help people utilize the data in the most efficient way and easily achieve related goals.'
           ctaText="Get started"
           img={!isDesktop ? memojiDesktop : memojiMobile}
           url={LinkList.Pricing}
-        />
+        /> */}
         <GetStarted />
       </div>
     </Layout>

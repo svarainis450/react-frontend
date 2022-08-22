@@ -41,6 +41,7 @@ import 'normalize.css';
 import _ from 'lodash';
 import { YourInfluencers } from './Components/Pages/YourInfluencers/YourInfluencers';
 import { setUserToken } from './state/reduxstate/user/slice';
+import { Cookies } from './Components/Global/Cookies/Cookies';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -181,6 +182,8 @@ const App = () => {
         type="text/javascript"
         src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=Us6NPr"
       />
+
+      <Cookies />
     </div>
   );
 };

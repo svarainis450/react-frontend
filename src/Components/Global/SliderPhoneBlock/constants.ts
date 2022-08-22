@@ -9,15 +9,15 @@ import phoneSliderImg6 from '../../../Assets/images/phoneSlider/phoneSliderImg6.
 export const phoneSliderContent = [
   {
     number: '1',
-    title: "Track influencers' NFT & crypto picks daily",
-    description: "Crypto & NFT is a complex industry that requires lots of analytical thinking, trend following, and analysis. With our tool, you'll get a customized daily summary of your chosen crypto & NFT followings to see the fundamental changes and trends to always stay ahead.",
-    img: phoneSliderImg1
+    title: "Discover early momentum signals",
+    description: 'We track social sentiment, mentions, and followers across Twitter, Discord, Telegram, and Youtube to help you discover which NFTs and tokens are on the rise.',
+    img: phoneSliderImg2
   },
   {
     number: '2',
-    title: "Discover important events on any day",
-    description: 'We track social sentiment, mentions, followers, and content across Twitter, Discord, Telegram, and Youtube and correlate that to the price.',
-    img: phoneSliderImg2
+    title: "Track influencers' NFT & crypto picks daily",
+    description: "Crypto & NFT is a complex industry that requires lots of analytical thinking, trend following, and analysis. With our tool, you'll get a customized daily summary of your chosen crypto & NFT followings to see the fundamental changes and trends to always stay ahead.",
+    img: phoneSliderImg1
   },
   {
     number: '3',
