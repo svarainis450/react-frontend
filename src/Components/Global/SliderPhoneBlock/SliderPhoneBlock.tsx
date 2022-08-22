@@ -1,11 +1,12 @@
 
 import { useState } from 'react';
-import { Navigation } from 'swiper';
+import { Navigation, Pagination } from 'swiper';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import 'swiper/css/pagination';
 
 import { phoneSliderContent } from './constants';
 import { Typography, TypographyVariant } from '../Typography';
@@ -27,7 +28,8 @@ export const SliderPhoneBlock = () => {
       /> */}
 
       <Swiper 
-        modules={[Navigation]}
+        modules={[Navigation, Pagination]}
+        pagination={true}
         navigation
         className="mySwiper" 
         loop
