@@ -60,6 +60,9 @@ export interface Influencer extends ProjectPicks {
   followers: number;
   posts: number;
   focus: CategoryTags[];
+  social?: {
+    twitter: string;
+  };
 }
 
 export interface ProjectsState {

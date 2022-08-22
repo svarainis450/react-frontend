@@ -58,7 +58,7 @@
       display: grid;
       grid-template-columns: 1.3fr repeat(6, 1fr);
       grid-auto-rows: 1fr;
-      grid-gap: 80px;
+      grid-gap: 40px;
       align-items: center;
       justify-items: center;
       width: 1200px;
@@ -69,7 +69,7 @@
 
       @include desktop {
         width: 100%;
-        grid-template-columns: 1.3fr repeat(6, 0.9fr);
+        grid-template-columns: 1.3fr repeat(4, 0.9fr) 1fr 0.8fr;
         grid-gap: 0;
       }
 
@@ -100,6 +100,7 @@
         font-size: 14px;
         line-height: 22px;
         font-weight: 300;
+        justify-self: center;
       }
 
       &__thin-text__positioned {
@@ -113,6 +114,7 @@
       }
 
       &__link {
+        justify-self: center;
         img {
           cursor: pointer;
         }

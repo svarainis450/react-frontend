@@ -54,6 +54,10 @@ import { createPaymentIntent } from './state/reduxstate/payments/thunks';
 import { useSelect } from '@mui/base';
 import { useSelector } from 'react-redux';
 import { secretKeySelector } from './state/reduxstate/payments/selectors';
+import {
+  getFavInfluencers,
+  getFavProjects,
+} from './state/reduxstate/user/thunks';
 
 const stripePromise = loadStripe(
   'pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGdxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk'
@@ -69,17 +73,6 @@ const App = () => {
   const appearance: Appearance = {
     theme: 'stripe',
   };
-  const options: StripeElementsOptions = {
-    clientSecret,
-    appearance,
-  };
-
-  useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    dispatch(createPaymentIntent());
-  }, []);
-
-  console.log(clientSecret);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {

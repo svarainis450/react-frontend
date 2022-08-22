@@ -28,8 +28,12 @@ export const InfoBlock: React.FC<InfoBlockProps> = ({
         alt="Info label"
         onClick={onCloseClick}
       />
-      <div className="flex-wrapper">
-        <img className="info-label" src={icons.info_label} alt="Info label" />
+      <div className="info__flex-wrapper">
+        <img
+          className="info__info-label"
+          src={icons.info_label}
+          alt="Info label"
+        />
         {infoTitle && (
           <Typography className="info-title" weight={TypographyWeight.BOLD}>
             {infoTitle}

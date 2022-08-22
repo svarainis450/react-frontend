@@ -95,10 +95,14 @@
         line-height: 22px;
       }
 
+      input.email-input {
+        padding: 16px 16px 16px 22%;
+      }
+
       svg {
         position: absolute;
-        top: 35%;
-        right: 8px;
+        top: 40%;
+        right: 14px;
 
         cursor: pointer;
 

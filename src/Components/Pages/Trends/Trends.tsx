@@ -16,6 +16,7 @@ import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
   fetchInfluencers,
+  fetchProjectById,
   fetchProjectsByInfluencers,
   fetchProjectsPick,
   fetchTop3Projects,
@@ -37,8 +38,14 @@ import {
   SubmenuFilters,
 } from 'src/state/reduxstate/projects/types';
 import { Submenu } from './Submenu';
-import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+import {
+  favoriteProjectsSelector,
+  userTokenSelector,
+} from 'src/state/reduxstate/user/selectors';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { render } from 'react-dom';
+import { isLoggedIn } from 'src/Common/utils/isLoggedIn';
+import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('today');
@@ -54,9 +61,10 @@ export const Trends: React.FC = () => {
   const influencers = useSelector(influencersSelector);
   const projectsByInfluencers = useSelector(projectsByInfluencersSelector);
   const token = useSelector(userTokenSelector);
-  const [selectCategory, setSelectCategory] = useState<CategoryTags>(
-    CategoryTags.coins
-  );
+  const [selectCategory, setSelectCategory] = useState<
+    CategoryTags | undefined
+  >(undefined);
+  const favoriteProjects = useSelector(favoriteProjectsSelector);
   const [offsetCount, setOffsetCount] = useState(0);
 
   const [influencersFilter, setInfluencersFilter] =
@@ -64,33 +72,30 @@ export const Trends: React.FC = () => {
   const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
     '1'
   );
-
+  console.log(favoriteProjects);
   useEffect(() => {
-    dispatch(fetchProjectsPick());
-    dispatch(fetchTop3Projects('bull'));
-    dispatch(fetchTop3Projects('positive'));
-    dispatch(fetchTop3Projects('talk_rate'));
-    dispatch(fetchProjectsByInfluencers());
-  }, [dispatch, token]);
-
-  useEffect(() => {
-    dispatch(
-      fetchInfluencers({
-        callBack: setinfluencersStatus,
-        filter: influencersFilter,
-        filterValue: inflFilterValue,
-        limit: 10,
-        offset: offsetCount,
-      })
-    );
-    dispatch(
-      fetchTrendingProjects({
-        filter: filter,
-        callBack: setTrendingStatus,
-        categoryFilter: selectCategory,
-      })
-    );
+    if (token) {
+      dispatch(
+        fetchInfluencers({
+          callBack: setinfluencersStatus,
+          filter: influencersFilter,
+          filterValue: inflFilterValue,
+          limit: 10,
+          offset: offsetCount,
+          tokenValue: token,
+        })
+      );
+      dispatch(
+        fetchTrendingProjects({
+          filter: filter,
+          callBack: setTrendingStatus,
+          categoryFilter: selectCategory,
+          tokenValue: token,
+        })
+      );
+    }
   }, [
+    token,
     filter,
     inflFilterValue,
     influencersFilter,
@@ -98,6 +103,27 @@ export const Trends: React.FC = () => {
     offsetCount,
     selectCategory,
   ]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchProjectsPick(token));
+      dispatch(fetchTop3Projects({ filter: 'bull', tokenValue: token }));
+      dispatch(fetchTop3Projects({ filter: 'positive', tokenValue: token }));
+      dispatch(fetchTop3Projects({ filter: 'talk_rate', tokenValue: token }));
+      dispatch(fetchProjectsByInfluencers(token));
+      dispatch(getFavProjects({ tokenValue: token }));
+    }
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    if (favoriteProjects && favoriteProjects.length > 0) {
+      dispatch(
+        fetchProjectById({
+          id: favoriteProjects[0].id,
+        })
+      );
+    }
+  }, [dispatch, favoriteProjects]);
 
   return (
     <div className="Trends">

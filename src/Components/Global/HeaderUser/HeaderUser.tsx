@@ -18,7 +18,10 @@ import { IndexAxis } from '../DiscoverElements/IndexAxis/IndexAxis';
 import { useMediaQuery } from 'src/hooks';
 import { InfoBlock } from '../InfoBlock/InfoBlock';
 import { useSelector } from 'react-redux';
-import { userDataSelector } from 'src/state/reduxstate/user/selectors';
+import {
+  userDataSelector,
+  userTokenSelector,
+} from 'src/state/reduxstate/user/selectors';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { fetchUserData } from 'src/state/reduxstate/user/thunks';
 
@@ -27,13 +30,16 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
   const [notificationsActive, setNotificationsActive] = useState(false);
   const { isTablet } = useMediaQuery();
+  const userToken = useSelector(userTokenSelector);
   const userData = useSelector(userDataSelector);
   const marketRatio = userData.market;
   const [showMarketDesc, setShowMarketDesc] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchUserData());
-  }, [dispatch]);
+    if (userToken) {
+      dispatch(fetchUserData(userToken));
+    }
+  }, [dispatch, userToken]);
 
   return (
     <div className="HeaderUser">

@@ -31,17 +31,21 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
   title,
 }) => {
   return (
-    <div className={`card ${isForYouProject ? 'yellow' : ''}`}>
-      {showInfoBlock && (
-        <InfoBlock
-          showInfoBlock={showInfoBlock}
-          onCloseClick={onCloseClick}
-          infoTitle={infoTitle}
-          infoDesc={infoDesc}
-        />
-      )}
+    <div
+      className={`card ${isForYouProject ? 'yellow' : ''} ${
+        showInfoBlock ? 'show-info-block' : ''
+      }`}
+    >
       {(title || subtitle) && (
         <div className="flex-wrapper">
+          {showInfoBlock && (
+            <InfoBlock
+              showInfoBlock={showInfoBlock}
+              onCloseClick={onCloseClick}
+              infoTitle={infoTitle}
+              infoDesc={infoDesc}
+            />
+          )}
           <div>
             {title && <Typography className="title">{title}</Typography>}
             {subtitle && (

@@ -44,9 +44,9 @@
   }
 
   .comming-soon {
-    display: block;
-    margin: 0 auto;
-    max-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     min-height: 92vh;
   }

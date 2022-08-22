@@ -17,7 +17,7 @@ import { CustomSelectDropdown } from './CustomSelectDropdown';
 
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
-  categoryCallback: Dispatch<SetStateAction<CategoryTags>>;
+  categoryCallback: Dispatch<SetStateAction<CategoryTags | undefined>>;
 }
 
 export const TrendingCategory: React.FC<TrendingCategoryProps> = ({

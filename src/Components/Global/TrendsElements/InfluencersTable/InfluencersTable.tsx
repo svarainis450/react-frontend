@@ -28,7 +28,7 @@ interface InfluencersTableProps {
 
 const FILTERS = [
   { title: 'Followers', key: InfluencerFilterKeys.FOLLOWERS },
-  { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
+  // { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
 ];
 
 export const InfluencersTable: React.FC<InfluencersTableProps> = ({
@@ -75,6 +75,7 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
     offsetCallBack(offsetCount + 10);
   };
 
+  console.log(influencersData);
   return (
     <div className="influencers-picks">
       <div className="influencers-picks__filters">
@@ -107,12 +108,12 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
             >
               Followers
             </Typography>
-            <Typography
+            {/* <Typography
               className="influencers-picks__filters__sort__option"
               onClick={() => handleFilters(InfluencerFilterKeys.BULLSEYE)}
             >
               Bullseye
-            </Typography>
+            </Typography> */}
             <select
               className="select"
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>

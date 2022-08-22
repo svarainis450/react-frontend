@@ -37,17 +37,20 @@ export const fetchProjects = createAsyncThunk(
     { callBack, filter, offset, filterValue = 1 }: ProjectsPayload,
     { dispatch, getState }
   ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
     const url =
       filter.length > 0
         ? `${api}/projects/today?filters[${filter}]=${filterValue}&limit=50&offset=${offset}`
         : `${api}/projects/today?limit=50&offset=${offset}`;
 
-    if (token) {
+    if (token || tokenFromState) {
       try {
         callBack('pending');
         const resp = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token || tokenFromState}`,
           },
         }).then((res) => res.json());
 
@@ -62,7 +65,6 @@ export const fetchProjects = createAsyncThunk(
         } else {
           dispatch(setProjects(resp.result));
         }
-        console.log(resp);
         callBack('success');
       } catch (e) {
         callBack('error');
@@ -73,9 +75,14 @@ export const fetchProjects = createAsyncThunk(
   }
 );
 
+interface ProjectByIdPayload {
+  id: number;
+  projectIDCallback?: Dispatch<SetStateAction<Project>>;
+}
+
 export const fetchProjectById = createAsyncThunk(
   'projects/GET_PROJECT_BY_ID',
-  async (id: number, { dispatch }) => {
+  async ({ id, projectIDCallback }: ProjectByIdPayload, { dispatch }) => {
     if (token) {
       try {
         const resp = await fetch(`${api}/project/${id}`, {
@@ -83,9 +90,13 @@ export const fetchProjectById = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
+
         console.log(resp);
 
         dispatch(setProjectById(resp));
+        if (projectIDCallback) {
+          projectIDCallback(resp as Project);
+        }
       } catch (e) {
         console.log(e);
       }
@@ -97,12 +108,19 @@ interface TrendingProjectsPayload {
   callBack: Dispatch<SetStateAction<Statuses>>;
   filter: SubmenuFilters;
   categoryFilter?: CategoryTags;
+  tokenValue?: string;
 }
 
 export const fetchTrendingProjects = createAsyncThunk(
   'projects/GET_TRENDING_PROJECTS',
-  async ({ filter, callBack, categoryFilter }: TrendingProjectsPayload) => {
-    if (token && filter) {
+  async (
+    { filter, callBack, categoryFilter, tokenValue }: TrendingProjectsPayload,
+    { getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if ((tokenValue || tokenFromState) && filter) {
       callBack('pending');
 
       const url = categoryFilter
@@ -112,7 +130,7 @@ export const fetchTrendingProjects = createAsyncThunk(
       try {
         const resp = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenValue || tokenFromState}`,
           },
         }).then((res) => res.json());
         callBack('success');
@@ -121,18 +139,20 @@ export const fetchTrendingProjects = createAsyncThunk(
         console.log(e);
         callBack('error');
       }
+    } else {
+      callBack('error');
     }
   }
 );
 
 export const fetchProjectsPick = createAsyncThunk(
   'projects/GET_PROJECT_PICKS',
-  async () => {
-    if (token) {
+  async (tokenValue: string) => {
+    if (tokenValue) {
       try {
         const resp = await fetch(`${api}/influencers/today?limit=10`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenValue}`,
           },
         }).then((res) => res.json());
         return resp.result;
@@ -149,6 +169,7 @@ interface InfluencersPayload {
   limit?: number;
   offset: number;
   filterValue?: string | CategoryTags;
+  tokenValue?: string;
 }
 
 export const fetchInfluencers = createAsyncThunk(
@@ -160,6 +181,7 @@ export const fetchInfluencers = createAsyncThunk(
       limit = 50,
       offset,
       filterValue = '1',
+      tokenValue,
     }: InfluencersPayload,
     { dispatch, getState }
   ) => {
@@ -170,16 +192,15 @@ export const fetchInfluencers = createAsyncThunk(
       : `${api}/influencers/today?limit=${limit}&offset=${offset}`;
 
     callBack('pending');
-    if (token) {
+    if (tokenValue) {
       try {
         const resp = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenValue}`,
           },
         }).then((res) => res.json());
 
         const { projects } = getState() as RootState;
-        console.log(resp);
 
         if (offset >= 50) {
           const expandedInfluencers = concat(projects.influencers, resp.result);
@@ -209,16 +230,27 @@ export const fetchInfluencers = createAsyncThunk(
 
 type FilterKey = 'talk_rate' | 'positive' | 'bull';
 
+interface FetchTop3ProjectsPayload {
+  filter: FilterKey;
+  tokenValue: string;
+}
+
 export const fetchTop3Projects = createAsyncThunk(
   'projects/GET_TOP3_PROJECTS',
-  async (filter: FilterKey, { dispatch }) => {
-    if (token) {
+  async (
+    { filter, tokenValue }: FetchTop3ProjectsPayload,
+    { dispatch, getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if (tokenValue || tokenFromState) {
       try {
         const resp = await fetch(
           `${api}/projects/today?filters[${filter}]=1&limit=3`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${tokenValue || tokenFromState}`,
             },
           }
         ).then((res) => res.json());
@@ -241,14 +273,14 @@ export const fetchTop3Projects = createAsyncThunk(
 
 export const fetchProjectsByInfluencers = createAsyncThunk(
   'projects/GET_PROJECTS_BY_INFLUENCERS',
-  async () => {
-    if (token) {
+  async (tokenValue: string) => {
+    if (tokenValue || token) {
       try {
         const resp = await fetch(
           `${api}/projects?filters[top]=influencer&limit=5`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${tokenValue || token}`,
             },
           }
         ).then((res) => res.json());

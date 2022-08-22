@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Influencer, Project } from '../projects/types';
+import { getFavProjects } from './thunks';
 import { NavClassTypes, UserDataType, UserState } from './types';
 
 const initialState: UserState = {
@@ -51,6 +52,14 @@ const userSlice = createSlice({
     ) => {
       state.user_data = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(
+      getFavProjects.fulfilled,
+      (state, action: PayloadAction<UserState['favorite_projects']>) => {
+        state.favorite_projects = action.payload;
+      }
+    );
   },
 });
 

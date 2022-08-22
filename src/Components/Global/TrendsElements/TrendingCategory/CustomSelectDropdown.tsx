@@ -10,7 +10,7 @@ import { CategoryTags } from '../types';
 import './CustomSelectDropdown.scss';
 
 interface CustomSelectDropdownProps {
-  categoryCallBack: Dispatch<SetStateAction<CategoryTags>>;
+  categoryCallBack: Dispatch<SetStateAction<CategoryTags | undefined>>;
 }
 
 export const CustomSelectDropdown: React.FC<CustomSelectDropdownProps> = ({
