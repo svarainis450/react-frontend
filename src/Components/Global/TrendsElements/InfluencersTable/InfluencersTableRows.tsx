@@ -8,11 +8,12 @@ import { CategoryTag } from '../CategoryTag/CategoryTag';
 const HEADLINES = [
   'Influencer',
   'Followers',
-  'Bullseye Index',
+  // 'Bullseye Index',
   'Category',
   'Post count',
   'Channel',
   'Project',
+  'Link to post',
 ];
 
 interface InfluencersTableRowProps {
@@ -43,6 +44,7 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
             channel,
             projects,
             tag,
+            social,
           },
           index
         ) => (
@@ -68,9 +70,9 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
             <div className="influencers-picks__influencers-table__row__thin-text">
               <Typography>{calculateFollowers(followers)}</Typography>
             </div>
-            <div className="influencers-picks__influencers-table__row__bullseye">
+            {/* <div className="influencers-picks__influencers-table__row__bullseye">
               <TalkRateElement type="bullseye" rate={bullseye} />
-            </div>
+            </div> */}
             <div>
               <CategoryTag tagTitle={tag.name} />
             </div>
@@ -97,9 +99,13 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
               </Typography>
             </div>
             {/* TODO: LINk TO POSt */}
-            {/* <div className="influencers-picks__influencers-table__row__link">
-              <img src={icons.link_arrow} alt="Link to post" />
-            </div> */}
+            <div className="influencers-picks__influencers-table__row__link">
+              {social && social.twitter && (
+                <a href={social.twitter} target="_blank" rel="noreferrer">
+                  <img src={icons.link_arrow} alt="Link to post" />
+                </a>
+              )}
+            </div>
           </div>
         )
       )}

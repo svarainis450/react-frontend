@@ -75,7 +75,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       <CardWrapper>
         <div className="project-card">
           <div className="flex border-wrapper">
-            <div className="flex">
+            <div className="flex icon-project">
               <img className="icon" src={img || icons.no_image} alt="bitkoin" />
               <div>
                 <Typography className="title" weight={TypographyWeight.MEDIUM}>
@@ -84,6 +84,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 <CategoryTag tagTitle={CategoryTags.coins} />
               </div>
             </div>
+            {isTablet && !showMore && (
+              <div>
+                <TalkRateElement rate={rateData.talkRate} />
+              </div>
+            )}
             <img
               className="favorites"
               src={isFavInstance ? icons.favorite_selected : icons.fav_star}

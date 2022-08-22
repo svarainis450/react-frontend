@@ -131,7 +131,9 @@ export const Discover: React.FC = () => {
             )}
         </div>
         {notAllToShow && projectsStatus !== 'pending' && projects && (
-          <Button onClick={() => handleLoadMoreBtn()}>Load more</Button>
+          <Button className="load-more-btn" onClick={() => handleLoadMoreBtn()}>
+            Load more
+          </Button>
         )}
       </LoggedInLayout>
     </div>

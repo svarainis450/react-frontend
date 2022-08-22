@@ -1,17 +1,23 @@
 .trending-project-card {
-  display: grid;
-  grid-template-columns: 0.2fr 0.8fr 1.5fr 0.5fr;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 9px 0;
 
   border-bottom: 1.5px solid var(--color-grey);
 
+  &__flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
   &__grey-text {
     color: var(--color-grey-text);
   }
 
   &__icon {
+    margin-right: 6px;
     width: 54px;
     height: 54px;
   }

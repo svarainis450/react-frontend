@@ -186,6 +186,7 @@ export const ProfileCard: React.FC = () => {
             <input
               value={newData.email || 'your@email.com'}
               type="email"
+              className="email-input"
               disabled={editData.account}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setNewData({ ...newData, email: e.target.value })

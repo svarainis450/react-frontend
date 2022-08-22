@@ -1,5 +1,8 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
 .card {
   position: relative;
+
   padding: 30px;
 
   border-radius: 10px;
@@ -31,4 +34,10 @@
 
 .card.yellow {
   background-color: var(--color-sand);
+}
+
+.card.show-info-block {
+  @include desktop {
+    overflow: visible;
+  }
 }

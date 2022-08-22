@@ -61,9 +61,9 @@ export const Trends: React.FC = () => {
   const influencers = useSelector(influencersSelector);
   const projectsByInfluencers = useSelector(projectsByInfluencersSelector);
   const token = useSelector(userTokenSelector);
-  const [selectCategory, setSelectCategory] = useState<CategoryTags>(
-    CategoryTags.coins
-  );
+  const [selectCategory, setSelectCategory] = useState<
+    CategoryTags | undefined
+  >(undefined);
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const [offsetCount, setOffsetCount] = useState(0);
 
