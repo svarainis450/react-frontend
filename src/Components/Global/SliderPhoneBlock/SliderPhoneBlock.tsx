@@ -57,9 +57,9 @@ export const SliderPhoneBlock = () => {
 
                   <div 
                     className="SliderPhoneBlock__disclosure" 
-                    onClick={() => isMobile && setDisclosureOpen(true)}
-                    onMouseOver={() => setDisclosureOpen(true)}
-                    onMouseLeave={() => {if (!isMobile) return setDisclosureOpen(false)}}
+                    onClick={() => setDisclosureOpen((value) => !value)}
+                    // onMouseOver={() => setDisclosureOpen(true)}
+                    // onMouseLeave={() => {if (!isMobile) return setDisclosureOpen(false)}}
                   >
                     <img src={infoIco} className="SliderPhoneBlock__icon" alt='info icon'/>
                     <Typography className='SliderPhoneBlock_text' variant={TypographyVariant.TEXT_SMALL}>Crypto Risk Disclosures</Typography>
