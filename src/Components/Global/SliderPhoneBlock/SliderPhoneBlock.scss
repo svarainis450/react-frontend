@@ -78,7 +78,8 @@
 
   &__hero.SliderPhoneBlock__hero {
     .HeroTitle_title  {
-      
+      margin-bottom: 0.5rem;
+
       @media (max-width: 1023px) {
         font-weight: 500;
         font-size: 14px;

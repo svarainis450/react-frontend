@@ -13,6 +13,7 @@ import { Typography, TypographyVariant } from '../Typography';
 import { FixedTooltip } from '../FixedTooltip';
 import { HeroTitle } from '../HeroTitle';
 import { SwiperButtons } from './SwiperButtons';
+import { useMediaQuery } from '../../../hooks';
 
 import infoIco from '../../../Assets/images/infoIco.svg';
 
@@ -20,6 +21,7 @@ import './SliderPhoneBlock.scss';
 
 export const SliderPhoneBlock = () => {
   const [disclosureOpen, setDisclosureOpen] = useState(false)
+  const { isMobile } = useMediaQuery();
 
   return (
     <div className='SliderPhoneBlock'>
@@ -53,7 +55,12 @@ export const SliderPhoneBlock = () => {
 
                   <SwiperButtons className='desktop' />
 
-                  <div className="SliderPhoneBlock__disclosure" onMouseOver={() => setDisclosureOpen((isOpen) => !isOpen)}>
+                  <div 
+                    className="SliderPhoneBlock__disclosure" 
+                    onClick={() => setDisclosureOpen((value) => !value)}
+                    // onMouseOver={() => setDisclosureOpen(true)}
+                    // onMouseLeave={() => {if (!isMobile) return setDisclosureOpen(false)}}
+                  >
                     <img src={infoIco} className="SliderPhoneBlock__icon" alt='info icon'/>
                     <Typography className='SliderPhoneBlock_text' variant={TypographyVariant.TEXT_SMALL}>Crypto Risk Disclosures</Typography>
                   </div>

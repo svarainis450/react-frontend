@@ -1,6 +1,6 @@
 export const CompareFeaturesList = [
   {
-    type: "Data updated every day",
+    type: "Data updated every 5 minutes",
     starter: true,
     pro: true,
   },
@@ -15,7 +15,7 @@ export const CompareFeaturesList = [
     pro: true,
   },
   {
-    type: "Custom reporting and analytics",
+    type: "Sentiment & talk rate analysis",
     starter: false,
     pro: true,
   },
@@ -25,17 +25,17 @@ export const CompareFeaturesList = [
     pro: true,
   },
   {
-    type: "Unlimited categories to follow",
+    type: "Unlimited projects to follow",
     starter: false,
     pro: true,
   },
   {
-    type: "18-months of historical data storage",
+    type: "NFT floor price and volume analysis",
     starter: false,
     pro: true,
   },
   {
-    type: "Text and video recognition",
+    type: "Crypto price and volume analysis",
     starter: false,
     pro: true,
   },

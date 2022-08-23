@@ -67,7 +67,7 @@ export const SliderBigBlock = () => {
               <HeroTitle 
                 className="SliderBigBlock__text"
                 title="Talk rate 💬"
-                subtitle="Talk Rate is a metric to summarize and define which projects are most often discussed among crypto experts and the community. It's an easy-to-understand metric that can change dynamically even every 5 minutes."
+                subtitle="Talk Rate is a metric to summarize and define which projects are most often discussed among crypto experts and the community. It's an easy-to-understand metric that can change dynamically every 5 minutes."
               />
 
               <div className="SliderBigBlock__infograph">

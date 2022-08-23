@@ -40,8 +40,8 @@ export const SalesFunnel = () => {
         <TwoSideBlock
           title="Get the first row ticket now" 
           subtitle="Join thousands who've already invested by copying the leading industry traders and crypto experts in our community."
-          ctaText="Join the Waiting List"
-          url={LinkList.WAITLIST}
+          ctaText="Try 1 Month For $5"
+          url={LinkList.Pricing}
         />
         <Reasoning />
         <SliderBigBlock />
