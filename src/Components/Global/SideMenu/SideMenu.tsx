@@ -49,7 +49,7 @@ export const SideMenu = ({ isActive, isActiveToggler }: SideMenuProps) => {
 
        
         <Link to={LinkList.WAITLIST} className="SideMenu__signup">
-          <Button className="SideMenu__login">Join waitlist</Button>
+          <Button className="SideMenu__login">Get started</Button>
         </Link>
       </div>
     </div>
