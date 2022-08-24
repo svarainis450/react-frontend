@@ -60,13 +60,22 @@
 
   // IMG
   &__img {
-    height: 21rem;
-    width: auto;
+    // height: 21rem;
+    // width: auto;
+    // height: 38rem;
     position: relative;
 
+    @media (max-width: 1023px) {
+      height: 21rem;
+    }
+
     @media (min-width: 1024px) {
-      height: 38rem;
+      // height: 38rem;
       margin-left: 5.875rem;
+    }
+
+    & > div {
+      max-width: 500px;
     }
   }
 
