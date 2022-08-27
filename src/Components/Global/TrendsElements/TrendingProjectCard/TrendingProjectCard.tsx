@@ -17,25 +17,28 @@ export const TrendingProjectCard: React.FC<ProjectCardProps> = ({
   projectTitle,
   img,
   mentions,
-  rankNumber,
-}) => (
-  <li className="trending-project-card">
-    <div className="trending-project-card__flex">
-      <img
-        className="trending-project-card__icon"
-        src={img}
-        alt={projectTitle}
-      />
-      <div>
-        <Typography weight={TypographyWeight.MEDIUM}>{projectTitle}</Typography>
-        <Typography
-          className="trending-project-card__grey-text"
-          weight={TypographyWeight.THIN}
-        >
-          {mentions}
-        </Typography>
+}) => {
+  return (
+    <li className="trending-project-card">
+      <div className="trending-project-card__flex">
+        <img
+          className="trending-project-card__icon"
+          src={img}
+          alt={projectTitle}
+        />
+        <div>
+          <Typography weight={TypographyWeight.MEDIUM}>
+            {projectTitle}
+          </Typography>
+          <Typography
+            className="trending-project-card__grey-text"
+            weight={TypographyWeight.THIN}
+          >
+            {mentions}
+          </Typography>
+        </div>
       </div>
-    </div>
-    <CategoryTag tagTitle={categoryTitle} />
-  </li>
-);
+      <CategoryTag tagTitle={categoryTitle} />
+    </li>
+  );
+};

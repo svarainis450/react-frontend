@@ -14,11 +14,11 @@ export const submenuList: Array<SubmenuListProps> = [
     icon: <LastWeek />,
     callBackKey: 'last-week',
   },
-  {
-    title: 'Upcoming',
-    icon: <Upcomming />,
-    callBackKey: 'upcomming',
-  },
+  // {
+  //   title: 'Upcoming',
+  //   icon: <Upcomming />,
+  //   callBackKey: 'upcomming',
+  // },
 ];
 
 export const infoBlocks = {
