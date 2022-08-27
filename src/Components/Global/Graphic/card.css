@@ -6,8 +6,8 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding-left: 30px;
-  padding-right: 30px;
+  /* padding-left: 30px; */
+  /* padding-right: 30px; */
 }
 
 .toggle-buttons #switch-text-span {
@@ -26,8 +26,8 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-right: 10%;
-  padding-left: 10%;
+  /* padding-right: 10%; */
+  /* padding-left: 10%; */
 }
 
 .interval-buttons button {

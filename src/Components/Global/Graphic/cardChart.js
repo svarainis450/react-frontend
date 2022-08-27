@@ -154,8 +154,8 @@ const CardChart = ({ projectId }) => {
   const margin = {
     top: 20,
     bottom: 20,
-    left: 30,
-    right: 30,
+    left: 0,
+    right: 0,
   };
   const buttonIntervals = ['3H', '1D', '1W', '1M', '3M'];
 
