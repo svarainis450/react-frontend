@@ -29,9 +29,9 @@ export const priceOptions: Record<string, Plan[]> = {
       beginPrice: '12',
       url: LinkList.Membership,
       bullets: [
-        '3 chosen crypto experts to follow',
-        '1 month of historical data storage',
-        'Text recognition only'
+        'Limited amount of crypto experts to follow',
+        'Limited amount of crypto and NFT projects to follow',
+        'Social sentiment & mentions volume analysis only (excl. price & volume)'
       ],
       period: 'Monthly'
     },
@@ -45,10 +45,10 @@ export const priceOptions: Record<string, Plan[]> = {
       url: LinkList.Membership,
       bullets: [
         'Follow an unlimited amount of crypto experts',
-        '18 months of historical data storage',
-        'An unlimited amount of categories to follow',
+        'Follow an unlimited amount of projects',
+        'NFT floor price and volume analysis',
+        'Crypto price and volume analysis',
         '24/7 support with a four-hour response time',
-        'Text and video data recognition',
       ],
       period: 'Monthly'
     },
@@ -64,9 +64,9 @@ export const priceOptions: Record<string, Plan[]> = {
       beginPrice: '60',
       url: LinkList.Membership,
       bullets: [
-        '3 chosen crypto experts to follow',
-        '1 month of historical data storage',
-        'Text recognition only'
+        'Limited amount of crypto experts to follow',
+        'Limited amount of crypto and NFT projects to follow',
+        'Social sentiment & mentions volume analysis only (excl. price & volume)'
       ],
       period: 'Yearly'
     },
@@ -80,10 +80,10 @@ export const priceOptions: Record<string, Plan[]> = {
       url: LinkList.Membership,
       bullets: [
         'Follow an unlimited amount of crypto experts',
-        '18 months of historical data storage',
-        'An unlimited amount of categories to follow',
+        'Follow an unlimited amount of projects',
+        'NFT floor price and volume analysis',
+        'Crypto price and volume analysis',
         '24/7 support with a four-hour response time',
-        'Text and video data recognition',
       ],
       period: 'Yearly'
     }

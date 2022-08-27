@@ -1,17 +1,19 @@
 
 import { useState } from 'react';
-import { Navigation } from 'swiper';
+import { Navigation, Pagination } from 'swiper';
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import 'swiper/css/pagination';
 
 import { phoneSliderContent } from './constants';
 import { Typography, TypographyVariant } from '../Typography';
 import { FixedTooltip } from '../FixedTooltip';
 import { HeroTitle } from '../HeroTitle';
 import { SwiperButtons } from './SwiperButtons';
+import { useMediaQuery } from '../../../hooks';
 
 import infoIco from '../../../Assets/images/infoIco.svg';
 
@@ -19,6 +21,7 @@ import './SliderPhoneBlock.scss';
 
 export const SliderPhoneBlock = () => {
   const [disclosureOpen, setDisclosureOpen] = useState(false)
+  const { isMobile } = useMediaQuery();
 
   return (
     <div className='SliderPhoneBlock'>
@@ -27,7 +30,8 @@ export const SliderPhoneBlock = () => {
       /> */}
 
       <Swiper 
-        modules={[Navigation]}
+        modules={[Navigation, Pagination]}
+        pagination={true}
         navigation
         className="mySwiper" 
         loop
@@ -51,7 +55,12 @@ export const SliderPhoneBlock = () => {
 
                   <SwiperButtons className='desktop' />
 
-                  <div className="SliderPhoneBlock__disclosure" onClick={() => setDisclosureOpen((isOpen) => !isOpen)}>
+                  <div 
+                    className="SliderPhoneBlock__disclosure" 
+                    onClick={() => setDisclosureOpen((value) => !value)}
+                    // onMouseOver={() => setDisclosureOpen(true)}
+                    // onMouseLeave={() => {if (!isMobile) return setDisclosureOpen(false)}}
+                  >
                     <img src={infoIco} className="SliderPhoneBlock__icon" alt='info icon'/>
                     <Typography className='SliderPhoneBlock_text' variant={TypographyVariant.TEXT_SMALL}>Crypto Risk Disclosures</Typography>
                   </div>

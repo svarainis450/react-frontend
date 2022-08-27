@@ -50,10 +50,11 @@
   }
 
   &__img {
-    height: 21rem;
+    @media (max-width: 1023px) {
+      width: 12rem;
+    }
 
     @media (min-width: 1024px) {
-      height: 36rem;
       margin-left: 15.875rem;
     }
   }

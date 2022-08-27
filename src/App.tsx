@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import TagManager from 'react-gtm-module';
-import { useCookies } from 'react-cookie';
+import { Cookies, useCookies } from 'react-cookie';
 import * as qs from 'query-string';
 
 import {
@@ -41,6 +41,7 @@ import 'normalize.css';
 import _ from 'lodash';
 import { YourInfluencers } from './Components/Pages/YourInfluencers/YourInfluencers';
 import { setUserToken } from './state/reduxstate/user/slice';
+import { CookiesComponent } from './Components/Global/CookiesComponent/CookiesComponent'
 import {
   Appearance,
   loadStripe,
@@ -227,6 +228,8 @@ const App = () => {
         type="text/javascript"
         src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=Us6NPr"
       />
+
+      <CookiesComponent />
     </div>
   );
 };
