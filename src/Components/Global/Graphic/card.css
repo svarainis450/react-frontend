@@ -1,4 +1,4 @@
-.toggle-buttons {
+.toggle-buttons-card {
   background-color: white;
   height: 30px;
   margin-top: 10px;
@@ -10,7 +10,7 @@
   /* padding-right: 30px; */
 }
 
-.toggle-buttons #switch-text-span {
+.toggle-buttons-card #switch-text-span {
   color: gray;
   display: inline-block;
   vertical-align: middle;

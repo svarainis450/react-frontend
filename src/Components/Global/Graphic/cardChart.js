@@ -66,6 +66,7 @@ const addLineNoGradient = (
   yScale,
   strokeColorHex,
   pathId,
+  projectId,
   data,
   isSpline
 ) => {
@@ -84,7 +85,7 @@ const addLineNoGradient = (
     .attr('stroke-width', '1.5')
     .style('fill', 'none')
     .attr('stroke', strokeColorHex)
-    .attr('id', `gradientPathLine${pathId}`);
+    .attr('id', `gradientPathLine${pathId}${projectId}`);
 };
 
 const IOSSwitch = styled((props) => (
@@ -253,6 +254,7 @@ const CardChart = ({ projectId }) => {
           yScaleSentiment,
           '#2B59D1',
           'Sentiment',
+          projectId,
           filteredSentiment,
           true
         );
@@ -264,6 +266,7 @@ const CardChart = ({ projectId }) => {
         yScaleTalkRate,
         '#2BD130',
         'Mentions',
+        projectId,
         filteredData,
         true
       );
@@ -278,27 +281,33 @@ const CardChart = ({ projectId }) => {
         .style('stroke', 'rgb(189, 189, 189)');
 
       if (activeToggleButtons[0] === 0) {
-        d3.select('#gradientPathLineSentiment').style('opacity', 0);
+        d3.select(`#gradientPathLineSentiment${projectId}`).style('opacity', 0);
       }
       if (activeToggleButtons[1] === 0) {
-        d3.select('#gradientPathLineMentions').style('opacity', 0);
+        d3.select(`#gradientPathLineMentions${projectId}`).style('opacity', 0);
       }
     }
   }, [talkRate, interval, windowSize]);
 
   return (
     <>
-      <div className="toggle-buttons">
+      <div className="toggle-buttons-card">
         <div className="switch-toggle-wrap">
           <IOSSwitch
             defaultChecked
             mycolor="#2B59D1"
             onClick={(event) => {
               if (event.target.checked) {
-                d3.select('#gradientPathLineSentiment').style('opacity', 1);
+                d3.select(`#gradientPathLineSentiment${projectId}`).style(
+                  'opacity',
+                  1
+                );
                 setActiveToggleButtons([1, 1]);
               } else {
-                d3.select('#gradientPathLineSentiment').style('opacity', 0);
+                d3.select(`#gradientPathLineSentiment${projectId}`).style(
+                  'opacity',
+                  0
+                );
                 setActiveToggleButtons([0, 1]);
               }
             }}
@@ -311,10 +320,16 @@ const CardChart = ({ projectId }) => {
             defaultChecked
             onClick={(event) => {
               if (event.target.checked) {
-                d3.select('#gradientPathLineMentions').style('opacity', 1);
+                d3.select(`#gradientPathLineMentions${projectId}`).style(
+                  'opacity',
+                  1
+                );
                 setActiveToggleButtons([1, 1]);
               } else {
-                d3.select('#gradientPathLineMentions').style('opacity', 0);
+                d3.select(`#gradientPathLineMentions${projectId}`).style(
+                  'opacity',
+                  0
+                );
                 setActiveToggleButtons([1, 0]);
               }
             }}
