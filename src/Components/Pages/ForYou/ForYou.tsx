@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   ForYouListItem,
+  InfoBlockInstructions,
   Loader,
   ProjectMetrics,
   ProjectsSliderMobile,
@@ -81,6 +82,7 @@ export const ForYou: React.FC = () => {
   const [selectedProjectID, setSelectedProjectID] = useState<number | null>(
     null
   );
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -175,7 +177,16 @@ export const ForYou: React.FC = () => {
                 <Typography className="list-title">
                   List of projects you follow
                 </Typography>
-                <img src={icons.question_mark_grey} alt="question mark" />
+                <img
+                  className="question-mark"
+                  src={icons.question_mark_grey}
+                  alt="question mark"
+                  onMouseOver={() => setShowInfo(true)}
+                  onMouseLeave={() => setShowInfo(false)}
+                  onTouchEnd={() => setShowInfo(false)}
+                  onClick={() => setShowInfo(true)}
+                />
+                {showInfo && <InfoBlockInstructions />}
               </div>
             )}
             <div className="input-wrapper">

@@ -5,6 +5,8 @@
   max-width: 100%;
 
   &__wrapper {
+    position: relative;
+
     display: flex;
     align-items: flex-start;
     flex-direction: column-reverse;
@@ -48,6 +50,10 @@
         align-items: center;
         padding: 0 0 10px;
         border-bottom: 1px solid var(--color-grey);
+
+        .question-mark {
+          cursor: pointer;
+        }
 
         .list-title {
           margin-right: 6px;
