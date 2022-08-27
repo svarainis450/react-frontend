@@ -20,7 +20,7 @@ import {
 } from '../../Typography';
 import { CoinBaseButton } from '../CoinBaseButton/CoinBaseButton';
 import { PositiveBullsBlock } from './PositiveBullsBlock';
-
+import Card from '../../Graphic/cardChart';
 import './ProjectCard.scss';
 
 interface ProjectCardProps extends Omit<Project, 'symbol'> {}
@@ -132,6 +132,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                     experts and the community
                   </Typography>
                 </div>
+              </div>
+              <div className="graph-wrapper">
+                <Card projectId={id} />
               </div>
               <PositiveBullsBlock rateData={rateData} />
               <div className="border-wrapper">

@@ -46,10 +46,11 @@ const parseDataByInterval = (interval, parsedData) => {
   return { filteredData, minDate, maxDate };
 };
 
-const getCanvasSvg = (width, height, margin) => {
+const getCanvasSvg = (projectId, width, height, margin) => {
   const svg = d3
-    .select('.chart-area')
+    .select(`.chart-area-${projectId}`)
     .append('svg')
+    .classed(`chart-svg-${projectId}`, true)
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
@@ -142,7 +143,7 @@ function getWindowSize() {
   return innerWidth;
 }
 
-const Card = ({ projectId }) => {
+const CardChart = ({ projectId }) => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
   const [talkRate, setTalkRate] = useState(null);
   const [sentiment, setSentiment] = useState(null);
@@ -203,20 +204,22 @@ const Card = ({ projectId }) => {
       talkRate
     );
 
-    let width = d3.select('.graph-wrapper').style('width');
-    let height = d3.select('.graph-wrapper').style('height');
+    let width = d3.select('.project-card').style('width');
+    // let height = d3.select('.project-card').style('height');
+    let height = width;
     width = parseInt(width) - margin.left - margin.right;
-    height =
-      parseInt(height) -
-      parseInt(d3.select('.toggle-buttons').style('height')) -
-      parseInt(d3.select('.interval-buttons').style('height')) -
-      margin.top -
-      margin.bottom;
+    height = width / 3.52;
+    // height =
+    //   parseInt(height) -
+    //   parseInt(d3.select('.toggle-buttons').style('height')) -
+    //   parseInt(d3.select('.interval-buttons').style('height')) -
+    //   margin.top -
+    //   margin.bottom;
     // drop old svg
-    d3.select('svg').remove();
+    d3.select(`.chart-svg-${projectId}`).remove();
 
     // canvas
-    const svg = getCanvasSvg(width, height, margin);
+    const svg = getCanvasSvg(projectId, width, height, margin);
 
     if (filteredData) {
       const xScale = d3
@@ -319,7 +322,7 @@ const Card = ({ projectId }) => {
           <span id="switch-text-span">Talk Rate</span>
         </div>
       </div>
-      <div className="chart-area"></div>
+      <div className={`chart-area-${projectId}`}></div>
       <div className="interval-buttons">
         {buttonIntervals.map((item, idx) =>
           interval === item ? (
@@ -327,7 +330,7 @@ const Card = ({ projectId }) => {
               key={idx}
               onClick={(event) => {
                 if (event.target.textContent !== interval) {
-                  d3.select('svg').remove();
+                  d3.select(`.chart-svg-${projectId}`).remove();
                 }
                 setInterval(event.target.textContent);
               }}
@@ -340,7 +343,7 @@ const Card = ({ projectId }) => {
               key={idx}
               onClick={(event) => {
                 if (event.target.textContent !== interval) {
-                  d3.select('svg').remove();
+                  d3.select(`.chart-svg-${projectId}`).remove();
                 }
                 setInterval(event.target.textContent);
               }}
@@ -354,4 +357,4 @@ const Card = ({ projectId }) => {
   );
 };
 
-export default Card;
+export default CardChart;
