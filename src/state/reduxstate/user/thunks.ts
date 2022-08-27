@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
+import { useNavigateHook } from 'src/hooks';
+import { LinkList } from 'src/types';
 import { fetchProjectById } from '../projects/thunks';
 import { Project, Statuses } from '../projects/types';
 import { RootState } from '../slice';
@@ -85,11 +87,15 @@ export const getFavProjects = createAsyncThunk(
           },
         }).then((res) => res.json());
 
+        dispatch(setFavoriteProjects(resp));
+
         if (favCallBack) {
           favCallBack('success');
         }
 
         return resp;
+
+        console.log(resp);
       } catch (e) {
         console.log(e);
         if (favCallBack) {
@@ -111,7 +117,7 @@ export const getFavInfluencers = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        dispatch(setSubscribedInfluencers(resp.result));
+        dispatch(setSubscribedInfluencers(resp));
       } catch (e) {
         console.log(e);
       }

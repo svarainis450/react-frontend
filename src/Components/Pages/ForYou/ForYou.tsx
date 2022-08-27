@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   ForYouListItem,
+  Loader,
   ProjectMetrics,
   ProjectsSliderMobile,
   Top3ElementsSlider,
@@ -13,10 +14,7 @@ import {
   projectsSelector,
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
-import {
-  fetchProjectById,
-  fetchProjects,
-} from 'src/state/reduxstate/projects/thunks';
+import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 
 import './ForYou.scss';
@@ -67,6 +65,7 @@ export const ForYou: React.FC = () => {
   const dispatch = useAppDispatch();
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const trending = useSelector(trendingProjectsSelector);
+  const projectByIdState = useSelector(projectByIdSelector);
   const [offsetCount, setOffsetCount] = useState(0);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
   const projects = useSelector(projectsSelector);
@@ -79,45 +78,19 @@ export const ForYou: React.FC = () => {
   const [favFetchStatus, setFavFetchStatus] = useState<Statuses>('idle');
 
   const [projectByID, setProjectByID] = useState<Project>(favoriteProjects[0]);
-  console.log(projectByID);
+  const [selectedProjectID, setSelectedProjectID] = useState<number | null>(
+    null
+  );
 
-  const calculateDefaultId = () => {
-    if (favoriteProjects && favoriteProjects.length > 0) {
-      return favoriteProjects[0].id;
-    } else if (projects && projects.length > 0) {
-      return projects[0].id;
-    } else {
-      return trending[0].id;
-    }
-  };
-
-  const defaultID = calculateDefaultId();
-
-  const [selectedProjectID, setSelectedProjectID] = useState<number>(defaultID);
-  window.onload = function () {
+  useEffect(() => {
     if (!window.location.hash) {
       //@ts-ignore
       window.location = window.location + '#loaded';
       window.location.reload();
     }
-  };
-
-  // useEffect(() => {
-  //   dispatch(
-  //     fetchProjectById({
-  //       id: selectedProjectID,
-  //       projectIDCallback: setProjectByID,
-  //     })
-  //   );
-  // }, [dispatch, selectedProjectID, projectByID]);
+  }, []);
 
   useEffect(() => {
-    if (token) {
-      dispatch(
-        getFavProjects({ tokenValue: token, favCallBack: setFavFetchStatus })
-      );
-    }
-
     dispatch(
       fetchProjects({
         filter: projectsFilter,
@@ -133,9 +106,9 @@ export const ForYou: React.FC = () => {
     offsetCount,
     dispatch,
     filterValue,
-    selectedProjectID,
     userToken,
     token,
+    selectedProjectID,
   ]);
 
   const { isTablet } = useMediaQuery();
@@ -178,23 +151,21 @@ export const ForYou: React.FC = () => {
       setFilteredFavProjects(favoriteProjects);
     }
   };
+
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
         <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
+
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {selectedProjectID && (
-                <ProjectMetrics projectByIdProp={selectedProjectID} />
-              )}
+              {<ProjectMetrics projectByIdProp={favoriteProjects[0]} />}
             </div>
 
             <div>
               {(favFetchStatus === 'success' || favoriteProjects) && (
-                <MainScreen
-                  projectId={selectedProjectID || favoriteProjects[0]}
-                />
+                <MainScreen projectId={favoriteProjects[0].id} />
               )}
             </div>
           </div>
@@ -222,13 +193,27 @@ export const ForYou: React.FC = () => {
                 }
               />
             </div>
+            {!isTablet && projectByIdState && (
+              <ForYouListItem
+                key={`${projectByIdState.id}`}
+                project={projectByIdState}
+                // projectIDCallback={projectByIdState.id}
+                isInFavorites={
+                  !!favoriteProjects?.find(
+                    (item) => item.id === projectByIdState?.id
+                  )
+                }
+              />
+            )}
             {!isTablet &&
               (favFetchStatus === 'success' || favoriteProjects) &&
+              !!favoriteProjects?.find(
+                (item) => item.id !== projectByIdState?.id
+              ) &&
               filteredFavProjects.map((project, index) => (
                 <ForYouListItem
-                  key={`${project.id + index}`}
+                  key={`${project.id}${index}`}
                   project={project}
-                  projectIDCallback={setSelectedProjectID}
                   favProjectIdCallback={setProjectByID}
                   isInFavorites
                 />
@@ -239,18 +224,19 @@ export const ForYou: React.FC = () => {
                 <ForYouListItem
                   key={`${project.id + index}`}
                   project={project}
-                  projectIDCallback={setSelectedProjectID}
+                  // projectIDCallback={setSelectedProjectID}
                 />
               ))}
             {isTablet && (filteredFavProjects || projects) && (
               <ProjectsSliderMobile
-                projectIDCallback={setSelectedProjectID}
+                // projectIDCallback={setSelectedProjectID}
                 favoriteProjects={filteredFavProjects}
                 projects={projects}
               />
             )}
           </div>
         </div>
+
         {favoriteProjects && favoriteProjects.length > 0 && (
           <Top3ElementsSlider
             isForYouProject

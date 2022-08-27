@@ -102,9 +102,16 @@
       margin: 0 0 0 6px;
 
       color: var(--color-grey-text);
-      font-size: 10px;
+      font-size: 0.625rem;
       line-height: 14px;
       text-transform: uppercase;
+
+      @include desktop {
+        color: var(--color-black);
+        text-transform: none;
+        font-size: 0.875rem;
+        cursor: pointer;
+      }
     }
   }
 

@@ -62,11 +62,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
     (influencer) => influencer.id === id
   );
 
-  console.log(subscribedInfluencers);
-
   const handleSubscribeBtn = (id: number) => {
-    console.log(img);
-
     if (!isSubscribedInfluencer) {
       setSubscribed(true);
       dispatch(

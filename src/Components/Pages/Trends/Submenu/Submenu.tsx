@@ -8,6 +8,8 @@ import {
   TypographyWeight,
 } from 'src/Components/Global/Typography';
 import { useState } from 'react';
+import { getFavProjects } from 'src/state/reduxstate/user/thunks';
+import { useAppDispatch } from 'src/state/reduxstate/store';
 
 export const Submenu = ({
   menuItems,
@@ -16,6 +18,7 @@ export const Submenu = ({
   callBack,
 }: SubmenuProps) => {
   const [selected, setSelected] = useState('Today');
+
   return (
     <div className={classNames('Submenu', className)}>
       <div className="Submenu__page-title">

@@ -20,10 +20,7 @@ export const API_USER_LOGIN = (email: string, pass: string) => {
         return res;
       })
       .then((res: any) => {
-        console.log(res);
         store.dispatch(setUserToken(res.data.token));
-        const localToken = localStorage.getItem('token');
-        console.log(localToken);
         resolve(res);
       })
       .catch((err) => reject(err.response));

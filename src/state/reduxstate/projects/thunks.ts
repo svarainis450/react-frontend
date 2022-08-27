@@ -1,7 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { useNavigateHook } from 'src/hooks';
+import { LinkList } from 'src/types';
 import { RootState } from '../slice';
 import { api } from '../types';
 import {
@@ -78,25 +81,34 @@ export const fetchProjects = createAsyncThunk(
 interface ProjectByIdPayload {
   id: number;
   projectIDCallback?: Dispatch<SetStateAction<Project>>;
+  navigateToForYou?: boolean;
 }
 
 export const fetchProjectById = createAsyncThunk(
   'projects/GET_PROJECT_BY_ID',
-  async ({ id, projectIDCallback }: ProjectByIdPayload, { dispatch }) => {
-    if (token) {
+  async (
+    { id, projectIDCallback, navigateToForYou }: ProjectByIdPayload,
+    { dispatch }
+  ) => {
+    if (token && id) {
       try {
         const resp = await fetch(`${api}/project/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }).then((res) => res.json());
+        })
+          .then((res) => res.json())
+          .then((res) => dispatch(setProjectById(res)));
 
         console.log(resp);
 
-        dispatch(setProjectById(resp));
-        if (projectIDCallback) {
-          projectIDCallback(resp as Project);
+        if (navigateToForYou && resp) {
+          useNavigateHook(LinkList.FORYOU);
         }
+
+        // if (projectIDCallback) {
+        //   projectIDCallback(resp as Project);
+        // }
       } catch (e) {
         console.log(e);
       }
