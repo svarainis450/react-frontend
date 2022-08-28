@@ -8,7 +8,6 @@ import {
 } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
-import { setSubscribedInfluencers } from 'src/state/reduxstate/user/slice';
 import {
   deleteFromFavorites,
   getFavInfluencers,
@@ -61,6 +60,10 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   const isSubscribedInfluencer = subscribedInfluencers.find(
     (influencer) => influencer.id === id
   );
+  const [imgErr, setImgErr] = useState({
+    id: null as unknown as number,
+    isErr: false,
+  });
 
   const handleSubscribeBtn = (id: number) => {
     if (!isSubscribedInfluencer) {
@@ -96,8 +99,14 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
             <div className="flex-wrapper border">
               <img
                 className="influencer-card__border-wrapper__avatar"
-                src={img || icons.no_image}
+                src={imgErr.id === id ? icons.no_image : img}
                 alt={name}
+                onError={() =>
+                  setImgErr({
+                    id,
+                    isErr: true,
+                  })
+                }
               />
               <div>
                 <Typography weight={TypographyWeight.MEDIUM}>
@@ -199,7 +208,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
                 >
                   Focus areas
                 </Typography>
-                <div className="influencer-card__border-wrapper__flex">
+                <div className="influencer-card__border-wrapper flex">
                   {tags.map((item) => (
                     <CategoryTag key={item} tagTitle={item} />
                   ))}

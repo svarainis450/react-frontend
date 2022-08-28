@@ -18,8 +18,6 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
   const projectById = useSelector(projectByIdSelector);
   const { isTablet } = useMediaQuery();
 
-  console.log(projectByIdProp);
-
   return (
     <div className="metrics-wrapper ">
       <div className="metrics-flex">

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'src/hooks';
 import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
+import { generateProjectsText } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
@@ -26,10 +27,7 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   influencerProjects,
 }) => {
   const { isTablet } = useMediaQuery();
-  const [imgErr, setImgErr] = useState({
-    id: null as unknown as number,
-    isErr: false,
-  });
+
   return (
     <div className="project-picks">
       {influencerProjects && (
@@ -56,14 +54,8 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                 <div className="project-picks__row__influencer">
                   <img
                     className="icon"
-                    src={imgErr.id === id ? icons.no_image : img}
+                    src={img || icons.no_image}
                     alt={name}
-                    onError={() =>
-                      setImgErr({
-                        id,
-                        isErr: true,
-                      })
-                    }
                   />
                   <div>
                     <Typography className="project-picks__row__influencer__tag-name">
@@ -84,19 +76,20 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                   {channel}
                 </Typography>
                 <div className="project-picks__row__project">
-                  <img
-                    className="icon"
-                    src={
-                      projects && projects.length > 0 && projects[0].img
-                        ? projects[0].img
-                        : icons.no_image
-                    }
-                    alt="Project picks"
-                  />
+                  <div className="project-picks__row__project__overlapping-images">
+                    {projects &&
+                      projects.length > 0 &&
+                      projects.slice(0, 3).map((item) => {
+                        return (
+                          <img
+                            src={item.img || icons.no_image}
+                            alt={item.name}
+                          />
+                        );
+                      })}
+                  </div>
                   <Typography className="project-picks__row__thin-text">
-                    {projects && projects.length > 1
-                      ? 'Multiple'
-                      : projects && projects.length > 0 && projects[0].name}
+                    {generateProjectsText(projects)}
                   </Typography>
                 </div>
               </div>

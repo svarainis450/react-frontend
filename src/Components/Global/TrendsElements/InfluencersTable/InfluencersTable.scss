@@ -69,8 +69,8 @@
 
       @include desktop {
         width: 100%;
-        grid-template-columns: 1.3fr repeat(4, 0.9fr) 1fr 0.8fr;
-        grid-gap: 0;
+        grid-template-columns: 1.3fr repeat(4, 0.9fr) 1.2fr 0.6fr;
+        grid-gap: 10px;
       }
 
       &__influencer {
@@ -111,6 +111,24 @@
         display: flex;
         align-items: center;
         justify-self: flex-start;
+
+        @include desktop {
+          padding-left: 30px;
+        }
+
+        &__overlapping-images {
+          display: flex;
+          justify-content: flex-end;
+          max-width: 90px;
+          width: 100%;
+
+          img {
+            width: 30px;
+            height: 30px;
+            margin-left: -20px;
+            margin-right: 8px;
+          }
+        }
       }
 
       &__link {
@@ -135,8 +153,12 @@
       :first-of-type {
         justify-self: flex-start;
       }
-      :nth-child(7) {
+      :nth-child(6) {
         justify-self: flex-start;
+
+        @include desktop {
+          padding-left: 30px;
+        }
       }
     }
   }

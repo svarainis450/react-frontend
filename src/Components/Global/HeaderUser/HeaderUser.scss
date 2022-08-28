@@ -65,6 +65,10 @@
   &__market-tag-wrapper {
     width: 32px;
 
+    text {
+      font-weight: bold;
+    }
+
     @media (min-width: 1024px) {
       position: relative;
 
