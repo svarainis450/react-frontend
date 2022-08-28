@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 import { NavigationToggler } from './NavigationToggler';
 import { NavigationList } from 'src/Components/Global/NavigationList';
@@ -24,6 +26,8 @@ import {
 } from 'src/state/reduxstate/user/selectors';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { fetchUserData } from 'src/state/reduxstate/user/thunks';
+import { theme } from 'src/theme';
+import { pathColorHandler } from 'src/utils/styleHelpers';
 
 export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const dispatch = useAppDispatch();
@@ -33,6 +37,7 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const userToken = useSelector(userTokenSelector);
   const userData = useSelector(userDataSelector);
   const marketRatio = userData.market;
+
   const [showMarketDesc, setShowMarketDesc] = useState(false);
 
   useEffect(() => {
@@ -71,14 +76,16 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
       {/* </div> */}
       <div className="HeaderUser__market-tag-wrapper">
         {isTablet ? (
-          <div
-            className={`HeaderUser__market-tag-wrapper__market-tag ${
-              marketRatio < 50 ? 'negative' : ''
-            }`}
-            onClick={() => setShowMarketDesc(true)}
-          >
-            {marketRatio}
-          </div>
+          <CircularProgressbar
+            styles={buildStyles({
+              textSize: '2.5rem',
+              textColor: `${theme.colors.black}`,
+              pathColor: `${pathColorHandler(marketRatio)}`,
+              trailColor: `${theme.colors.grey}`,
+            })}
+            value={marketRatio}
+            text={`${marketRatio}`}
+          />
         ) : (
           <IndexAxis rating={marketRatio} type="overall" />
         )}

@@ -1,6 +1,7 @@
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { theme } from 'src/theme';
+import { pathColorHandler } from 'src/utils/styleHelpers';
 
 import './TalkRateElement.scss';
 
@@ -15,14 +16,6 @@ export const TalkRateElement: React.FC<TalkRateProps> = ({
   type = 'talk_rate',
   isBiggerBullseye = false,
 }) => {
-  const pathColorHandler = (rateVal: number) => {
-    if (rateVal < 50 && type !== 'bullseye') {
-      return theme.colors.red;
-    } else {
-      return theme.colors.potatoGreen;
-    }
-  };
-
   const title = {
     talk_rate: 'Talk Rate',
     bullseye: 'Bullseye',
