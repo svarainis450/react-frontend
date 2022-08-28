@@ -15,7 +15,7 @@ import { fetchProjectById } from 'src/state/reduxstate/projects/thunks';
 interface ProjectsSliderMobileProps {
   projects: Project[];
   favoriteProjects: Project[];
-  projectIDCallback: Dispatch<SetStateAction<number>>;
+  projectIDCallback?: Dispatch<SetStateAction<number>>;
 }
 
 export const ProjectsSliderMobile: React.FC<ProjectsSliderMobileProps> = ({
@@ -27,7 +27,7 @@ export const ProjectsSliderMobile: React.FC<ProjectsSliderMobileProps> = ({
 
   const handleCheckStatsBtn = (id: number) => {
     dispatch(fetchProjectById({ id }));
-    projectIDCallback(id);
+    // projectIDCallback(id);
   };
   return (
     <div className="for-you-projects-mob">

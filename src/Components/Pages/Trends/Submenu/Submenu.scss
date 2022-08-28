@@ -18,7 +18,7 @@
 
   &__list {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; //changed when the upcomming is hidden
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;

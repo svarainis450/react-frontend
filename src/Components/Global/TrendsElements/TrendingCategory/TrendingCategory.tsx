@@ -67,6 +67,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
               {trendingProjects.map((item, index) => (
                 <TrendingProjectCard
                   key={item.id}
+                  id={item.id}
                   rankNumber={index + 1}
                   projectTitle={item.name}
                   mentions={item.additional}

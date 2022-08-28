@@ -43,3 +43,4 @@ export * from './ProfileElements/Billing/Billing';
 export * from './ForYourElements/ProjectMetrics';
 export * from './ForYourElements/ForYouListItem';
 export * from './ForYourElements/ProjectsSliderMobile';
+export * from './ForYourElements/InfoBlockInstructions';

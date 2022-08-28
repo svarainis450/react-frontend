@@ -11,7 +11,10 @@ import {
 import { Button } from 'src/Components/Global/Button';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import { influencersSelector } from 'src/state/reduxstate/projects/selectors';
+import {
+  influencersCountSelector,
+  influencersSelector,
+} from 'src/state/reduxstate/projects/selectors';
 import { fetchInfluencers } from 'src/state/reduxstate/projects/thunks';
 import {
   InfluencerFilterKeys,
@@ -25,32 +28,40 @@ import './Influencers.scss';
 
 export const Influencers: React.FC = () => {
   const influencers = useSelector(influencersSelector);
+  const influencersCount = useSelector(influencersCountSelector);
   const dispatch = useAppDispatch();
   const [influencersFilter, setInfluencersFilter] =
     useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
   const [filterValue, setFilterValue] = useState<string>('1');
   const [influencersStatus, setInfluencersStatus] = useState<Statuses>('idle');
   const [offsetCount, setOffsetCount] = useState(0);
-  const notAllToShow = offsetCount < 3000;
+  const notAllToShow = offsetCount < influencersCount;
+  const influencersLeftToSee = influencersCount - offsetCount;
+  const [seenAll, setSeenAll] = useState('');
 
   useEffect(() => {
-    dispatch(
-      fetchInfluencers({
-        filter: influencersFilter,
-        callBack: setInfluencersStatus,
-        offset: offsetCount,
-        filterValue: filterValue,
-      })
-    );
-    scrollToElement('infl-to-scroll');
+    if (!influencers || offsetCount > 0 || influencers.length < 52) {
+      dispatch(
+        fetchInfluencers({
+          filter: influencersFilter,
+          callBack: setInfluencersStatus,
+          offset: offsetCount,
+          filterValue: filterValue,
+        })
+      ).then(() => scrollToElement('infl-to-scroll'));
+    }
   }, [influencersFilter, dispatch, offsetCount, filterValue]);
 
   const handleLoadMoreBtn = () => {
-    if (notAllToShow) {
-      setOffsetCount(offsetCount + 50);
+    if (notAllToShow && influencersLeftToSee >= 52) {
+      setOffsetCount(offsetCount + 52);
+    } else if (notAllToShow && influencersLeftToSee < 52) {
+      setOffsetCount(offsetCount + influencersLeftToSee);
+      const seenAll = 'You`ve seen it all';
+      setSeenAll(seenAll);
     } else {
       const seenAll = 'You`ve seen it all';
-      return seenAll;
+      setSeenAll(seenAll);
     }
   };
 
@@ -62,10 +73,12 @@ export const Influencers: React.FC = () => {
           callBack={setInfluencersFilter}
           nameFilterCallBack={setFilterValue}
         />
-        {influencersStatus === 'pending' && <Loader />}
+        {influencersStatus === 'pending' && influencers.length === 0 && (
+          <Loader width={50} height={50} />
+        )}
         {influencersStatus === 'error' && <LoadError />}
         <div className="Influencers__wrapper">
-          {influencersStatus === 'success' &&
+          {(influencersStatus === 'success' || influencers.length > 0) &&
             influencers.map(({ id, ...rest }, index) => (
               <Element
                 key={id}
@@ -77,8 +90,14 @@ export const Influencers: React.FC = () => {
               </Element>
             ))}
         </div>
+        {influencersStatus === 'pending' && influencers.length > 0 && (
+          <Loader width={50} height={50} />
+        )}
+
         {notAllToShow && influencersStatus !== 'pending' && (
-          <Button onClick={() => handleLoadMoreBtn()}>Load more</Button>
+          <Button className="load-more-btn" onClick={() => handleLoadMoreBtn()}>
+            Load more
+          </Button>
         )}
       </LoggedInLayout>
     </div>

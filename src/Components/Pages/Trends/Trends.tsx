@@ -63,8 +63,7 @@ export const Trends: React.FC = () => {
   const token = useSelector(userTokenSelector);
   const [selectCategory, setSelectCategory] = useState<
     CategoryTags | undefined
-  >(undefined);
-  const favoriteProjects = useSelector(favoriteProjectsSelector);
+  >(CategoryTags.coins);
   const [offsetCount, setOffsetCount] = useState(0);
 
   const [influencersFilter, setInfluencersFilter] =
@@ -72,9 +71,9 @@ export const Trends: React.FC = () => {
   const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
     '1'
   );
-  console.log(favoriteProjects);
   useEffect(() => {
     if (token) {
+      dispatch(getFavProjects({ tokenValue: token }));
       dispatch(
         fetchInfluencers({
           callBack: setinfluencersStatus,
@@ -111,19 +110,8 @@ export const Trends: React.FC = () => {
       dispatch(fetchTop3Projects({ filter: 'positive', tokenValue: token }));
       dispatch(fetchTop3Projects({ filter: 'talk_rate', tokenValue: token }));
       dispatch(fetchProjectsByInfluencers(token));
-      dispatch(getFavProjects({ tokenValue: token }));
     }
   }, [dispatch, token]);
-
-  useEffect(() => {
-    if (favoriteProjects && favoriteProjects.length > 0) {
-      dispatch(
-        fetchProjectById({
-          id: favoriteProjects[0].id,
-        })
-      );
-    }
-  }, [dispatch, favoriteProjects]);
 
   return (
     <div className="Trends">
@@ -136,7 +124,7 @@ export const Trends: React.FC = () => {
             <section className="wrapper two-columns">
               <CardWrapper title="Trending Category" subtitle="Today">
                 {trendingStatus === 'pending' ? (
-                  <Loader />
+                  <Loader width={50} height={50} />
                 ) : (
                   <TrendingCategory
                     categoryCallback={setSelectCategory}

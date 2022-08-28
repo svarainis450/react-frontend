@@ -2,18 +2,25 @@
   position: relative;
   width: 58px;
   height: 58px;
+  box-sizing: border-box;
 
   .CircularProgressbar-text {
-    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-weight: 800;
     dominant-baseline: text-before-edge;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+      sans-serif;
   }
 
   .talk-rate {
     position: absolute;
-    top: 19px;
-    left: 7px;
-    font-size: 8px;
+    top: 20px;
+    left: 12px;
+    font-size: 6px;
     text-transform: uppercase;
+    font-weight: 600;
   }
 }
 
@@ -38,9 +45,9 @@
 
   .talk-rate.bullseye {
     position: absolute;
-    top: 15px;
-    left: 8px;
-    font-size: 8px;
+    top: 16px;
+    left: 13px;
+    font-size: 6px;
     text-transform: uppercase;
   }
 }

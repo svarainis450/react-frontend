@@ -1,58 +1,58 @@
-.toggle-buttons {
-    background-color: white;
-    height: 30px;
-    margin-bottom: 0!important;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding-left:30px;
-    padding-right: 30px;
+.toggle-buttons-card {
+  background-color: white;
+  height: 30px;
+  margin-top: 10px;
+  margin-bottom: 0 !important;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* padding-left: 30px; */
+  /* padding-right: 30px; */
 }
 
-.toggle-buttons #switch-text-span {
-    color:gray; 
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
-    font-size: 13px;
-    font-weight: 400;
-    margin-left: 6px;
+.toggle-buttons-card #switch-text-span {
+  color: gray;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 6px;
 }
-
 
 .interval-buttons {
-    background-color: white;
-    height: 30px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding-right: 10%;
-    padding-left: 10%;
+  background-color: white;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* padding-right: 10%; */
+  /* padding-left: 10%; */
 }
 
 .interval-buttons button {
-    background-color: white;
-    border: none;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 25px;
-    width: 35px;
-    border-radius: 20px;
-    /* font-size: 0.5rem; */
+  background-color: white;
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 25px;
+  width: 35px;
+  border-radius: 20px;
+  /* font-size: 0.5rem; */
 }
 
 .interval-buttons #active {
-    background-color: #2B59D1;
-    border: none;
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 18px;
-    width: 28px;
-    padding-left: 0;
-    padding-right: 0;
-    border-radius: 20px;
-    font-size: 12px;
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 0 1px 0px rgb(0, 0, 0, 0.2);
+  background-color: #2b59d1;
+  border: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 18px;
+  width: 28px;
+  padding-left: 0;
+  padding-right: 0;
+  border-radius: 20px;
+  font-size: 12px;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 0 1px 0px rgb(0, 0, 0, 0.2);
 }

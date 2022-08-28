@@ -28,9 +28,14 @@
   }
 
   .empty-dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     max-width: 100%;
+    min-height: 80vh;
 
     @include desktop {
+      min-height: 75vh;
       max-width: 527px;
       margin: 30px auto 0;
     }

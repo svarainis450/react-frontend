@@ -1,3 +1,5 @@
+import { TrendingProject } from 'src/state/reduxstate/projects/types';
+
 export const calculateFollowers = (foll: number) => {
   if (foll > 0 && foll < 1000) {
     return foll;
@@ -64,5 +66,16 @@ export const calculateRangeWidth = (rate: number, isHalfAxis?: boolean) => {
     } else if (rate <= 100) {
       return 100;
     }
+  }
+};
+
+//Influencers picks tables calcs
+export const generateProjectsText = (projectsList?: TrendingProject[]) => {
+  if (projectsList?.length === 1) {
+    return projectsList[0].name;
+  } else if (projectsList && projectsList.length > 1) {
+    return 'Multiple';
+  } else {
+    return 'None';
   }
 };

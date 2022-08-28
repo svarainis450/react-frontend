@@ -1,3 +1,5 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
 .project-picks {
   overflow-x: scroll;
 
@@ -7,7 +9,7 @@
     grid-auto-rows: 1fr;
     align-items: center;
 
-    padding: 11px 0;
+    padding: 9px 0;
 
     border-bottom: 1.5px solid var(--color-grey);
 
@@ -38,12 +40,32 @@
     }
 
     &__thin-text__positioned {
-      margin: 0 0 0 35px;
+      @include desktop {
+        margin: 0 0 0 16px;
+      }
     }
 
     &__project {
       display: flex;
       align-items: center;
+
+      @include desktop {
+        justify-self: flex-start;
+      }
+
+      &__overlapping-images {
+        display: flex;
+        justify-content: flex-end;
+        max-width: 90px;
+        width: 100%;
+
+        img {
+          width: 30px;
+          height: 30px;
+          margin-left: -20px;
+          margin-right: 8px;
+        }
+      }
     }
 
     .icon {

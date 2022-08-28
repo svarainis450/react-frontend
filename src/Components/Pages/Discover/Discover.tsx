@@ -10,7 +10,10 @@ import {
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import { projectsSelector } from 'src/state/reduxstate/projects/selectors';
+import {
+  projectsCounttSelector,
+  projectsSelector,
+} from 'src/state/reduxstate/projects/selectors';
 import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 
@@ -26,6 +29,7 @@ import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { scrollToElement } from 'src/utils/scrollers';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+import { Typography } from '@mui/material';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -50,33 +54,38 @@ export const Discover: React.FC = () => {
   const userToken = useSelector(userTokenSelector);
 
   const projects = useSelector(projectsSelector);
+  const projectsCount = useSelector(projectsCounttSelector);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
   const [offsetCount, setOffsetCount] = useState(0);
-  const notAllToShow = offsetCount < 3000;
+  const notAllToShow = offsetCount < projectsCount;
+  const [seenAll, setSeenAll] = useState('');
+  const projectsLeftToSee = projectsCount - offsetCount;
 
   useEffect(() => {
-    dispatch(
-      fetchProjects({
-        filter: projectsFilter,
-        callBack: setProjectStatus,
-        offset: offsetCount,
-        filterValue: String(filterValue).toLocaleLowerCase(),
-      })
-    );
-    if (userToken) {
-      dispatch(getFavProjects({ tokenValue: userToken }));
+    if (projects.length === 0 || offsetCount > 0) {
+      dispatch(
+        fetchProjects({
+          filter: projectsFilter,
+          callBack: setProjectStatus,
+          offset: offsetCount,
+          filterValue: String(filterValue).toLocaleLowerCase(),
+        })
+      ).then(() => scrollToElement('card-to-scroll'));
     }
-    scrollToElement('card-to-scroll');
   }, [projectsFilter, offsetCount, dispatch, filterValue, userToken]);
 
   const handleLoadMoreBtn = () => {
-    if (notAllToShow) {
-      setOffsetCount(offsetCount + 50);
+    if (notAllToShow && projectsLeftToSee >= 52) {
+      setOffsetCount(offsetCount + 52);
+    } else if (notAllToShow && projectsLeftToSee < 52) {
+      setOffsetCount(offsetCount + projectsLeftToSee);
+      const seenAll = 'You`ve seen it all';
+      setSeenAll(seenAll);
     } else {
       const seenAll = 'You`ve seen it all';
-      return seenAll;
+      setSeenAll(seenAll);
     }
   };
 
@@ -94,10 +103,8 @@ export const Discover: React.FC = () => {
             <LoadError />
           </div>
         )}
-        {projectsStatus === 'pending' && <Loader />}
         <div className="Discover__wrapper">
-          {projectsStatus === 'success' &&
-            projects &&
+          {(projectsStatus === 'success' || projects.length > 0) &&
             projects.map(
               (
                 {
@@ -113,7 +120,7 @@ export const Discover: React.FC = () => {
                 index
               ) => (
                 <Element
-                  key={id}
+                  key={index}
                   name={index === offsetCount ? 'card-to-scroll' : 'no-scroll'}
                 >
                   <ProjectCard
@@ -130,11 +137,20 @@ export const Discover: React.FC = () => {
               )
             )}
         </div>
-        {notAllToShow && projectsStatus !== 'pending' && projects && (
-          <Button className="load-more-btn" onClick={() => handleLoadMoreBtn()}>
-            Load more
-          </Button>
-        )}
+        {projectsStatus === 'pending' && <Loader width={50} height={50} />}
+
+        {notAllToShow &&
+          projectsStatus !== 'pending' &&
+          projects &&
+          seenAll.length === 0 && (
+            <Button
+              className="load-more-btn"
+              onClick={() => handleLoadMoreBtn()}
+            >
+              Load more
+            </Button>
+          )}
+        {seenAll.length > 0 && <Typography>{seenAll}</Typography>}
       </LoggedInLayout>
     </div>
   );

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'src/hooks';
+import { fetchProjectById } from 'src/state/reduxstate/projects/thunks';
 import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
@@ -8,6 +10,7 @@ import {
   deleteFromFavorites,
   sendFavProjectOrInfluencer,
 } from 'src/state/reduxstate/user/thunks';
+import { LinkList } from 'src/types';
 import { icons } from 'src/utils/icons';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
@@ -20,7 +23,7 @@ import {
 } from '../../Typography';
 import { CoinBaseButton } from '../CoinBaseButton/CoinBaseButton';
 import { PositiveBullsBlock } from './PositiveBullsBlock';
-
+import Card from '../../Graphic/cardChart';
 import './ProjectCard.scss';
 
 interface ProjectCardProps extends Omit<Project, 'symbol'> {}
@@ -41,6 +44,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     favoriteProjects && favoriteProjects.find((project) => project.id === id);
   const isPositiveRateChange = rateData.talkRateChanges > 0;
   const { isTablet } = useMediaQuery();
+  const navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
   const [status, setStatus] = useState<Statuses>('idle');
   const url = openSeaUrl || coinbaseUrl || null;
@@ -62,6 +66,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       );
       setIsFavInstance(false);
     }
+  };
+
+  const handleLearnMoreBtn = () => {
+    dispatch(fetchProjectById({ id })).then(() => navigate(LinkList.FORYOU));
   };
 
   useEffect(() => {
@@ -133,6 +141,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   </Typography>
                 </div>
               </div>
+              <div className="graph-wrapper">
+                <Card projectId={id} />
+              </div>
               <PositiveBullsBlock rateData={rateData} />
               <div className="border-wrapper">
                 <Typography className="small-text">
@@ -140,6 +151,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 </Typography>
               </div>
               {url && <CoinBaseButton url={url} btnType={urlBtnType} />}
+              <div className="learn-more" onClick={handleLearnMoreBtn}>
+                <Typography weight={TypographyWeight.MEDIUM}>
+                  Learn more
+                </Typography>
+              </div>
             </>
           )}
         </div>

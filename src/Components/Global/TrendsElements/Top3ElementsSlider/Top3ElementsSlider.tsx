@@ -54,7 +54,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topTalkRate.map(({ id, img, name, tag, rateData }, index) => (
                   <Top3Element
-                    key={`${id} + ${index}`}
+                    key={`${id}_${index}`}
                     id={id}
                     icon={img}
                     projectName={name}
@@ -85,9 +85,9 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           >
             {topPositive ? (
               <ul className="cards-grid">
-                {topPositive.map(({ id, img, name, tag, rateData }) => (
+                {topPositive.map(({ id, img, name, tag, rateData }, index) => (
                   <Top3Element
-                    key={id}
+                    key={`${id}${index}`}
                     id={id}
                     icon={img}
                     projectName={name}
@@ -120,7 +120,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topBull.map(({ id, img, name, tag, rateData }, index) => (
                   <Top3Element
-                    key={id}
+                    key={`${id}${index}`}
                     id={id}
                     icon={img}
                     projectName={name}

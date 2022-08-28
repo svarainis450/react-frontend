@@ -35,7 +35,7 @@ export const YourInfluencers: React.FC = () => {
         <Submenu menuItems={forYouSubmenuList} />
         {/* TODO: waiting for backend post request */}
         {/* <InfluencerFilters callBack={setInfluencersFilter} /> */}
-        {subscribedInfluencers.length === 0 && (
+        {(!subscribedInfluencers || subscribedInfluencers.length === 0) && (
           <div className="empty-dashboard">
             <Typography>
               Welcome to your dashboard of interest. To add your favorite
@@ -45,7 +45,7 @@ export const YourInfluencers: React.FC = () => {
           </div>
         )}
         <div className="Your-influencers__wrapper">
-          {subscribedInfluencers.length > 0 &&
+          {subscribedInfluencers?.length > 0 &&
             subscribedInfluencers.map(({ id, ...rest }) => (
               <InfluencerCard id={id} key={id} {...rest} />
             ))}

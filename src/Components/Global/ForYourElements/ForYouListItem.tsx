@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { fetchProjectById } from 'src/state/reduxstate/projects/thunks';
 import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
@@ -14,7 +14,7 @@ import './ForYouListItem.scss';
 
 interface ForYouListItemProps {
   project: Project;
-  projectIDCallback: Dispatch<SetStateAction<number>>;
+  projectIDCallback?: Dispatch<SetStateAction<number | null>>;
   favProjectIdCallback?: Dispatch<SetStateAction<Project>>;
   isInFavorites?: boolean;
 }
@@ -46,8 +46,10 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
   };
 
   const handleCheckStatsBtn = (id: number) => {
-    // dispatch(fetchProjectById({ id, projectIDCallback: favProjectIdCallback }));
-    projectIDCallback(id);
+    dispatch(fetchProjectById({ id }));
+    if (projectIDCallback) {
+      projectIDCallback(id);
+    }
   };
 
   return (
@@ -82,7 +84,7 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
             </>
           ) : (
             <div className="loader-wrapper-list-item">
-              <Loader />
+              <Loader width={16} height={16} />
             </div>
           )}
         </button>

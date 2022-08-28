@@ -46,10 +46,11 @@ const parseDataByInterval = (interval, parsedData) => {
   return { filteredData, minDate, maxDate };
 };
 
-const getCanvasSvg = (width, height, margin) => {
+const getCanvasSvg = (projectId, width, height, margin) => {
   const svg = d3
-    .select('.chart-area')
+    .select(`.chart-area-${projectId}`)
     .append('svg')
+    .classed(`chart-svg-${projectId}`, true)
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
@@ -65,6 +66,7 @@ const addLineNoGradient = (
   yScale,
   strokeColorHex,
   pathId,
+  projectId,
   data,
   isSpline
 ) => {
@@ -83,7 +85,7 @@ const addLineNoGradient = (
     .attr('stroke-width', '1.5')
     .style('fill', 'none')
     .attr('stroke', strokeColorHex)
-    .attr('id', `gradientPathLine${pathId}`);
+    .attr('id', `gradientPathLine${pathId}${projectId}`);
 };
 
 const IOSSwitch = styled((props) => (
@@ -142,7 +144,7 @@ function getWindowSize() {
   return innerWidth;
 }
 
-const Card = ({ projectId }) => {
+const CardChart = ({ projectId }) => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
   const [talkRate, setTalkRate] = useState(null);
   const [sentiment, setSentiment] = useState(null);
@@ -153,8 +155,8 @@ const Card = ({ projectId }) => {
   const margin = {
     top: 20,
     bottom: 20,
-    left: 30,
-    right: 30,
+    left: 0,
+    right: 0,
   };
   const buttonIntervals = ['3H', '1D', '1W', '1M', '3M'];
 
@@ -203,20 +205,22 @@ const Card = ({ projectId }) => {
       talkRate
     );
 
-    let width = d3.select('.graph-wrapper').style('width');
-    let height = d3.select('.graph-wrapper').style('height');
+    let width = d3.select('.project-card').style('width');
+    // let height = d3.select('.project-card').style('height');
+    let height = width;
     width = parseInt(width) - margin.left - margin.right;
-    height =
-      parseInt(height) -
-      parseInt(d3.select('.toggle-buttons').style('height')) -
-      parseInt(d3.select('.interval-buttons').style('height')) -
-      margin.top -
-      margin.bottom;
+    height = width / 3.52;
+    // height =
+    //   parseInt(height) -
+    //   parseInt(d3.select('.toggle-buttons').style('height')) -
+    //   parseInt(d3.select('.interval-buttons').style('height')) -
+    //   margin.top -
+    //   margin.bottom;
     // drop old svg
-    d3.select('svg').remove();
+    d3.select(`.chart-svg-${projectId}`).remove();
 
     // canvas
-    const svg = getCanvasSvg(width, height, margin);
+    const svg = getCanvasSvg(projectId, width, height, margin);
 
     if (filteredData) {
       const xScale = d3
@@ -250,6 +254,7 @@ const Card = ({ projectId }) => {
           yScaleSentiment,
           '#2B59D1',
           'Sentiment',
+          projectId,
           filteredSentiment,
           true
         );
@@ -261,6 +266,7 @@ const Card = ({ projectId }) => {
         yScaleTalkRate,
         '#2BD130',
         'Mentions',
+        projectId,
         filteredData,
         true
       );
@@ -275,27 +281,33 @@ const Card = ({ projectId }) => {
         .style('stroke', 'rgb(189, 189, 189)');
 
       if (activeToggleButtons[0] === 0) {
-        d3.select('#gradientPathLineSentiment').style('opacity', 0);
+        d3.select(`#gradientPathLineSentiment${projectId}`).style('opacity', 0);
       }
       if (activeToggleButtons[1] === 0) {
-        d3.select('#gradientPathLineMentions').style('opacity', 0);
+        d3.select(`#gradientPathLineMentions${projectId}`).style('opacity', 0);
       }
     }
   }, [talkRate, interval, windowSize]);
 
   return (
     <>
-      <div className="toggle-buttons">
+      <div className="toggle-buttons-card">
         <div className="switch-toggle-wrap">
           <IOSSwitch
             defaultChecked
             mycolor="#2B59D1"
             onClick={(event) => {
               if (event.target.checked) {
-                d3.select('#gradientPathLineSentiment').style('opacity', 1);
+                d3.select(`#gradientPathLineSentiment${projectId}`).style(
+                  'opacity',
+                  1
+                );
                 setActiveToggleButtons([1, 1]);
               } else {
-                d3.select('#gradientPathLineSentiment').style('opacity', 0);
+                d3.select(`#gradientPathLineSentiment${projectId}`).style(
+                  'opacity',
+                  0
+                );
                 setActiveToggleButtons([0, 1]);
               }
             }}
@@ -308,10 +320,16 @@ const Card = ({ projectId }) => {
             defaultChecked
             onClick={(event) => {
               if (event.target.checked) {
-                d3.select('#gradientPathLineMentions').style('opacity', 1);
+                d3.select(`#gradientPathLineMentions${projectId}`).style(
+                  'opacity',
+                  1
+                );
                 setActiveToggleButtons([1, 1]);
               } else {
-                d3.select('#gradientPathLineMentions').style('opacity', 0);
+                d3.select(`#gradientPathLineMentions${projectId}`).style(
+                  'opacity',
+                  0
+                );
                 setActiveToggleButtons([1, 0]);
               }
             }}
@@ -319,7 +337,7 @@ const Card = ({ projectId }) => {
           <span id="switch-text-span">Talk Rate</span>
         </div>
       </div>
-      <div className="chart-area"></div>
+      <div className={`chart-area-${projectId}`}></div>
       <div className="interval-buttons">
         {buttonIntervals.map((item, idx) =>
           interval === item ? (
@@ -327,7 +345,7 @@ const Card = ({ projectId }) => {
               key={idx}
               onClick={(event) => {
                 if (event.target.textContent !== interval) {
-                  d3.select('svg').remove();
+                  d3.select(`.chart-svg-${projectId}`).remove();
                 }
                 setInterval(event.target.textContent);
               }}
@@ -340,7 +358,7 @@ const Card = ({ projectId }) => {
               key={idx}
               onClick={(event) => {
                 if (event.target.textContent !== interval) {
-                  d3.select('svg').remove();
+                  d3.select(`.chart-svg-${projectId}`).remove();
                 }
                 setInterval(event.target.textContent);
               }}
@@ -354,4 +372,4 @@ const Card = ({ projectId }) => {
   );
 };
 
-export default Card;
+export default CardChart;

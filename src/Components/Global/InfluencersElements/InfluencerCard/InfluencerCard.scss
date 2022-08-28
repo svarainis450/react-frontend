@@ -67,6 +67,12 @@
       align-items: center;
     }
 
+    &__border-wrapper.grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 8px;
+    }
+
     .flex-wrapper {
       display: flex;
       align-items: center;
