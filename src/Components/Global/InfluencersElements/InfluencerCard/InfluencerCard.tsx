@@ -208,13 +208,14 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
                 >
                   Focus areas
                 </Typography>
-                <div className="influencer-card__border-wrapper flex">
+                <div className="influencer-card__border-wrapper grid">
                   {tags.map((item) => (
                     <CategoryTag key={item} tagTitle={item} />
                   ))}
                 </div>
               </div>
-              <div className="influencer-card__border-wrapper flex">
+              {/* NOTE: Temporary commented  */}
+              {/* <div className="influencer-card__border-wrapper flex">
                 <div>
                   <TalkRateElement
                     rate={bullseye}
@@ -240,8 +241,8 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
                     told about a project that has grown in value
                   </Typography>
                 </div>
-              </div>
-              <div className="influencer-card__border-wrapper">
+              </div> */}
+              {/* <div className="influencer-card__border-wrapper">
                 <IndexAxis type="mover" rating={66} />
                 <Typography
                   variant={TypographyVariant.TEXT_SMALL}
@@ -252,7 +253,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
                   an expert has a direct impact on the industry or is just a
                   commentator{' '}
                 </Typography>
-              </div>
+              </div> */}
               <div className="influencer-card__border-wrapper flex">
                 <div>
                   <TalkRateElement
