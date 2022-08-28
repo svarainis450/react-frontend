@@ -161,13 +161,15 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {<ProjectMetrics projectByIdProp={favoriteProjects[0]} />}
+              {favoriteProjects.length && (
+                <ProjectMetrics projectByIdProp={favoriteProjects[0]} />
+              )}
             </div>
 
             <div>
               {(favFetchStatus === 'success' || favoriteProjects) && (
                 <MainScreen
-                  projectId={projectByIdState.id || favoriteProjects[0].id}
+                  projectId={projectByIdState?.id || favoriteProjects[0].id}
                 />
               )}
             </div>
