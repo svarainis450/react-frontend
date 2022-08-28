@@ -69,9 +69,11 @@ export interface ProjectsState {
   projects: Project[];
   project_filter_key: ProjectFilterKeys | null;
   project_by_id: Project;
+  projects_count: number;
   status: Statuses;
   trending_projects: TrendingProject[];
   influencers: Influencer[];
+  influencers_count: number;
   influencers_picks: [];
   project_picks: ProjectPicks[];
   top_3_bull: Project[];

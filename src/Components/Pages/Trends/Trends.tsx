@@ -124,7 +124,7 @@ export const Trends: React.FC = () => {
             <section className="wrapper two-columns">
               <CardWrapper title="Trending Category" subtitle="Today">
                 {trendingStatus === 'pending' ? (
-                  <Loader />
+                  <Loader width={50} height={50} />
                 ) : (
                   <TrendingCategory
                     categoryCallback={setSelectCategory}

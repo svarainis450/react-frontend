@@ -12,7 +12,6 @@ import {
 } from 'src/state/reduxstate/user/thunks';
 import { LinkList } from 'src/types';
 import { icons } from 'src/utils/icons';
-import CardScreen from '../../Graphic/cardScreen';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
 import { CategoryTag } from '../../TrendsElements/CategoryTag/CategoryTag';
@@ -146,18 +145,19 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 <Card projectId={id} />
               </div>
               <PositiveBullsBlock rateData={rateData} />
-              {/* <CardScreen /> */}
               <div className="border-wrapper">
                 <Typography className="small-text">
                   <strong>Top influencers taked about this coin</strong>
                 </Typography>
               </div>
               {url && <CoinBaseButton url={url} btnType={urlBtnType} />}
+              <div className="learn-more" onClick={handleLearnMoreBtn}>
+                <Typography weight={TypographyWeight.MEDIUM}>
+                  Learn more
+                </Typography>
+              </div>
             </>
           )}
-          <div className="learn-more" onClick={handleLearnMoreBtn}>
-            <Typography weight={TypographyWeight.MEDIUM}>Learn more</Typography>
-          </div>
         </div>
         {isTablet && (
           <div className="learn-more" onClick={() => setShowMore(!showMore)}>

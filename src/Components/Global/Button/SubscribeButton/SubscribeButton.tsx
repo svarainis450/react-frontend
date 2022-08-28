@@ -13,22 +13,24 @@ export const SubscribeButton: React.FC<SubscribeButtonProps> = ({
   isLoading,
   onClick,
 }) => (
-  <button
-    className={`subscribe-btn ${isSubscribed ? 'subscribed' : ''}`}
-    onClick={onClick}
-  >
+  <div className="subscribe-button-wrapper">
     {isLoading ? (
-      <div className="subscribe-btn__loader-wrapper">
-        <Loader />
+      <div className="loader-wrapper">
+        <Loader width={24} height={24} />
       </div>
     ) : (
-      <span>
-        <img
-          src={isSubscribed ? icons.subscribed : icons.subscribe}
-          alt="Subscribe button"
-        />
-        <p>{isSubscribed ? 'Subscribed' : 'Subscribe'}</p>
-      </span>
+      <button
+        className={`subscribe-btn ${isSubscribed ? 'subscribed' : ''}`}
+        onClick={onClick}
+      >
+        <span>
+          <img
+            src={isSubscribed ? icons.subscribed : icons.subscribe}
+            alt="Subscribe button"
+          />
+          <p>{isSubscribed ? 'Subscribed' : 'Subscribe'}</p>
+        </span>
+      </button>
     )}
-  </button>
+  </div>
 );

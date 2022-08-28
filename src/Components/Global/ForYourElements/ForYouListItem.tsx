@@ -84,7 +84,7 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
             </>
           ) : (
             <div className="loader-wrapper-list-item">
-              <Loader />
+              <Loader width={16} height={16} />
             </div>
           )}
         </button>

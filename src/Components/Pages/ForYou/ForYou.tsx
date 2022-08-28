@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import {
   ForYouListItem,
   InfoBlockInstructions,
-  Loader,
   ProjectMetrics,
   ProjectsSliderMobile,
   Top3ElementsSlider,
@@ -167,7 +166,9 @@ export const ForYou: React.FC = () => {
 
             <div>
               {(favFetchStatus === 'success' || favoriteProjects) && (
-                <MainScreen projectId={favoriteProjects[0].id} />
+                <MainScreen
+                  projectId={projectByIdState.id || favoriteProjects[0].id}
+                />
               )}
             </div>
           </div>

@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { useNavigateHook } from 'src/hooks';
 import { LinkList } from 'src/types';
@@ -9,9 +8,11 @@ import { RootState } from '../slice';
 import { api } from '../types';
 import {
   setInfluencers,
+  setInfluencersCount,
   setInfluencersPages,
   setProjectById,
   setProjects,
+  setProjectsCount,
   setTop3bullProjects,
   setTop3PositiveProjects,
   setTop3TalkRateProjects,
@@ -45,8 +46,8 @@ export const fetchProjects = createAsyncThunk(
 
     const url =
       filter.length > 0
-        ? `${api}/projects/today?filters[${filter}]=${filterValue}&limit=50&offset=${offset}`
-        : `${api}/projects/today?limit=50&offset=${offset}`;
+        ? `${api}/projects/today?filters[${filter}]=${filterValue}&limit=52&offset=${offset}`
+        : `${api}/projects/today?limit=52&offset=${offset}`;
 
     if (token || tokenFromState) {
       try {
@@ -58,8 +59,11 @@ export const fetchProjects = createAsyncThunk(
         }).then((res) => res.json());
 
         const { projects } = getState() as RootState;
+        dispatch(setProjectsCount(resp.count));
 
-        if (offset >= 50) {
+        console.log(resp);
+
+        if (offset >= 52) {
           const expandedProjects = concat(projects.projects, resp.result);
           const uniqueProjects = [
             ...(new Set(expandedProjects) as unknown as Project[]),
@@ -190,7 +194,7 @@ export const fetchInfluencers = createAsyncThunk(
     {
       callBack,
       filter,
-      limit = 50,
+      limit = 52,
       offset,
       filterValue = '1',
       tokenValue,
@@ -204,15 +208,17 @@ export const fetchInfluencers = createAsyncThunk(
       : `${api}/influencers/today?limit=${limit}&offset=${offset}`;
 
     callBack('pending');
-    if (tokenValue) {
+    if (tokenValue || token) {
       try {
         const resp = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${tokenValue}`,
+            Authorization: `Bearer ${tokenValue || token}`,
           },
         }).then((res) => res.json());
 
         const { projects } = getState() as RootState;
+
+        dispatch(setInfluencersCount(resp.count));
 
         if (offset >= 50) {
           const expandedInfluencers = concat(projects.influencers, resp.result);
