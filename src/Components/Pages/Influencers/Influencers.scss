@@ -27,12 +27,20 @@
       grid-template-columns: repeat(4, 1fr);
       margin: 0 auto;
       max-width: 1300px;
-      min-height: 75vh;
+      min-height: calc(100vh - 68px - 29px - 64px - 50px - 56px - 20px);
     }
   }
 
   .load-more-btn {
     max-width: 150px;
     width: 100%;
+  }
+
+  &__err-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100%;
   }
 }

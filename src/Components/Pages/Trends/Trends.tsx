@@ -71,6 +71,7 @@ export const Trends: React.FC = () => {
   const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
     '1'
   );
+
   useEffect(() => {
     if (token) {
       dispatch(getFavProjects({ tokenValue: token }));
@@ -106,11 +107,19 @@ export const Trends: React.FC = () => {
   useEffect(() => {
     if (token) {
       dispatch(fetchProjectsPick(token));
+      dispatch(fetchProjectsByInfluencers(token));
       dispatch(fetchTop3Projects({ filter: 'bull', tokenValue: token }));
       dispatch(fetchTop3Projects({ filter: 'positive', tokenValue: token }));
       dispatch(fetchTop3Projects({ filter: 'talk_rate', tokenValue: token }));
-      dispatch(fetchProjectsByInfluencers(token));
     }
+
+    //   setTimeout(() => {
+    //     const interval = setInterval(() => {
+    //       setTimeLoaded((timeLoaded) => timeLoaded + 1);
+    //     }, 60000);
+    //     return () => clearInterval(interval);
+    //   });
+    // }
   }, [dispatch, token]);
 
   return (

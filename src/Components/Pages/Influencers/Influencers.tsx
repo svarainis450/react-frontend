@@ -37,6 +37,7 @@ export const Influencers: React.FC = () => {
   const [offsetCount, setOffsetCount] = useState(0);
   const notAllToShow = offsetCount < influencersCount;
   const influencersLeftToSee = influencersCount - offsetCount;
+  const isLoadedInfluencers = influencers && influencers.length > 0;
   const [seenAll, setSeenAll] = useState('');
 
   useEffect(() => {
@@ -73,12 +74,18 @@ export const Influencers: React.FC = () => {
           callBack={setInfluencersFilter}
           nameFilterCallBack={setFilterValue}
         />
+
         {influencersStatus === 'pending' && influencers.length === 0 && (
           <Loader width={50} height={50} />
         )}
         {influencersStatus === 'error' && <LoadError />}
         <div className="Influencers__wrapper">
-          {(influencersStatus === 'success' || influencers.length > 0) &&
+          {(influencersStatus === 'error' || !isLoadedInfluencers) && (
+            <div className="Influencers__err-wrapper">
+              <LoadError />
+            </div>
+          )}
+          {(influencersStatus === 'success' || isLoadedInfluencers) &&
             influencers.map(({ id, ...rest }, index) => (
               <Element
                 key={id}
@@ -90,15 +97,20 @@ export const Influencers: React.FC = () => {
               </Element>
             ))}
         </div>
-        {influencersStatus === 'pending' && influencers.length > 0 && (
+        {influencersStatus === 'pending' && isLoadedInfluencers && (
           <Loader width={50} height={50} />
         )}
 
-        {notAllToShow && influencersStatus !== 'pending' && (
-          <Button className="load-more-btn" onClick={() => handleLoadMoreBtn()}>
-            Load more
-          </Button>
-        )}
+        {notAllToShow &&
+          influencersStatus !== 'pending' &&
+          isLoadedInfluencers && (
+            <Button
+              className="load-more-btn"
+              onClick={() => handleLoadMoreBtn()}
+            >
+              Load more
+            </Button>
+          )}
       </LoggedInLayout>
     </div>
   );

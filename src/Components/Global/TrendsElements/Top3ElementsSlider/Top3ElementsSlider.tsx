@@ -12,6 +12,7 @@ import { InfoBlockTypes } from '../types';
 
 import './Top3ElementsSlider.scss';
 import { Pagination } from 'swiper';
+import { RefreshCounter } from './RefreshCounter';
 
 interface Top3ElementsSliderProps {
   topPositive: Project[];
@@ -29,6 +30,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
   const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
     null
   );
+
   return (
     <div className="top-elements">
       <Swiper
@@ -65,6 +67,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
+                <RefreshCounter />
               </ul>
             ) : (
               <LoadError />
@@ -98,6 +101,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
+                <RefreshCounter />
               </ul>
             ) : (
               <LoadError />
@@ -131,6 +135,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
+                <RefreshCounter />
               </ul>
             ) : (
               <LoadError />
