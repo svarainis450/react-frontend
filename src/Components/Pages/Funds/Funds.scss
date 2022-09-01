@@ -7,6 +7,6 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 65vh;
+    min-height: calc(100vh - 29px - 64px - 50px - 56px - 20px);
   }
 }
