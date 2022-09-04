@@ -20,6 +20,7 @@ interface Top3ElementsSliderProps {
   topTalkRate: Project[];
   isForYouProject?: boolean;
   filterTitle?: string;
+  isLowestList?: boolean;
 }
 
 export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
@@ -28,6 +29,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
   topTalkRate,
   isForYouProject,
   filterTitle,
+  isLowestList,
 }) => {
   const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
     null
@@ -45,7 +47,11 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         <SwiperSlide>
           <CardWrapper
             isForYouProject={isForYouProject}
-            title="Highest Talk Rate Project"
+            title={
+              isLowestList
+                ? 'Lowest Talk Rate Projects'
+                : 'Top 3 Talk Rate Projects'
+            }
             subtitle={filterTitle}
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.rate].title}
@@ -79,7 +85,11 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         <SwiperSlide>
           <CardWrapper
             isForYouProject={isForYouProject}
-            title="Highest Positive Rate Project"
+            title={
+              isLowestList
+                ? 'Top 3 Negative Projects'
+                : 'Top 3 Positive Projects'
+            }
             subtitle={filterTitle}
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.positive].title}
@@ -113,7 +123,9 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         <SwiperSlide>
           <CardWrapper
             isForYouProject={isForYouProject}
-            title="Highest Bull Project"
+            title={
+              isLowestList ? 'Biggest Bear Projects' : 'Top 3 Bull Projects'
+            }
             subtitle={filterTitle}
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.bullish].title}

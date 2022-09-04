@@ -79,6 +79,9 @@ export interface ProjectsState {
   top_3_bull: Project[];
   top_3_talk_rate: Project[];
   top_3_positive: Project[];
+  top_3_lowest_talk_rate: Project[];
+  top_3_negative: Project[];
+  top_3_bear: Project[];
   projects_by_influencers: Project[];
   most_followed_influencers: Influencer[];
   influencers_pages_data: {

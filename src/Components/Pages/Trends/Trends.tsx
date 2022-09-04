@@ -18,6 +18,7 @@ import {
   fetchInfluencers,
   fetchProjectsByInfluencers,
   fetchProjectsPick,
+  fetchTop3LowestProjects,
   fetchTop3Projects,
   fetchTrendingProjects,
 } from 'src/state/reduxstate/projects/thunks';
@@ -46,7 +47,6 @@ export const Trends: React.FC = () => {
   const filterTitle = filter === 'last-week' ? 'Last Week' : 'Today';
   const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
   const [influencersStatus, setinfluencersStatus] = useState<Statuses>('idle');
-  console.log(filter);
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
@@ -106,6 +106,13 @@ export const Trends: React.FC = () => {
       dispatch(fetchTop3Projects({ filter: 'bull', tokenValue: token }));
       dispatch(fetchTop3Projects({ filter: 'positive', tokenValue: token }));
       dispatch(fetchTop3Projects({ filter: 'talk_rate', tokenValue: token }));
+      dispatch(fetchTop3LowestProjects({ filter: 'bear', tokenValue: token }));
+      dispatch(
+        fetchTop3LowestProjects({ filter: 'negative', tokenValue: token })
+      );
+      dispatch(
+        fetchTop3LowestProjects({ filter: 'lowest', tokenValue: token })
+      );
     }
 
     //   setTimeout(() => {
@@ -151,6 +158,13 @@ export const Trends: React.FC = () => {
               topPositive={top3PositiveProjects}
               topTalkRate={top3TalkRateProjects}
               filterTitle={filterTitle}
+            />
+            <Top3ElementsSlider
+              topBull={top3BullProjects}
+              topPositive={top3PositiveProjects}
+              topTalkRate={top3TalkRateProjects}
+              filterTitle={filterTitle}
+              isLowestList
             />
             <section className="wrapper one-column">
               <CardWrapper
