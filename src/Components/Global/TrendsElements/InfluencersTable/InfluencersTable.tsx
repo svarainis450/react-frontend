@@ -75,7 +75,6 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
     offsetCallBack(offsetCount + 10);
   };
 
-  console.log(influencersData);
   return (
     <div className="influencers-picks">
       <div className="influencers-picks__filters">

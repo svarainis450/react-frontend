@@ -40,6 +40,10 @@
     flex: 0.8;
     padding: 10px 16px 0 16px;
     background-color: var(--color-grey);
+
+    @include desktop {
+      padding: 0;
+    }
   }
   .metrics-flex.larger {
     position: absolute;
