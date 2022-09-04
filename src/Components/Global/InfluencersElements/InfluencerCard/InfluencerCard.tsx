@@ -13,7 +13,7 @@ import {
   getFavInfluencers,
   sendFavProjectOrInfluencer,
 } from 'src/state/reduxstate/user/thunks';
-import { calculateFollowers } from 'src/utils/calculations';
+import { calculateBigNumberValues } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { SubscribeButton } from '../../Button/SubscribeButton/SubscribeButton';
 import { IndexAxis } from '../../DiscoverElements/IndexAxis/IndexAxis';
@@ -56,7 +56,8 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   const [subscribed, setSubscribed] = useState(false);
   const [status, setStatus] = useState<Statuses>('idle');
 
-  const followersCalculated = calculateFollowers(followers);
+  const followersCalculated = calculateBigNumberValues(followers);
+  const postCountCaluclated = calculateBigNumberValues(posts);
   const isSubscribedInfluencer = subscribedInfluencers.find(
     (influencer) => influencer.id === id
   );
@@ -188,7 +189,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
                   </div>
                   <div className="stats">
                     <Typography weight={TypographyWeight.BOLD700}>
-                      {posts}
+                      {postCountCaluclated}
                     </Typography>
                     <Typography
                       className="grey-text"

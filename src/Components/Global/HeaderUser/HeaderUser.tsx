@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -12,7 +12,6 @@ import { HeaderUserProps } from './types';
 
 import Logo from '../../../Assets/images/logo.svg';
 import Bell from '../../../Assets/icons/bell.svg';
-import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 
 import './HeaderUser.scss';
 import { icons } from 'src/utils/icons';
@@ -31,7 +30,6 @@ import { pathColorHandler } from 'src/utils/styleHelpers';
 
 export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const dispatch = useAppDispatch();
-  const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
   const [notificationsActive, setNotificationsActive] = useState(false);
   const { isTablet } = useMediaQuery();
   const userToken = useSelector(userTokenSelector);

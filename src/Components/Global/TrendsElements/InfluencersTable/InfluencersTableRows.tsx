@@ -1,15 +1,9 @@
-import { useState } from 'react';
+import { Influencer } from 'src/state/reduxstate/projects/types';
 import {
-  Influencer,
-  Project,
-  TrendingProject,
-} from 'src/state/reduxstate/projects/types';
-import {
-  calculateFollowers,
+  calculateBigNumberValues,
   generateProjectsText,
 } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
-import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
 
@@ -79,7 +73,7 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                   </div>
                 </div>
                 <div className="influencers-picks__influencers-table__row__thin-text">
-                  <Typography>{calculateFollowers(followers)}</Typography>
+                  <Typography>{calculateBigNumberValues(followers)}</Typography>
                 </div>
                 {/* <div className="influencers-picks__influencers-table__row__bullseye">
               <TalkRateElement type="bullseye" rate={bullseye} />
@@ -88,7 +82,7 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                   <CategoryTag tagTitle={tag.name} />
                 </div>
                 <div className="influencers-picks__influencers-table__row__thin-text">
-                  <Typography>{postCount}</Typography>
+                  <Typography>{calculateBigNumberValues(postCount)}</Typography>
                 </div>
                 <div className="influencers-picks__influencers-table__row__thin-text">
                   <Typography>{channel}</Typography>

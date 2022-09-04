@@ -64,7 +64,7 @@ export const Discover: React.FC = () => {
   const projectsLeftToSee = projectsCount - offsetCount;
 
   useEffect(() => {
-    if (projects.length === 0 || offsetCount > 0) {
+    if ((projects && projects.length === 0) || offsetCount > 0) {
       dispatch(
         fetchProjects({
           filter: projectsFilter,
@@ -98,13 +98,15 @@ export const Discover: React.FC = () => {
           categoryCallBack={setFilterValue}
           nameFilterCallBack={setFilterValue}
         />
-        {(projectsStatus === 'error' || !projects) && (
-          <div className="Discover__err-wrapper">
-            <LoadError />
-          </div>
-        )}
         <div className="Discover__wrapper">
-          {(projectsStatus === 'success' || projects.length > 0) &&
+          {projectsStatus === 'error' ||
+            (!projects && (
+              <div className="Discover__err-wrapper">
+                <LoadError />
+              </div>
+            ))}
+          {(projectsStatus === 'success' ||
+            (projects && projects.length > 0)) &&
             projects.map(
               (
                 {

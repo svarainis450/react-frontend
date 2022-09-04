@@ -27,6 +27,7 @@ import filter_icon from '../Assets/icons/filter_icon.svg';
 import transfer_arrows from '../Assets/icons/transfer_arrows.svg';
 import remove from '../Assets/icons/remove.svg';
 import add_to_list from '../Assets/icons/add_to_list.svg';
+import counter from '../Assets/icons/counter.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -66,6 +67,7 @@ import mastercard from '../Assets/icons/payments/mastercard.svg';
 import paypal_card from '../Assets/icons/payments/paypal_card.svg';
 
 export const icons = {
+  counter,
   question_mark_grey,
   remove,
   add_to_list,

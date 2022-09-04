@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { fetchProjectById } from 'src/state/reduxstate/projects/thunks';
 import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';

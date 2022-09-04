@@ -1,6 +1,6 @@
 import { TrendingProject } from 'src/state/reduxstate/projects/types';
 
-export const calculateFollowers = (foll: number) => {
+export const calculateBigNumberValues = (foll: number) => {
   if (foll > 0 && foll < 1000) {
     return foll;
   } else if (foll >= 1000 && foll <= 1000000) {

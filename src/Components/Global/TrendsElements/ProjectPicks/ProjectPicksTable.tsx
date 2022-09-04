@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'src/hooks';
 import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
-import { generateProjectsText } from 'src/utils/calculations';
+import {
+  calculateBigNumberValues,
+  generateProjectsText,
+} from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
@@ -70,7 +73,7 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                   <CategoryTag tagTitle={tag.name} />
                 </div>
                 <Typography className="project-picks__row__thin-text__positioned">
-                  {postCount}
+                  {calculateBigNumberValues(postCount)}
                 </Typography>
                 <Typography className="project-picks__row__thin-text">
                   {channel}

@@ -12,12 +12,15 @@ import { InfoBlockTypes } from '../types';
 
 import './Top3ElementsSlider.scss';
 import { Pagination } from 'swiper';
+import { RefreshCounter } from './RefreshCounter';
 
 interface Top3ElementsSliderProps {
   topPositive: Project[];
   topBull: Project[];
   topTalkRate: Project[];
   isForYouProject?: boolean;
+  filterTitle?: string;
+  isLowestList?: boolean;
 }
 
 export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
@@ -25,10 +28,13 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
   topBull,
   topTalkRate,
   isForYouProject,
+  filterTitle,
+  isLowestList,
 }) => {
   const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
     null
   );
+
   return (
     <div className="top-elements">
       <Swiper
@@ -41,8 +47,12 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         <SwiperSlide>
           <CardWrapper
             isForYouProject={isForYouProject}
-            title="Highest Talk Rate Project"
-            subtitle="Today"
+            title={
+              isLowestList
+                ? 'Lowest Talk Rate Projects'
+                : 'Top 3 Talk Rate Projects'
+            }
+            subtitle={filterTitle}
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.rate].title}
             infoDesc={infoBlocks[InfoBlockTypes.rate].desc}
@@ -65,6 +75,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
+                {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (
               <LoadError />
@@ -74,8 +85,12 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         <SwiperSlide>
           <CardWrapper
             isForYouProject={isForYouProject}
-            title="Highest Positive Rate Project"
-            subtitle="Today"
+            title={
+              isLowestList
+                ? 'Top 3 Negative Projects'
+                : 'Top 3 Positive Projects'
+            }
+            subtitle={filterTitle}
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.positive].title}
             infoDesc={infoBlocks[InfoBlockTypes.positive].desc}
@@ -98,6 +113,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
+                {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (
               <LoadError />
@@ -107,8 +123,10 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         <SwiperSlide>
           <CardWrapper
             isForYouProject={isForYouProject}
-            title="Highest Bull Project"
-            subtitle="Today"
+            title={
+              isLowestList ? 'Biggest Bear Projects' : 'Top 3 Bull Projects'
+            }
+            subtitle={filterTitle}
             showInfoLabel
             infoTitle={infoBlocks[InfoBlockTypes.bullish].title}
             infoDesc={infoBlocks[InfoBlockTypes.bullish].desc}
@@ -131,6 +149,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
+                {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (
               <LoadError />

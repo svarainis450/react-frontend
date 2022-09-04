@@ -5,11 +5,17 @@
   width: 100%;
   overflow-x: scroll;
   background-color: var(--color-grey);
+  border-top: 1px solid var(--color-grey-lighter);
+  border-bottom: 1px solid var(--color-grey-lighter);
+
+  @include desktop {
+    border: none;
+  }
 
   .metrics-flex {
     display: flex;
     justify-content: flex-start;
-    padding: 0 0 0 45%;
+    padding: 0 0 16px 45%;
     background-color: var(--color-grey);
 
     @include desktop {
@@ -32,21 +38,26 @@
 
   .metrics-flex.smaller {
     flex: 0.8;
-    padding: 0 16px;
+    padding: 10px 16px 0 16px;
     background-color: var(--color-grey);
+
+    @include desktop {
+      padding: 0;
+    }
   }
   .metrics-flex.larger {
     position: absolute;
     width: 40%;
     left: 0;
     flex: 1.8;
-    padding: 5px 16px;
     margin: 0 0 16px;
+    padding: 20px 16px 16px 0;
     background-color: var(--color-grey);
     z-index: 9;
 
     @include desktop {
       position: static;
+      padding: 5px 16px;
     }
   }
 
@@ -62,7 +73,7 @@
   }
 
   .metrics-flex.centered.prices {
-    padding: 0;
+    padding: 10px 0 0 0;
 
     @include desktop {
       padding: 0;

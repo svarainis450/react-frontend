@@ -7,13 +7,16 @@ import { LinkList } from 'src/types';
 import { RootState } from '../slice';
 import { api } from '../types';
 import {
+  set3LowestTalkRateProjects,
   setInfluencers,
   setInfluencersCount,
   setInfluencersPages,
   setProjectById,
   setProjects,
   setProjectsCount,
+  setTop3BearProjects,
   setTop3bullProjects,
+  setTop3NegativeProjects,
   setTop3PositiveProjects,
   setTop3TalkRateProjects,
 } from './slice';
@@ -60,8 +63,6 @@ export const fetchProjects = createAsyncThunk(
 
         const { projects } = getState() as RootState;
         dispatch(setProjectsCount(resp.count));
-
-        console.log(resp);
 
         if (offset >= 52) {
           const expandedProjects = concat(projects.projects, resp.result);
@@ -246,7 +247,13 @@ export const fetchInfluencers = createAsyncThunk(
   }
 );
 
-type FilterKey = 'talk_rate' | 'positive' | 'bull';
+type FilterKey =
+  | 'talk_rate'
+  | 'positive'
+  | 'bull'
+  | 'bear'
+  | 'lowest'
+  | 'negative';
 
 interface FetchTop3ProjectsPayload {
   filter: FilterKey;
@@ -279,6 +286,42 @@ export const fetchTop3Projects = createAsyncThunk(
           dispatch(setTop3PositiveProjects(resp.result));
         } else if (filter === 'talk_rate') {
           dispatch(setTop3TalkRateProjects(resp.result));
+        } else {
+          return;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const fetchTop3LowestProjects = createAsyncThunk(
+  'projects/GET_TOP3_PROJECTS',
+  async (
+    { filter, tokenValue }: FetchTop3ProjectsPayload,
+    { dispatch, getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if (tokenValue || tokenFromState) {
+      try {
+        const resp = await fetch(
+          `${api}/projects/today?filters[${filter}]=1&limit=3`,
+          {
+            headers: {
+              Authorization: `Bearer ${tokenValue || tokenFromState}`,
+            },
+          }
+        ).then((res) => res.json());
+
+        if (filter === 'bear') {
+          dispatch(setTop3BearProjects(resp.result));
+        } else if (filter === 'negative') {
+          dispatch(setTop3NegativeProjects(resp.result));
+        } else if (filter === 'lowest') {
+          dispatch(set3LowestTalkRateProjects(resp.result));
         } else {
           return;
         }

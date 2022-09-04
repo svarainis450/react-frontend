@@ -28,6 +28,9 @@ const initialState: ProjectsState = {
   top_3_bull: [],
   top_3_positive: [],
   top_3_talk_rate: [],
+  top_3_bear: [],
+  top_3_lowest_talk_rate: [],
+  top_3_negative: [],
   projects_by_influencers: [],
   most_followed_influencers: [],
   influencers_pages_data: { page: 0, pages: 0 },
@@ -45,6 +48,14 @@ const projectsSlice = createSlice({
     ) => {
       state.top_3_talk_rate = action.payload;
     },
+    set3LowestTalkRateProjects: (
+      state: {
+        top_3_lowest_talk_rate: ProjectsState['top_3_lowest_talk_rate'];
+      },
+      action: PayloadAction<ProjectsState['top_3_lowest_talk_rate']>
+    ) => {
+      state.top_3_lowest_talk_rate = action.payload;
+    },
     setTop3PositiveProjects: (
       state: {
         top_3_positive: ProjectsState['top_3_positive'];
@@ -53,6 +64,14 @@ const projectsSlice = createSlice({
     ) => {
       state.top_3_positive = action.payload;
     },
+    setTop3NegativeProjects: (
+      state: {
+        top_3_negative: ProjectsState['top_3_negative'];
+      },
+      action: PayloadAction<ProjectsState['top_3_negative']>
+    ) => {
+      state.top_3_negative = action.payload;
+    },
     setTop3bullProjects: (
       state: {
         top_3_bull: ProjectsState['top_3_bull'];
@@ -60,6 +79,14 @@ const projectsSlice = createSlice({
       action: PayloadAction<ProjectsState['top_3_bull']>
     ) => {
       state.top_3_bull = action.payload;
+    },
+    setTop3BearProjects: (
+      state: {
+        top_3_bear: ProjectsState['top_3_bear'];
+      },
+      action: PayloadAction<ProjectsState['top_3_bear']>
+    ) => {
+      state.top_3_bear = action.payload;
     },
     setProjectsFilterKey: (
       state: {
@@ -157,6 +184,9 @@ export const {
   setTop3PositiveProjects,
   setTop3bullProjects,
   setTop3TalkRateProjects,
+  setTop3BearProjects,
+  setTop3NegativeProjects,
+  set3LowestTalkRateProjects,
   setProjects,
   setProjectById,
   setInfluencers,
