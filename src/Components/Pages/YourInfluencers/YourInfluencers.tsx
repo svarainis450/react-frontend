@@ -3,24 +3,17 @@ import { useSelector } from 'react-redux';
 import { InfluencerCard, InfluencerFilters } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import { influencersSelector } from 'src/state/reduxstate/projects/selectors';
-import { fetchInfluencers } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 
 import './YourInfluencers.scss';
 import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import { forYouSubmenuList } from '../ForYou/ForYou';
-import {
-  InfluencerFilterKeys,
-  ProjectFilterKeys,
-  Statuses,
-} from 'src/state/reduxstate/projects/types';
+import { InfluencerFilterKeys } from 'src/state/reduxstate/projects/types';
 import { getFavInfluencers } from 'src/state/reduxstate/user/thunks';
 
 export const YourInfluencers: React.FC = () => {
   const dispatch = useAppDispatch();
-  const influencers = useSelector(influencersSelector);
   const subscribedInfluencers = useSelector(subscribedInfluencersSelector);
   const [influencersFilter, setInfluencersFilter] =
     useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);

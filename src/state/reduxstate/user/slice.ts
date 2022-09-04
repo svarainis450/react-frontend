@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Influencer, Project } from '../projects/types';
-import { getFavProjects } from './thunks';
 import { NavClassTypes, UserDataType, UserState } from './types';
 
 const initialState: UserState = {

@@ -16,7 +16,6 @@ import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
   fetchInfluencers,
-  fetchProjectById,
   fetchProjectsByInfluencers,
   fetchProjectsPick,
   fetchTop3Projects,
@@ -38,20 +37,16 @@ import {
   SubmenuFilters,
 } from 'src/state/reduxstate/projects/types';
 import { Submenu } from './Submenu';
-import {
-  favoriteProjectsSelector,
-  userTokenSelector,
-} from 'src/state/reduxstate/user/selectors';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
-import { render } from 'react-dom';
-import { isLoggedIn } from 'src/Common/utils/isLoggedIn';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('today');
+  const filterTitle = filter === 'last-week' ? 'Last Week' : 'Today';
   const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
   const [influencersStatus, setinfluencersStatus] = useState<Statuses>('idle');
-
+  console.log(filter);
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
@@ -131,7 +126,7 @@ export const Trends: React.FC = () => {
         ) : (
           <>
             <section className="wrapper two-columns">
-              <CardWrapper title="Trending Category" subtitle="Today">
+              <CardWrapper title="Trending Category" subtitle={filterTitle}>
                 {trendingStatus === 'pending' ? (
                   <Loader width={50} height={50} />
                 ) : (
@@ -143,7 +138,7 @@ export const Trends: React.FC = () => {
               </CardWrapper>
               <CardWrapper
                 title="Project picks by most followed crypto experts"
-                subtitle="Today"
+                subtitle={filterTitle}
               >
                 <ProjectPicksTable
                   influencerProjects={projectsByInfluencers}
@@ -155,11 +150,12 @@ export const Trends: React.FC = () => {
               topBull={top3BullProjects}
               topPositive={top3PositiveProjects}
               topTalkRate={top3TalkRateProjects}
+              filterTitle={filterTitle}
             />
             <section className="wrapper one-column">
               <CardWrapper
                 title="List of influencers and their picks"
-                subtitle="Today"
+                subtitle={filterTitle}
               >
                 <InfluencersTable
                   influencersData={influencers}
