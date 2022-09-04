@@ -221,26 +221,30 @@ export const ForYou: React.FC = () => {
             )}
             {!isTablet &&
               (favFetchStatus === 'success' || favoriteProjects) &&
-              !!favoriteProjects?.find(
-                (item) => item.id !== projectByIdState?.id
-              ) &&
-              filteredFavProjects.map((project, index) => (
-                <ForYouListItem
-                  key={`${project.id}${index}`}
-                  project={project}
-                  favProjectIdCallback={setProjectByID}
-                  isInFavorites
-                />
-              ))}
+              filteredFavProjects.map((project, index) => {
+                if (project.id !== projectByIdState.id) {
+                  return (
+                    <ForYouListItem
+                      key={`${project.id}${index}`}
+                      project={project}
+                      favProjectIdCallback={setProjectByID}
+                      isInFavorites
+                    />
+                  );
+                }
+              })}
             {!isTablet &&
               projects &&
-              projects.map((project, index) => (
-                <ForYouListItem
-                  key={`${project.id + index}`}
-                  project={project}
-                  // projectIDCallback={setSelectedProjectID}
-                />
-              ))}
+              projects.map((project, index) => {
+                if (project.id !== projectByIdState.id) {
+                  return (
+                    <ForYouListItem
+                      key={`${project.id + index}`}
+                      project={project}
+                    />
+                  );
+                }
+              })}
             {isTablet && (filteredFavProjects || projects) && (
               <ProjectsSliderMobile
                 // projectIDCallback={setSelectedProjectID}

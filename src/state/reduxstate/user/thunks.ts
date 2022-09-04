@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { useNavigateHook } from 'src/hooks';
 import { LinkList } from 'src/types';
 import { fetchProjectById } from '../projects/thunks';
-import { Project, Statuses } from '../projects/types';
+import { Influencer, Project, Statuses } from '../projects/types';
 import { RootState } from '../slice';
 import { api } from '../types';
 import {
@@ -117,7 +117,10 @@ export const getFavInfluencers = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        dispatch(setSubscribedInfluencers(resp));
+        const uniqueSubscribedInfl = [
+          ...(new Set(resp) as unknown as Influencer[]),
+        ];
+        dispatch(setSubscribedInfluencers(uniqueSubscribedInfl));
       } catch (e) {
         console.log(e);
       }

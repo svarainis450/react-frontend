@@ -69,7 +69,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
-                <RefreshCounter />
+                {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (
               <LoadError />
@@ -103,7 +103,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
-                <RefreshCounter />
+                {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (
               <LoadError />
@@ -137,7 +137,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     bullRatio={rateData.bullRatio}
                   />
                 ))}
-                <RefreshCounter />
+                {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (
               <LoadError />

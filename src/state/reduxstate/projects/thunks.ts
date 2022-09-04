@@ -61,8 +61,6 @@ export const fetchProjects = createAsyncThunk(
         const { projects } = getState() as RootState;
         dispatch(setProjectsCount(resp.count));
 
-        console.log(resp);
-
         if (offset >= 52) {
           const expandedProjects = concat(projects.projects, resp.result);
           const uniqueProjects = [
