@@ -1,11 +1,11 @@
-import { icons } from 'src/utils/icons';
+import { Loader } from '../Loader/Loader';
 import { Typography } from '../Typography';
 
 import './LoadError.scss';
 
 export const LoadError: React.FC = () => (
   <div className="load-error">
-    <img src={icons.loader} alt="Loader logo" />
+    <Loader height={54} width={54} />
     <Typography>
       Sorry, champ. Got nothing yet. Give me another hour to gather some data.
     </Typography>

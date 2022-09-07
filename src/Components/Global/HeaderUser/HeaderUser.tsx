@@ -34,7 +34,7 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const { isTablet } = useMediaQuery();
   const userToken = useSelector(userTokenSelector);
   const userData = useSelector(userDataSelector);
-  const marketRatio = userData.market;
+  const marketRatio = userData.market || 50;
 
   const [showMarketDesc, setShowMarketDesc] = useState(false);
 
@@ -72,7 +72,12 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
 
       {/* {notificationsActive && <>Notif component</>} */}
       {/* </div> */}
-      <div className="HeaderUser__market-tag-wrapper">
+      <div
+        className="HeaderUser__market-tag-wrapper"
+        onMouseOver={() => setShowMarketDesc(true)}
+        onMouseLeave={() => setShowMarketDesc(false)}
+        onTouchEnd={() => setShowMarketDesc(false)}
+      >
         {isTablet ? (
           <CircularProgressbar
             styles={buildStyles({

@@ -18,8 +18,6 @@ export const YourInfluencers: React.FC = () => {
   const [influencersFilter, setInfluencersFilter] =
     useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
 
-  console.log(subscribedInfluencers);
-
   useEffect(() => {
     dispatch(getFavInfluencers());
   }, []);

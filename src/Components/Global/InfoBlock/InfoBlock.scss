@@ -16,7 +16,7 @@
 
   @include desktop {
     top: 60px;
-    left: 20px;
+    left: 10px;
     margin: 0;
     padding: 20px;
     width: 100%;
@@ -43,16 +43,6 @@
   &__info-label {
     margin-right: 1rem;
     cursor: auto;
-  }
-
-  .close-icon {
-    position: absolute;
-    right: 16px;
-    cursor: pointer;
-
-    @include desktop {
-      right: 32px;
-    }
   }
 
   &__flex-wrapper {

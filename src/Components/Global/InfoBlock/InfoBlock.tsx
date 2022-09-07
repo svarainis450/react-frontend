@@ -21,13 +21,7 @@ export const InfoBlock: React.FC<InfoBlockProps> = ({
   const showInfClass = showInfoBlock ? 'show-info' : '';
 
   return (
-    <div className={`info ${showInfClass}`}>
-      <img
-        className="close-icon"
-        src={icons.closeXBlack}
-        alt="Info label"
-        onClick={onCloseClick}
-      />
+    <div onMouseLeave={onCloseClick} className={`info ${showInfClass}`}>
       <div className="info__flex-wrapper">
         <img
           className="info__info-label"

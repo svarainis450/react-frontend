@@ -105,8 +105,6 @@ export const fetchProjectById = createAsyncThunk(
           .then((res) => res.json())
           .then((res) => dispatch(setProjectById(res)));
 
-        console.log(resp);
-
         if (navigateToForYou && resp) {
           useNavigateHook(LinkList.FORYOU);
         }
@@ -232,6 +230,7 @@ export const fetchInfluencers = createAsyncThunk(
         }
 
         callBack('success');
+        console.log(resp);
 
         dispatch(
           setInfluencersPages({
