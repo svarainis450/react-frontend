@@ -25,7 +25,7 @@ export const YourInfluencers: React.FC = () => {
   return (
     <div className="Your-influencers">
       <LoggedInLayout>
-        <Submenu menuItems={forYouSubmenuList} />
+        <Submenu menuItems={forYouSubmenuList} pageTitleMob="For You" />
         {/* TODO: waiting for backend post request */}
         {/* <InfluencerFilters callBack={setInfluencersFilter} /> */}
         {(!subscribedInfluencers || subscribedInfluencers.length === 0) && (

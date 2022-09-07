@@ -6,10 +6,16 @@ import { LogOut } from 'src/Common/utils/LogOut';
 import { Typography, TypographyWeight } from '../../Typography';
 import './ProfileNavigation.scss';
 import { PROFILE_NAVIGATION } from '../../SideMenu/types';
+import { useSelector } from 'react-redux';
+import { profileBlockSelector } from 'src/state/reduxstate/user/selectors';
 
 export const ProfileNavigation: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [selected, setSelected] = useState<NavClassTypes>('billing');
+  const selectedBlock = useSelector(profileBlockSelector);
+
+  const [selected, setSelected] = useState<NavClassTypes>(
+    selectedBlock || 'billing'
+  );
 
   const handleNavSelection = (key: NavClassTypes) => {
     setSelected(key);

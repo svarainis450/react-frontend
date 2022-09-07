@@ -10,7 +10,7 @@ import './Funds.scss';
 export const Funds: React.FC = () => (
   <div className="Funds">
     <LoggedInLayout>
-      <Submenu menuItems={submenuList} />
+      <Submenu menuItems={submenuList} pageTitleMob="Discover" />
       <div className="Funds__soon">
         <CommingSoon />
       </div>

@@ -69,7 +69,7 @@ export const Influencers: React.FC = () => {
   return (
     <div className="Influencers">
       <LoggedInLayout activeLink="Discover">
-        <Submenu menuItems={submenuList} />
+        <Submenu menuItems={submenuList} pageTitleMob="Discover" />
         <InfluencerFilters
           callBack={setInfluencersFilter}
           nameFilterCallBack={setFilterValue}

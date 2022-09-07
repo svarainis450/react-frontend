@@ -6,15 +6,16 @@
 
   .card {
     padding: 12px;
-    height: 100%;
 
     @include desktop {
       padding: 24px 30px;
+      height: 100%;
     }
   }
 
   &__wrapper {
     display: grid;
+    align-content: flex-start;
     grid-template-columns: 1fr;
     grid-gap: 20px;
     min-height: 80vh;

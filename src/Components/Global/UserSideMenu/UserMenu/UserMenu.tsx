@@ -23,8 +23,8 @@ export const UserMenu: React.FC<UserMenuProps> = ({ isActiveToggler }) => {
   const dispatch = useAppDispatch();
 
   const handleProfileMenuItem = (item: NavClassTypes) => {
-    dispatch(setProfileBlock(item));
     isActiveToggler(false);
+    dispatch(setProfileBlock(item));
   };
 
   return (

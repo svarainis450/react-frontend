@@ -21,7 +21,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 20px;
-    min-height: 55vh;
+    min-height: 70vh;
 
     @include desktop {
       grid-template-columns: repeat(4, 1fr);
