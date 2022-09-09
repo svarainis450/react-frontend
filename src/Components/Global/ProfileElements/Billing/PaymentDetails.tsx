@@ -12,13 +12,20 @@ import './Billing.scss';
 import { PAYMENT_DETAILS } from './constants';
 
 interface PaymentDetailsProps {
-  selectedPaymentMethod: PaymentMethodTypes;
+  selectedPaymentMethod: PaymentMethodTypes | null;
 }
 
 export const PaymentDetails: React.FC<PaymentDetailsProps> = ({
   selectedPaymentMethod,
 }) => {
   const userInfo = useSelector(userDataSelector);
+  const [showCryptoInfo, setShowCryptoInfo] = useState(false);
+
+  const handleCryptoInfoBlockShow = () => {
+    if (selectedPaymentMethod === PaymentMethodTypes.CRYPTO) {
+      setShowCryptoInfo(true);
+    }
+  };
 
   return (
     <div className="Billing__border-wrapper">
@@ -32,6 +39,18 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({
           </Typography>
         </div>
         <div className="Billing__border-wrapper__payment-details">
+          {showCryptoInfo && (
+            <div className="crypto-info-block">
+              <Typography>
+                This payment provider doesn't support automatic recurring
+                payments, so your service will not renew. Payments are charged
+                in USD. Payment provider fees may apply. You will be redirected
+                to CoinGate to complete your purchase securely. It may take up
+                to 24 hours to process your payment. You will get an email
+                notification as soon as the service is active.
+              </Typography>
+            </div>
+          )}
           {PAYMENT_DETAILS.map(({ id, icon, title, method }) => {
             const isSelected = method === selectedPaymentMethod;
             return (
@@ -40,8 +59,10 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                   isSelected ? 'selected' : ''
                 }`}
                 key={id}
+                onMouseOver={() => handleCryptoInfoBlockShow()}
+                onMouseLeave={() => setShowCryptoInfo(false)}
               >
-                <div className="flex">
+                <div className="flex info-wrapper">
                   <div>
                     <img
                       src={icon}
