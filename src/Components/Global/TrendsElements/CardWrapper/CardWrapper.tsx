@@ -41,7 +41,6 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
           {showInfoBlock && (
             <InfoBlock
               showInfoBlock={showInfoBlock}
-              onCloseClick={onCloseClick}
               infoTitle={infoTitle}
               infoDesc={infoDesc}
             />
@@ -59,6 +58,8 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({
               src={icons.info_label}
               alt="Info label"
               onClick={onInfoClick}
+              onMouseOver={onInfoClick}
+              onMouseLeave={onCloseClick}
             />
           )}
         </div>

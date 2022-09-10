@@ -22,15 +22,7 @@ export const NavigationList: React.FC<NavigationListProps> = ({
   const userToken = useSelector(userTokenSelector);
 
   const handleMenuSelection = (type: string, url: LinkList) => {
-    // if (type === 'For you' && userToken) {
-    //   dispatch(getFavProjects({ tokenValue: userToken })).then((resp) => {
-    //     dispatch(fetchProjectById({ id: resp.payload[0].id })).then(() =>
-    //       navigate(url)
-    //     );
-    //   });
-    // } else {
     navigate(url);
-    // }
   };
 
   return (

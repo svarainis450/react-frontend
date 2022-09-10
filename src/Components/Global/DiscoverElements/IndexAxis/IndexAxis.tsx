@@ -10,12 +10,16 @@ interface IndexAxisProps {
   rating: number;
   type: 'bull' | 'positive' | 'mover' | 'overall';
   isHalfAxis?: boolean;
+  onMouseOver?: () => void;
+  onMouseLeave?: () => void;
 }
 
 export const IndexAxis: React.FC<IndexAxisProps> = ({
   rating,
   type,
   isHalfAxis = false,
+  onMouseLeave,
+  onMouseOver,
 }) => {
   const isNeutral = rating === 50;
 
@@ -59,7 +63,11 @@ export const IndexAxis: React.FC<IndexAxisProps> = ({
   };
 
   return (
-    <div className={`axis-wrapper ${halfClass}`}>
+    <div
+      className={`axis-wrapper ${halfClass}`}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       <div className={`icons-wrapper ${halfClass} ${negativeClass}`}>
         {!isOverallType && ((isHalfAxis && !isPositive) || !isHalfAxis) && (
           <img

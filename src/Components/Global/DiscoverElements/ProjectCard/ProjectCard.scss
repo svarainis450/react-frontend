@@ -2,7 +2,10 @@
 
 .wrapper {
   display: block;
-  height: 100%;
+
+  @include desktop {
+    height: 100%;
+  }
 
   .flex-wrapper {
     margin: 0;

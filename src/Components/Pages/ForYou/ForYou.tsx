@@ -161,13 +161,15 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {favoriteProjects.length && (
+              {favoriteProjects.length > 0 && (
                 <ProjectMetrics projectByIdProp={favoriteProjects[0]} />
               )}
             </div>
 
             <div>
-              {(favFetchStatus === 'success' || favoriteProjects) && (
+              {(favFetchStatus === 'success' ||
+                (favoriteProjects && favoriteProjects.length > 0)) && (
+                // this is chart
                 <MainScreen
                   projectId={projectByIdState?.id || favoriteProjects[0].id}
                 />
@@ -220,9 +222,9 @@ export const ForYou: React.FC = () => {
               />
             )}
             {!isTablet &&
-              (favFetchStatus === 'success' || favoriteProjects) &&
+              (favFetchStatus === 'success' || favoriteProjects.length > 0) &&
               filteredFavProjects.map((project, index) => {
-                if (project.id !== projectByIdState.id) {
+                if (project && project.id !== projectByIdState?.id) {
                   return (
                     <ForYouListItem
                       key={`${project.id}${index}`}
@@ -231,12 +233,14 @@ export const ForYou: React.FC = () => {
                       isInFavorites
                     />
                   );
+                } else {
+                  return null;
                 }
               })}
             {!isTablet &&
               projects &&
               projects.map((project, index) => {
-                if (project.id !== projectByIdState.id) {
+                if (project.id !== projectByIdState?.id) {
                   return (
                     <ForYouListItem
                       key={`${project.id + index}`}

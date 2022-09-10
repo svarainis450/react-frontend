@@ -69,22 +69,21 @@ export const Influencers: React.FC = () => {
   return (
     <div className="Influencers">
       <LoggedInLayout activeLink="Discover">
-        <Submenu menuItems={submenuList} />
+        <Submenu menuItems={submenuList} pageTitleMob="Discover" />
         <InfluencerFilters
           callBack={setInfluencersFilter}
           nameFilterCallBack={setFilterValue}
         />
 
-        {influencersStatus === 'pending' && influencers.length === 0 && (
-          <Loader width={50} height={50} />
-        )}
+        {influencersStatus === 'pending' && <Loader width={50} height={50} />}
         {influencersStatus === 'error' && <LoadError />}
         <div className="Influencers__wrapper">
-          {(influencersStatus === 'error' || !isLoadedInfluencers) && (
-            <div className="Influencers__err-wrapper">
-              <LoadError />
-            </div>
-          )}
+          {influencersStatus === 'error' ||
+            (influencersStatus === 'success' && influencers.length === 0 && (
+              <div className="Influencers__err-wrapper">
+                <LoadError />
+              </div>
+            ))}
           {(influencersStatus === 'success' || isLoadedInfluencers) &&
             influencers.map(({ id, ...rest }, index) => (
               <Element

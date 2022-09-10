@@ -120,8 +120,14 @@
         left: -200px;
       }
 
+      .show-info {
+        left: unset;
+        right: 90px;
+        top: 70px;
+      }
+
       .show-info::before {
-        right: 112px;
+        right: 120px;
       }
     }
   }

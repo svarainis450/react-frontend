@@ -37,7 +37,7 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
       <img
         src={icons.arrow_right}
         alt="Arrow"
-        className={`Billing__border-wrapper__method__flex__arrow ${
+        className={`Billing__border-wrapper__method__details-wrapper__arrow ${
           isSelected ? 'selected' : ''
         }`}
       />
@@ -45,7 +45,7 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
     {isSelected && (
       <div className="Billing__border-wrapper__method__details">
         {/* TODO: billing. payment iframe should come here */}
-        <CheckoutForm />
+        {method === PaymentMethodTypes.CARDS && <CheckoutForm />}
       </div>
     )}
   </div>

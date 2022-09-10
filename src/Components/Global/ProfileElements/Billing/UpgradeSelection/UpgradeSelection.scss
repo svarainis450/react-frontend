@@ -1,0 +1,88 @@
+@import '../../../../../utils/breakpointsMixins.scss';
+
+.upgrade-selection {
+  width: 100%;
+
+  &__title {
+    margin: 0 0 16px;
+
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.125rem;
+    letter-spacing: -2%;
+
+    @include desktop {
+      margin: 0 0 22px;
+    }
+  }
+
+  &__select-wrapper {
+    display: flex;
+    gap: 16px;
+    margin: 0 0 16px;
+    width: 100%;
+
+    &__selection {
+      position: relative;
+      display: block;
+      padding: 18px 9px 8px 16px;
+      max-width: 155px;
+      width: 100%;
+
+      border: 1px solid var(--color-sand);
+      border-radius: 5px;
+
+      cursor: pointer;
+
+      @include desktop {
+        max-width: 155px;
+        width: 100%;
+      }
+
+      input {
+        display: none;
+      }
+
+      &__price {
+        font-size: 0.75rem;
+        line-height: 22px;
+        font-weight: 400;
+        color: var(--color-grey-text);
+      }
+
+      &__circle {
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: var(--color-sand);
+      }
+
+      &__circle.selected {
+        background: var(--color-blue);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      &__discount {
+        position: absolute;
+        top: 4px;
+        right: calc(18px + 10px);
+        display: inline-block;
+        padding: 2px;
+        border-radius: 30px;
+        background-color: var(--color-yellow-hero);
+
+        p {
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    &__selection.selected {
+      background: rgba(43, 89, 209, 0.1);
+      border: 1px solid var(--color-blue);
+    }
+  }
+}

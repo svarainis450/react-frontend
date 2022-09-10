@@ -36,3 +36,13 @@
     font-size: 8px;
   }
 }
+
+.Tag.caption-tag {
+  padding: 1px;
+  width: 45px;
+  height: 14px;
+
+  &__text {
+    font-size: 8px;
+  }
+}

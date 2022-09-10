@@ -14,6 +14,7 @@ import link_arrow from '../Assets/icons/link_arrow.svg';
 import search_magnifier from '../Assets/icons/search_magnifier.svg';
 import arrow_right from '../Assets/icons/arrow_right.svg';
 import arrow_down from '../Assets/icons/arrow_down.svg';
+import arrow_down_blue from '../Assets/icons/arrow_down_blue.svg';
 import envelope from '../Assets/icons/envelope.svg';
 import subscribe from '../Assets/icons/subscribe.svg';
 import subscribed from '../Assets/icons/subscribed.svg';
@@ -28,6 +29,10 @@ import transfer_arrows from '../Assets/icons/transfer_arrows.svg';
 import remove from '../Assets/icons/remove.svg';
 import add_to_list from '../Assets/icons/add_to_list.svg';
 import counter from '../Assets/icons/counter.svg';
+import add_project from '../Assets/icons/add_project.svg';
+import blue_checkmark from '../Assets/icons/blue_checkmark.svg';
+import verified_checkmark from '../Assets/icons/verified_checkmark.svg';
+import chart_empty from '../Assets/icons/chart_empty.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -67,6 +72,11 @@ import mastercard from '../Assets/icons/payments/mastercard.svg';
 import paypal_card from '../Assets/icons/payments/paypal_card.svg';
 
 export const icons = {
+  chart_empty,
+  verified_checkmark,
+  arrow_down_blue,
+  blue_checkmark,
+  add_project,
   counter,
   question_mark_grey,
   remove,

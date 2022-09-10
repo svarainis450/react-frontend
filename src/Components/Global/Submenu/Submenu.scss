@@ -55,6 +55,12 @@
         border-radius: 3px;
         border: 2px solid var(--color-black);
       }
+
+      svg {
+        path {
+          fill: var(--color-black);
+        }
+      }
     }
   }
 

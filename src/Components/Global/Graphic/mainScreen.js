@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import * as d3 from 'd3';
 import LinePlot from './linePlot';
 import './mainScreen.css';
+import { EmptyChartStateComp } from '../ForYourElements/EmptyChartStateComp';
 
 const toggleButtons = [
   {
@@ -140,6 +141,8 @@ const MainScreen = ({ projectId }) => {
           </div>
         </div>
       </div>
+      {/* TODO: NIKITA, empty chart state */}
+      {/* <EmptyChartStateComp /> */}
     </div>
   );
 };

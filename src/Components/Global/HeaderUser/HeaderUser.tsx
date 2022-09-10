@@ -27,14 +27,16 @@ import { useAppDispatch } from 'src/state/reduxstate/store';
 import { fetchUserData } from 'src/state/reduxstate/user/thunks';
 import { theme } from 'src/theme';
 import { pathColorHandler } from 'src/utils/styleHelpers';
+import { AddProjectManually } from './AddProjectManually/AddProjectManually';
 
 export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const dispatch = useAppDispatch();
   const [notificationsActive, setNotificationsActive] = useState(false);
+  const [showAddProject, setShowAddProject] = useState(false);
   const { isTablet } = useMediaQuery();
   const userToken = useSelector(userTokenSelector);
   const userData = useSelector(userDataSelector);
-  const marketRatio = userData.market;
+  const marketRatio = userData.market || 50;
 
   const [showMarketDesc, setShowMarketDesc] = useState(false);
 
@@ -72,30 +74,35 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
 
       {/* {notificationsActive && <>Notif component</>} */}
       {/* </div> */}
+      {showAddProject && <AddProjectManually />}
       <div className="HeaderUser__market-tag-wrapper">
         {isTablet ? (
-          <CircularProgressbar
-            styles={buildStyles({
-              textSize: '2.5rem',
-              textColor: `${theme.colors.black}`,
-              pathColor: `${pathColorHandler(marketRatio)}`,
-              trailColor: `${theme.colors.grey}`,
-            })}
-            value={marketRatio}
-            text={`${marketRatio}`}
-          />
+          <div onClick={() => setShowMarketDesc(!showMarketDesc)}>
+            <CircularProgressbar
+              styles={buildStyles({
+                textSize: '2.5rem',
+                textColor: `${theme.colors.black}`,
+                pathColor: `${pathColorHandler(marketRatio)}`,
+                trailColor: `${theme.colors.grey}`,
+              })}
+              value={marketRatio}
+              text={`${marketRatio}`}
+            />
+          </div>
         ) : (
-          <IndexAxis rating={marketRatio} type="overall" />
+          <IndexAxis
+            rating={marketRatio}
+            type="overall"
+            onMouseOver={() => setShowMarketDesc(true)}
+            onMouseLeave={() => setShowMarketDesc(false)}
+          />
         )}
         {!isTablet && (
           <img
             className="HeaderUser__market-tag-wrapper__question"
-            src={icons.question_mark}
-            alt="What’s the overall social sentiment?"
-            onMouseOver={() => setShowMarketDesc(true)}
-            onMouseLeave={() => setShowMarketDesc(false)}
-            onTouchEnd={() => setShowMarketDesc(false)}
-            onClick={() => setShowMarketDesc(true)}
+            src={icons.add_project}
+            alt="Add project manually"
+            onClick={() => setShowAddProject(!showAddProject)}
           />
         )}
         {showMarketDesc && (
