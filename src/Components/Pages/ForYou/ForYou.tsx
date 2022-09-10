@@ -168,6 +168,7 @@ export const ForYou: React.FC = () => {
 
             <div>
               {(favFetchStatus === 'success' || favoriteProjects) && (
+                // this is chart
                 <MainScreen
                   projectId={projectByIdState?.id || favoriteProjects[0].id}
                 />

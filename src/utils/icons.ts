@@ -32,6 +32,7 @@ import counter from '../Assets/icons/counter.svg';
 import add_project from '../Assets/icons/add_project.svg';
 import blue_checkmark from '../Assets/icons/blue_checkmark.svg';
 import verified_checkmark from '../Assets/icons/verified_checkmark.svg';
+import chart_empty from '../Assets/icons/chart_empty.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -71,6 +72,7 @@ import mastercard from '../Assets/icons/payments/mastercard.svg';
 import paypal_card from '../Assets/icons/payments/paypal_card.svg';
 
 export const icons = {
+  chart_empty,
   verified_checkmark,
   arrow_down_blue,
   blue_checkmark,
