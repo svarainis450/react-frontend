@@ -25,7 +25,9 @@
     &__selection {
       position: relative;
       display: block;
-      padding: 15px 9px 8px 16px;
+      padding: 18px 9px 8px 16px;
+      max-width: 155px;
+      width: 100%;
 
       border: 1px solid var(--color-sand);
       border-radius: 5px;
@@ -50,7 +52,7 @@
 
       &__circle {
         position: absolute;
-        top: 8px;
+        top: 4px;
         right: 8px;
         width: 18px;
         height: 18px;
@@ -65,7 +67,7 @@
 
       &__discount {
         position: absolute;
-        top: 8px;
+        top: 4px;
         right: calc(18px + 10px);
         display: inline-block;
         padding: 2px;

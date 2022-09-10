@@ -1,11 +1,17 @@
+@import '../../../../../utils/breakpointsMixins.scss';
+
 .Billing-history {
-  overflow-x: scroll;
-  width: 900px;
+  width: 100%;
+
+  @include desktop {
+    width: 900px;
+  }
 
   &__table {
     display: grid;
-    grid-template-columns: 0.5fr 1.4fr repeat(4, 0.9fr);
+    grid-template-columns: 0.1fr 1.2fr repeat(4, 0.6fr);
     justify-content: center;
+    width: 600px;
 
     margin: 18px 0 0;
     padding: 9px;
@@ -13,6 +19,11 @@
 
     font-weight: 300;
     text-align: center;
+
+    @include desktop {
+      grid-template-columns: 0.5fr 1.4fr repeat(4, 0.9fr);
+      width: 900px;
+    }
 
     &__radio-wrapper {
       &__circle {

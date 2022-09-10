@@ -1,12 +1,6 @@
-import { useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { PaymentMethodTypes } from 'src/state/reduxstate/projects/types';
-import { icons } from 'src/utils/icons';
-import {
-  Typography,
-  TypographyVariant,
-  TypographyWeight,
-} from '../../Typography';
+import { Typography, TypographyWeight } from '../../Typography';
 
 import './Billing.scss';
 import { BillingHistory } from './BillingHistory/BillingHistory';

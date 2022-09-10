@@ -167,6 +167,7 @@
   }
 
   .flex.info-wrapper {
+    flex-direction: row;
     @include desktop {
       max-width: 100%;
     }
