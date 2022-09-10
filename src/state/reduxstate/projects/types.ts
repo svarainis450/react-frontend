@@ -21,6 +21,7 @@ export interface Project {
     name: CategoryTags;
     color: string;
   };
+  description?: string;
 }
 
 export interface TrendingProject {

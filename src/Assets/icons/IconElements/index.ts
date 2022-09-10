@@ -1,4 +1,5 @@
 export * from './Account';
+export * from './ArrowRightRounded';
 export * from './Billing';
 export * from './Notifications';
 export * from './Terms';
