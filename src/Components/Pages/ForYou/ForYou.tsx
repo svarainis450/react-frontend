@@ -64,7 +64,6 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 export const ForYou: React.FC = () => {
   const dispatch = useAppDispatch();
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
-  const trending = useSelector(trendingProjectsSelector);
   const projectByIdState = useSelector(projectByIdSelector);
   const [offsetCount, setOffsetCount] = useState(0);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
@@ -77,11 +76,11 @@ export const ForYou: React.FC = () => {
     useState(favoriteProjects);
   const [favFetchStatus, setFavFetchStatus] = useState<Statuses>('idle');
 
-  const [projectByID, setProjectByID] = useState<Project>(favoriteProjects[0]);
   const [selectedProjectID, setSelectedProjectID] = useState<number | null>(
     null
   );
   const [showInfo, setShowInfo] = useState(false);
+  const [showMobileList, setShowMobileList] = useState(false);
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -194,22 +193,25 @@ export const ForYou: React.FC = () => {
                 {showInfo && <InfoBlockInstructions />}
               </div>
             )}
-            <div className="input-wrapper">
-              <img
-                className="input-wrapper__magnifier"
-                src={icons.search_magnifier}
-                alt="Filter by name"
-              />
-              <input
-                className="input-wrapper__input"
-                type="text"
-                placeholder="Filter by name..."
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  handleNameInputChange(e)
-                }
-              />
-            </div>
-            {!isTablet && projectByIdState && (
+            {(!isTablet || !showMobileList) && (
+              <div className="input-wrapper">
+                <img
+                  className="input-wrapper__magnifier"
+                  src={icons.search_magnifier}
+                  alt="Filter by name"
+                />
+                <input
+                  className="input-wrapper__input"
+                  type="text"
+                  placeholder="Filter by name..."
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    handleNameInputChange(e)
+                  }
+                  onFocus={() => setShowMobileList(true)}
+                />
+              </div>
+            )}
+            {/* {!isTablet && projectByIdState && filterValue !== '1' && (
               <ForYouListItem
                 key={`${projectByIdState.id}`}
                 project={projectByIdState}
@@ -220,39 +222,52 @@ export const ForYou: React.FC = () => {
                   )
                 }
               />
-            )}
-            {!isTablet &&
-              (favFetchStatus === 'success' || favoriteProjects.length > 0) &&
-              filteredFavProjects.map((project, index) => {
-                if (project && project.id !== projectByIdState?.id) {
-                  return (
-                    <ForYouListItem
-                      key={`${project.id}${index}`}
-                      project={project}
-                      favProjectIdCallback={setProjectByID}
-                      isInFavorites
-                    />
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            {!isTablet &&
-              projects &&
-              projects.map((project, index) => {
-                if (project.id !== projectByIdState?.id) {
-                  return (
-                    <ForYouListItem
-                      key={`${project.id + index}`}
-                      project={project}
-                    />
-                  );
-                }
-              })}
+            )} */}
+            <div className="For-you__wrapper__projects-list__desktop-mobile">
+              {isTablet && showMobileList && (
+                <div className="input-wrapper">
+                  <img
+                    className="input-wrapper__magnifier"
+                    src={icons.search_magnifier}
+                    alt="Filter by name"
+                  />
+                  <input
+                    className="input-wrapper__input"
+                    type="text"
+                    placeholder="Filter by name..."
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      handleNameInputChange(e)
+                    }
+                    onFocus={() => setShowMobileList(true)}
+                  />
+                </div>
+              )}
+              {(!isTablet || showMobileList) &&
+                (favFetchStatus === 'success' || favoriteProjects.length > 0) &&
+                filteredFavProjects.map((project, index) => (
+                  <ForYouListItem
+                    showMobileListCallback={setShowMobileList}
+                    key={`${project.id}${index}`}
+                    project={project}
+                    isInFavorites
+                    isCheckingStats={project.id === projectByIdState?.id}
+                  />
+                ))}
+              {(!isTablet || showMobileList) &&
+                projects &&
+                projects.map((project, index) => (
+                  <ForYouListItem
+                    showMobileListCallback={setShowMobileList}
+                    key={`${project.id + index}`}
+                    project={project}
+                    isCheckingStats={project.id === projectByIdState?.id}
+                  />
+                ))}
+            </div>
             {isTablet && (filteredFavProjects || projects) && (
               <ProjectsSliderMobile
                 // projectIDCallback={setSelectedProjectID}
-                favoriteProjects={filteredFavProjects}
+                favoriteProjects={favoriteProjects}
                 projects={projects}
               />
             )}

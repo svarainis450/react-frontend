@@ -55,6 +55,15 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
               type="talk_rate"
             />
           </div>
+          <img
+            className="metrics-question-mark"
+            src={icons.question_mark_grey}
+            alt="question mark"
+            // onMouseOver={() => setShowInfo(true)}
+            // onMouseLeave={() => setShowInfo(false)}
+            // onTouchEnd={() => setShowInfo(false)}
+            // onClick={() => setShowInfo(true)}
+          />
         </div>
         <div className="Metrics metrics-flex bordered centered smaller">
           <div>
@@ -67,6 +76,15 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
               type="bull"
             />
           </div>
+          <img
+            className="metrics-question-mark"
+            src={icons.question_mark_grey}
+            alt="question mark"
+            // onMouseOver={() => setShowInfo(true)}
+            // onMouseLeave={() => setShowInfo(false)}
+            // onTouchEnd={() => setShowInfo(false)}
+            // onClick={() => setShowInfo(true)}
+          />
         </div>
         <div className="Metrics metrics-flex bordered centered smaller">
           <div>
@@ -79,6 +97,15 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
               type="positive"
             />
           </div>
+          <img
+            className="metrics-question-mark"
+            src={icons.question_mark_grey}
+            alt="question mark"
+            // onMouseOver={() => setShowInfo(true)}
+            // onMouseLeave={() => setShowInfo(false)}
+            // onTouchEnd={() => setShowInfo(false)}
+            // onClick={() => setShowInfo(true)}
+          />
         </div>
         <div className="Metrics metrics-flex bordered centered prices">
           <Typography

@@ -122,12 +122,20 @@
 
       .show-info {
         left: unset;
-        right: 90px;
-        top: 70px;
+        top: 90px;
+
+        @media (min-width: 1024px) {
+          right: 90px;
+          top: 70px;
+        }
       }
 
       .show-info::before {
-        right: 120px;
+        right: 18px;
+
+        @media (min-width: 1024px) {
+          right: 120px;
+        }
       }
     }
   }

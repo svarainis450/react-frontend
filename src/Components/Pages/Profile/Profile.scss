@@ -8,6 +8,14 @@
     min-height: 0;
   }
 
+  .card {
+    padding: 16px;
+
+    @include desktop {
+      padding: 30px;
+    }
+  }
+
   &__wrapper {
     display: block;
     max-width: 100%;

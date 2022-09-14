@@ -77,7 +77,10 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
       {showAddProject && <AddProjectManually />}
       <div className="HeaderUser__market-tag-wrapper">
         {isTablet ? (
-          <div onClick={() => setShowMarketDesc(!showMarketDesc)}>
+          <div
+            onClick={() => setShowMarketDesc(!showMarketDesc)}
+            onTouchMove={() => setShowMarketDesc(!showMarketDesc)}
+          >
             <CircularProgressbar
               styles={buildStyles({
                 textSize: '2.5rem',

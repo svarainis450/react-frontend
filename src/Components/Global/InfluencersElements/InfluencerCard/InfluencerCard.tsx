@@ -209,7 +209,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
                 >
                   Focus areas
                 </Typography>
-                <div className="influencer-card__border-wrapper grid">
+                <div className="influencer-card__border-wrapper__grid">
                   {tags.map((item) => (
                     <CategoryTag key={item} tagTitle={item} />
                   ))}

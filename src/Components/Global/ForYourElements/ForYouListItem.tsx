@@ -14,26 +14,28 @@ import './ForYouListItem.scss';
 
 interface ForYouListItemProps {
   project: Project;
-  projectIDCallback?: Dispatch<SetStateAction<number | null>>;
-  favProjectIdCallback?: Dispatch<SetStateAction<Project>>;
+  showMobileListCallback: Dispatch<SetStateAction<boolean>>;
   isInFavorites?: boolean;
+  isCheckingStats?: boolean;
 }
 
 export const ForYouListItem: React.FC<ForYouListItemProps> = ({
   isInFavorites,
   project,
-  projectIDCallback,
-  favProjectIdCallback,
+  showMobileListCallback,
+  isCheckingStats,
 }) => {
   const dispatch = useAppDispatch();
   const { img, name, tag, id } = project;
   const [status, setStatus] = useState<Statuses>('idle');
+  const [isRemoved, setIsRemoved] = useState(false);
 
   const hanldeAddOrRemoveBtn = (id: number) => {
     if (isInFavorites) {
       dispatch(
         deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })
       );
+      setIsRemoved(true);
     } else {
       dispatch(
         sendFavProjectOrInfluencer({
@@ -47,13 +49,13 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
 
   const handleCheckStatsBtn = (id: number) => {
     dispatch(fetchProjectById({ id }));
-    if (projectIDCallback) {
-      projectIDCallback(id);
-    }
+    showMobileListCallback(false);
   };
 
+  if (isRemoved) return null;
+
   return (
-    <div className="for-you-list-item">
+    <div className={`for-you-list-item ${isCheckingStats ? 'checking' : ''}`}>
       <div className="flex-wrapper">
         <div>
           <img
