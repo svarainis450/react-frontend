@@ -16,6 +16,12 @@
       padding: 8px 0;
       border-bottom: 1.5px solid var(--color-grey);
 
+      &__grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 8px;
+      }
+
       &__flex {
         display: flex;
         align-items: center;
@@ -28,8 +34,7 @@
         border-bottom: 1.5px solid var(--color-grey);
 
         @include desktop {
-          padding: 0;
-          border: none;
+          padding: 0 0 8px;
         }
       }
 
@@ -59,18 +64,12 @@
       }
 
       &__social-icon {
-        margin: 0 8px 0 0;
+        margin: 0 20px 0 0;
       }
     }
     &__border-wrapper.flex {
       display: flex;
       align-items: center;
-    }
-
-    &__border-wrapper.grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-gap: 8px;
     }
 
     .flex-wrapper {
