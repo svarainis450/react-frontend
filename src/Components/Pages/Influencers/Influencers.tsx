@@ -75,9 +75,13 @@ export const Influencers: React.FC = () => {
           nameFilterCallBack={setFilterValue}
         />
 
-        {influencersStatus === 'pending' && <Loader width={50} height={50} />}
         {influencersStatus === 'error' && <LoadError />}
         <div className="Influencers__wrapper">
+          {influencersStatus === 'pending' && (
+            <div className="Influencers__err-wrapper">
+              <Loader width={50} height={50} />
+            </div>
+          )}
           {influencersStatus === 'error' ||
             (influencersStatus === 'success' && influencers.length === 0 && (
               <div className="Influencers__err-wrapper">

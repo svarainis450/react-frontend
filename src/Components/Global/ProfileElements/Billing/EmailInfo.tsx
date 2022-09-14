@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { icons } from 'src/utils/icons';
@@ -9,6 +9,13 @@ import './Billing.scss';
 export const EmailInfo: React.FC = () => {
   const userInfo = useSelector(userDataSelector);
   const [contactEmail, setContactEmail] = useState(userInfo.email);
+  const [arrowIcon, setArrowIcon] = useState(icons.input_arrow);
+
+  const hanldeInputSubmit = (e?: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    document.getElementById('inputForm')?.blur();
+    setArrowIcon(icons.blue_checkmark);
+  };
 
   return (
     <div className="Billing__border-wrapper">
@@ -32,7 +39,11 @@ export const EmailInfo: React.FC = () => {
           <Typography className="Billing__border-wrapper__texts__title other">
             Send to other account email
           </Typography>
-          <form className="Billing__border-wrapper__texts__input-wrapper">
+          <form
+            id="inputForm"
+            onSubmit={(e: FormEvent<HTMLFormElement>) => hanldeInputSubmit(e)}
+            className="Billing__border-wrapper__texts__input-wrapper"
+          >
             <img
               src={icons.envelope}
               alt="email input"
@@ -40,11 +51,21 @@ export const EmailInfo: React.FC = () => {
             />
             {/* TODO: add submit, when email submit visuals appears */}
             <input
-              value={contactEmail || 'email@email.com'}
               className="Billing__border-wrapper__texts__input-wrapper__input"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setContactEmail(e.target.value)
               }
+              type="email"
+              placeholder="write your email"
+              onFocus={() => setArrowIcon(icons.input_arrow)}
+            />
+            <img
+              onClick={() => hanldeInputSubmit()}
+              onMouseOver={() => setArrowIcon(icons.input_arrow_filled)}
+              onMouseLeave={() => setArrowIcon(icons.input_arrow)}
+              src={arrowIcon}
+              alt="Active input"
+              className="Billing__border-wrapper__texts__input-wrapper__input-arrow"
             />
           </form>
         </div>

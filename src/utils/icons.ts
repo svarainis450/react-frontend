@@ -21,6 +21,7 @@ import subscribed from '../Assets/icons/subscribed.svg';
 import no_image from '../Assets/icons/no_image.svg';
 import no_profile_pic from '../Assets/icons/no_profile_pic.svg';
 import input_arrow from '../Assets/icons/input_arrow.svg';
+import input_arrow_filled from '../Assets/icons/input_arrow_filled.svg';
 import input_arrow_active from '../Assets/icons/input_arrow_active.svg';
 import question_mark from '../Assets/icons/question_mark.svg';
 import question_mark_grey from '../Assets/icons/question_mark_grey.svg';
@@ -72,6 +73,7 @@ import mastercard from '../Assets/icons/payments/mastercard.svg';
 import paypal_card from '../Assets/icons/payments/paypal_card.svg';
 
 export const icons = {
+  input_arrow_filled,
   chart_empty,
   verified_checkmark,
   arrow_down_blue,
