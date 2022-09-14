@@ -21,6 +21,7 @@ export enum LinkList {
   FORYOU = '/foryou',
   PROFILE = '/profile',
   FUNDS = '/funds',
+  EXPIRED_SUBSCRIPTION = '/expired-subscription',
   YOUR_INFLUENCERS = '/your-influencers',
   SUGGESTIONS = '/suggestions',
   PARTNERSHIPS = '/partnerships',

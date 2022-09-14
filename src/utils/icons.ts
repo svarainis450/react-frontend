@@ -34,6 +34,7 @@ import add_project from '../Assets/icons/add_project.svg';
 import blue_checkmark from '../Assets/icons/blue_checkmark.svg';
 import verified_checkmark from '../Assets/icons/verified_checkmark.svg';
 import chart_empty from '../Assets/icons/chart_empty.svg';
+import circle_check_green from '../Assets/icons/circle_check_green.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -72,7 +73,11 @@ import visa from '../Assets/icons/payments/visa.svg';
 import mastercard from '../Assets/icons/payments/mastercard.svg';
 import paypal_card from '../Assets/icons/payments/paypal_card.svg';
 
+// Funnel
+import rocket_ticket from '../Assets/images/rocketTicket.svg';
+
 export const icons = {
+  rocket_ticket,
   input_arrow_filled,
   chart_empty,
   verified_checkmark,
@@ -135,4 +140,5 @@ export const icons = {
   closeX,
   closeXBlack,
   back,
+  circle_check_green,
 };

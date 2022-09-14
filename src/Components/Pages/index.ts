@@ -2,6 +2,7 @@ export * from './AboutPage';
 export * from './Dashboard';
 export * from './DemoPage';
 export * from './Discover/Discover';
+export * from './ExpiredSubscription/ExpiredSubscription';
 export * from './FAQpage';
 export * from './Frontpage';
 export * from './Layout';
