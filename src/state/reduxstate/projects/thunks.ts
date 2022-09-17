@@ -205,112 +205,6 @@ export const fetchInfluencers = createAsyncThunk(
   }
 );
 
-type FilterKey =
-  | 'talk_rate'
-  | 'positive'
-  | 'bull'
-  | 'bear'
-  | 'lowest'
-  | 'negative';
-
-interface FetchTop3ProjectsPayload {
-  filter: FilterKey;
-  tokenValue: string;
-}
-
-export const fetchTop3Projects = createAsyncThunk(
-  'projects/GET_TOP3_PROJECTS',
-  async (
-    { filter, tokenValue }: FetchTop3ProjectsPayload,
-    { dispatch, getState }
-  ) => {
-    const { user } = getState() as RootState;
-    const tokenFromState = user.user_token;
-
-    if (tokenValue || tokenFromState) {
-      try {
-        const resp = await fetch(
-          `${api}/projects/today?filters[${filter}]=1&limit=3`,
-          {
-            headers: {
-              Authorization: `Bearer ${tokenValue || tokenFromState}`,
-            },
-          }
-        ).then((res) => res.json());
-
-        if (filter === 'bull') {
-          dispatch(setTop3bullProjects(resp.result));
-        } else if (filter === 'positive') {
-          dispatch(setTop3PositiveProjects(resp.result));
-        } else if (filter === 'talk_rate') {
-          dispatch(setTop3TalkRateProjects(resp.result));
-        } else {
-          return;
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }
-);
-
-export const fetchTop3LowestProjects = createAsyncThunk(
-  'projects/GET_TOP3_PROJECTS',
-  async (
-    { filter, tokenValue }: FetchTop3ProjectsPayload,
-    { dispatch, getState }
-  ) => {
-    const { user } = getState() as RootState;
-    const tokenFromState = user.user_token;
-
-    if (tokenValue || tokenFromState) {
-      try {
-        const resp = await fetch(
-          `${api}/projects/today?filters[${filter}]=1&limit=3`,
-          {
-            headers: {
-              Authorization: `Bearer ${tokenValue || tokenFromState}`,
-            },
-          }
-        ).then((res) => res.json());
-
-        if (filter === 'bear') {
-          dispatch(setTop3BearProjects(resp.result));
-        } else if (filter === 'negative') {
-          dispatch(setTop3NegativeProjects(resp.result));
-        } else if (filter === 'lowest') {
-          dispatch(set3LowestTalkRateProjects(resp.result));
-        } else {
-          return;
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }
-);
-
-export const fetchProjectsByInfluencers = createAsyncThunk(
-  'projects/GET_PROJECTS_BY_INFLUENCERS',
-  async (tokenValue: string) => {
-    if (tokenValue || token) {
-      try {
-        const resp = await fetch(
-          `${api}/projects?filters[top]=influencer&limit=5`,
-          {
-            headers: {
-              Authorization: `Bearer ${tokenValue || token}`,
-            },
-          }
-        ).then((res) => res.json());
-        return resp.result;
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }
-);
-
 export const fetchMostFollowedInfluencers = createAsyncThunk(
   'projects/GET_MOST_FOLLOWED_INFLUENCERS',
   async () => {
@@ -373,6 +267,115 @@ export const fetchTrendingProjects = createAsyncThunk(
       }
     } else {
       callBack('error');
+    }
+  }
+);
+
+type FilterKey =
+  | 'top-bull'
+  | 'lowest-bull'
+  | 'top-sentiment'
+  | 'lowest-sentiment'
+  | 'top-talk-rate'
+  | 'lowest-talk-rate';
+
+interface FetchTop3ProjectsPayload {
+  filter: FilterKey;
+  tokenValue: string;
+  dateFilter: 'daily' | 'weekly';
+}
+
+export const fetchTop3Projects = createAsyncThunk(
+  'projects/GET_TOP3_PROJECTS',
+  async (
+    { filter, tokenValue, dateFilter }: FetchTop3ProjectsPayload,
+    { dispatch, getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if (tokenValue || tokenFromState) {
+      try {
+        const resp = await fetch(
+          `${apiv1}/trends/${filter}-${dateFilter}?take=3`,
+          {
+            headers: {
+              Authorization: `Bearer ${tokenValue || tokenFromState}`,
+            },
+          }
+        ).then((res) => res.json());
+
+        console.log(resp);
+
+        if (filter === 'top-bull') {
+          dispatch(setTop3bullProjects(resp.data));
+        } else if (filter === 'top-sentiment') {
+          dispatch(setTop3PositiveProjects(resp.data));
+        } else if (filter === 'top-talk-rate') {
+          dispatch(setTop3TalkRateProjects(resp.data));
+        } else {
+          return;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const fetchTop3LowestProjects = createAsyncThunk(
+  'projects/GET_TOP3_PROJECTS',
+  async (
+    { filter, tokenValue, dateFilter }: FetchTop3ProjectsPayload,
+    { dispatch, getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if (tokenValue || tokenFromState) {
+      try {
+        const resp = await fetch(
+          `${apiv1}/trends/${filter}-${dateFilter}?take=3`,
+          {
+            headers: {
+              Authorization: `Bearer ${tokenValue || tokenFromState}`,
+            },
+          }
+        ).then((res) => res.json());
+
+        if (filter === 'lowest-bull') {
+          dispatch(setTop3BearProjects(resp.data));
+        } else if (filter === 'lowest-sentiment') {
+          dispatch(setTop3NegativeProjects(resp.data));
+        } else if (filter === 'lowest-talk-rate') {
+          dispatch(set3LowestTalkRateProjects(resp.data));
+        } else {
+          return;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const fetchProjectsByInfluencers = createAsyncThunk(
+  'projects/GET_PROJECTS_BY_INFLUENCERS',
+  async (tokenValue: string) => {
+    if (tokenValue || token) {
+      try {
+        const resp = await fetch(
+          `${api}/projects?filters[top]=influencer&limit=5`,
+          {
+            headers: {
+              Authorization: `Bearer ${tokenValue || token}`,
+            },
+          }
+        ).then((res) => res.json());
+        return resp.result;
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 );

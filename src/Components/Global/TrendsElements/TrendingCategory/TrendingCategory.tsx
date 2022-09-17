@@ -18,11 +18,13 @@ import { CustomSelectDropdown } from './CustomSelectDropdown';
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
   categoryCallback: Dispatch<SetStateAction<CategoryTags | undefined>>;
+  filterTitle: string;
 }
 
 export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   trendingProjects,
   categoryCallback,
+  filterTitle,
 }) => {
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
@@ -63,7 +65,9 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
           >
             Trending Projects
           </Typography>
-          <Typography className="Category__block-subtitle">Today</Typography>
+          <Typography className="Category__block-subtitle">
+            {filterTitle}
+          </Typography>
           {trendingProjects ? (
             <ul className="Category__projects-wrapper">
               {trendingProjects.map(
@@ -72,7 +76,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
                   index
                 ) => (
                   <TrendingProjectCard
-                    key={place}
+                    key={index}
                     id={place}
                     rankNumber={index + 1}
                     projectTitle={project_name}

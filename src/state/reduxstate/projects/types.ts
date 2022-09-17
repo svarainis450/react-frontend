@@ -2,6 +2,12 @@ import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
 export interface ProjectsState {
   trending_projects: TrendingProject[];
+  top_3_bull: TopOrLowestProject[];
+  top_3_talk_rate: TopOrLowestProject[];
+  top_3_positive: TopOrLowestProject[];
+  top_3_lowest_talk_rate: TopOrLowestProject[];
+  top_3_negative: TopOrLowestProject[];
+  top_3_bear: TopOrLowestProject[];
 
   //OLD API
 
@@ -14,12 +20,6 @@ export interface ProjectsState {
   influencers_count: number;
   influencers_picks: [];
   project_picks: ProjectPicks[];
-  top_3_bull: Project[];
-  top_3_talk_rate: Project[];
-  top_3_positive: Project[];
-  top_3_lowest_talk_rate: Project[];
-  top_3_negative: Project[];
-  top_3_bear: Project[];
   projects_by_influencers: Project[];
   most_followed_influencers: Influencer[];
   influencers_pages_data: {
@@ -53,7 +53,7 @@ export interface Project {
 
 export interface TrendingProject {
   place: number;
-  category: typeof CategoryTags;
+  category: CategoryTags;
   project_name: string;
   project_symbol: string;
   mentions_num: number;
@@ -147,3 +147,14 @@ export enum PaymentDetailTypes {
 }
 
 export type SubmenuFilters = 'daily' | 'weekly' | 'upcomming';
+
+export interface TopOrLowestProject {
+  category: CategoryTags;
+  place: number;
+  project_name: string;
+  project_symbol: string;
+  sentiment?: number;
+  talk_rate?: number;
+  bull?: number;
+  icon: string;
+}
