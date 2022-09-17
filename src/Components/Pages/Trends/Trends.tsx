@@ -15,16 +15,13 @@ import { submenuList } from './constants';
 import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
-  fetchInfluencers,
   fetchProjectsByInfluencers,
-  fetchProjectsPick,
   fetchTop3LowestProjects,
   fetchTop3Projects,
   fetchTrendingProjects,
 } from 'src/state/reduxstate/projects/thunks';
 import {
   influencersSelector,
-  projectPicksSelector,
   projectsByInfluencersSelector,
   top3BullProjectsSelector,
   top3PositiveProjectsSelector,
@@ -41,6 +38,8 @@ import { Submenu } from './Submenu';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
+import { projectPicksSelector } from 'src/state/reduxstate/influencers/selectors';
+import { fetchProjectsPick } from 'src/state/reduxstate/influencers/thunks';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('daily');
@@ -66,7 +65,9 @@ export const Trends: React.FC = () => {
   const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
     '1'
   );
-  console.log(token);
+
+  console.log(projectPicks);
+
   useEffect(() => {
     if (token) {
       // dispatch(getFavProjects({ tokenValue: token }));
@@ -101,8 +102,10 @@ export const Trends: React.FC = () => {
 
   useEffect(() => {
     if (token && filter !== 'upcomming') {
-      // dispatch(fetchProjectsPick(token));
-      // dispatch(fetchProjectsByInfluencers(token));
+      dispatch(fetchProjectsPick({ tokenValue: token, dateFilter: filter }));
+      dispatch(
+        fetchProjectsByInfluencers({ tokenValue: token, dateFilter: filter })
+      );
       dispatch(
         fetchTop3Projects({
           filter: 'top-bull',
@@ -154,9 +157,7 @@ export const Trends: React.FC = () => {
     //     return () => clearInterval(interval);
     //   });
     // }
-  }, [dispatch, token]);
-
-  console.log(top3BullProjects);
+  }, [dispatch, token, filter]);
 
   return (
     <div className="Trends">

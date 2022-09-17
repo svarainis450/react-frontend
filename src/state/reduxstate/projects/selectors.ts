@@ -8,7 +8,7 @@ export const influencersCountSelector = (s: AppState) =>
   s.projects.influencers_count;
 export const trendingProjectsSelector = (s: AppState) =>
   s.projects.trending_projects;
-export const projectPicksSelector = (s: AppState) => s.projects.project_picks;
+// export const projectPicksSelector = (s: AppState) => s.projects.project_picks;
 export const projectFilterKeySelector = (s: AppState) =>
   s.projects.project_filter_key;
 export const top3BullProjectsSelector = (s: AppState) => s.projects.top_3_bull;

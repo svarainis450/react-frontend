@@ -2,6 +2,7 @@ import { Project } from 'src/state/reduxstate/projects/types';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
+import { CategoryTags } from '../types';
 import './ProjectPicksList.scss';
 
 interface ProjectPicksListProps {
@@ -14,11 +15,11 @@ export const ProjectPicksList: React.FC<ProjectPicksListProps> = ({
   return (
     <div className="picks-list">
       <div className="picks-list__projects">
-        {pickedProjects.map(({ id, img, name, tag }, index) => (
+        {pickedProjects.map(({ id, img_url, name, type }, index) => (
           <div key={id} className="picks-list__projects__project">
             <img
               className="picks-list__projects__project__icon"
-              src={img || icons.no_image}
+              src={img_url || icons.no_image}
               alt="project name"
             />
             <Typography
@@ -27,7 +28,8 @@ export const ProjectPicksList: React.FC<ProjectPicksListProps> = ({
             >
               {name}
             </Typography>
-            <CategoryTag tagTitle={tag.name} />
+            {/* @ts-ignore */}
+            <CategoryTag tagTitle={CategoryTags[type]} />
           </div>
         ))}
       </div>

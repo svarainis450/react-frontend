@@ -74,7 +74,9 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
 
       {/* {notificationsActive && <>Notif component</>} */}
       {/* </div> */}
-      {showAddProject && <AddProjectManually />}
+
+      {/* TODO: ADD PROJECT MANUALLY */}
+      {/* {showAddProject && <AddProjectManually />} */}
       <div className="HeaderUser__market-tag-wrapper">
         {isTablet ? (
           <div

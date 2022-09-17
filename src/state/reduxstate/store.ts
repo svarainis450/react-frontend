@@ -17,7 +17,7 @@ const persistConfig = {
   key: 'root',
   storage: storageSession,
   blacklist: ['payments'], // blacklisted reducers which won't be saved in session storage
-  whitelist: ['projects', 'user'],
+  whitelist: ['projects', 'user', 'influencers'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

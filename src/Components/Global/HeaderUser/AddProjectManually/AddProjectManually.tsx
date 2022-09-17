@@ -16,33 +16,33 @@ export const AddProjectManually: React.FC = () => {
   const isReadyUrl = urlValue.length > 0;
   const isLoading = false;
 
-  const demoProject: Project = {
-    id: 1234,
-    name: 'CrytpoPunks',
-    started: '2017 01 21',
-    img: images.bitkoin,
-    tag: {
-      name: CategoryTags.nft,
-      color: '',
-    },
-    rateData: {
-      talkRate: 23,
-      talkRateChanges: 2,
-      positiveRatio: 22,
-      bullRatio: 23,
-    },
-    description:
-      'CryptoPunks launched as a fixed set of 10,000 items in mid-2017 and became one of the inspirations for the ERC-721 standard. They have been featured in places like The New York Times, Christie’s of London, Art|Basel Miami, and The PBS NewsHour.',
-  };
+  // const demoProject: Project = {
+  //   id: 1234,
+  //   name: 'CrytpoPunks',
+  //   started: '2017 01 21',
+  //   img: images.bitkoin,
+  //   tag: {
+  //     name: CategoryTags.nft,
+  //     color: '',
+  //   },
+  //   rateData: {
+  //     talkRate: 23,
+  //     talkRateChanges: 2,
+  //     positiveRatio: 22,
+  //     bullRatio: 23,
+  //   },
+  //   description:
+  //     'CryptoPunks launched as a fixed set of 10,000 items in mid-2017 and became one of the inspirations for the ERC-721 standard. They have been featured in places like The New York Times, Christie’s of London, Art|Basel Miami, and The PBS NewsHour.',
+  // };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSuccess(true);
-  };
+  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setIsSuccess(true);
+  // };
 
   return (
     <div className={`add-project`}>
-      {!isLoading && (
+      {/* {!isLoading && (
         <div className="add-project__titles">
           <img src={icons.add_project} alt="Add project manually" />
           <Typography>Add projects</Typography>
@@ -150,7 +150,7 @@ export const AddProjectManually: React.FC = () => {
             will add the project to your favorites if the data is available.
           </Typography>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

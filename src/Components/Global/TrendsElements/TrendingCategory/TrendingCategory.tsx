@@ -29,8 +29,6 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
 
-  console.log(trendingProjects);
-
   return (
     <div className="Category">
       <div className="Category__block">

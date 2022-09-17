@@ -26,7 +26,15 @@ import { PositiveBullsBlock } from './PositiveBullsBlock';
 import Card from '../../Graphic/cardChart';
 import './ProjectCard.scss';
 
-interface ProjectCardProps extends Omit<Project, 'symbol'> {}
+interface ProjectCardProps
+  extends Omit<
+    Project,
+    | 'symbol'
+    | 'chart_price'
+    | 'chart_sentiment'
+    | 'chart_talk_rate'
+    | 'chart_volume'
+  > {}
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   id,

@@ -1,4 +1,4 @@
-import { TrendingProject } from 'src/state/reduxstate/projects/types';
+import { Project, TrendingProject } from 'src/state/reduxstate/projects/types';
 
 export const calculateBigNumberValues = (foll: number) => {
   if (foll > 0 && foll < 1000) {
@@ -70,7 +70,7 @@ export const calculateRangeWidth = (rate: number, isHalfAxis?: boolean) => {
 };
 
 //Influencers picks tables calcs
-export const generateProjectsText = (projectsList?: TrendingProject[]) => {
+export const generateProjectsText = (projectsList?: Partial<Project>[]) => {
   if (projectsList?.length === 1) {
     return projectsList[0].name;
   } else if (projectsList && projectsList.length > 1) {

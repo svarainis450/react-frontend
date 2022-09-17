@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchTrendingProjects,
   fetchProjects,
-  fetchProjectsPick,
   fetchProjectsByInfluencers,
   fetchMostFollowedInfluencers,
 } from './thunks';
@@ -19,7 +18,7 @@ const initialState: ProjectsState = {
   project_filter_key: null,
   project_by_id: null as unknown as Project,
   projects_count: 0,
-  project_picks: [] as ProjectsState['project_picks'],
+  // project_picks: [] as ProjectsState['project_picks'],
   trending_projects: [] as ProjectsState['trending_projects'],
   status: 'idle' as Statuses,
   influencers: [] as ProjectsState['influencers'],
@@ -151,12 +150,12 @@ const projectsSlice = createSlice({
         state.trending_projects = action.payload;
       }
     );
-    builder.addCase(
-      fetchProjectsPick.fulfilled,
-      (state, action: PayloadAction<ProjectsState['project_picks']>) => {
-        state.project_picks = action.payload;
-      }
-    );
+    // builder.addCase(
+    //   fetchProjectsPick.fulfilled,
+    //   (state, action: PayloadAction<ProjectsState['project_picks']>) => {
+    //     state.project_picks = action.payload;
+    //   }
+    // );
     builder.addCase(
       fetchProjectsByInfluencers.fulfilled,
       (

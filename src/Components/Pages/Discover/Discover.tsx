@@ -99,7 +99,7 @@ export const Discover: React.FC = () => {
           nameFilterCallBack={setFilterValue}
         />
         <div className="Discover__wrapper">
-          {projectsStatus === 'error' ||
+          {/* {projectsStatus === 'error' ||
             (!projects && (
               <div className="Discover__err-wrapper">
                 <LoadError />
@@ -137,7 +137,7 @@ export const Discover: React.FC = () => {
                   />
                 </Element>
               )
-            )}
+            )} */}
         </div>
         {projectsStatus === 'pending' && <Loader width={50} height={50} />}
 

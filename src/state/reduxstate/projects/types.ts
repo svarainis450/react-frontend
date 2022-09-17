@@ -8,6 +8,8 @@ export interface ProjectsState {
   top_3_lowest_talk_rate: TopOrLowestProject[];
   top_3_negative: TopOrLowestProject[];
   top_3_bear: TopOrLowestProject[];
+  projects_by_influencers: Project[];
+  // project_picks: Project[];
 
   //OLD API
 
@@ -19,8 +21,6 @@ export interface ProjectsState {
   influencers: Influencer[];
   influencers_count: number;
   influencers_picks: [];
-  project_picks: ProjectPicks[];
-  projects_by_influencers: Project[];
   most_followed_influencers: Influencer[];
   influencers_pages_data: {
     page: number;
@@ -36,8 +36,57 @@ export interface RateData {
 
 export interface Project {
   id: number;
+  coinbase_url: string;
+  first_historical_data: string;
+  img_url: string;
+  max_scraped_tweet_id: 12345;
   name: string;
   symbol?: string;
+  type: CategoryTags;
+  talk_rate_score: number;
+  sentiment_score: number;
+  bull_bear_score: number;
+  talk_rate_daily_change: number;
+  project_twitter_user_card: number;
+  chart_price: {
+    date: string;
+    three_hour_price: string;
+    one_day_price: string;
+    one_week_price: string;
+    one_month_price: string;
+    three_months_price: string;
+    all_price: string;
+  };
+  chart_sentiment: {
+    date: string;
+    three_hour_sentiment: string;
+    one_day_sentiment: string;
+    one_week_sentiment: string;
+    one_month_sentiment: string;
+    three_months_sentiment: string;
+    all_sentiment: string;
+  };
+  chart_talk_rate: {
+    date: string;
+    three_hour_talk_rate: string;
+    one_day_talk_rate: string;
+    one_week_talk_rate: string;
+    one_month_talk_rate: string;
+    three_months_talk_rate: string;
+    all_talk_rate: string;
+  };
+  chart_volume: {
+    date: string;
+    three_hour_volume: string;
+    one_day_volume: string;
+    one_week_volume: string;
+    one_month_volume: string;
+    three_months_volume: string;
+    all_volume: string;
+  };
+
+  ///TODO: remove OLD TYPES
+
   started?: string;
   img: string;
   rateData: RateData;
@@ -158,3 +207,5 @@ export interface TopOrLowestProject {
   bull?: number;
   icon: string;
 }
+
+export type TrendsDateFilterType = 'daily' | 'weekly';

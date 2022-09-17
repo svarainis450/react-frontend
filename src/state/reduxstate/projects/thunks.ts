@@ -27,6 +27,7 @@ import {
   ProjectFilterKeys,
   Statuses,
   SubmenuFilters,
+  TrendsDateFilterType,
 } from './types';
 
 interface ProjectsPayload {
@@ -112,24 +113,6 @@ export const fetchProjectById = createAsyncThunk(
         // if (projectIDCallback) {
         //   projectIDCallback(resp as Project);
         // }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }
-);
-
-export const fetchProjectsPick = createAsyncThunk(
-  'projects/GET_PROJECT_PICKS',
-  async (tokenValue: string) => {
-    if (tokenValue) {
-      try {
-        const resp = await fetch(`${api}/influencers/today?limit=10`, {
-          headers: {
-            Authorization: `Bearer ${tokenValue}`,
-          },
-        }).then((res) => res.json());
-        return resp.result;
       } catch (e) {
         console.log(e);
       }
@@ -259,7 +242,6 @@ export const fetchTrendingProjects = createAsyncThunk(
         }).then((res) => res.json());
         callBack('success');
 
-        console.log(resp);
         return resp.data;
       } catch (e) {
         console.log(e);
@@ -282,7 +264,7 @@ type FilterKey =
 interface FetchTop3ProjectsPayload {
   filter: FilterKey;
   tokenValue: string;
-  dateFilter: 'daily' | 'weekly';
+  dateFilter: TrendsDateFilterType;
 }
 
 export const fetchTop3Projects = createAsyncThunk(
@@ -304,8 +286,6 @@ export const fetchTop3Projects = createAsyncThunk(
             },
           }
         ).then((res) => res.json());
-
-        console.log(resp);
 
         if (filter === 'top-bull') {
           dispatch(setTop3bullProjects(resp.data));
@@ -359,23 +339,63 @@ export const fetchTop3LowestProjects = createAsyncThunk(
   }
 );
 
+export interface TrendsProjectsByInfluencersPayload {
+  tokenValue: string;
+  dateFilter: TrendsDateFilterType;
+}
+
 export const fetchProjectsByInfluencers = createAsyncThunk(
   'projects/GET_PROJECTS_BY_INFLUENCERS',
-  async (tokenValue: string) => {
+  async ({ tokenValue, dateFilter }: TrendsProjectsByInfluencersPayload) => {
     if (tokenValue || token) {
       try {
         const resp = await fetch(
-          `${api}/projects?filters[top]=influencer&limit=5`,
+          `${apiv1}/trends/influencer-top-mentioned-projects-${dateFilter}?take=5`,
           {
             headers: {
               Authorization: `Bearer ${tokenValue || token}`,
             },
           }
         ).then((res) => res.json());
-        return resp.result;
+
+        const projectsByInfluencers = resp.data.map(
+          (item: { place: number; project: Project }) => {
+            return item.project;
+          }
+        );
+
+        return projectsByInfluencers;
       } catch (e) {
         console.log(e);
       }
     }
   }
 );
+
+// export const fetchProjectsPick = createAsyncThunk(
+//   'projects/GET_PROJECT_PICKS',
+//   async ({ tokenValue, dateFilter }: TrendsProjectsByInfluencersPayload) => {
+//     if (tokenValue) {
+//       try {
+//         const resp = await fetch(
+//           `${apiv1}/trends/influencer-top-mentioned-projects-${dateFilter}?take=10`,
+//           {
+//             headers: {
+//               Authorization: `Bearer ${tokenValue}`,
+//             },
+//           }
+//         ).then((res) => res.json());
+
+//         const pickedProjects = resp.data.map(
+//           (item: { place: number; project: Project }) => {
+//             return item.project;
+//           }
+//         );
+
+//         return pickedProjects;
+//       } catch (e) {
+//         console.log(e);
+//       }
+//     }
+//   }
+// );
