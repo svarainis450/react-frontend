@@ -5,7 +5,7 @@ import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { useNavigateHook } from 'src/hooks';
 import { LinkList } from 'src/types';
 import { RootState } from '../slice';
-import { api } from '../types';
+import { api, apiv1 } from '../types';
 import {
   set3LowestTalkRateProjects,
   setInfluencers,
@@ -115,47 +115,6 @@ export const fetchProjectById = createAsyncThunk(
       } catch (e) {
         console.log(e);
       }
-    }
-  }
-);
-
-interface TrendingProjectsPayload {
-  callBack: Dispatch<SetStateAction<Statuses>>;
-  filter: SubmenuFilters;
-  categoryFilter?: CategoryTags;
-  tokenValue?: string;
-}
-
-export const fetchTrendingProjects = createAsyncThunk(
-  'projects/GET_TRENDING_PROJECTS',
-  async (
-    { filter, callBack, categoryFilter, tokenValue }: TrendingProjectsPayload,
-    { getState }
-  ) => {
-    const { user } = getState() as RootState;
-    const tokenFromState = user.user_token;
-
-    if ((tokenValue || tokenFromState) && filter) {
-      callBack('pending');
-
-      const url = categoryFilter
-        ? `${api}/projects/trending/${filter}?filter[category]=${categoryFilter.toLocaleLowerCase()}&limit=5`
-        : `${api}/projects/trending/${filter}?limit=5`;
-
-      try {
-        const resp = await fetch(url, {
-          headers: {
-            Authorization: `Bearer ${tokenValue || tokenFromState}`,
-          },
-        }).then((res) => res.json());
-        callBack('success');
-        return resp.result;
-      } catch (e) {
-        console.log(e);
-        callBack('error');
-      }
-    } else {
-      callBack('error');
     }
   }
 );
@@ -369,6 +328,51 @@ export const fetchMostFollowedInfluencers = createAsyncThunk(
       } catch (e) {
         console.log(e);
       }
+    }
+  }
+);
+
+//NEW API
+
+interface TrendingProjectsPayload {
+  callBack: Dispatch<SetStateAction<Statuses>>;
+  filter: SubmenuFilters;
+  categoryFilter?: CategoryTags;
+  tokenValue?: string;
+}
+
+export const fetchTrendingProjects = createAsyncThunk(
+  'projects/GET_TRENDING_PROJECTS',
+  async (
+    { filter, callBack, categoryFilter, tokenValue }: TrendingProjectsPayload,
+    { getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if ((tokenValue || tokenFromState) && filter) {
+      callBack('pending');
+
+      const url = categoryFilter
+        ? `${apiv1}/trends/trending-projects-${filter}?category=${categoryFilter.toLocaleLowerCase()}&take=5`
+        : `${apiv1}/trends/trending-projects-${filter}?take=5`;
+
+      try {
+        const resp = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${tokenValue || tokenFromState}`,
+          },
+        }).then((res) => res.json());
+        callBack('success');
+
+        console.log(resp);
+        return resp.data;
+      } catch (e) {
+        console.log(e);
+        callBack('error');
+      }
+    } else {
+      callBack('error');
     }
   }
 );

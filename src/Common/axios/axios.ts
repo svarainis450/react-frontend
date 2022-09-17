@@ -1,4 +1,5 @@
 import axios, { Canceler } from 'axios';
+import { apiv1 } from 'src/state/reduxstate/types';
 import {
   cleanUpSessionWhenUnauthorized,
   applyRequestSuffix,
@@ -7,8 +8,8 @@ import {
 
 const API_URL =
   process.env.NODE_ENV === 'development'
-    ? 'https://api.potato.to' //change to dev
-    : 'https://api.potato.to';
+    ? apiv1 //change to dev
+    : apiv1;
 
 export const axiosInstance = axios.create({
   baseURL: API_URL,

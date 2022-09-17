@@ -13,10 +13,22 @@ export interface UserDataType {
   email: string;
   firstName: string;
   lastName: string;
-  market: number;
-  img?: any;
+  market: number; //market sentiment rate
+  img?: string;
   password?: string;
   id?: number;
+  subscription?: {
+    type: 'pro' | 'starter';
+    billingMethod: 'yearly' | 'monthly';
+  };
+
+  paymentMethod?: [
+    {
+      id: number;
+      paymentMethod: 'Card' | 'Paypal' | 'Crypto';
+      expirationDate: string;
+    }
+  ];
 }
 
 export interface UserState {

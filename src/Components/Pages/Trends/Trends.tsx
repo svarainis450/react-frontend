@@ -43,8 +43,8 @@ import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 
 export const Trends: React.FC = () => {
-  const [filter, setFilter] = useState<SubmenuFilters>('today');
-  const filterTitle = filter === 'last-week' ? 'Last Week' : 'Today';
+  const [filter, setFilter] = useState<SubmenuFilters>('daily');
+  const filterTitle = filter === 'weekly' ? 'Last Week' : 'Today';
   const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
   const [influencersStatus, setinfluencersStatus] = useState<Statuses>('idle');
   const dispatch = useAppDispatch();
@@ -58,7 +58,7 @@ export const Trends: React.FC = () => {
   const token = useSelector(userTokenSelector);
   const [selectCategory, setSelectCategory] = useState<
     CategoryTags | undefined
-  >(CategoryTags.coins);
+  >(undefined);
   const [offsetCount, setOffsetCount] = useState(0);
 
   const [influencersFilter, setInfluencersFilter] =
@@ -66,20 +66,20 @@ export const Trends: React.FC = () => {
   const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
     '1'
   );
-
+  console.log(token);
   useEffect(() => {
     if (token) {
-      dispatch(getFavProjects({ tokenValue: token }));
-      dispatch(
-        fetchInfluencers({
-          callBack: setinfluencersStatus,
-          filter: influencersFilter,
-          filterValue: inflFilterValue,
-          limit: 10,
-          offset: offsetCount,
-          tokenValue: token,
-        })
-      );
+      // dispatch(getFavProjects({ tokenValue: token }));
+      // dispatch(
+      //   fetchInfluencers({
+      //     callBack: setinfluencersStatus,
+      //     filter: influencersFilter,
+      //     filterValue: inflFilterValue,
+      //     limit: 10,
+      //     offset: offsetCount,
+      //     tokenValue: token,
+      //   })
+      // );
       dispatch(
         fetchTrendingProjects({
           filter: filter,
@@ -101,18 +101,18 @@ export const Trends: React.FC = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchProjectsPick(token));
-      dispatch(fetchProjectsByInfluencers(token));
-      dispatch(fetchTop3Projects({ filter: 'bull', tokenValue: token }));
-      dispatch(fetchTop3Projects({ filter: 'positive', tokenValue: token }));
-      dispatch(fetchTop3Projects({ filter: 'talk_rate', tokenValue: token }));
-      dispatch(fetchTop3LowestProjects({ filter: 'bear', tokenValue: token }));
-      dispatch(
-        fetchTop3LowestProjects({ filter: 'negative', tokenValue: token })
-      );
-      dispatch(
-        fetchTop3LowestProjects({ filter: 'lowest', tokenValue: token })
-      );
+      // dispatch(fetchProjectsPick(token));
+      // dispatch(fetchProjectsByInfluencers(token));
+      // dispatch(fetchTop3Projects({ filter: 'bull', tokenValue: token }));
+      // dispatch(fetchTop3Projects({ filter: 'positive', tokenValue: token }));
+      // dispatch(fetchTop3Projects({ filter: 'talk_rate', tokenValue: token }));
+      // dispatch(fetchTop3LowestProjects({ filter: 'bear', tokenValue: token }));
+      // dispatch(
+      //   fetchTop3LowestProjects({ filter: 'negative', tokenValue: token })
+      // );
+      // dispatch(
+      //   fetchTop3LowestProjects({ filter: 'lowest', tokenValue: token })
+      // );
     }
 
     //   setTimeout(() => {

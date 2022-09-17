@@ -11,7 +11,7 @@ import './TrendingProjectCard.scss';
 interface ProjectCardProps {
   categoryTitle: CategoryTags;
   projectTitle: string;
-  mentions: string;
+  mentions: number;
   rankNumber: number;
   img: string;
   id: number;
@@ -46,11 +46,12 @@ export const TrendingProjectCard: React.FC<ProjectCardProps> = ({
             className="trending-project-card__grey-text"
             weight={TypographyWeight.THIN}
           >
-            {mentions}
+            Mentioned {mentions} times
           </Typography>
         </div>
       </div>
-      <CategoryTag tagTitle={categoryTitle} />
+      {/* @ts-ignore */}
+      <CategoryTag tagTitle={CategoryTags[categoryTitle]} />
     </li>
   );
 };

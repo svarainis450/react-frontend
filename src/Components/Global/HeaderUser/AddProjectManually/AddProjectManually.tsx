@@ -22,7 +22,7 @@ export const AddProjectManually: React.FC = () => {
     started: '2017 01 21',
     img: images.bitkoin,
     tag: {
-      name: CategoryTags.NFT,
+      name: CategoryTags.nft,
       color: '',
     },
     rateData: {
@@ -88,7 +88,7 @@ export const AddProjectManually: React.FC = () => {
               </Typography>
               <CategoryTag isCaptionSizeTag tagTitle={demoProject.tag.name} />
             </div>
-            {demoProject.tag.name === CategoryTags.NFT && (
+            {demoProject.tag.name === CategoryTags.nft && (
               <div className="verified-icon">
                 <img src={icons.verified_checkmark} alt="Verified account" />
               </div>

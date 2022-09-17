@@ -27,6 +27,8 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
 
+  console.log(trendingProjects);
+
   return (
     <div className="Category">
       <div className="Category__block">
@@ -64,17 +66,22 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
           <Typography className="Category__block-subtitle">Today</Typography>
           {trendingProjects ? (
             <ul className="Category__projects-wrapper">
-              {trendingProjects.map((item, index) => (
-                <TrendingProjectCard
-                  key={item.id}
-                  id={item.id}
-                  rankNumber={index + 1}
-                  projectTitle={item.name}
-                  mentions={item.additional}
-                  categoryTitle={item.tag.name as CategoryTags}
-                  img={item.img || icons.no_image}
-                />
-              ))}
+              {trendingProjects.map(
+                (
+                  { category, project_name, mentions_num, img, place },
+                  index
+                ) => (
+                  <TrendingProjectCard
+                    key={place}
+                    id={place}
+                    rankNumber={index + 1}
+                    projectTitle={project_name}
+                    mentions={mentions_num}
+                    categoryTitle={category as unknown as CategoryTags}
+                    img={img || icons.no_image}
+                  />
+                )
+              )}
             </ul>
           ) : (
             <LoadError />

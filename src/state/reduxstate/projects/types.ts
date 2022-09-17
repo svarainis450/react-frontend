@@ -1,5 +1,32 @@
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
+export interface ProjectsState {
+  trending_projects: TrendingProject[];
+
+  //OLD API
+
+  projects: Project[];
+  project_filter_key: ProjectFilterKeys | null;
+  project_by_id: Project;
+  projects_count: number;
+  status: Statuses;
+  influencers: Influencer[];
+  influencers_count: number;
+  influencers_picks: [];
+  project_picks: ProjectPicks[];
+  top_3_bull: Project[];
+  top_3_talk_rate: Project[];
+  top_3_positive: Project[];
+  top_3_lowest_talk_rate: Project[];
+  top_3_negative: Project[];
+  top_3_bear: Project[];
+  projects_by_influencers: Project[];
+  most_followed_influencers: Influencer[];
+  influencers_pages_data: {
+    page: number;
+    pages: number;
+  };
+}
 export interface RateData {
   talkRate: number;
   talkRateChanges: number;
@@ -25,6 +52,12 @@ export interface Project {
 }
 
 export interface TrendingProject {
+  place: number;
+  category: typeof CategoryTags;
+  project_name: string;
+  project_symbol: string;
+  mentions_num: number;
+  //TODO: REMOVE
   id: number;
   name: string;
   ticker: string;
@@ -66,34 +99,9 @@ export interface Influencer extends ProjectPicks {
   };
 }
 
-export interface ProjectsState {
-  projects: Project[];
-  project_filter_key: ProjectFilterKeys | null;
-  project_by_id: Project;
-  projects_count: number;
-  status: Statuses;
-  trending_projects: TrendingProject[];
-  influencers: Influencer[];
-  influencers_count: number;
-  influencers_picks: [];
-  project_picks: ProjectPicks[];
-  top_3_bull: Project[];
-  top_3_talk_rate: Project[];
-  top_3_positive: Project[];
-  top_3_lowest_talk_rate: Project[];
-  top_3_negative: Project[];
-  top_3_bear: Project[];
-  projects_by_influencers: Project[];
-  most_followed_influencers: Influencer[];
-  influencers_pages_data: {
-    page: number;
-    pages: number;
-  };
-}
-
 export const tags = [
   CategoryTags.coins,
-  CategoryTags.NFT,
+  CategoryTags.nft,
   // CategoryTags.DAO,
   // CategoryTags.meta,
   // CategoryTags.defi,
@@ -138,4 +146,4 @@ export enum PaymentDetailTypes {
   MASTERCARD = 'Mastercard',
 }
 
-export type SubmenuFilters = 'today' | 'last-week' | 'upcomming';
+export type SubmenuFilters = 'daily' | 'weekly' | 'upcomming';
