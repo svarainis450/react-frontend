@@ -11,6 +11,7 @@ import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
 
 import { ProjectPicksList } from '../ProjectPicksList/ProjectPicksList';
+import { CategoryTags } from '../types';
 import './ProjectPicksTable.scss';
 
 interface ProjectPicksProps {
@@ -70,7 +71,8 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                   </div>
                 </div>
                 <div>
-                  <CategoryTag tagTitle={category} />
+                  {/* @ts-ignore */}
+                  <CategoryTag tagTitle={CategoryTags[category]} />
                 </div>
                 <Typography className="project-picks__row__thin-text__positioned">
                   {calculateBigNumberValues(post_count)}

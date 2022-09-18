@@ -2,6 +2,8 @@ import { AppState } from '../types';
 
 export const projectPicksSelector = (s: AppState) =>
   s.influencers.project_picks;
+export const trendingInfluencersSelector = (s: AppState) =>
+  s.influencers.trending_influencers;
 
 // export const projectsSelector = (s: AppState) => s.projects.projects;
 // export const projectsCounttSelector = (s: AppState) =>

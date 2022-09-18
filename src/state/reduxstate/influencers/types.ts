@@ -3,6 +3,12 @@ import { Project } from '../projects/types';
 
 export interface InfluencersState {
   project_picks: Influencer[];
+  trending_influencers: {
+    trending_influencers: Influencer[];
+    pages: number;
+    page: number;
+    skip: number;
+  };
 }
 
 export interface Influencer {

@@ -3,9 +3,10 @@ import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { TrendsProjectsByInfluencersPayload } from '../projects/thunks';
-import { Project } from '../projects/types';
+import { Project, TrendsDateFilterType } from '../projects/types';
 import { RootState } from '../slice';
 import { api, apiv1 } from '../types';
+import { setTrendingInfluencers } from './slice';
 // import {
 //   setInfluencers,
 //   setInfluencersCount,
@@ -24,7 +25,7 @@ export const fetchProjectsPick = createAsyncThunk(
     if (tokenValue) {
       try {
         const resp = await fetch(
-          `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10`,
+          `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10&order=ASC`,
           {
             headers: {
               Authorization: `Bearer ${tokenValue}`,
@@ -33,6 +34,48 @@ export const fetchProjectsPick = createAsyncThunk(
         ).then((res) => res.json());
 
         console.log(resp);
+
+        return resp.data;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+export interface TrendingInfluencersPayload {
+  tokenValue: string;
+  dateFilter: TrendsDateFilterType;
+  skip: number | null;
+  take: number;
+}
+
+export const fetchTrendingInfluencers = createAsyncThunk(
+  'influencers/GET_TRENDING_INFLUENCERS',
+  async (
+    { tokenValue, dateFilter, skip, take }: TrendingInfluencersPayload,
+    { dispatch }
+  ) => {
+    const url = skip
+      ? `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=${take}&skip=${skip}`
+      : `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10`;
+
+    if (tokenValue) {
+      try {
+        const resp = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${tokenValue}`,
+          },
+        }).then((res) => res.json());
+
+        dispatch(
+          setTrendingInfluencers({
+            pages: resp.meta.pages,
+            skip: resp.meta.skip,
+            page: resp.meta.page,
+            trending_influencers: resp.data,
+          })
+        );
 
         return resp.data;
       } catch (e) {

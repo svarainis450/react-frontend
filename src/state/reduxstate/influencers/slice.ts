@@ -1,23 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchProjectsPick } from './thunks';
-import { InfluencersState } from './types';
+import { Influencer, InfluencersState } from './types';
 
 const initialState: InfluencersState = {
   project_picks: [],
+  trending_influencers: {
+    skip: 0,
+    trending_influencers: [],
+    pages: 0,
+    page: 1,
+  },
 };
 
 const influencersSlice = createSlice({
   name: 'influencers',
   initialState,
   reducers: {
-    //   setTop3TalkRateProjects: (
-    //     state: {
-    //       top_3_talk_rate: InfluencersState['top_3_talk_rate'];
-    //     },
-    //     action: PayloadAction<InfluencersState['top_3_talk_rate']>
-    //   ) => {
-    //     state.top_3_talk_rate = action.payload;
-    //   },
+    setTrendingInfluencers: (
+      state: {
+        trending_influencers: InfluencersState['trending_influencers'];
+      },
+      action: PayloadAction<InfluencersState['trending_influencers']>
+    ) => {
+      state.trending_influencers = action.payload;
+    },
     //   set3LowestTalkRateProjects: (
     //     state: {
     //       top_3_lowest_talk_rate: InfluencersState['top_3_lowest_talk_rate'];
@@ -122,6 +128,7 @@ const influencersSlice = createSlice({
 });
 
 export const {
+  setTrendingInfluencers,
   // setStatus,
   // setProjectsFilterKey,
   // setTop3PositiveProjects,
