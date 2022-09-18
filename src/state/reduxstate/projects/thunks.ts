@@ -14,6 +14,7 @@ import {
   setProjectById,
   setProjects,
   setProjectsCount,
+  setProjectsData,
   setTop3BearProjects,
   setTop3bullProjects,
   setTop3NegativeProjects,
@@ -29,60 +30,6 @@ import {
   SubmenuFilters,
   TrendsDateFilterType,
 } from './types';
-
-interface ProjectsPayload {
-  callBack: Dispatch<SetStateAction<Statuses>>;
-  filter: ProjectFilterKeys;
-  offset: number;
-  filterValue?: CategoryTags | number | string;
-}
-
-const token = JSON.parse(String(localStorage.getItem('token')));
-
-export const fetchProjects = createAsyncThunk(
-  'projects/GET_PROJECTS',
-  async (
-    { callBack, filter, offset, filterValue = 1 }: ProjectsPayload,
-    { dispatch, getState }
-  ) => {
-    const { user } = getState() as RootState;
-    const tokenFromState = user.user_token;
-
-    const url =
-      filter.length > 0
-        ? `${api}/projects/today?filters[${filter}]=${filterValue}&limit=52&offset=${offset}`
-        : `${api}/projects/today?limit=52&offset=${offset}`;
-
-    if (token || tokenFromState) {
-      try {
-        callBack('pending');
-        const resp = await fetch(url, {
-          headers: {
-            Authorization: `Bearer ${token || tokenFromState}`,
-          },
-        }).then((res) => res.json());
-
-        const { projects } = getState() as RootState;
-        dispatch(setProjectsCount(resp.count));
-
-        if (offset >= 52) {
-          const expandedProjects = concat(projects.projects, resp.result);
-          const uniqueProjects = [
-            ...(new Set(expandedProjects) as unknown as Project[]),
-          ];
-          dispatch(setProjects(uniqueProjects));
-        } else {
-          dispatch(setProjects(resp.result));
-        }
-        callBack('success');
-      } catch (e) {
-        callBack('error');
-
-        console.log(e);
-      }
-    }
-  }
-);
 
 interface ProjectByIdPayload {
   id: number;
@@ -210,6 +157,81 @@ export const fetchMostFollowedInfluencers = createAsyncThunk(
 );
 
 //NEW API
+
+interface ProjectsPayload {
+  callBack: Dispatch<SetStateAction<Statuses>>;
+  filter: ProjectFilterKeys;
+  skip: number | null;
+  filterValue?: CategoryTags | number | string;
+}
+
+const token = JSON.parse(String(localStorage.getItem('token')));
+
+export const fetchProjects = createAsyncThunk(
+  'projects/GET_PROJECTS_DATA',
+  async (
+    { callBack, filter, skip, filterValue = 1 }: ProjectsPayload,
+    { dispatch, getState }
+  ) => {
+    const { user, projects } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    // const url =
+    //   filter.length > 0
+    //     ? `${apiv1}/projects/today?filters[${filter}]=${filterValue}&limit=52&offset=${offset}`
+    //     : `${apiv1}/projects/today?limit=52&offset=${offset}`;
+    const url = skip
+      ? `${apiv1}/projects?take=52&orderBy=${filter}&skip=${skip}`
+      : `${apiv1}/projects?take=52`;
+
+    if (token || tokenFromState) {
+      try {
+        callBack('pending');
+        const resp = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${token || tokenFromState}`,
+          },
+        }).then((res) => res.json());
+
+        console.log(resp);
+
+        dispatch(
+          setProjectsData({
+            projects: resp.data,
+            meta: resp.meta,
+          })
+        );
+
+        const { projects } = getState() as RootState;
+
+        if (skip && skip >= 52) {
+          const expandedProjects = concat(projects.projects, resp.result);
+          const uniqueProjects = [
+            ...(new Set(expandedProjects) as unknown as Project[]),
+          ];
+          dispatch(
+            setProjectsData({
+              ...projects.projects_data,
+              projects: uniqueProjects,
+            })
+          );
+        } else {
+          dispatch(
+            setProjectsData({
+              projects: resp.data,
+              meta: resp.meta,
+            })
+          );
+        }
+        callBack('success');
+      } catch (e) {
+        callBack('error');
+
+        console.log(e);
+      }
+    }
+  }
+);
 
 interface TrendingProjectsPayload {
   callBack: Dispatch<SetStateAction<Statuses>>;

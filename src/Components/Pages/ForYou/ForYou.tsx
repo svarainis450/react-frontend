@@ -95,7 +95,7 @@ export const ForYou: React.FC = () => {
       fetchProjects({
         filter: projectsFilter,
         callBack: setProjectStatus,
-        offset: offsetCount,
+        skip: offsetCount,
         filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );

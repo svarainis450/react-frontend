@@ -9,6 +9,7 @@ import {
   Influencer,
   Project,
   ProjectFilterKeys,
+  ProjectsDataType,
   ProjectsState,
   Statuses,
 } from './types';
@@ -33,6 +34,16 @@ const initialState: ProjectsState = {
   projects_by_influencers: [],
   most_followed_influencers: [],
   influencers_pages_data: { page: 0, pages: 0 },
+  projects_data: {
+    meta: {
+      skip: 0,
+      take: 52,
+      total: 0,
+      page: 1,
+      pages: 0,
+    },
+    projects: [],
+  },
 };
 
 const projectsSlice = createSlice({
@@ -107,6 +118,12 @@ const projectsSlice = createSlice({
     ) => {
       state.projects = action.payload;
     },
+    setProjectsData: (
+      state: { projects_data: ProjectsState['projects_data'] },
+      action: PayloadAction<ProjectsDataType>
+    ) => {
+      state.projects_data = action.payload;
+    },
     setProjectsCount: (
       state: { projects_count: ProjectsState['projects_count'] },
       action: PayloadAction<number>
@@ -179,6 +196,7 @@ const projectsSlice = createSlice({
 
 export const {
   setStatus,
+  setProjectsData,
   setProjectsFilterKey,
   setTop3PositiveProjects,
   setTop3bullProjects,

@@ -9,6 +9,8 @@ export interface ProjectsState {
   top_3_negative: TopOrLowestProject[];
   top_3_bear: TopOrLowestProject[];
   projects_by_influencers: Project[];
+  projects_data: ProjectsDataType;
+
   // project_picks: Project[];
 
   //OLD API
@@ -34,9 +36,20 @@ export interface RateData {
   bullRatio: number;
 }
 
+export interface ProjectsDataType {
+  projects: Project[];
+  meta?: {
+    skip: number;
+    page: number;
+    pages: number;
+    total: number;
+    take: number;
+  };
+}
 export interface Project {
   id: number;
   coinbase_url: string;
+  nft_address: string;
   first_historical_data: string;
   img_url: string;
   max_scraped_tweet_id: 12345;
@@ -47,7 +60,7 @@ export interface Project {
   sentiment_score: number;
   bull_bear_score: number;
   talk_rate_daily_change: number;
-  project_twitter_user_card: number;
+  project_twitter_user_card: Influencer[];
   chart_price: {
     date: string;
     three_hour_price: string;
