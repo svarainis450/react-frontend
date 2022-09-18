@@ -184,12 +184,12 @@ export enum ProjectFilterKeys {
 
 export enum InfluencerFilterKeys {
   TOP_EXPERT = 'top_expert',
-  FOLLOWERS = 'followers',
+  FOLLOWERS = 'twitter_followers',
   MOST_ACTIVE = 'active',
-  BULLSEYE = 'bullseye',
-  FIRST_MOVER = 'first_mover',
-  REVIEWER = 'reviewer',
-  CATEGORY = 'category',
+  BULLSEYE = 'bullseye_score',
+  FIRST_MOVER = 'first_mover_reviewer_score', //ASC
+  REVIEWER = 'first_mover_reviewer_score', //DESC
+  CATEGORY = 'influence_score',
   RATE = 'rate',
   NAME = 'name',
   NONE = '',

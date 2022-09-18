@@ -3,10 +3,16 @@ import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { TrendsProjectsByInfluencersPayload } from '../projects/thunks';
-import { Project, TrendsDateFilterType } from '../projects/types';
+import {
+  InfluencerFilterKeys,
+  Project,
+  Statuses,
+  TrendsDateFilterType,
+} from '../projects/types';
 import { RootState } from '../slice';
 import { api, apiv1 } from '../types';
-import { setTrendingInfluencers } from './slice';
+import { setInfluencersData, setTrendingInfluencers } from './slice';
+import { InfluencerData } from './types';
 // import {
 //   setInfluencers,
 //   setInfluencersCount,
@@ -85,73 +91,73 @@ export const fetchTrendingInfluencers = createAsyncThunk(
   }
 );
 
-// interface InfluencersPayload {
-//   callBack: Dispatch<SetStateAction<Statuses>>;
-//   filter: InfluencerFilterKeys;
-//   limit?: number;
-//   offset: number;
-//   filterValue?: string | CategoryTags;
-//   tokenValue?: string;
-// }
+interface InfluencersPayload {
+  tokenValue?: string;
+  callBack: Dispatch<SetStateAction<Statuses>>;
+  filter: InfluencerFilterKeys;
+  skip: number | null;
+}
 
-// export const fetchInfluencers = createAsyncThunk(
-//   'projects/GET_INFLUENCERS',
-//   async (
-//     {
-//       callBack,
-//       filter,
-//       limit = 52,
-//       offset,
-//       filterValue = '1',
-//       tokenValue,
-//     }: InfluencersPayload,
-//     { dispatch, getState }
-//   ) => {
-//     const filterType = String(filter).toLowerCase();
-//     const filterValuePure = filterValue.toLocaleLowerCase();
-//     const url = filter
-//       ? `${api}/influencers/today?filter[${filterType}]=${filterValuePure}&limit=${limit}&offset=${offset}`
-//       : `${api}/influencers/today?limit=${limit}&offset=${offset}`;
+export const fetchInfluencers = createAsyncThunk(
+  'projects/GET_INFLUENCERS',
+  async (
+    { callBack, filter, skip, tokenValue }: InfluencersPayload,
+    { dispatch, getState }
+  ) => {
+    const filterValue = filter ? `&orderBy=${filter}` : '';
+    const url = skip
+      ? `${apiv1}/twitter-users?take=52&skip=${skip}${filterValue}`
+      : `${apiv1}/twitter-users?take=52${filterValue}`;
 
-//     callBack('pending');
-//     if (tokenValue || token) {
-//       try {
-//         const resp = await fetch(url, {
-//           headers: {
-//             Authorization: `Bearer ${tokenValue || token}`,
-//           },
-//         }).then((res) => res.json());
+    callBack('pending');
+    if (tokenValue || token) {
+      try {
+        const resp = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${tokenValue || token}`,
+          },
+        }).then((res) => res.json());
 
-//         const { projects } = getState() as RootState;
+        const { influencers } = getState() as RootState;
+        const influencersArray = influencers.influencers_data.influencers;
 
-//         dispatch(setInfluencersCount(resp.count));
+        console.log(resp);
 
-//         if (offset >= 50) {
-//           const expandedInfluencers = concat(projects.influencers, resp.result);
-//           const uniqueInfluencers = [
-//             ...(new Set(expandedInfluencers) as unknown as Influencer[]),
-//           ];
-//           dispatch(setInfluencers(uniqueInfluencers));
-//         } else {
-//           dispatch(setInfluencers(resp.result));
-//         }
+        if (skip && skip >= 52) {
+          const expandedInfluencers = concat(influencersArray, resp.data);
+          const uniqueInfluencers = [
+            ...(new Set(expandedInfluencers) as unknown as InfluencerData[]),
+          ];
+          dispatch(
+            setInfluencersData({
+              ...influencers.influencers_data,
+              influencers: uniqueInfluencers,
+            })
+          );
+        } else {
+          dispatch(
+            setInfluencersData({
+              meta: resp.meta,
+              influencers: resp.data,
+            })
+          );
+        }
 
-//         callBack('success');
-//         console.log(resp);
+        callBack('success');
 
-//         dispatch(
-//           setInfluencersPages({
-//             page: resp.page,
-//             pages: resp.pages,
-//           })
-//         );
-//       } catch (e) {
-//         callBack('error');
-//         console.log(e);
-//       }
-//     }
-//   }
-// );
+        // dispatch(
+        //   setInfluencersPages({
+        //     page: resp.page,
+        //     pages: resp.pages,
+        //   })
+        // );
+      } catch (e) {
+        callBack('error');
+        console.log(e);
+      }
+    }
+  }
+);
 
 // export const fetchMostFollowedInfluencers = createAsyncThunk(
 //   'projects/GET_MOST_FOLLOWED_INFLUENCERS',

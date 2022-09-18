@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import {
-  Influencer,
-  Statuses,
-  tags,
-} from 'src/state/reduxstate/projects/types';
+import { InfluencerData } from 'src/state/reduxstate/influencers/types';
+import { Statuses, tags } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
 import {
@@ -28,7 +25,7 @@ import {
 
 import './InfluencerCard.scss';
 
-interface InfluencerCardProps extends Influencer {
+interface InfluencerCardProps extends InfluencerData {
   bullseyeChange?: number;
   influence?: number;
   influenceChange?: number;
@@ -37,15 +34,14 @@ interface InfluencerCardProps extends Influencer {
 export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   bullseyeChange = 2,
   id,
-  tagName,
-  name,
-  img,
-  influence = 55,
+  influence_score = 55,
   influenceChange = -6,
-  flag,
-  followers = 28000,
-  posts = 859,
-  bullseye,
+  twitter_followers = 28000,
+  listed_count = 859,
+  twitter_displayname,
+  twitter_img_url,
+  twitter_username,
+  twitter_is_verified,
 }) => {
   const dispatch = useAppDispatch();
   const subscribedInfluencers = useSelector(subscribedInfluencersSelector);
@@ -56,8 +52,8 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   const [subscribed, setSubscribed] = useState(false);
   const [status, setStatus] = useState<Statuses>('idle');
 
-  const followersCalculated = calculateBigNumberValues(followers);
-  const postCountCaluclated = calculateBigNumberValues(posts);
+  const followersCalculated = calculateBigNumberValues(twitter_followers);
+  const postCountCaluclated = calculateBigNumberValues(listed_count);
   const isSubscribedInfluencer = subscribedInfluencers.find(
     (influencer) => influencer.id === id
   );
@@ -88,9 +84,9 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
     }
   };
 
-  useEffect(() => {
-    dispatch(getFavInfluencers());
-  }, [subscribed]);
+  // useEffect(() => {
+  //   dispatch(getFavInfluencers());
+  // }, [subscribed]);
 
   return (
     <div className="wrapper">
@@ -100,8 +96,8 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
             <div className="flex-wrapper border">
               <img
                 className="influencer-card__border-wrapper__avatar"
-                src={imgErr.id === id ? icons.no_image : img}
-                alt={name}
+                src={imgErr.id === id ? icons.no_image : twitter_img_url}
+                alt={twitter_username}
                 onError={() =>
                   setImgErr({
                     id,
@@ -111,12 +107,14 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
               />
               <div>
                 <Typography weight={TypographyWeight.MEDIUM}>
-                  {tagName}
+                  {twitter_displayname}
                 </Typography>
-                <Typography className="grey-text">{name}</Typography>
+                <Typography className="grey-text">
+                  {twitter_username}
+                </Typography>
               </div>
             </div>
-            {flag === 'expert' && (
+            {twitter_is_verified && (
               <img
                 className="influencer-card__border-wrapper__top-expert"
                 src={isTablet ? icons.top_expert_mobile : icons.top_expert}
@@ -125,7 +123,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
             )}
             {isTablet && (
               <TalkRateElement
-                rate={bullseye}
+                rate={influence_score}
                 type="bullseye"
                 isBiggerBullseye
               />
@@ -258,7 +256,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
               <div className="influencer-card__border-wrapper flex">
                 <div>
                   <TalkRateElement
-                    rate={influence}
+                    rate={influence_score}
                     type="influence"
                     isBiggerBullseye
                   />

@@ -10,11 +10,7 @@ import {
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import {
-  projectsCounttSelector,
-  projectsDataSelector,
-  projectsSelector,
-} from 'src/state/reduxstate/projects/selectors';
+import { projectsDataSelector } from 'src/state/reduxstate/projects/selectors';
 import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 
@@ -29,8 +25,7 @@ import { Button } from 'src/Components/Global/Button';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { scrollToElement } from 'src/utils/scrollers';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
-import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
-import { Typography } from '@mui/material';
+import { Typography } from 'src/Components/Global/Typography';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -52,33 +47,19 @@ export const submenuList: SubmenuListProps[] = [
 
 export const Discover: React.FC = () => {
   const dispatch = useAppDispatch();
-  const userToken = useSelector(userTokenSelector);
   const projectsData = useSelector(projectsDataSelector);
   const projects = projectsData.projects;
-  const projectsCount = useSelector(projectsCounttSelector);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
-  const [offsetCount, setOffsetCount] = useState(0);
   const [skipElements, setSkipElements] = useState<number | null>(null);
-
+  const skipElementsValue = skipElements === null ? 0 : skipElements;
   const notAllToShow =
-    (skipElements !== null && skipElements) <
-    (projectsData &&
-      projectsData.meta !== undefined &&
-      projectsData.meta.total !== undefined &&
-      projectsData.meta.total);
+    (skipElements !== null && skipElements) < Number(projectsData?.meta?.total);
   const [seenAll, setSeenAll] = useState('');
   const projectsLeftToSee =
-    Number(
-      projectsData &&
-        projectsData.meta !== undefined &&
-        projectsData.meta.total !== undefined &&
-        projectsData.meta.total
-    ) - Number(skipElements !== null && skipElements);
-
-  console.log(projects);
-  console.log(projectsData.meta?.total);
+    Number(projectsData?.meta?.total) -
+    Number(skipElements !== null && skipElements);
 
   useEffect(() => {
     if (
@@ -97,10 +78,10 @@ export const Discover: React.FC = () => {
   }, [skipElements, projectsFilter]);
 
   const handleLoadMoreBtn = () => {
-    if (notAllToShow && projectsLeftToSee >= 52 && skipElements) {
-      setSkipElements(skipElements + 52);
-    } else if (notAllToShow && projectsLeftToSee < 52 && skipElements) {
-      setSkipElements(skipElements + projectsLeftToSee);
+    if (notAllToShow && projectsLeftToSee >= 52) {
+      setSkipElements(skipElementsValue + 52);
+    } else if (notAllToShow && projectsLeftToSee < 52) {
+      setSkipElements(skipElementsValue + projectsLeftToSee);
       const seenAll = 'You`ve seen it all';
       setSeenAll(seenAll);
     } else {
@@ -148,7 +129,7 @@ export const Discover: React.FC = () => {
                   <Element
                     key={index}
                     name={
-                      index === offsetCount ? 'card-to-scroll' : 'no-scroll'
+                      index === skipElements ? 'card-to-scroll' : 'no-scroll'
                     }
                   >
                     <ProjectCard

@@ -195,17 +195,10 @@ export const fetchProjects = createAsyncThunk(
 
         console.log(resp);
 
-        dispatch(
-          setProjectsData({
-            projects: resp.data,
-            meta: resp.meta,
-          })
-        );
-
         const { projects } = getState() as RootState;
 
         if (skip && skip >= 52) {
-          const expandedProjects = concat(projects.projects, resp.result);
+          const expandedProjects = concat(projects.projects, resp.data);
           const uniqueProjects = [
             ...(new Set(expandedProjects) as unknown as Project[]),
           ];

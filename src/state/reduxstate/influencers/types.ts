@@ -9,6 +9,7 @@ export interface InfluencersState {
     page: number;
     skip: number;
   };
+  influencers_data: InfluencersDataType;
 }
 
 export interface Influencer {
@@ -38,4 +39,37 @@ export interface Influencer {
   channel: string;
   project: Project[];
   link_to_post: string;
+}
+
+export interface InfluencerData {
+  id: number;
+  twitter_username: string;
+  twitter_displayname: string;
+  is_active: false;
+  name: string;
+  surname: string;
+  twitter_img_url: string;
+  twitter_followers: number;
+  twitter_is_verified: false;
+  twitter_description: string;
+  friends_count: number;
+  statuses_count: number;
+  favourites_count: number;
+  listed_count: number;
+  external_link: string;
+  is_bot: false;
+  influence_score: number;
+  bullseye_score: number;
+  first_mover_reviewer_score: number;
+}
+
+export interface InfluencersDataType {
+  influencers: InfluencerData[];
+  meta?: {
+    skip: number;
+    page: number;
+    pages: number;
+    total: number;
+    take: number;
+  };
 }

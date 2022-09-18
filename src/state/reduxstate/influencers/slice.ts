@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchProjectsPick } from './thunks';
-import { Influencer, InfluencersState } from './types';
+import { InfluencersDataType, InfluencersState } from './types';
 
 const initialState: InfluencersState = {
   project_picks: [],
@@ -9,6 +9,16 @@ const initialState: InfluencersState = {
     trending_influencers: [],
     pages: 0,
     page: 1,
+  },
+  influencers_data: {
+    meta: {
+      skip: 0,
+      take: 52,
+      total: 0,
+      page: 1,
+      pages: 0,
+    },
+    influencers: [],
   },
 };
 
@@ -23,6 +33,12 @@ const influencersSlice = createSlice({
       action: PayloadAction<InfluencersState['trending_influencers']>
     ) => {
       state.trending_influencers = action.payload;
+    },
+    setInfluencersData: (
+      state: { influencers_data: InfluencersState['influencers_data'] },
+      action: PayloadAction<InfluencersDataType>
+    ) => {
+      state.influencers_data = action.payload;
     },
     //   set3LowestTalkRateProjects: (
     //     state: {
@@ -128,6 +144,7 @@ const influencersSlice = createSlice({
 });
 
 export const {
+  setInfluencersData,
   setTrendingInfluencers,
   // setStatus,
   // setProjectsFilterKey,
