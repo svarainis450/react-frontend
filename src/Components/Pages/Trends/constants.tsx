@@ -7,12 +7,12 @@ export const submenuList: Array<SubmenuListProps> = [
   {
     title: 'Today',
     icon: <Today />,
-    callBackKey: 'today',
+    callBackKey: 'daily',
   },
   {
     title: 'Last Week',
     icon: <LastWeek />,
-    callBackKey: 'last-week',
+    callBackKey: 'weekly',
   },
   // {
   //   title: 'Upcoming',

@@ -1,4 +1,4 @@
-import { Influencer } from 'src/state/reduxstate/projects/types';
+import { Influencer } from 'src/state/reduxstate/influencers/types';
 import {
   calculateBigNumberValues,
   generateProjectsText,
@@ -6,6 +6,7 @@ import {
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
+import { CategoryTags } from '../types';
 
 const HEADLINES = [
   'Influencer',
@@ -38,17 +39,13 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
         influencersData.map(
           (
             {
-              id,
-              name,
-              tagName,
-              img,
+              twitter_user,
               followers,
-              bullseye,
-              postCount,
+              post_count,
+              category,
               channel,
-              projects,
-              tag,
-              social,
+              project,
+              link_to_post,
             },
             index
           ) => {
@@ -60,15 +57,15 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                 <div className="influencers-picks__influencers-table__row__influencer">
                   <img
                     className="icon"
-                    alt={name || 'project'}
-                    src={img || icons.no_image}
+                    alt={twitter_user.twitter_username || 'Influencer'}
+                    src={twitter_user.twitter_img_url || icons.no_image}
                   />
                   <div>
                     <Typography className="influencers-picks__influencers-table__row__influencer__tag-name">
-                      {tagName}
+                      {twitter_user.twitter_displayname}
                     </Typography>
                     <Typography className="influencers-picks__influencers-table__row__influencer__name">
-                      {name}
+                      {twitter_user.twitter_username}
                     </Typography>
                   </div>
                 </div>
@@ -79,19 +76,22 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
               <TalkRateElement type="bullseye" rate={bullseye} />
             </div> */}
                 <div>
-                  <CategoryTag tagTitle={tag.name} />
+                  {/* @ts-ignore */}
+                  <CategoryTag tagTitle={CategoryTags[category]} />
                 </div>
                 <div className="influencers-picks__influencers-table__row__thin-text">
-                  <Typography>{calculateBigNumberValues(postCount)}</Typography>
+                  <Typography>
+                    {calculateBigNumberValues(post_count)}
+                  </Typography>
                 </div>
                 <div className="influencers-picks__influencers-table__row__thin-text">
                   <Typography>{channel}</Typography>
                 </div>
                 <div className="influencers-picks__influencers-table__row__projects">
                   <div className="influencers-picks__influencers-table__row__projects__overlapping-images">
-                    {projects &&
-                      projects.length > 0 &&
-                      projects.slice(0, 3).map((item) => {
+                    {project &&
+                      project.length > 0 &&
+                      project.slice(0, 3).map((item) => {
                         return (
                           <img
                             src={item.img || icons.no_image}
@@ -100,11 +100,11 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                         );
                       })}
                   </div>
-                  <Typography>{generateProjectsText(projects)}</Typography>
+                  <Typography>{generateProjectsText(project)}</Typography>
                 </div>
                 <div className="influencers-picks__influencers-table__row__link">
-                  {social && social.twitter && (
-                    <a href={social.twitter} target="_blank" rel="noreferrer">
+                  {link_to_post && (
+                    <a href={link_to_post} target="_blank" rel="noreferrer">
                       <img src={icons.link_arrow} alt="Link to post" />
                     </a>
                   )}

@@ -18,11 +18,13 @@ import { CustomSelectDropdown } from './CustomSelectDropdown';
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
   categoryCallback: Dispatch<SetStateAction<CategoryTags | undefined>>;
+  filterTitle: string;
 }
 
 export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   trendingProjects,
   categoryCallback,
+  filterTitle,
 }) => {
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
@@ -61,20 +63,27 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
           >
             Trending Projects
           </Typography>
-          <Typography className="Category__block-subtitle">Today</Typography>
+          <Typography className="Category__block-subtitle">
+            {filterTitle}
+          </Typography>
           {trendingProjects ? (
             <ul className="Category__projects-wrapper">
-              {trendingProjects.map((item, index) => (
-                <TrendingProjectCard
-                  key={item.id}
-                  id={item.id}
-                  rankNumber={index + 1}
-                  projectTitle={item.name}
-                  mentions={item.additional}
-                  categoryTitle={item.tag.name as CategoryTags}
-                  img={item.img || icons.no_image}
-                />
-              ))}
+              {trendingProjects.map(
+                (
+                  { category, project_name, mentions_num, img, place },
+                  index
+                ) => (
+                  <TrendingProjectCard
+                    key={index}
+                    id={place}
+                    rankNumber={index + 1}
+                    projectTitle={project_name}
+                    mentions={mentions_num}
+                    categoryTitle={category as unknown as CategoryTags}
+                    img={img || icons.no_image}
+                  />
+                )
+              )}
             </ul>
           ) : (
             <LoadError />

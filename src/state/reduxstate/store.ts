@@ -10,6 +10,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { useDispatch } from 'react-redux';
+import logger from 'redux-logger';
 import { rootReducer } from './slice';
 import storageSession from 'redux-persist/lib/storage/session';
 
@@ -17,7 +18,7 @@ const persistConfig = {
   key: 'root',
   storage: storageSession,
   blacklist: ['payments'], // blacklisted reducers which won't be saved in session storage
-  whitelist: ['projects', 'user'],
+  whitelist: ['projects', 'user', 'influencers'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -28,7 +29,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(logger),
 });
 
 export const persistor = persistStore(store);

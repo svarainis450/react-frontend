@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   fetchTrendingProjects,
   fetchProjects,
-  fetchProjectsPick,
   fetchProjectsByInfluencers,
   fetchMostFollowedInfluencers,
 } from './thunks';
@@ -10,6 +9,7 @@ import {
   Influencer,
   Project,
   ProjectFilterKeys,
+  ProjectsDataType,
   ProjectsState,
   Statuses,
 } from './types';
@@ -19,7 +19,7 @@ const initialState: ProjectsState = {
   project_filter_key: null,
   project_by_id: null as unknown as Project,
   projects_count: 0,
-  project_picks: [] as ProjectsState['project_picks'],
+  // project_picks: [] as ProjectsState['project_picks'],
   trending_projects: [] as ProjectsState['trending_projects'],
   status: 'idle' as Statuses,
   influencers: [] as ProjectsState['influencers'],
@@ -34,6 +34,16 @@ const initialState: ProjectsState = {
   projects_by_influencers: [],
   most_followed_influencers: [],
   influencers_pages_data: { page: 0, pages: 0 },
+  projects_data: {
+    meta: {
+      skip: 0,
+      take: 52,
+      total: 0,
+      page: 1,
+      pages: 0,
+    },
+    projects: [],
+  },
 };
 
 const projectsSlice = createSlice({
@@ -108,6 +118,12 @@ const projectsSlice = createSlice({
     ) => {
       state.projects = action.payload;
     },
+    setProjectsData: (
+      state: { projects_data: ProjectsState['projects_data'] },
+      action: PayloadAction<ProjectsDataType>
+    ) => {
+      state.projects_data = action.payload;
+    },
     setProjectsCount: (
       state: { projects_count: ProjectsState['projects_count'] },
       action: PayloadAction<number>
@@ -151,12 +167,12 @@ const projectsSlice = createSlice({
         state.trending_projects = action.payload;
       }
     );
-    builder.addCase(
-      fetchProjectsPick.fulfilled,
-      (state, action: PayloadAction<ProjectsState['project_picks']>) => {
-        state.project_picks = action.payload;
-      }
-    );
+    // builder.addCase(
+    //   fetchProjectsPick.fulfilled,
+    //   (state, action: PayloadAction<ProjectsState['project_picks']>) => {
+    //     state.project_picks = action.payload;
+    //   }
+    // );
     builder.addCase(
       fetchProjectsByInfluencers.fulfilled,
       (
@@ -180,6 +196,7 @@ const projectsSlice = createSlice({
 
 export const {
   setStatus,
+  setProjectsData,
   setProjectsFilterKey,
   setTop3PositiveProjects,
   setTop3bullProjects,

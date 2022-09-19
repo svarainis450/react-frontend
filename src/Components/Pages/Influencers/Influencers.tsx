@@ -11,11 +11,8 @@ import {
 import { Button } from 'src/Components/Global/Button';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import {
-  influencersCountSelector,
-  influencersSelector,
-} from 'src/state/reduxstate/projects/selectors';
-import { fetchInfluencers } from 'src/state/reduxstate/projects/thunks';
+import { influencersDataSelector } from 'src/state/reduxstate/influencers/selectors';
+import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import {
   InfluencerFilterKeys,
   Statuses,
@@ -27,37 +24,56 @@ import { submenuList } from '../Discover/Discover';
 import './Influencers.scss';
 
 export const Influencers: React.FC = () => {
-  const influencers = useSelector(influencersSelector);
-  const influencersCount = useSelector(influencersCountSelector);
+  const influencersData = useSelector(influencersDataSelector);
+  const influencers = influencersData.influencers;
   const dispatch = useAppDispatch();
   const [influencersFilter, setInfluencersFilter] =
     useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
   const [filterValue, setFilterValue] = useState<string>('1');
   const [influencersStatus, setInfluencersStatus] = useState<Statuses>('idle');
-  const [offsetCount, setOffsetCount] = useState(0);
-  const notAllToShow = offsetCount < influencersCount;
-  const influencersLeftToSee = influencersCount - offsetCount;
+  const [skipElements, setSkipElements] = useState<number | null>(null);
+  const skipElementsValue = skipElements === null ? 0 : skipElements;
+
+  const notAllToShow =
+    skipElementsValue <
+    Number(
+      influencersData &&
+        influencersData.meta !== undefined &&
+        influencersData.meta.total !== undefined &&
+        influencersData.meta.total
+    );
+  const influencersLeftToSee =
+    Number(influencersData?.meta?.total) -
+    Number(skipElements !== null && skipElements);
   const isLoadedInfluencers = influencers && influencers.length > 0;
   const [seenAll, setSeenAll] = useState('');
 
+  console.log(skipElements);
+  console.log(notAllToShow);
+
   useEffect(() => {
-    if (!influencers || offsetCount > 0 || influencers.length < 52) {
+    if (
+      !influencers ||
+      (skipElements && skipElements > 0) ||
+      influencers.length < 52
+    ) {
       dispatch(
         fetchInfluencers({
           filter: influencersFilter,
           callBack: setInfluencersStatus,
-          offset: offsetCount,
-          filterValue: filterValue,
+          skip: skipElements,
         })
       ).then(() => scrollToElement('infl-to-scroll'));
     }
-  }, [influencersFilter, dispatch, offsetCount, filterValue]);
+  }, [skipElements, influencersFilter]);
+
+  console.log(influencersLeftToSee);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow && influencersLeftToSee >= 52) {
-      setOffsetCount(offsetCount + 52);
+      setSkipElements(skipElementsValue + 52);
     } else if (notAllToShow && influencersLeftToSee < 52) {
-      setOffsetCount(offsetCount + influencersLeftToSee);
+      setSkipElements(skipElementsValue + influencersLeftToSee);
       const seenAll = 'You`ve seen it all';
       setSeenAll(seenAll);
     } else {
@@ -89,14 +105,14 @@ export const Influencers: React.FC = () => {
               </div>
             ))}
           {(influencersStatus === 'success' || isLoadedInfluencers) &&
-            influencers.map(({ id, ...rest }, index) => (
+            influencers.map(({ ...rest }, index) => (
               <Element
-                key={id}
+                key={index}
                 name={
-                  index + 1 === offsetCount ? 'infl-to-scroll' : 'no-scroll'
+                  index + 1 === skipElements ? 'infl-to-scroll' : 'no-scroll'
                 }
               >
-                <InfluencerCard id={id} {...rest} />
+                <InfluencerCard {...rest} />
               </Element>
             ))}
         </div>

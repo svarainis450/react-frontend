@@ -1,13 +1,23 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { MobileFilter } from 'src/Components/MobileFilter/MobileFilter';
 import { useMediaQuery } from 'src/hooks';
+import { trendingInfluencersSelector } from 'src/state/reduxstate/influencers/selectors';
+import { fetchTrendingInfluencers } from 'src/state/reduxstate/influencers/thunks';
+import { Influencer } from 'src/state/reduxstate/influencers/types';
 import { influencersPagesSelector } from 'src/state/reduxstate/projects/selectors';
 import {
-  Influencer,
   InfluencerFilterKeys,
   tags,
 } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { icons } from 'src/utils/icons';
 import {
   Typography,
@@ -19,11 +29,10 @@ import './InfluencersTable.scss';
 import { InfluencersTableRows } from './InfluencersTableRows';
 
 interface InfluencersTableProps {
-  influencersData: Influencer[];
+  influencersData?: Influencer[];
   callBack: Dispatch<SetStateAction<InfluencerFilterKeys>>;
   categoryCallBack: Dispatch<SetStateAction<CategoryTags | string>>;
   nameFilterCallBack: Dispatch<SetStateAction<string>>;
-  offsetCallBack: Dispatch<SetStateAction<number>>;
 }
 
 const FILTERS = [
@@ -36,15 +45,31 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   callBack,
   nameFilterCallBack,
   categoryCallBack,
-  offsetCallBack,
 }) => {
+  const dispatch = useAppDispatch();
   const pages = useSelector(influencersPagesSelector);
-  const [offsetCount, setOffsetCount] = useState(0);
+  const token = useSelector(userTokenSelector);
+  const trendingInfluencersData = useSelector(trendingInfluencersSelector);
+  const trendingInfluencers = trendingInfluencersData.trending_influencers;
+  const [takeProjects, setTakeProjects] = useState(10);
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
     nameFilterCallBack('1');
   };
   const { isTablet } = useMediaQuery();
+
+  useEffect(() => {
+    if (token) {
+      dispatch(
+        fetchTrendingInfluencers({
+          dateFilter: 'daily',
+          tokenValue: token,
+          skip: takeProjects,
+          take: 10,
+        })
+      );
+    }
+  }, [dispatch, takeProjects, token]);
 
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -64,15 +89,13 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   };
 
   const handlePrevousBtn = () => {
-    if (offsetCount > 0) {
-      setOffsetCount(offsetCount - 10);
-      offsetCallBack(offsetCount - 10);
+    if (takeProjects > 0) {
+      setTakeProjects(takeProjects - 10);
     }
   };
 
   const handleNextBtn = () => {
-    setOffsetCount(offsetCount + 10);
-    offsetCallBack(offsetCount + 10);
+    setTakeProjects(takeProjects + 10);
   };
 
   return (
@@ -140,10 +163,11 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
           />
         )}
       </div>
-      <InfluencersTableRows influencersData={influencersData} />
+      <InfluencersTableRows influencersData={trendingInfluencers} />
       <div className="influencers-picks__pagination-wrapper">
         <div>
-          <strong>{pages.page} </strong>of {pages.pages}
+          <strong>{trendingInfluencersData.page} </strong>of{' '}
+          {trendingInfluencersData.pages}
         </div>
         <button
           className="influencers-picks__pagination-wrapper__prev"

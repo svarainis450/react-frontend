@@ -15,16 +15,12 @@ import { submenuList } from './constants';
 import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
-  fetchInfluencers,
   fetchProjectsByInfluencers,
-  fetchProjectsPick,
   fetchTop3LowestProjects,
   fetchTop3Projects,
   fetchTrendingProjects,
 } from 'src/state/reduxstate/projects/thunks';
 import {
-  influencersSelector,
-  projectPicksSelector,
   projectsByInfluencersSelector,
   top3BullProjectsSelector,
   top3PositiveProjectsSelector,
@@ -40,26 +36,24 @@ import {
 import { Submenu } from './Submenu';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
-import { getFavProjects } from 'src/state/reduxstate/user/thunks';
+import { projectPicksSelector } from 'src/state/reduxstate/influencers/selectors';
+import { fetchProjectsPick } from 'src/state/reduxstate/influencers/thunks';
 
 export const Trends: React.FC = () => {
-  const [filter, setFilter] = useState<SubmenuFilters>('today');
-  const filterTitle = filter === 'last-week' ? 'Last Week' : 'Today';
+  const [filter, setFilter] = useState<SubmenuFilters>('daily');
+  const filterTitle = filter === 'weekly' ? 'Last Week' : 'Today';
   const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
-  const [influencersStatus, setinfluencersStatus] = useState<Statuses>('idle');
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
   const top3BullProjects = useSelector(top3BullProjectsSelector);
   const top3PositiveProjects = useSelector(top3PositiveProjectsSelector);
   const top3TalkRateProjects = useSelector(top3TalkRateProjectsSelector);
-  const influencers = useSelector(influencersSelector);
   const projectsByInfluencers = useSelector(projectsByInfluencersSelector);
   const token = useSelector(userTokenSelector);
   const [selectCategory, setSelectCategory] = useState<
     CategoryTags | undefined
-  >(CategoryTags.coins);
-  const [offsetCount, setOffsetCount] = useState(0);
+  >(undefined);
 
   const [influencersFilter, setInfluencersFilter] =
     useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
@@ -69,17 +63,6 @@ export const Trends: React.FC = () => {
 
   useEffect(() => {
     if (token) {
-      dispatch(getFavProjects({ tokenValue: token }));
-      dispatch(
-        fetchInfluencers({
-          callBack: setinfluencersStatus,
-          filter: influencersFilter,
-          filterValue: inflFilterValue,
-          limit: 10,
-          offset: offsetCount,
-          tokenValue: token,
-        })
-      );
       dispatch(
         fetchTrendingProjects({
           filter: filter,
@@ -95,23 +78,56 @@ export const Trends: React.FC = () => {
     inflFilterValue,
     influencersFilter,
     dispatch,
-    offsetCount,
     selectCategory,
   ]);
 
   useEffect(() => {
-    if (token) {
-      dispatch(fetchProjectsPick(token));
-      dispatch(fetchProjectsByInfluencers(token));
-      dispatch(fetchTop3Projects({ filter: 'bull', tokenValue: token }));
-      dispatch(fetchTop3Projects({ filter: 'positive', tokenValue: token }));
-      dispatch(fetchTop3Projects({ filter: 'talk_rate', tokenValue: token }));
-      dispatch(fetchTop3LowestProjects({ filter: 'bear', tokenValue: token }));
+    if (token && filter !== 'upcomming') {
+      dispatch(fetchProjectsPick({ tokenValue: token, dateFilter: filter }));
       dispatch(
-        fetchTop3LowestProjects({ filter: 'negative', tokenValue: token })
+        fetchProjectsByInfluencers({ tokenValue: token, dateFilter: filter })
       );
       dispatch(
-        fetchTop3LowestProjects({ filter: 'lowest', tokenValue: token })
+        fetchTop3Projects({
+          filter: 'top-bull',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3Projects({
+          filter: 'top-sentiment',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3Projects({
+          filter: 'top-talk-rate',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3LowestProjects({
+          filter: 'lowest-bull',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3LowestProjects({
+          filter: 'lowest-sentiment',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3LowestProjects({
+          filter: 'lowest-talk-rate',
+          tokenValue: token,
+          dateFilter: filter,
+        })
       );
     }
 
@@ -122,7 +138,7 @@ export const Trends: React.FC = () => {
     //     return () => clearInterval(interval);
     //   });
     // }
-  }, [dispatch, token]);
+  }, [dispatch, token, filter]);
 
   return (
     <div className="Trends">
@@ -140,6 +156,7 @@ export const Trends: React.FC = () => {
                   <TrendingCategory
                     categoryCallback={setSelectCategory}
                     trendingProjects={trendingProjects}
+                    filterTitle={filterTitle}
                   />
                 )}
               </CardWrapper>
@@ -172,11 +189,10 @@ export const Trends: React.FC = () => {
                 subtitle={filterTitle}
               >
                 <InfluencersTable
-                  influencersData={influencers}
+                  // influencersData={influencers}
                   callBack={setInfluencersFilter}
                   nameFilterCallBack={setInflFilterValue}
                   categoryCallBack={setInflFilterValue}
-                  offsetCallBack={setOffsetCount}
                 />
               </CardWrapper>
             </section>

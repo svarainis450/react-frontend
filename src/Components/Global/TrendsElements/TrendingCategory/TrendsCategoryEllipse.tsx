@@ -11,12 +11,12 @@ const categoryCircleValues = {
     cy: '63',
     fill: theme.colors.electric,
   },
-  [CategoryTags.NFT]: {
+  [CategoryTags.nft]: {
     cx: '61',
     cy: '17',
     fill: theme.colors.potatoGreen,
   },
-  [CategoryTags.DAO]: {
+  [CategoryTags.dao]: {
     cx: '125',
     cy: '11',
     fill: theme.colors.sand,

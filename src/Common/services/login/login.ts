@@ -5,7 +5,7 @@ import { setUserToken } from 'src/state/reduxstate/user/slice';
 
 export const API_USER_LOGIN = (email: string, pass: string) => {
   const postBody = {
-    username: email,
+    email: email,
     password: pass,
   };
 
@@ -13,14 +13,13 @@ export const API_USER_LOGIN = (email: string, pass: string) => {
     instance
       .post(ENUM_API.LOGIN, postBody)
       .then((res: any) => {
-        Cookies.set('token', res.data['token'] ?? '');
-        localStorage.setItem('token', JSON.stringify(res.data.token));
-        store.dispatch(setUserToken(res.data.token));
-
+        Cookies.set('token', res.data.access_token ?? '');
+        localStorage.setItem('token', JSON.stringify(res.data.access_token));
+        store.dispatch(setUserToken(res.data.access_token));
         return res;
       })
       .then((res: any) => {
-        store.dispatch(setUserToken(res.data.token));
+        store.dispatch(setUserToken(res.data.access_token));
         resolve(res);
       })
       .catch((err) => reject(err.response));

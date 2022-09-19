@@ -17,7 +17,7 @@ export const CustomSelectDropdown: React.FC<CustomSelectDropdownProps> = ({
   categoryCallBack,
 }) => {
   const [showOptions, setShowOptions] = useState(false);
-  const [selected, setSelected] = useState<CategoryTags>(CategoryTags.coins);
+  const [selected, setSelected] = useState<CategoryTags | null>(null);
 
   const handleOptionSelection = (option: CategoryTags) => {
     setSelected(option);

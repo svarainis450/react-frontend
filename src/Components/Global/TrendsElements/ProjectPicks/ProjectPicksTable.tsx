@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'src/hooks';
+import { Influencer } from 'src/state/reduxstate/influencers/types';
 import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
 import {
   calculateBigNumberValues,
@@ -10,10 +11,11 @@ import { Typography, TypographyWeight } from '../../Typography';
 import { CategoryTag } from '../CategoryTag/CategoryTag';
 
 import { ProjectPicksList } from '../ProjectPicksList/ProjectPicksList';
+import { CategoryTags } from '../types';
 import './ProjectPicksTable.scss';
 
 interface ProjectPicksProps {
-  pickedProjects: ProjectPicks[];
+  pickedProjects: Influencer[];
   influencerProjects: Project[];
 }
 
@@ -30,6 +32,8 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   influencerProjects,
 }) => {
   const { isTablet } = useMediaQuery();
+
+  console.log(pickedProjects);
 
   return (
     <div className="project-picks">
@@ -48,41 +52,39 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
       {pickedProjects &&
         !isTablet &&
         pickedProjects.map(
-          (
-            { id, name, tagName, tag, channel, projects, postCount, img },
-            index
-          ) => {
+          ({ twitter_user, category, post_count, channel, project }, index) => {
             return (
               <div key={index} className="project-picks__row">
                 <div className="project-picks__row__influencer">
                   <img
                     className="icon"
-                    src={img || icons.no_image}
-                    alt={name}
+                    src={twitter_user.twitter_img_url || icons.no_image}
+                    alt={twitter_user.name}
                   />
                   <div>
                     <Typography className="project-picks__row__influencer__tag-name">
-                      {tagName}
+                      {twitter_user.twitter_displayname}
                     </Typography>
                     <Typography className="project-picks__row__influencer__name">
-                      {name}
+                      {twitter_user.twitter_username}
                     </Typography>
                   </div>
                 </div>
                 <div>
-                  <CategoryTag tagTitle={tag.name} />
+                  {/* @ts-ignore */}
+                  <CategoryTag tagTitle={CategoryTags[category]} />
                 </div>
                 <Typography className="project-picks__row__thin-text__positioned">
-                  {calculateBigNumberValues(postCount)}
+                  {calculateBigNumberValues(post_count)}
                 </Typography>
                 <Typography className="project-picks__row__thin-text">
                   {channel}
                 </Typography>
                 <div className="project-picks__row__project">
                   <div className="project-picks__row__project__overlapping-images">
-                    {projects &&
-                      projects.length > 0 &&
-                      projects.slice(0, 3).map((item) => {
+                    {project &&
+                      project.length > 0 &&
+                      project.slice(0, 3).map((item) => {
                         return (
                           <img
                             src={item.img || icons.no_image}
@@ -92,7 +94,7 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                       })}
                   </div>
                   <Typography className="project-picks__row__thin-text">
-                    {generateProjectsText(projects)}
+                    {generateProjectsText(project)}
                   </Typography>
                 </div>
               </div>

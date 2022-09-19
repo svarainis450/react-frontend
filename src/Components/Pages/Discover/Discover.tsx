@@ -10,10 +10,7 @@ import {
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
-import {
-  projectsCounttSelector,
-  projectsSelector,
-} from 'src/state/reduxstate/projects/selectors';
+import { projectsDataSelector } from 'src/state/reduxstate/projects/selectors';
 import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 
@@ -28,8 +25,7 @@ import { Button } from 'src/Components/Global/Button';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { scrollToElement } from 'src/utils/scrollers';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
-import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
-import { Typography } from '@mui/material';
+import { Typography } from 'src/Components/Global/Typography';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -51,36 +47,41 @@ export const submenuList: SubmenuListProps[] = [
 
 export const Discover: React.FC = () => {
   const dispatch = useAppDispatch();
-  const userToken = useSelector(userTokenSelector);
-
-  const projects = useSelector(projectsSelector);
-  const projectsCount = useSelector(projectsCounttSelector);
+  const projectsData = useSelector(projectsDataSelector);
+  const projects = projectsData.projects;
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
-  const [offsetCount, setOffsetCount] = useState(0);
-  const notAllToShow = offsetCount < projectsCount;
+  const [skipElements, setSkipElements] = useState<number | null>(null);
+  const skipElementsValue = skipElements === null ? 0 : skipElements;
+  const notAllToShow =
+    (skipElements !== null && skipElements) < Number(projectsData?.meta?.total);
   const [seenAll, setSeenAll] = useState('');
-  const projectsLeftToSee = projectsCount - offsetCount;
+  const projectsLeftToSee =
+    Number(projectsData?.meta?.total) -
+    Number(skipElements !== null && skipElements);
 
   useEffect(() => {
-    if ((projects && projects.length === 0) || offsetCount > 0) {
+    if (
+      (projects && projects.length === 0) ||
+      (skipElements && skipElements > 0)
+    ) {
       dispatch(
         fetchProjects({
           filter: projectsFilter,
           callBack: setProjectStatus,
-          offset: offsetCount,
+          skip: skipElements,
           filterValue: String(filterValue).toLocaleLowerCase(),
         })
       ).then(() => scrollToElement('card-to-scroll'));
     }
-  }, [projectsFilter, offsetCount, dispatch, filterValue, userToken]);
+  }, [skipElements, projectsFilter]);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow && projectsLeftToSee >= 52) {
-      setOffsetCount(offsetCount + 52);
+      setSkipElements(skipElementsValue + 52);
     } else if (notAllToShow && projectsLeftToSee < 52) {
-      setOffsetCount(offsetCount + projectsLeftToSee);
+      setSkipElements(skipElementsValue + projectsLeftToSee);
       const seenAll = 'You`ve seen it all';
       setSeenAll(seenAll);
     } else {
@@ -105,39 +106,49 @@ export const Discover: React.FC = () => {
                 <LoadError />
               </div>
             ))}
-          {(projectsStatus === 'success' ||
-            (projects && projects.length > 0)) &&
-            projects.map(
-              (
-                {
-                  id,
-                  coinbaseUrl,
-                  tag,
-                  rateData,
-                  name,
-                  influencers,
-                  img,
-                  started,
-                },
-                index
-              ) => (
-                <Element
-                  key={index}
-                  name={index === offsetCount ? 'card-to-scroll' : 'no-scroll'}
-                >
-                  <ProjectCard
-                    id={id}
-                    name={name}
-                    img={img}
-                    coinbaseUrl={coinbaseUrl}
-                    influencers={influencers}
-                    rateData={rateData}
-                    tag={tag}
-                    started={started}
-                  />
-                </Element>
-              )
-            )}
+          {projectsStatus === 'success' ||
+            (projects &&
+              projects.length > 0 &&
+              projects.map(
+                (
+                  {
+                    id,
+                    coinbase_url,
+                    name,
+                    img_url,
+                    type,
+                    talk_rate_score,
+                    talk_rate_daily_change,
+                    bull_bear_score,
+                    nft_address,
+                    first_historical_data,
+                    sentiment_score,
+                  },
+                  index
+                ) => (
+                  <Element
+                    key={index}
+                    name={
+                      index === skipElements ? 'card-to-scroll' : 'no-scroll'
+                    }
+                  >
+                    <ProjectCard
+                      id={id}
+                      name={name}
+                      img_url={img_url}
+                      nft_address={nft_address}
+                      coinbase_url={coinbase_url}
+                      talk_rate_score={talk_rate_score}
+                      talk_rate_daily_change={talk_rate_daily_change}
+                      bull_bear_score={bull_bear_score}
+                      sentiment_score={sentiment_score}
+                      first_historical_data={first_historical_data}
+                      // influencers={influencers}
+                      type={type as unknown as CategoryTags}
+                    />
+                  </Element>
+                )
+              ))}
         </div>
         {projectsStatus === 'pending' && <Loader width={50} height={50} />}
 

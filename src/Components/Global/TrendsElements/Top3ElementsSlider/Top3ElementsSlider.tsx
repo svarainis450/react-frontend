@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { infoBlocks } from 'src/Components/Pages/Trends/constants';
-import { Project } from 'src/state/reduxstate/projects/types';
+import { TopOrLowestProject } from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { CardWrapper } from '../CardWrapper/CardWrapper';
 import { Top3Element } from '../Top3Element/Top3Element';
@@ -15,9 +15,9 @@ import { Pagination } from 'swiper';
 import { RefreshCounter } from './RefreshCounter';
 
 interface Top3ElementsSliderProps {
-  topPositive: Project[];
-  topBull: Project[];
-  topTalkRate: Project[];
+  topPositive: TopOrLowestProject[];
+  topBull: TopOrLowestProject[];
+  topTalkRate: TopOrLowestProject[];
   isForYouProject?: boolean;
   filterTitle?: string;
   isLowestList?: boolean;
@@ -62,19 +62,21 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           >
             {topTalkRate ? (
               <ul className="cards-grid">
-                {topTalkRate.map(({ id, img, name, tag, rateData }, index) => (
-                  <Top3Element
-                    key={`${id}_${index}`}
-                    id={id}
-                    icon={img}
-                    projectName={name}
-                    tagTitle={tag.name}
-                    talkRate={rateData.talkRate}
-                    blockType={InfoBlockTypes.rate}
-                    positiveRatio={rateData.positiveRatio}
-                    bullRatio={rateData.bullRatio}
-                  />
-                ))}
+                {topTalkRate.map(
+                  (
+                    { place, category, project_name, talk_rate, icon },
+                    index
+                  ) => (
+                    <Top3Element
+                      key={`${place}_${index}`}
+                      icon={icon}
+                      projectName={project_name}
+                      tagTitle={category}
+                      talkRate={talk_rate}
+                      blockType={InfoBlockTypes.rate}
+                    />
+                  )
+                )}
                 {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (
@@ -100,19 +102,21 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           >
             {topPositive ? (
               <ul className="cards-grid">
-                {topPositive.map(({ id, img, name, tag, rateData }, index) => (
-                  <Top3Element
-                    key={`${id}${index}`}
-                    id={id}
-                    icon={img}
-                    projectName={name}
-                    tagTitle={tag.name}
-                    talkRate={rateData.talkRate}
-                    blockType={InfoBlockTypes.positive}
-                    positiveRatio={rateData.positiveRatio}
-                    bullRatio={rateData.bullRatio}
-                  />
-                ))}
+                {topPositive.map(
+                  (
+                    { place, category, project_name, sentiment, icon },
+                    index
+                  ) => (
+                    <Top3Element
+                      key={`${place}_${index}`}
+                      icon={icon}
+                      projectName={project_name}
+                      tagTitle={category}
+                      blockType={InfoBlockTypes.positive}
+                      positiveRatio={sentiment}
+                    />
+                  )
+                )}
                 {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (
@@ -136,19 +140,18 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           >
             {topBull ? (
               <ul className="cards-grid">
-                {topBull.map(({ id, img, name, tag, rateData }, index) => (
-                  <Top3Element
-                    key={`${id}${index}`}
-                    id={id}
-                    icon={img}
-                    projectName={name}
-                    tagTitle={tag.name}
-                    talkRate={rateData.talkRate}
-                    blockType={InfoBlockTypes.bullish}
-                    positiveRatio={rateData.positiveRatio}
-                    bullRatio={rateData.bullRatio}
-                  />
-                ))}
+                {topBull.map(
+                  ({ place, category, project_name, bull, icon }, index) => (
+                    <Top3Element
+                      key={`${place}_${index}`}
+                      icon={icon}
+                      projectName={project_name}
+                      tagTitle={category}
+                      bullRatio={bull}
+                      blockType={InfoBlockTypes.bullish}
+                    />
+                  )
+                )}
                 {!isForYouProject && <RefreshCounter />}
               </ul>
             ) : (

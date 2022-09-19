@@ -1,4 +1,4 @@
-import { TrendingProject } from 'src/state/reduxstate/projects/types';
+import { Project, TrendingProject } from 'src/state/reduxstate/projects/types';
 
 export const calculateBigNumberValues = (foll: number) => {
   if (foll > 0 && foll < 1000) {
@@ -70,7 +70,7 @@ export const calculateRangeWidth = (rate: number, isHalfAxis?: boolean) => {
 };
 
 //Influencers picks tables calcs
-export const generateProjectsText = (projectsList?: TrendingProject[]) => {
+export const generateProjectsText = (projectsList?: Partial<Project>[]) => {
   if (projectsList?.length === 1) {
     return projectsList[0].name;
   } else if (projectsList && projectsList.length > 1) {
@@ -78,4 +78,17 @@ export const generateProjectsText = (projectsList?: TrendingProject[]) => {
   } else {
     return 'None';
   }
+};
+
+//Date format yyyy-mm-dd
+export const formatDate = (date: string) => {
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
 };

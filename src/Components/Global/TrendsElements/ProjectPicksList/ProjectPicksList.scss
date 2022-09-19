@@ -31,10 +31,12 @@
       &__icon {
         width: 54px;
         height: 54px;
+        border-radius: 100%;
       }
 
       &__title {
-        margin: 0 0 10px;
+        margin: 8px 0 10px;
+        text-align: center;
       }
     }
   }

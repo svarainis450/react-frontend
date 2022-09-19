@@ -95,7 +95,7 @@ export const ForYou: React.FC = () => {
       fetchProjects({
         filter: projectsFilter,
         callBack: setProjectStatus,
-        offset: offsetCount,
+        skip: offsetCount,
         filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );
@@ -274,7 +274,7 @@ export const ForYou: React.FC = () => {
           </div>
         </div>
 
-        {favoriteProjects && favoriteProjects.length > 0 && (
+        {/* {favoriteProjects && favoriteProjects.length > 0 && (
           <Top3ElementsSlider
             isForYouProject
             topBull={(topBullProject && topBullProject) || favoriteProjects}
@@ -285,7 +285,7 @@ export const ForYou: React.FC = () => {
               (topTalkRateProject && topTalkRateProject) || favoriteProjects
             }
           />
-        )}
+        )} */}
         {!favoriteProjects ||
           (!Array.isArray(favoriteProjects) && (
             <div className="empty-dashboard">

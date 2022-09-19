@@ -7,14 +7,13 @@ import { CategoryTags, InfoBlockTypes } from '../types';
 import './Top3Element.scss';
 
 interface ElementProps {
-  id: number;
   icon: string;
   projectName: string;
   tagTitle: CategoryTags;
-  talkRate: number;
   blockType: InfoBlockTypes;
-  positiveRatio: number;
-  bullRatio: number;
+  talkRate?: number;
+  positiveRatio?: number;
+  bullRatio?: number;
 }
 
 export const Top3Element: React.FC<ElementProps> = ({
@@ -27,11 +26,11 @@ export const Top3Element: React.FC<ElementProps> = ({
   blockType,
 }) => {
   const visual = {
-    [InfoBlockTypes.rate]: <TalkRateElement rate={talkRate} />,
-    [InfoBlockTypes.positive]: (
+    [InfoBlockTypes.rate]: talkRate && <TalkRateElement rate={talkRate} />,
+    [InfoBlockTypes.positive]: positiveRatio && (
       <IndexAxis isHalfAxis type="positive" rating={positiveRatio} />
     ),
-    [InfoBlockTypes.bullish]: (
+    [InfoBlockTypes.bullish]: bullRatio && (
       <IndexAxis isHalfAxis type="bull" rating={bullRatio} />
     ),
   };
@@ -50,7 +49,9 @@ export const Top3Element: React.FC<ElementProps> = ({
           >
             {projectName}
           </Typography>
-          <CategoryTag tagTitle={tagTitle} />
+          {/* NOTE: changed BE logic. need to rethink this component. quick decision */}
+          {/* @ts-ignore */}
+          <CategoryTag tagTitle={CategoryTags[tagTitle]} />
         </div>
       </div>
       <div>{visual[blockType]}</div>

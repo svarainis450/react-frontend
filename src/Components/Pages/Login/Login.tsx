@@ -37,6 +37,7 @@ export const Login = () => {
       })
       .then(() => {
         setLoginInProgress(false);
+        console.log('after resoveld');
         return navigate(LinkList.TRENDS);
       })
       .catch((err) => {
