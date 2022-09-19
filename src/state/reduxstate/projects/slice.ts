@@ -15,16 +15,11 @@ import {
 } from './types';
 //TODO: Separate influencers and projects for code cleanliness
 const initialState: ProjectsState = {
-  projects: [] as ProjectsState['projects'],
   project_filter_key: null,
   project_by_id: null as unknown as Project,
-  projects_count: 0,
-  // project_picks: [] as ProjectsState['project_picks'],
   trending_projects: [] as ProjectsState['trending_projects'],
   status: 'idle' as Statuses,
   influencers: [] as ProjectsState['influencers'],
-  influencers_count: 0,
-  influencers_picks: [],
   top_3_bull: [],
   top_3_positive: [],
   top_3_talk_rate: [],
@@ -112,35 +107,17 @@ const projectsSlice = createSlice({
     ) => {
       state.status = action.payload;
     },
-    setProjects: (
-      state: { projects: ProjectsState['projects'] },
-      action: PayloadAction<Project[]>
-    ) => {
-      state.projects = action.payload;
-    },
     setProjectsData: (
       state: { projects_data: ProjectsState['projects_data'] },
       action: PayloadAction<ProjectsDataType>
     ) => {
       state.projects_data = action.payload;
     },
-    setProjectsCount: (
-      state: { projects_count: ProjectsState['projects_count'] },
-      action: PayloadAction<number>
-    ) => {
-      state.projects_count = action.payload;
-    },
     setInfluencers: (
       state: { influencers: ProjectsState['influencers'] },
       action: PayloadAction<Influencer[]>
     ) => {
       state.influencers = action.payload;
-    },
-    setInfluencersCount: (
-      state: { influencers_count: ProjectsState['influencers_count'] },
-      action: PayloadAction<number>
-    ) => {
-      state.influencers_count = action.payload;
     },
     setInfluencersPages: (
       state: {
@@ -204,11 +181,8 @@ export const {
   setTop3BearProjects,
   setTop3NegativeProjects,
   set3LowestTalkRateProjects,
-  setProjects,
   setProjectById,
   setInfluencers,
-  setInfluencersCount,
   setInfluencersPages,
-  setProjectsCount,
 } = projectsSlice.actions;
 export default projectsSlice;

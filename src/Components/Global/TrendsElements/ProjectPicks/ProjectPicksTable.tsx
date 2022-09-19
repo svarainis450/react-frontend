@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useMediaQuery } from 'src/hooks';
 import { Influencer } from 'src/state/reduxstate/influencers/types';
-import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
+import { Project } from 'src/state/reduxstate/projects/types';
 import {
   calculateBigNumberValues,
   generateProjectsText,
@@ -32,8 +31,6 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   influencerProjects,
 }) => {
   const { isTablet } = useMediaQuery();
-
-  console.log(pickedProjects);
 
   return (
     <div className="project-picks">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
 import { InfluencerData } from 'src/state/reduxstate/influencers/types';
@@ -7,7 +7,6 @@ import { useAppDispatch } from 'src/state/reduxstate/store';
 import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
 import {
   deleteFromFavorites,
-  getFavInfluencers,
   sendFavProjectOrInfluencer,
 } from 'src/state/reduxstate/user/thunks';
 import { calculateBigNumberValues } from 'src/utils/calculations';

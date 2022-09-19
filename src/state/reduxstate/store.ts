@@ -10,7 +10,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { useDispatch } from 'react-redux';
-import logger from 'redux-logger';
 import { rootReducer } from './slice';
 import storageSession from 'redux-persist/lib/storage/session';
 

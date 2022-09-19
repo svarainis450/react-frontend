@@ -1,10 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
-import { useNavigateHook } from 'src/hooks';
-import { LinkList } from 'src/types';
 import { InfluencerData } from '../influencers/types';
-import { fetchProjectById } from '../projects/thunks';
-import { Influencer, Project, Statuses } from '../projects/types';
+import { Statuses } from '../projects/types';
 import { RootState } from '../slice';
 import { api, apiv1 } from '../types';
 import {

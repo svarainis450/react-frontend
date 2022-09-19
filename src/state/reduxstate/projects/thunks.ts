@@ -9,11 +9,8 @@ import { api, apiv1 } from '../types';
 import {
   set3LowestTalkRateProjects,
   setInfluencers,
-  setInfluencersCount,
   setInfluencersPages,
   setProjectById,
-  setProjects,
-  setProjectsCount,
   setProjectsData,
   setTop3BearProjects,
   setTop3bullProjects,
@@ -106,8 +103,6 @@ export const fetchInfluencers = createAsyncThunk(
 
         const { projects } = getState() as RootState;
 
-        dispatch(setInfluencersCount(resp.count));
-
         if (offset >= 50) {
           const expandedInfluencers = concat(projects.influencers, resp.result);
           const uniqueInfluencers = [
@@ -195,8 +190,6 @@ export const fetchProjects = createAsyncThunk(
             Authorization: `Bearer ${token || tokenFromState}`,
           },
         }).then((res) => res.json());
-
-        const { projects } = getState() as RootState;
 
         if (skip && skip >= 8) {
           const expandedProjects = concat(

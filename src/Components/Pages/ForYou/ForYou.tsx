@@ -10,7 +10,7 @@ import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import {
   projectByIdSelector,
-  projectsSelector,
+  projectsDataSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
@@ -24,7 +24,6 @@ import {
 } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import {
-  Project,
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
@@ -66,7 +65,7 @@ export const ForYou: React.FC = () => {
   const projectByIdState = useSelector(projectByIdSelector);
   const [offsetCount, setOffsetCount] = useState(0);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
-  const projects = useSelector(projectsSelector);
+  const { projects } = useSelector(projectsDataSelector);
 
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const userToken = useSelector(userTokenSelector);

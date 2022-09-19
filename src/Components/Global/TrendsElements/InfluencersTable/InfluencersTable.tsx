@@ -47,7 +47,6 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   categoryCallBack,
 }) => {
   const dispatch = useAppDispatch();
-  const pages = useSelector(influencersPagesSelector);
   const token = useSelector(userTokenSelector);
   const trendingInfluencersData = useSelector(trendingInfluencersSelector);
   const trendingInfluencers = trendingInfluencersData.trending_influencers;

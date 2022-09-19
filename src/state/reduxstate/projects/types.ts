@@ -15,14 +15,10 @@ export interface ProjectsState {
 
   //OLD API
 
-  projects: Project[];
   project_filter_key: ProjectFilterKeys | null;
   project_by_id: Project;
-  projects_count: number;
   status: Statuses;
   influencers: Influencer[];
-  influencers_count: number;
-  influencers_picks: [];
   most_followed_influencers: Influencer[];
   influencers_pages_data: {
     page: number;
