@@ -1,6 +1,14 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Influencer, Project, Statuses } from '../projects/types';
 
+export interface UserState {
+  profile_block: NavClassTypes;
+  favorite_projects: Project[];
+  subscribed_influencers: Influencer[];
+  user_token: string | null;
+  user_data: UserDataType;
+}
+
 export type NavClassTypes =
   | 'reports'
   | 'notifications'
@@ -29,14 +37,6 @@ export interface UserDataType {
       expirationDate: string;
     }
   ];
-}
-
-export interface UserState {
-  profile_block: NavClassTypes;
-  favorite_projects: Project[];
-  subscribed_influencers: Influencer[];
-  user_token: string | null;
-  user_data: UserDataType;
 }
 
 export interface FavInfluencersProjectsPayload {

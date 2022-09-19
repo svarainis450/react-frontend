@@ -43,6 +43,7 @@ import {
   setProjectsCount,
   setProjectsData,
 } from 'src/state/reduxstate/projects/slice';
+import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('daily');
@@ -147,7 +148,11 @@ export const Trends: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchProjects({ skip: null }));
-  }, []);
+
+    if (token) {
+      dispatch(getFavProjects({ tokenValue: token }));
+    }
+  }, [token]);
 
   return (
     <div className="Trends">

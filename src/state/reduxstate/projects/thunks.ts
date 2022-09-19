@@ -194,8 +194,6 @@ export const fetchProjects = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        console.log(resp);
-
         const { projects } = getState() as RootState;
 
         if (skip && skip >= 52) {

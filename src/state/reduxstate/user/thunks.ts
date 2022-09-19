@@ -5,7 +5,7 @@ import { LinkList } from 'src/types';
 import { fetchProjectById } from '../projects/thunks';
 import { Influencer, Project, Statuses } from '../projects/types';
 import { RootState } from '../slice';
-import { api } from '../types';
+import { api, apiv1 } from '../types';
 import {
   setFavoriteProjects,
   setSubscribedInfluencers,
@@ -81,21 +81,21 @@ export const getFavProjects = createAsyncThunk(
 
     if (tokenFromState || tokenValue) {
       try {
-        const resp = await fetch(`${api}/fav/project`, {
+        const resp = await fetch(`${apiv1}/users`, {
           headers: {
             Authorization: `Bearer ${tokenFromState || tokenValue}`,
           },
         }).then((res) => res.json());
 
-        dispatch(setFavoriteProjects(resp));
+        console.log(resp);
+
+        dispatch(setFavoriteProjects(resp.favorite_projects));
 
         if (favCallBack) {
           favCallBack('success');
         }
 
         return resp;
-
-        console.log(resp);
       } catch (e) {
         console.log(e);
         if (favCallBack) {

@@ -42,6 +42,7 @@ import {
   filterProjectsLocaly,
 } from 'src/utils/localFilters';
 import { useMediaQuery } from 'src/hooks';
+import { Top3FavElementsSlider } from 'src/Components/Global/ForYourElements/Top3FavElementsSlider';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -81,6 +82,8 @@ export const ForYou: React.FC = () => {
   );
   const [showInfo, setShowInfo] = useState(false);
   const [showMobileList, setShowMobileList] = useState(false);
+
+  console.log(favoriteProjects);
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -274,8 +277,8 @@ export const ForYou: React.FC = () => {
           </div>
         </div>
 
-        {/* {favoriteProjects && favoriteProjects.length > 0 && (
-          <Top3ElementsSlider
+        {favoriteProjects && favoriteProjects.length > 0 && (
+          <Top3FavElementsSlider
             isForYouProject
             topBull={(topBullProject && topBullProject) || favoriteProjects}
             topPositive={
@@ -285,7 +288,7 @@ export const ForYou: React.FC = () => {
               (topTalkRateProject && topTalkRateProject) || favoriteProjects
             }
           />
-        )} */}
+        )}
         {!favoriteProjects ||
           (!Array.isArray(favoriteProjects) && (
             <div className="empty-dashboard">

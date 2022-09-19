@@ -1,0 +1,96 @@
+@import '../../../utils/breakpointsMixins.scss';
+
+.top-elements-fav {
+  .swiper,
+  .swiper-wrapper,
+  .swiper-slide,
+  .swiper-pagination {
+    @include tablet {
+      all: unset !important;
+    }
+  }
+
+  .swiper-pagination {
+    position: static;
+    margin: 8px 0 16px;
+    align-items: center !important;
+
+    .swiper-pagination-bullet {
+      background-color: var(--color-black) !important;
+      opacity: 1 !important;
+    }
+    .swiper-pagination-bullet-active {
+      width: 10px;
+      height: 10px;
+      background-color: var(--color-white) !important;
+      border: 1px solid var(--color-black);
+    }
+  }
+
+  .swiper-slide.swiper-slide-duplicate,
+  .swiper-pagination {
+    @include tablet {
+      display: none !important;
+    }
+  }
+
+  .swiper-wrapper {
+    @include tablet {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      grid-auto-rows: 1fr !important;
+      grid-gap: 20px !important;
+
+      max-width: 1300px !important;
+      margin: 0 auto 20px !important;
+      box-sizing: border-box !important;
+
+      .card {
+        height: 100% !important;
+      }
+    }
+  }
+
+  .top-counter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    justify-self: flex-end;
+    margin-top: 16px;
+    color: var(--color-grey-text);
+
+    .counter-icon {
+      margin-right: 4px;
+    }
+
+    .counter-info {
+      position: absolute;
+      top: -40px;
+
+      padding: 10px;
+      max-width: 160px;
+      background: var(--color-yellow-hero);
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15);
+      border-radius: 5px;
+
+      font-weight: 300;
+      font-size: 0.5625rem;
+      line-height: 0.6875rem;
+      color: var(--color-black);
+    }
+
+    .counter-info::before {
+      content: '';
+      width: 0;
+      height: 0;
+      position: absolute;
+      bottom: -10px;
+      right: 70px;
+      z-index: 9;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid var(--color-yellow-hero);
+    }
+  }
+}
