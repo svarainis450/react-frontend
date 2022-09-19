@@ -5,14 +5,12 @@ import {
   InfoBlockInstructions,
   ProjectMetrics,
   ProjectsSliderMobile,
-  Top3ElementsSlider,
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import {
   projectByIdSelector,
   projectsSelector,
-  trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';

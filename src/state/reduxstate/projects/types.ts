@@ -46,13 +46,14 @@ export interface ProjectsDataType {
     take: number;
   };
 }
+
 export interface Project {
   id: number;
   coinbase_url: string;
   nft_address: string;
   first_historical_data: string;
   img_url: string;
-  max_scraped_tweet_id: 12345;
+  max_scraped_tweet_id: number;
   name: string;
   symbol?: string;
   type: CategoryTags;

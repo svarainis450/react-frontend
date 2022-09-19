@@ -106,8 +106,8 @@ export const fetchInfluencers = createAsyncThunk(
   ) => {
     const filterValue = filter ? `&orderBy=${filter}` : '';
     const url = skip
-      ? `${apiv1}/twitter-users?take=52&skip=${skip}${filterValue}`
-      : `${apiv1}/twitter-users?take=52${filterValue}`;
+      ? `${apiv1}/twitter-users?take=8&skip=${skip}${filterValue}`
+      : `${apiv1}/twitter-users?take=8${filterValue}`;
 
     callBack && callBack('pending');
     if (tokenValue || token) {

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import {
   Typography,
@@ -9,25 +9,60 @@ import { TrendingProjectCard } from '../TrendingProjectCard/TrendingProjectCard'
 import './TrendingCategory.scss';
 import { TrendsCategoryEllipse } from './TrendsCategoryEllipse';
 import { CategoryTags } from '../types';
-import { TrendingProject } from 'src/state/reduxstate/projects/types';
+import {
+  Statuses,
+  SubmenuFilters,
+  TrendingProject,
+} from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { useMediaQuery } from 'src/hooks';
 import { icons } from 'src/utils/icons';
 import { CustomSelectDropdown } from './CustomSelectDropdown';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { useSelector } from 'react-redux';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+import { fetchTrendingProjects } from 'src/state/reduxstate/projects/thunks';
+import { trendingProjectsSelector } from 'src/state/reduxstate/projects/selectors';
+import { Loader } from '../../Loader/Loader';
 
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
   categoryCallback: Dispatch<SetStateAction<CategoryTags | undefined>>;
   filterTitle: string;
+  filter: SubmenuFilters;
 }
 
 export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
-  trendingProjects,
   categoryCallback,
   filterTitle,
+  filter,
 }) => {
+  const dispatch = useAppDispatch();
+  const token = useSelector(userTokenSelector);
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
+  const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
+  const [selectCategory, setSelectCategory] = useState<
+    CategoryTags | undefined
+  >(undefined);
+  const trendingProjects = useSelector(trendingProjectsSelector);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(
+        fetchTrendingProjects({
+          filter: filter,
+          callBack: setTrendingStatus,
+          categoryFilter: selectCategory,
+          tokenValue: token,
+        })
+      );
+    }
+  }, [token, selectCategory, filter]);
+
+  if (trendingStatus === 'pending') {
+    return <Loader width={50} height={50} />;
+  }
 
   return (
     <div className="Category">

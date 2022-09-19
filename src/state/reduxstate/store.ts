@@ -28,8 +28,9 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredPaths: ['projects', 'influencers'],
       },
-    }).concat(logger),
+    }),
 });
 
 export const persistor = persistStore(store);

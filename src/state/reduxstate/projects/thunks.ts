@@ -170,7 +170,7 @@ const token = JSON.parse(String(localStorage.getItem('token')));
 export const fetchProjects = createAsyncThunk(
   'projects/GET_PROJECTS_DATA',
   async (
-    { callBack, filter, skip, filterValue = 1 }: ProjectsPayload,
+    { callBack, filter, skip }: ProjectsPayload,
     { dispatch, getState }
   ) => {
     const { user, projects } = getState() as RootState;
@@ -180,9 +180,11 @@ export const fetchProjects = createAsyncThunk(
     //   filter.length > 0
     //     ? `${apiv1}/projects/today?filters[${filter}]=${filterValue}&limit=52&offset=${offset}`
     //     : `${apiv1}/projects/today?limit=52&offset=${offset}`;
+
+    const filterValue = filter ? `&orderBy=${filter}` : '';
     const url = skip
-      ? `${apiv1}/projects?take=52&orderBy=${filter}&skip=${skip}`
-      : `${apiv1}/projects?take=52`;
+      ? `${apiv1}/projects?take=8${filterValue}&skip=${skip}`
+      : `${apiv1}/projects?take=8`;
 
     if (token || tokenFromState) {
       try {
@@ -196,8 +198,11 @@ export const fetchProjects = createAsyncThunk(
 
         const { projects } = getState() as RootState;
 
-        if (skip && skip >= 52) {
-          const expandedProjects = concat(projects.projects, resp.data);
+        if (skip && skip >= 8) {
+          const expandedProjects = concat(
+            projects.projects_data.projects,
+            resp.data
+          );
           const uniqueProjects = [
             ...(new Set(expandedProjects) as unknown as Project[]),
           ];

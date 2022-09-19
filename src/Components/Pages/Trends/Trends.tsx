@@ -17,15 +17,10 @@ import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
   fetchProjects,
   fetchProjectsByInfluencers,
-  fetchTop3LowestProjects,
-  fetchTop3Projects,
   fetchTrendingProjects,
 } from 'src/state/reduxstate/projects/thunks';
 import {
   projectsByInfluencersSelector,
-  top3BullProjectsSelector,
-  top3PositiveProjectsSelector,
-  top3TalkRateProjectsSelector,
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
@@ -39,11 +34,6 @@ import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { projectPicksSelector } from 'src/state/reduxstate/influencers/selectors';
 import { fetchProjectsPick } from 'src/state/reduxstate/influencers/thunks';
-import {
-  setProjectsCount,
-  setProjectsData,
-} from 'src/state/reduxstate/projects/slice';
-import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('daily');
@@ -52,9 +42,6 @@ export const Trends: React.FC = () => {
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
-  const top3BullProjects = useSelector(top3BullProjectsSelector);
-  const top3PositiveProjects = useSelector(top3PositiveProjectsSelector);
-  const top3TalkRateProjects = useSelector(top3TalkRateProjectsSelector);
   const projectsByInfluencers = useSelector(projectsByInfluencersSelector);
   const token = useSelector(userTokenSelector);
   const [selectCategory, setSelectCategory] = useState<
@@ -78,62 +65,13 @@ export const Trends: React.FC = () => {
         })
       );
     }
-  }, [
-    token,
-    filter,
-    inflFilterValue,
-    influencersFilter,
-    dispatch,
-    selectCategory,
-  ]);
+  }, [token]);
 
   useEffect(() => {
     if (token && filter !== 'upcomming') {
       dispatch(fetchProjectsPick({ tokenValue: token, dateFilter: filter }));
       dispatch(
         fetchProjectsByInfluencers({ tokenValue: token, dateFilter: filter })
-      );
-      dispatch(
-        fetchTop3Projects({
-          filter: 'top-bull',
-          tokenValue: token,
-          dateFilter: filter,
-        })
-      );
-      dispatch(
-        fetchTop3Projects({
-          filter: 'top-sentiment',
-          tokenValue: token,
-          dateFilter: filter,
-        })
-      );
-      dispatch(
-        fetchTop3Projects({
-          filter: 'top-talk-rate',
-          tokenValue: token,
-          dateFilter: filter,
-        })
-      );
-      dispatch(
-        fetchTop3LowestProjects({
-          filter: 'lowest-bull',
-          tokenValue: token,
-          dateFilter: filter,
-        })
-      );
-      dispatch(
-        fetchTop3LowestProjects({
-          filter: 'lowest-sentiment',
-          tokenValue: token,
-          dateFilter: filter,
-        })
-      );
-      dispatch(
-        fetchTop3LowestProjects({
-          filter: 'lowest-talk-rate',
-          tokenValue: token,
-          dateFilter: filter,
-        })
       );
     }
 
@@ -144,15 +82,11 @@ export const Trends: React.FC = () => {
     //     return () => clearInterval(interval);
     //   });
     // }
-  }, [dispatch, token, filter]);
+  }, [token, filter]);
 
   useEffect(() => {
     dispatch(fetchProjects({ skip: null }));
-
-    if (token) {
-      dispatch(getFavProjects({ tokenValue: token }));
-    }
-  }, [token]);
+  }, []);
 
   return (
     <div className="Trends">
@@ -171,6 +105,7 @@ export const Trends: React.FC = () => {
                     categoryCallback={setSelectCategory}
                     trendingProjects={trendingProjects}
                     filterTitle={filterTitle}
+                    filter={filter}
                   />
                 )}
               </CardWrapper>
@@ -184,18 +119,11 @@ export const Trends: React.FC = () => {
                 />
               </CardWrapper>
             </section>
+            <Top3ElementsSlider filterTitle={filterTitle} filter={filter} />
             <Top3ElementsSlider
-              topBull={top3BullProjects}
-              topPositive={top3PositiveProjects}
-              topTalkRate={top3TalkRateProjects}
-              filterTitle={filterTitle}
-            />
-            <Top3ElementsSlider
-              topBull={top3BullProjects}
-              topPositive={top3PositiveProjects}
-              topTalkRate={top3TalkRateProjects}
               filterTitle={filterTitle}
               isLowestList
+              filter={filter}
             />
             <section className="wrapper one-column">
               <CardWrapper

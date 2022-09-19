@@ -111,16 +111,18 @@ export const getFavInfluencers = createAsyncThunk(
   async (_, { dispatch }) => {
     if (token) {
       try {
-        const resp = await fetch(`${api}/fav/influencer`, {
+        const resp = await fetch(`${apiv1}/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
 
-        const uniqueSubscribedInfl = [
-          ...(new Set(resp) as unknown as Influencer[]),
-        ];
-        dispatch(setSubscribedInfluencers(uniqueSubscribedInfl));
+        console.log(resp.favorite_twitter_user);
+
+        // const uniqueSubscribedInfl = [
+        //   ...(new Set(resp.fav) as unknown as Influencer[]),
+        // ];
+        // dispatch(setSubscribedInfluencers(uniqueSubscribedInfl));
       } catch (e) {
         console.log(e);
       }
