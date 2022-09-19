@@ -159,9 +159,9 @@ export const fetchMostFollowedInfluencers = createAsyncThunk(
 //NEW API
 
 interface ProjectsPayload {
-  callBack: Dispatch<SetStateAction<Statuses>>;
-  filter: ProjectFilterKeys;
-  skip: number | null;
+  callBack?: Dispatch<SetStateAction<Statuses>>;
+  filter?: ProjectFilterKeys;
+  skip?: number | null;
   filterValue?: CategoryTags | number | string;
 }
 
@@ -186,7 +186,8 @@ export const fetchProjects = createAsyncThunk(
 
     if (token || tokenFromState) {
       try {
-        callBack('pending');
+        callBack && callBack('pending');
+
         const resp = await fetch(url, {
           headers: {
             Authorization: `Bearer ${token || tokenFromState}`,
@@ -216,9 +217,9 @@ export const fetchProjects = createAsyncThunk(
             })
           );
         }
-        callBack('success');
+        callBack && callBack('success');
       } catch (e) {
-        callBack('error');
+        callBack && callBack('error');
 
         console.log(e);
       }
