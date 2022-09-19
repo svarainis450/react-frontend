@@ -39,7 +39,7 @@ const initialState: ProjectsState = {
       skip: 0,
       take: 52,
       total: 0,
-      page: 1,
+      page: 0,
       pages: 0,
     },
     projects: [],

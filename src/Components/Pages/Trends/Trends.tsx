@@ -15,6 +15,7 @@ import { submenuList } from './constants';
 import './trends.scss';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import {
+  fetchProjects,
   fetchProjectsByInfluencers,
   fetchTop3LowestProjects,
   fetchTop3Projects,
@@ -38,6 +39,10 @@ import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { projectPicksSelector } from 'src/state/reduxstate/influencers/selectors';
 import { fetchProjectsPick } from 'src/state/reduxstate/influencers/thunks';
+import {
+  setProjectsCount,
+  setProjectsData,
+} from 'src/state/reduxstate/projects/slice';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('daily');
@@ -139,6 +144,10 @@ export const Trends: React.FC = () => {
     //   });
     // }
   }, [dispatch, token, filter]);
+
+  useEffect(() => {
+    dispatch(fetchProjects({ skip: null }));
+  }, []);
 
   return (
     <div className="Trends">

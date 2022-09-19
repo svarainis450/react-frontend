@@ -26,6 +26,7 @@ import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { scrollToElement } from 'src/utils/scrollers';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 import { Typography } from 'src/Components/Global/Typography';
+import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -76,6 +77,10 @@ export const Discover: React.FC = () => {
       ).then(() => scrollToElement('card-to-scroll'));
     }
   }, [skipElements, projectsFilter]);
+
+  useEffect(() => {
+    dispatch(fetchInfluencers({ skip: null }));
+  }, []);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow && projectsLeftToSee >= 52) {
