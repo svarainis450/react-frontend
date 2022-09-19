@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigateHook } from 'src/hooks';
 import { LinkList } from 'src/types';
+import { InfluencerData } from '../influencers/types';
 import { fetchProjectById } from '../projects/thunks';
 import { Influencer, Project, Statuses } from '../projects/types';
 import { RootState } from '../slice';
@@ -119,10 +120,12 @@ export const getFavInfluencers = createAsyncThunk(
 
         console.log(resp.favorite_twitter_user);
 
-        // const uniqueSubscribedInfl = [
-        //   ...(new Set(resp.fav) as unknown as Influencer[]),
-        // ];
-        // dispatch(setSubscribedInfluencers(uniqueSubscribedInfl));
+        const uniqueSubscribedInfl = [
+          ...(new Set(
+            resp.favorite_twitter_user
+          ) as unknown as InfluencerData[]),
+        ];
+        dispatch(setSubscribedInfluencers(uniqueSubscribedInfl));
       } catch (e) {
         console.log(e);
       }

@@ -38,10 +38,10 @@ export const YourInfluencers: React.FC = () => {
           </div>
         )}
         <div className="Your-influencers__wrapper">
-          {/* {subscribedInfluencers?.length > 0 &&
-            subscribedInfluencers.map(({ id, ...rest }) => (
-              <InfluencerCard id={id} key={id} {...rest} />
-            ))} */}
+          {subscribedInfluencers?.length > 0 &&
+            subscribedInfluencers.map(({ ...rest }, index) => (
+              <InfluencerCard key={index} {...rest} />
+            ))}
         </div>
       </LoggedInLayout>
     </div>
