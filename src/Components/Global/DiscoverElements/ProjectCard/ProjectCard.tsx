@@ -11,6 +11,7 @@ import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 import {
   deleteFromFavorites,
+  getFavProjects,
   sendFavProjectOrInfluencer,
 } from 'src/state/reduxstate/user/thunks';
 import { LinkList } from 'src/types';
@@ -77,6 +78,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     if ((!isFavoriteProject || !isFavInstance) && id) {
       dispatch(sendFavProject({ id }));
       setIsFavInstance(true);
+      dispatch(getFavProjects({}));
     } else if ((isFavoriteProject || isFavInstance) && id) {
       dispatch(
         deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })

@@ -109,8 +109,6 @@ export const fetchInfluencers = createAsyncThunk(
         const { influencers } = getState() as RootState;
         const influencersArray = influencers.influencers_data.influencers;
 
-        console.log(resp);
-
         if (skip && skip >= 52) {
           const expandedInfluencers = concat(influencersArray, resp.data);
           const uniqueInfluencers = [
@@ -168,8 +166,6 @@ export const sendFavInfluencer = createAsyncThunk(
         }).then((res) => res.json());
 
         callBack && callBack('success');
-
-        console.log(resp);
 
         return resp;
       } catch (e) {

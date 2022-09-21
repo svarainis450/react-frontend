@@ -92,7 +92,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({
                     </div>
                   </div>
                 </div>
-                <input checked={isSelected} type="radio" />
+                <input checked={isSelected} type="radio" readOnly />
               </div>
             );
           })}

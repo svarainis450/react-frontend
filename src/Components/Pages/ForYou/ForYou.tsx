@@ -64,7 +64,6 @@ export const ForYou: React.FC = () => {
   const dispatch = useAppDispatch();
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const projectByIdState = useSelector(projectByIdSelector);
-  const [offsetCount, setOffsetCount] = useState(0);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
   const { projects } = useSelector(projectsDataSelector);
 
@@ -75,9 +74,6 @@ export const ForYou: React.FC = () => {
     useState(favoriteProjects);
   const [favFetchStatus, setFavFetchStatus] = useState<Statuses>('idle');
 
-  const [selectedProjectID, setSelectedProjectID] = useState<number | null>(
-    null
-  );
   const [showInfo, setShowInfo] = useState(false);
   const [showMobileList, setShowMobileList] = useState(false);
 
@@ -98,21 +94,11 @@ export const ForYou: React.FC = () => {
       fetchProjects({
         filter: projectsFilter,
         callBack: setProjectStatus,
-        skip: offsetCount,
-        filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );
 
     dispatch(getFavInfluencers());
-  }, [
-    projectsFilter,
-    offsetCount,
-    dispatch,
-    filterValue,
-    userToken,
-    token,
-    selectedProjectID,
-  ]);
+  }, [projectsFilter, dispatch, filterValue, userToken, token]);
 
   const { isTablet } = useMediaQuery();
 
@@ -137,7 +123,7 @@ export const ForYou: React.FC = () => {
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.target.value.length >= 3) {
+    if (e.target.value.length >= 3 && favoriteProjects.length > 0) {
       setProjectsFilter(ProjectFilterKeys.NAME);
       setFilterValue(e.target.value);
       setFilteredFavProjects(
@@ -154,7 +140,7 @@ export const ForYou: React.FC = () => {
       setFilteredFavProjects(favoriteProjects);
     }
   };
-
+  console.log(favoriteProjects);
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
@@ -163,14 +149,20 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {favoriteProjects.length > 0 && (
-                <ProjectMetrics projectByIdProp={favoriteProjects[0]} />
+              {((favoriteProjects && favoriteProjects.length > 0) ||
+                projects.length > 0) && (
+                <ProjectMetrics
+                  projectByIdProp={
+                    (favoriteProjects && favoriteProjects[0]) || projects[0]
+                  }
+                />
               )}
             </div>
 
             <div>
               {(favFetchStatus !== 'success' ||
-                (favoriteProjects && favoriteProjects.length > 0)) && (
+                (favoriteProjects && favoriteProjects.length > 0) ||
+                projects.length > 0) && (
                 // this is chart
                 <ForYouChartView
                   chartPrice={dogeCoinProjectData.data.chart_price}
@@ -217,8 +209,9 @@ export const ForYou: React.FC = () => {
                 />
               </div>
             )}
-            {/* {!isTablet && projectByIdState && filterValue !== '1' && (
+            {!isTablet && projectByIdState && filterValue !== '1' && (
               <ForYouListItem
+                showMobileListCallback={setShowMobileList}
                 key={`${projectByIdState.id}`}
                 project={projectByIdState}
                 // projectIDCallback={projectByIdState.id}
@@ -228,7 +221,7 @@ export const ForYou: React.FC = () => {
                   )
                 }
               />
-            )} */}
+            )}
             <div className="For-you__wrapper__projects-list__desktop-mobile">
               {isTablet && showMobileList && (
                 <div className="input-wrapper">
@@ -249,7 +242,8 @@ export const ForYou: React.FC = () => {
                 </div>
               )}
               {(!isTablet || showMobileList) &&
-                (favFetchStatus === 'success' || favoriteProjects.length > 0) &&
+                (favFetchStatus === 'success' ||
+                  favoriteProjects?.length > 0) &&
                 filteredFavProjects.map((project, index) => (
                   <ForYouListItem
                     showMobileListCallback={setShowMobileList}

@@ -9,7 +9,11 @@ import {
   setSubscribedInfluencers,
   setUserData,
 } from './slice';
-import { FavInfluencersProjectsPayload, UserDataType } from './types';
+import {
+  FavInfluencersProjectsPayload,
+  UserDataType,
+  UserUpdateType,
+} from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
 
@@ -20,7 +24,7 @@ export const fetchUserData = createAsyncThunk(
   async (tokenValue: string, { dispatch }) => {
     if (tokenValue) {
       try {
-        const resp = await fetch(`${api}/me`, {
+        const resp = await fetch(`${apiv1}/users`, {
           headers: {
             Authorization: `Bearer ${tokenValue || token}`,
           },
@@ -38,11 +42,11 @@ export const fetchUserData = createAsyncThunk(
 
 export const updateUserInfo = createAsyncThunk(
   'user/UPDATE_USER_DATA',
-  async (data: Omit<UserDataType, 'market'>) => {
+  async (data: UserUpdateType) => {
     if (token) {
       try {
         const resp = await fetch(`${api}/me`, {
-          method: 'POST',
+          method: 'PATCH',
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
@@ -84,8 +88,6 @@ export const getFavProjects = createAsyncThunk(
             Authorization: `Bearer ${tokenFromState || tokenValue}`,
           },
         }).then((res) => res.json());
-
-        console.log(resp);
 
         dispatch(setFavoriteProjects(resp.favorite_projects));
 

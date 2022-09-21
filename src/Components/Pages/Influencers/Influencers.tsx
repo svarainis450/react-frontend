@@ -49,9 +49,6 @@ export const Influencers: React.FC = () => {
   const [seenAll, setSeenAll] = useState('');
   const cardsPerOneRequest = 8;
 
-  console.log(skipElements);
-  console.log(notAllToShow);
-
   useEffect(() => {
     if (
       !influencers ||

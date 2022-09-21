@@ -18,26 +18,19 @@ export type NavClassTypes =
   | 'billing'
   | 'account';
 
-export interface UserDataType {
+export interface UserDataType extends UserUpdateType {
+  id?: number;
+  paypal_id: string | null;
+  stripe_id: string | null;
+  subscription_expires_at: string | null;
+}
+
+export interface UserUpdateType {
   email: string;
   firstName: string;
   lastName: string;
-  market: number; //market sentiment rate
   img?: string;
-  password?: string;
-  id?: number;
-  subscription?: {
-    type: 'pro' | 'starter';
-    billingMethod: 'yearly' | 'monthly';
-  };
-
-  paymentMethod?: [
-    {
-      id: number;
-      paymentMethod: 'Card' | 'Paypal' | 'Crypto';
-      expirationDate: string;
-    }
-  ];
+  password: string;
 }
 export interface FavInfluencersProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;

@@ -4,6 +4,7 @@ import {
   fetchProjects,
   fetchProjectsByInfluencers,
   fetchMostFollowedInfluencers,
+  fetchTotalSentiment,
 } from './thunks';
 import {
   Influencer,
@@ -39,6 +40,7 @@ const initialState: ProjectsState = {
     },
     projects: [],
   },
+  total_sentiment: 50,
 };
 
 const projectsSlice = createSlice({
@@ -166,6 +168,12 @@ const projectsSlice = createSlice({
         action: PayloadAction<ProjectsState['most_followed_influencers']>
       ) => {
         state.most_followed_influencers = action.payload;
+      }
+    );
+    builder.addCase(
+      fetchTotalSentiment.fulfilled,
+      (state, action: PayloadAction<ProjectsState['total_sentiment']>) => {
+        state.total_sentiment = action.payload;
       }
     );
   },

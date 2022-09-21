@@ -45,7 +45,7 @@ export const PAYMENT_DETAILS = [
     method: PaymentMethodTypes.CARDS,
   },
   {
-    id: 3,
+    id: 4,
     icon: icons.mastercard,
     title: PaymentDetailTypes.MASTERCARD,
     method: PaymentMethodTypes.CARDS,

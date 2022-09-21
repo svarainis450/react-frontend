@@ -115,7 +115,6 @@ export const fetchInfluencers = createAsyncThunk(
         }
 
         callBack('success');
-        console.log(resp);
 
         dispatch(
           setInfluencersPages({
@@ -412,6 +411,25 @@ export const sendFavProject = createAsyncThunk(
         callBack && callBack('error');
         console.log(e);
       }
+    }
+  }
+);
+
+export const fetchTotalSentiment = createAsyncThunk(
+  'projects/GET_TOTAL_SENTIMENT',
+  async (_, { getState }) => {
+    const { user } = getState() as RootState;
+    const token = user.user_token;
+    try {
+      const resp = await fetch(`${apiv1}/total-sentiment`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => res.json());
+
+      return resp.data.sentiment;
+    } catch (e) {
+      console.log(e);
     }
   }
 );
