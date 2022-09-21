@@ -1,11 +1,9 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
-import * as d3 from 'd3';
-import LinePlot from './linePlot';
+import { ForYouChart } from './forYouChart';
+import { filterDataObjectsByPeriod } from './ParsingHelper';
 import './mainScreen.css';
-import { EmptyChartStateComp } from '../ForYourElements/EmptyChartStateComp';
 
-const toggleButtons = [
+export const toggleButtons = [
   {
     active: false,
     title: 'Sentiment',
@@ -24,37 +22,20 @@ const toggleButtons = [
   },
 ];
 
-const MainScreen = ({ projectId }) => {
-  const [projectPlotData, setProjectPlotData] = useState(null);
-  const [sentimentData, setSentimentData] = useState(null);
-  const [price, setPrice] = useState(null);
-  const [volume, setVolume] = useState(null);
+export const ForYouChartView = ({
+  chartPrice,
+  chartSentiment,
+  chartTalkRate,
+  chartVolume,
+}) => {
   const [graphToggleButtons, setGraphToggleButtons] = useState(toggleButtons);
 
-  useEffect(() => {
-    fetch(`http://138.68.87.87/api/project/${projectId}/data`)
-      .then((data) => data.json())
-      .then((jsonData) => setProjectPlotData(jsonData));
-
-    fetch(`http://138.68.87.87/api/project/${projectId}/sentiment`)
-      .then((data) => data.json())
-      .then((jsonData) => {
-        setSentimentData(jsonData);
-      });
-
-    fetch(`http://138.68.87.87/api/project/${projectId}/price`)
-      .then((data) => data.json())
-      .then((jsonData) => {
-        const priceVector = jsonData.map((item) => {
-          return { date: item.date, value: parseFloat(item.avg_price_token) };
-        });
-        const volumeVector = jsonData.map((item) => {
-          return { date: item.date, value: parseFloat(item.volume_token) };
-        });
-        setPrice(priceVector);
-        setVolume(volumeVector);
-      });
-  }, [projectId]);
+  const chartData = filterDataObjectsByPeriod(
+    chartPrice,
+    chartSentiment,
+    chartTalkRate,
+    chartVolume
+  );
 
   const toggleGraphActivity = (event) => {
     let newState;
@@ -127,17 +108,10 @@ const MainScreen = ({ projectId }) => {
       <div className="data-area">
         <div className="plot-area">
           <div className="graph">
-            {projectPlotData ? (
-              <LinePlot
-                talkRateData={projectPlotData}
-                sentimentData={sentimentData}
-                priceData={price}
-                volumeData={volume}
-                toggleButtons={graphToggleButtons}
-              />
-            ) : (
-              <div></div>
-            )}
+            <ForYouChart
+              chartData={chartData}
+              chartTypeButtons={graphToggleButtons}
+            />
           </div>
         </div>
       </div>
@@ -146,5 +120,3 @@ const MainScreen = ({ projectId }) => {
     </div>
   );
 };
-
-export default MainScreen;
