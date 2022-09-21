@@ -4,10 +4,10 @@
 
 .range-button-group {
   background-color: white;
-  margin-left: 30px;
-  margin-top: 16px;
   border-width: 1px;
   overflow: hidden;
+  align-items: center;
+  justify-content: center;
 }
 
 .range-button-group button {
@@ -42,24 +42,16 @@
   display: table;
 }
 
-/* Add a background color on hover */
-.range-button-group button:hover {
-  box-shadow: 0 -2px 0 0 #2b59d1 inset;
-}
-
 .range-button-group button {
   font-size: 12px;
   color: black;
 }
 
-.range-button-group button:hover {
+.range-button-group #active {
   color: #2b59d1;
   font-weight: 700;
-}
-
-.range-button-group button:active {
-  color: #2b59d1;
-  font-weight: 700;
+  background-color: #2b59d110;
+  box-shadow: 0 -2px 0 0 #2b59d1 inset;
 }
 
 @media screen and (max-width: 780px) {
@@ -70,16 +62,106 @@
     margin-left: 0;
     background-color: #f4f4f4;
     margin: 0;
+    width: 100%;
   }
 
   #line-chart {
     background-color: white;
-    margin-top: 10px;
-    padding-top: 20px;
-    border-radius: 10px;
   }
 
   .range-button-group button {
     box-shadow: 0 0 4px 0px rgb(0, 0, 0, 0.1);
   }
+
+  .range-button-line-names-wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .line-names {
+    width: 100% !important;
+    margin-top: 20px;
+    margin-left: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-around !important;
+    background-color: white !important;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .dot-explain {
+    margin-left: 0 !important;
+  }
+}
+
+/* NEWLY ADDED WRAPPER */
+.range-button-line-names-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.line-names {
+  height: 30px;
+  width: 30%;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.dot-explain {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-left: 15%;
+}
+
+.dot-text {
+  display: flex;
+  margin-left: 5px;
+  font-size: 0.8rem;
+}
+
+/* tooltip */
+
+.tooltip-wrapper {
+  position: relative;
+}
+
+.listening-rect {
+  fill: transparent;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 0.6em 1em;
+  background: rgba(255, 255, 255, 0.9);
+  text-align: left;
+  line-height: 1.4em;
+  font-size: 0.9em;
+  border-radius: 5px;
+  z-index: 10;
+  transition: all 0.1s ease-out;
+  pointer-events: none;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+}
+.tooltip-date {
+  margin-bottom: 0.2em;
+  font-weight: 600;
+  font-size: 1.1em;
+  line-height: 1.4em;
 }

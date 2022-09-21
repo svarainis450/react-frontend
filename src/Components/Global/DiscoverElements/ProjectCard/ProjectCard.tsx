@@ -23,7 +23,7 @@ import {
 } from '../../Typography';
 import { CoinBaseButton } from '../CoinBaseButton/CoinBaseButton';
 import { PositiveBullsBlock } from './PositiveBullsBlock';
-import Card from '../../Graphic/cardChart';
+import { CardChart } from '../../Graphic/CardChart';
 import './ProjectCard.scss';
 import { formatDate } from 'src/utils/calculations';
 
@@ -168,7 +168,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 </div>
               </div>
               <div className="graph-wrapper">
-                <Card projectId={id} />
+                {/* <CardChart projectId={id} /> */}
               </div>
               <PositiveBullsBlock
                 sentiment_score={sentiment_score}
