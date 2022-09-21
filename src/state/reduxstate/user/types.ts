@@ -39,9 +39,8 @@ export interface UserDataType {
     }
   ];
 }
-
 export interface FavInfluencersProjectsPayload {
-  callBack: Dispatch<SetStateAction<Statuses>>;
+  callBack?: Dispatch<SetStateAction<Statuses>>;
   id: number;
-  fav_type: 'project' | 'influencer';
+  fav_type?: 'project' | 'influencer';
 }

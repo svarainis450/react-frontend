@@ -80,13 +80,15 @@ export const ForYou: React.FC = () => {
   const [showInfo, setShowInfo] = useState(false);
   const [showMobileList, setShowMobileList] = useState(false);
 
-  console.log(favoriteProjects);
-
   useEffect(() => {
     if (!window.location.hash) {
       //@ts-ignore
       window.location = window.location + '#loaded';
       window.location.reload();
+    }
+
+    if (token) {
+      dispatch(getFavProjects({ tokenValue: token }));
     }
   }, []);
 

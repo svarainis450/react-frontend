@@ -9,6 +9,7 @@ import {
 } from '../projects/types';
 import { RootState } from '../slice';
 import { apiv1 } from '../types';
+import { FavInfluencersProjectsPayload } from '../user/types';
 import { setInfluencersData, setTrendingInfluencers } from './slice';
 import { InfluencerData } from './types';
 
@@ -138,6 +139,39 @@ export const fetchInfluencers = createAsyncThunk(
         //     pages: resp.pages,
         //   })
         // );
+      } catch (e) {
+        callBack && callBack('error');
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const sendFavInfluencer = createAsyncThunk(
+  'influencers/POST_FAV_INFLUENCER',
+  async ({ id, callBack }: FavInfluencersProjectsPayload) => {
+    if (token) {
+      try {
+        callBack && callBack('pending');
+
+        const data = {
+          project_id: id,
+        };
+
+        const resp = await fetch(`${apiv1}/favorite-twitter-users`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }).then((res) => res.json());
+
+        callBack && callBack('success');
+
+        console.log(resp);
+
+        return resp;
       } catch (e) {
         callBack && callBack('error');
         console.log(e);

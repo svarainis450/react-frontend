@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'src/hooks';
-import { fetchProjectById } from 'src/state/reduxstate/projects/thunks';
+import {
+  fetchProjectById,
+  sendFavProject,
+} from 'src/state/reduxstate/projects/thunks';
 import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
@@ -72,13 +75,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const handleFavoritesIcon = (id: number | undefined) => {
     if ((!isFavoriteProject || !isFavInstance) && id) {
-      dispatch(
-        sendFavProjectOrInfluencer({
-          id,
-          callBack: setStatus,
-          fav_type: 'project',
-        })
-      );
+      dispatch(sendFavProject({ id }));
       setIsFavInstance(true);
     } else if ((isFavoriteProject || isFavInstance) && id) {
       dispatch(

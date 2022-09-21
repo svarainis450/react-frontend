@@ -6,6 +6,7 @@ import { useNavigateHook } from 'src/hooks';
 import { LinkList } from 'src/types';
 import { RootState } from '../slice';
 import { api, apiv1 } from '../types';
+import { FavInfluencersProjectsPayload } from '../user/types';
 import {
   set3LowestTalkRateProjects,
   setInfluencers,
@@ -384,30 +385,33 @@ export const fetchProjectsByInfluencers = createAsyncThunk(
   }
 );
 
-// export const fetchProjectsPick = createAsyncThunk(
-//   'projects/GET_PROJECT_PICKS',
-//   async ({ tokenValue, dateFilter }: TrendsProjectsByInfluencersPayload) => {
-//     if (tokenValue) {
-//       try {
-//         const resp = await fetch(
-//           `${apiv1}/trends/influencer-top-mentioned-projects-${dateFilter}?take=10`,
-//           {
-//             headers: {
-//               Authorization: `Bearer ${tokenValue}`,
-//             },
-//           }
-//         ).then((res) => res.json());
+export const sendFavProject = createAsyncThunk(
+  'projects/POST_FAV_PROJECT',
+  async ({ id, callBack }: FavInfluencersProjectsPayload) => {
+    if (token) {
+      try {
+        callBack && callBack('pending');
 
-//         const pickedProjects = resp.data.map(
-//           (item: { place: number; project: Project }) => {
-//             return item.project;
-//           }
-//         );
+        const data = {
+          project_id: id,
+        };
 
-//         return pickedProjects;
-//       } catch (e) {
-//         console.log(e);
-//       }
-//     }
-//   }
-// );
+        const resp = await fetch(`${apiv1}/favorite-projects`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }).then((res) => res.json());
+
+        callBack && callBack('success');
+
+        return resp;
+      } catch (e) {
+        callBack && callBack('error');
+        console.log(e);
+      }
+    }
+  }
+);

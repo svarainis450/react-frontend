@@ -115,8 +115,6 @@ export const getFavInfluencers = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        console.log(resp.favorite_twitter_user);
-
         const uniqueSubscribedInfl = [
           ...(new Set(
             resp.favorite_twitter_user
@@ -135,7 +133,7 @@ export const sendFavProjectOrInfluencer = createAsyncThunk(
   async ({ id, callBack, fav_type }: FavInfluencersProjectsPayload) => {
     if (token) {
       try {
-        callBack('pending');
+        callBack && callBack('pending');
 
         const resp = await fetch(`${api}/fav/${fav_type}/${id}`, {
           method: 'POST',
@@ -143,10 +141,11 @@ export const sendFavProjectOrInfluencer = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
-        callBack('success');
+        callBack && callBack('success');
+
         return resp;
       } catch (e) {
-        callBack('error');
+        callBack && callBack('error');
         console.log(e);
       }
     }
@@ -160,7 +159,7 @@ export const deleteFromFavorites = createAsyncThunk(
     { dispatch }
   ) => {
     if (token) {
-      callBack('pending');
+      callBack && callBack('pending');
       try {
         await fetch(`${api}/fav/${fav_type}/${id}`, {
           method: 'DELETE',
@@ -175,9 +174,9 @@ export const deleteFromFavorites = createAsyncThunk(
           dispatch(getFavProjects(token));
         }
 
-        callBack('success');
+        callBack && callBack('success');
       } catch (e) {
-        callBack('error');
+        callBack && callBack('error');
         console.log(e);
       }
     }
