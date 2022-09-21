@@ -1,31 +1,37 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../slice';
-import { api } from '../types';
+import { api, apiv1 } from '../types';
 import { setSecretKey } from './slice';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
 
+interface PaymentPayload {
+  name: string;
+  item_description: string;
+  phone: string;
+  price: string;
+}
+
 export const createPaymentIntent = createAsyncThunk(
   'payments/CREATE_PAYMENT_INTENT',
-  async (_, { dispatch }) => {
+  async (data: PaymentPayload, { dispatch }) => {
     if (token) {
       try {
-        const resp = fetch(`${api}/payment/init`, {
+        const resp = fetch(`${apiv1}/stripe`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           // TODO: add items
-          body: JSON.stringify({
-            paymentMethodType: 'card',
-            currency: 'eur',
-          }),
+          body: JSON.stringify(data),
         })
           .then((res) => res.json())
           .then((data) => {
-            dispatch(setSecretKey(data.token));
+            console.log(data);
           });
+
+        console.log(resp);
       } catch (e) {
         console.log(e);
       }

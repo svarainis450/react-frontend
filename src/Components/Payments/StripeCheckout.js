@@ -61,7 +61,13 @@ export default function CheckoutForm() {
     }
 
     setIsLoading(true);
-    dispatch(createPaymentIntent());
+
+    const paymentDetails = {
+      name: userName,
+      item_description: 'Monthly subscription',
+      phone: '867777777',
+      price: '20',
+    };
     const cardElement = elements.getElement(CardElement);
 
     const { error } = await stripe.confirmCardPayment(
@@ -75,10 +81,17 @@ export default function CheckoutForm() {
           card: cardElement,
           billing_details: {
             name: userName,
+            item: 'Monthly subscription',
+            phone: '867777777',
+            price: '20',
+            currency: 'eur',
           },
+          payment_method: cardElement,
         },
       },
-      dispatch(completePaymentPost(userData.id))
+      dispatch(createPaymentIntent(paymentDetails))
+
+      // dispatch(completePaymentPost(userData.id))
     );
 
     // This point will only be reached if there is an immediate error when

@@ -21,10 +21,7 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
   onClick,
   isSelected,
 }) => (
-  <div
-    className="Billing__border-wrapper__method"
-    onClick={() => onClick(method)}
-  >
+  <div className="Billing__border-wrapper__method">
     <div className="Billing__border-wrapper__method__flex" key={id}>
       <div
         className={`Billing__border-wrapper__method__flex__info ${
@@ -35,6 +32,7 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
         <img src={icon} alt={title} />
       </div>
       <img
+        onClick={() => onClick(method)}
         src={icons.arrow_right}
         alt="Arrow"
         className={`Billing__border-wrapper__method__details-wrapper__arrow ${
