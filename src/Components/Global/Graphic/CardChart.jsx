@@ -5,46 +5,12 @@ import './card.css';
 
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-
-const parseDataByInterval = (interval, parsedData) => {
-  const maxDate = d3.max(parsedData, (d) => d.date);
-  let minDate;
-
-  switch (interval) {
-    case '3H':
-      minDate = new Date(maxDate);
-      minDate.setHours(minDate.getHours() - 3);
-      break;
-    case '1D':
-      minDate = new Date(maxDate);
-      minDate.setDate(minDate.getDate() - 1);
-      break;
-    case '1W':
-      minDate = new Date(maxDate);
-      minDate.setDate(minDate.getDate() - 7);
-      break;
-    case '1M':
-      minDate = new Date(maxDate);
-      minDate.setDate(minDate.getDate() - 30);
-      break;
-    case '3M':
-      minDate = new Date(maxDate);
-      minDate.setDate(minDate.getDate() - 30 * 3);
-      break;
-    case 'All':
-      minDate = new Date('2022-05-01');
-      break;
-    default:
-      minDate = new Date('2022-07-01');
-      break;
-  }
-
-  // filter required data objects only
-  const filteredData = parsedData.filter(
-    (item) => item.date >= minDate && maxDate >= item.date
-  );
-  return { filteredData, minDate, maxDate };
-};
+import { filterDataObjectsByPeriod } from './ParsingHelper';
+import { genChart } from './forYouChart';
+import {
+  getIntervalDomain,
+  getChartDimensions,
+} from './ChartElements/ChartCreateElements';
 
 const getCanvasSvg = (projectId, width, height, margin) => {
   const svg = d3
@@ -144,150 +110,70 @@ function getWindowSize() {
   return innerWidth;
 }
 
-const CardChart = ({ projectId }) => {
+export const genCardChart = (
+  projectId,
+  chartData,
+  interval,
+  width,
+  height,
+  margin
+) => {
+  const domain = getIntervalDomain(chartData, interval);
+  const svg = getCanvasSvg(projectId, width, height, margin);
+  const xScale = d3.scaleTime().domain(domain).range([0, width]);
+  console.log(chartData);
+};
+
+export const margin = {
+  top: 20,
+  bottom: 20,
+  left: 0,
+  right: 0,
+};
+
+export const CardChart = ({
+  projectId,
+  chartPrice,
+  chartSentiment,
+  chartTalkRate,
+  chartVolume,
+}) => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
-  const [talkRate, setTalkRate] = useState(null);
-  const [sentiment, setSentiment] = useState(null);
   const [interval, setInterval] = useState('1M');
   const [activeToggleButtons, setActiveToggleButtons] = useState([1, 1]);
+  const [chartDimensions, setChartDimensions] = useState(null);
 
-  const parseTime = d3.timeParse('%Y-%m-%dT%H:%M:%S.%LZ');
-  const margin = {
-    top: 20,
-    bottom: 20,
-    left: 0,
-    right: 0,
-  };
+  const chartData = filterDataObjectsByPeriod(
+    chartPrice,
+    chartSentiment,
+    chartTalkRate,
+    chartVolume
+  );
   const buttonIntervals = ['3H', '1D', '1W', '1M', '3M'];
+  let width = d3.select('.project-card').style('width');
+  let height = width;
+  width = parseInt(width) - margin.left - margin.right;
+  height = width / 3.52;
 
   useEffect(() => {
     window.addEventListener('resize', () => {
-      setWindowSize(getWindowSize());
+      setWindowSize(window.innerWidth);
     });
-  }, [windowSize]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      fetch(`http://138.68.87.87/api/project/${projectId}/data`)
-        .then((data) => data.json())
-        .then((jsonData) => {
-          let talkRate = jsonData.map((item) => {
-            return {
-              date: parseTime(item.timestamp),
-              value: item.rolling_avg,
-            };
-          });
-          setTalkRate(talkRate); // use as base
-        })
-        .catch((err) => console.log(err));
-
-      fetch(`http://138.68.87.87/api/project/${projectId}/sentiment`)
-        .then((data) => data.json())
-        .then((jsonData) => {
-          let sentiment = jsonData.map((item) => {
-            return {
-              date: parseTime(item.date),
-              value: item.score,
-            };
-          });
-          setSentiment(sentiment); // use as base
-        })
-        .catch((err) => console.log(err));
+    return () => {
+      window.removeEventListener('resize', () => {
+        setWindowSize(window.innerWidth);
+      });
     };
-
-    fetchData();
   }, []);
 
   useEffect(() => {
-    if (!talkRate) return;
-    const { filteredData, minDate, maxDate } = parseDataByInterval(
-      interval,
-      talkRate
-    );
+    setChartDimensions(getChartDimensions());
+  }, [windowSize]);
 
-    let width = d3.select('.project-card').style('width');
-    // let height = d3.select('.project-card').style('height');
-    let height = width;
-    width = parseInt(width) - margin.left - margin.right;
-    height = width / 3.52;
-    // height =
-    //   parseInt(height) -
-    //   parseInt(d3.select('.toggle-buttons').style('height')) -
-    //   parseInt(d3.select('.interval-buttons').style('height')) -
-    //   margin.top -
-    //   margin.bottom;
-    // drop old svg
-    d3.select(`.chart-svg-${projectId}`).remove();
-
-    // canvas
-    const svg = getCanvasSvg(projectId, width, height, margin);
-
-    if (filteredData) {
-      const xScale = d3
-        .scaleTime()
-        .domain([minDate, maxDate])
-        .range([0, width]);
-
-      const yScaleTalkRate = d3
-        .scaleLinear()
-        .domain([
-          d3.min(filteredData, (d) => d.value),
-          d3.max(filteredData, (d) => d.value),
-        ])
-        .range([height, 0]);
-
-      if (sentiment) {
-        const filteredSentiment = sentiment.filter(
-          (d) => d.date.getTime() >= minDate.getTime()
-        );
-        const yScaleSentiment = d3
-          .scaleLinear()
-          .domain([
-            d3.min(filteredSentiment, (d) => d.value),
-            d3.max(filteredSentiment, (d) => d.value),
-          ])
-          .range([height, 0]);
-
-        addLineNoGradient(
-          svg,
-          xScale,
-          yScaleSentiment,
-          '#2B59D1',
-          'Sentiment',
-          projectId,
-          filteredSentiment,
-          true
-        );
-      }
-
-      addLineNoGradient(
-        svg,
-        xScale,
-        yScaleTalkRate,
-        '#2BD130',
-        'Mentions',
-        projectId,
-        filteredData,
-        true
-      );
-
-      svg
-        .append('svg:line')
-        .attr('x1', 0)
-        .attr('x2', width)
-        .attr('y1', height / 2)
-        .attr('y2', height / 2)
-        .attr('stroke-dasharray', `2, 2`)
-        .style('stroke', 'rgb(189, 189, 189)');
-
-      if (activeToggleButtons[0] === 0) {
-        d3.select(`#gradientPathLineSentiment${projectId}`).style('opacity', 0);
-      }
-      if (activeToggleButtons[1] === 0) {
-        d3.select(`#gradientPathLineMentions${projectId}`).style('opacity', 0);
-      }
-    }
-  }, [talkRate, interval, windowSize]);
+  useEffect(() => {
+    if (chartDimensions)
+      genCardChart(projectId, chartData, interval, width, height, margin);
+  }, []);
 
   return (
     <>
@@ -371,5 +257,3 @@ const CardChart = ({ projectId }) => {
     </>
   );
 };
-
-export default CardChart;

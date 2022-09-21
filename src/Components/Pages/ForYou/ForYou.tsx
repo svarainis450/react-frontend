@@ -29,7 +29,8 @@ import {
 } from 'src/state/reduxstate/projects/types';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { icons } from 'src/utils/icons';
-import MainScreen from 'src/Components/Global/Graphic/mainScreen';
+import { ForYouChartView } from 'src/Components/Global/Graphic/ForYouChartView';
+import { dogeCoinProjectData } from 'src/Components/Global/Graphic/chartDevData';
 import {
   getFavInfluencers,
   getFavProjects,
@@ -168,11 +169,14 @@ export const ForYou: React.FC = () => {
             </div>
 
             <div>
-              {(favFetchStatus === 'success' ||
+              {(favFetchStatus !== 'success' ||
                 (favoriteProjects && favoriteProjects.length > 0)) && (
                 // this is chart
-                <MainScreen
-                  projectId={projectByIdState?.id || favoriteProjects[0].id}
+                <ForYouChartView
+                  chartPrice={dogeCoinProjectData.data.chart_price}
+                  chartSentiment={dogeCoinProjectData.data.chart_sentiment}
+                  chartTalkRate={dogeCoinProjectData.data.chart_talk_rate}
+                  chartVolume={dogeCoinProjectData.data.chart_volume}
                 />
               )}
             </div>
