@@ -30,9 +30,7 @@ export const fetchUserData = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        console.log(resp);
-
-        // dispatch(setUserData(resp));
+        dispatch(setUserData(resp));
 
         return resp;
       } catch (e) {
@@ -90,8 +88,6 @@ export const getFavProjects = createAsyncThunk(
             Authorization: `Bearer ${tokenFromState || tokenValue}`,
           },
         }).then((res) => res.json());
-
-        console.log(resp);
 
         dispatch(setFavoriteProjects(resp.favorite_projects));
 

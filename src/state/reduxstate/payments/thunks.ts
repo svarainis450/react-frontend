@@ -31,8 +31,6 @@ export const createPaymentIntent = createAsyncThunk(
           .then((data) => {
             dispatch(setSecretKey(data.client_secret));
           });
-
-        console.log(resp);
       } catch (e) {
         console.log(e);
       }

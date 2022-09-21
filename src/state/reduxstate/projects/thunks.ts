@@ -115,7 +115,6 @@ export const fetchInfluencers = createAsyncThunk(
         }
 
         callBack('success');
-        console.log(resp);
 
         dispatch(
           setInfluencersPages({

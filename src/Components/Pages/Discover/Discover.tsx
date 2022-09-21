@@ -66,8 +66,6 @@ export const Discover: React.FC = () => {
 
   const cardsPerOneRequest = 8;
 
-  console.log(projects);
-
   useEffect(() => {
     if (
       (projects && projects.length === 0) ||

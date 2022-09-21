@@ -56,6 +56,7 @@ const App = () => {
   const dispatch = useAppDispatch();
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
   const [currecy, setCurrency] = useState('$');
+  const { userInfo, getUserInfo } = useContext(UserInfoContext);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -86,6 +87,7 @@ const App = () => {
 
   useEffect(() => {
     if (isLoggedIn()) {
+      getUserInfo();
       const token = JSON.parse(String(localStorage.getItem('token')));
       dispatch(setUserToken(token));
       dispatch(fetchTotalSentiment());

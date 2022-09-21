@@ -74,11 +74,9 @@ export const ForYou: React.FC = () => {
     useState(favoriteProjects);
   const [favFetchStatus, setFavFetchStatus] = useState<Statuses>('idle');
 
-  const [selectedProjectID, setSelectedProjectID] = useState<number | null>(
-    null
-  );
   const [showInfo, setShowInfo] = useState(false);
   const [showMobileList, setShowMobileList] = useState(false);
+  console.log(projects);
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -97,44 +95,36 @@ export const ForYou: React.FC = () => {
       fetchProjects({
         filter: projectsFilter,
         callBack: setProjectStatus,
-        filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );
 
     dispatch(getFavInfluencers());
-  }, [
-    projectsFilter,
-    dispatch,
-    filterValue,
-    userToken,
-    token,
-    selectedProjectID,
-  ]);
+  }, [projectsFilter, dispatch, filterValue, userToken, token]);
 
   const { isTablet } = useMediaQuery();
 
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
 
-  const topTalkRateProject =
-    favoriteProjects &&
-    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.TALK_RATE)?.slice(
-      0,
-      1
-    );
-  const topPositiveProject =
-    favoriteProjects &&
-    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.POSITIVE)?.slice(
-      0,
-      1
-    );
+  // const topTalkRateProject =
+  //   favoriteProjects &&
+  //   filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.TALK_RATE)?.slice(
+  //     0,
+  //     1
+  //   );
+  // const topPositiveProject =
+  //   favoriteProjects &&
+  //   filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.POSITIVE)?.slice(
+  //     0,
+  //     1
+  //   );
 
-  const topBullProject =
-    favoriteProjects &&
-    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.BULL)?.slice(0, 1);
+  // const topBullProject =
+  //   favoriteProjects &&
+  //   filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.BULL)?.slice(0, 1);
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.target.value.length >= 3) {
+    if (e.target.value.length >= 3 && favoriteProjects.length > 0) {
       setProjectsFilter(ProjectFilterKeys.NAME);
       setFilterValue(e.target.value);
       setFilteredFavProjects(
@@ -160,14 +150,17 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {favoriteProjects.length > 0 && (
-                <ProjectMetrics projectByIdProp={favoriteProjects[0]} />
+              {(favoriteProjects.length > 0 || projects.length > 0) && (
+                <ProjectMetrics
+                  projectByIdProp={favoriteProjects[0] || projects[0]}
+                />
               )}
             </div>
 
-            <div>
+            {/* <div>
               {(favFetchStatus !== 'success' ||
-                (favoriteProjects && favoriteProjects.length > 0)) && (
+                (favoriteProjects && favoriteProjects.length > 0) ||
+                projects.length > 0) && (
                 // this is chart
                 <ForYouChartView
                   chartPrice={dogeCoinProjectData.data.chart_price}
@@ -176,7 +169,7 @@ export const ForYou: React.FC = () => {
                   chartVolume={dogeCoinProjectData.data.chart_volume}
                 />
               )}
-            </div>
+            </div> */}
           </div>
           <div className="For-you__wrapper__projects-list">
             {!isTablet && (
@@ -276,7 +269,7 @@ export const ForYou: React.FC = () => {
             )}
           </div>
         </div>
-
+        {/* 
         {favoriteProjects && favoriteProjects.length > 0 && (
           <Top3FavElementsSlider
             isForYouProject
@@ -288,7 +281,7 @@ export const ForYou: React.FC = () => {
               (topTalkRateProject && topTalkRateProject) || favoriteProjects
             }
           />
-        )}
+        )} */}
         {!favoriteProjects ||
           (!Array.isArray(favoriteProjects) && (
             <div className="empty-dashboard">
