@@ -113,7 +113,22 @@ export const genChart = (
             .select('#value')
             .html(`${activeItems[0].title}: ${closestDataPoint.value}`);
 
-          tooltip.style('left', `${event.pageX + 20}px`);
+          // console.log(event.pageX, window.innerWidth, chartDimensions.width);
+          const svgCoords = document
+            .querySelector('.listening-rect')
+            .getBoundingClientRect();
+          const tooltipWidth = document
+            .querySelector('.tooltip')
+            .getBoundingClientRect();
+          if (
+            svgCoords.x + svgCoords.width - event.pageX - tooltipWidth.width >
+            0
+          ) {
+            tooltip.style('left', `${event.pageX + 20}px`);
+          } else {
+            tooltip.style('left', `${event.pageX - tooltipWidth.width - 20}px`);
+          }
+
           tooltip.style(
             'top',
             `${realOffset + yScale(closestDataPoint.value)}px`
