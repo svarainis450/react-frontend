@@ -47,6 +47,7 @@ import { Appearance, loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { useSelector } from 'react-redux';
 import { secretKeySelector } from './state/reduxstate/payments/selectors';
+import { fetchTotalSentiment } from './state/reduxstate/projects/thunks';
 
 const stripePromise = loadStripe(
   'pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGdxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk'
@@ -93,9 +94,11 @@ const App = () => {
   useEffect(() => {
     if (isLoggedIn()) {
       // getUserInfo();
+
       const token = JSON.parse(String(localStorage.getItem('token')));
       dispatch(setUserToken(token));
       setToken(token);
+      dispatch(fetchTotalSentiment());
     }
   }, []);
 

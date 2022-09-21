@@ -12,9 +12,12 @@ const initialState: UserState = {
     email: '',
     firstName: '',
     lastName: '',
-    market: 50,
     img: undefined,
     id: 123,
+    paypal_id: null,
+    stripe_id: null,
+    subscription_expires_at: null,
+    password: '',
   },
 };
 

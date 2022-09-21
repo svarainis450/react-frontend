@@ -6,7 +6,7 @@ import { useAppDispatch } from 'src/state/reduxstate/store';
 import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { setUserData } from 'src/state/reduxstate/user/slice';
 import { updateUserInfo } from 'src/state/reduxstate/user/thunks';
-import { UserDataType } from 'src/state/reduxstate/user/types';
+import { UserUpdateType } from 'src/state/reduxstate/user/types';
 import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { icons } from 'src/utils/icons';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
@@ -28,7 +28,7 @@ export const ProfileCard: React.FC = () => {
   const userData = useSelector(userDataSelector);
   const [profileImg, setProfileImg] = useState<any>();
   const [imgUrl, setImgUrl] = useState('');
-  const [newData, setNewData] = useState<Omit<UserDataType, 'market'>>({
+  const [newData, setNewData] = useState<UserUpdateType>({
     img: profileImg,
     firstName: userData.firstName,
     lastName: userData.lastName,
@@ -44,10 +44,7 @@ export const ProfileCard: React.FC = () => {
     }
   }, [profileImg]);
 
-  const updateProfileData = (
-    e: FormEvent,
-    data: Omit<UserDataType, 'market'>
-  ) => {
+  const updateProfileData = (e: FormEvent, data: UserUpdateType) => {
     e.preventDefault();
     dispatch(setUserData({ ...userData, ...data }));
     setEditData({

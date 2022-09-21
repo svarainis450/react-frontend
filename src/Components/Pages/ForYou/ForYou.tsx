@@ -64,7 +64,6 @@ export const ForYou: React.FC = () => {
   const dispatch = useAppDispatch();
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const projectByIdState = useSelector(projectByIdSelector);
-  const [offsetCount, setOffsetCount] = useState(0);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
   const { projects } = useSelector(projectsDataSelector);
 
@@ -98,7 +97,6 @@ export const ForYou: React.FC = () => {
       fetchProjects({
         filter: projectsFilter,
         callBack: setProjectStatus,
-        skip: offsetCount,
         filterValue: String(filterValue).toLocaleLowerCase(),
       })
     );
@@ -106,7 +104,6 @@ export const ForYou: React.FC = () => {
     dispatch(getFavInfluencers());
   }, [
     projectsFilter,
-    offsetCount,
     dispatch,
     filterValue,
     userToken,

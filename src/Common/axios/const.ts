@@ -4,8 +4,8 @@ export enum ResponseCode {
 }
 
 export enum ENUM_API {
-  LOGIN = "/login",
-  REGISTER = "/register",
-  ME = "/me",
-  WAITLIST_SIGN = "/subscription-user",
+  LOGIN = '/login',
+  REGISTER = '/users',
+  ME = '/me',
+  WAITLIST_SIGN = '/subscription-user',
 }

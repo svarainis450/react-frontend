@@ -25,3 +25,5 @@ export const mostFollowedInfluencersSelector = (s: AppState) =>
 export const influencersPagesSelector = (s: AppState) =>
   s.projects.influencers_pages_data;
 export const projectByIdSelector = (s: AppState) => s.projects.project_by_id;
+export const totalSentimentSelector = (s: AppState) =>
+  s.projects.total_sentiment;

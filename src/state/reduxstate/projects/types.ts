@@ -10,6 +10,7 @@ export interface ProjectsState {
   top_3_bear: TopOrLowestProject[];
   projects_by_influencers: Project[];
   projects_data: ProjectsDataType;
+  total_sentiment: number;
 
   // project_picks: Project[];
 

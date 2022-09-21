@@ -1,10 +1,8 @@
-
-import { axiosInstance as instance, ENUM_API } from "../../axios";
-import Cookies from "js-cookie";
+import { axiosInstance as instance, ENUM_API } from '../../axios';
 
 export const API_USER_REGISTER = (email: string, pass: string) => {
   const postBody = {
-    username: email,
+    email: email,
     password: pass,
   };
 

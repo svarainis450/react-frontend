@@ -28,6 +28,8 @@ import { fetchUserData } from 'src/state/reduxstate/user/thunks';
 import { theme } from 'src/theme';
 import { pathColorHandler } from 'src/utils/styleHelpers';
 import { AddProjectManually } from './AddProjectManually/AddProjectManually';
+import { fetchTotalSentiment } from 'src/state/reduxstate/projects/thunks';
+import { totalSentimentSelector } from 'src/state/reduxstate/projects/selectors';
 
 export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const dispatch = useAppDispatch();
@@ -36,7 +38,7 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const { isTablet } = useMediaQuery();
   const userToken = useSelector(userTokenSelector);
   const userData = useSelector(userDataSelector);
-  const marketRatio = userData.market || 50;
+  const marketRatio = useSelector(totalSentimentSelector);
 
   const [showMarketDesc, setShowMarketDesc] = useState(false);
 
