@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Influencer, Project } from '../projects/types';
+import { InfluencerData } from '../influencers/types';
+import { Project } from '../projects/types';
 import { NavClassTypes, UserDataType, UserState } from './types';
 
 const initialState: UserState = {
@@ -40,8 +41,8 @@ const userSlice = createSlice({
       state.favorite_projects = action.payload;
     },
     setSubscribedInfluencers: (
-      state: { subscribed_influencers: Influencer[] },
-      action: PayloadAction<Influencer[]>
+      state: { subscribed_influencers: InfluencerData[] },
+      action: PayloadAction<InfluencerData[]>
     ) => {
       state.subscribed_influencers = action.payload;
     },

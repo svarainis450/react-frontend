@@ -9,6 +9,7 @@ import {
 import { icons } from 'src/utils/icons';
 import { Loader } from '../Loader/Loader';
 import { CategoryTag } from '../TrendsElements/CategoryTag/CategoryTag';
+import { CategoryTags } from '../TrendsElements/types';
 import { Typography } from '../Typography';
 import './ForYouListItem.scss';
 
@@ -26,7 +27,7 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
   isCheckingStats,
 }) => {
   const dispatch = useAppDispatch();
-  const { img, name, tag, id } = project;
+  const { img_url, name, type, id } = project;
   const [status, setStatus] = useState<Statuses>('idle');
   const [isRemoved, setIsRemoved] = useState(false);
 
@@ -60,13 +61,14 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
         <div>
           <img
             className="project-icon"
-            src={img || icons.no_image}
+            src={img_url || icons.no_image}
             alt={name}
           />
         </div>
         <div>
           <Typography className="project-name">{name}</Typography>
-          <CategoryTag tagTitle={tag.name} />
+          {/* @ts-ignore */}
+          <CategoryTag tagTitle={CategoryTags[type]} />
         </div>
       </div>
       <div className={`buttons-wrapper ${isInFavorites ? '' : 'add-to-list'}`}>

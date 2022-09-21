@@ -15,14 +15,10 @@ export interface ProjectsState {
 
   //OLD API
 
-  projects: Project[];
   project_filter_key: ProjectFilterKeys | null;
   project_by_id: Project;
-  projects_count: number;
   status: Statuses;
   influencers: Influencer[];
-  influencers_count: number;
-  influencers_picks: [];
   most_followed_influencers: Influencer[];
   influencers_pages_data: {
     page: number;
@@ -46,13 +42,14 @@ export interface ProjectsDataType {
     take: number;
   };
 }
+
 export interface Project {
   id: number;
   coinbase_url: string;
   nft_address: string;
   first_historical_data: string;
   img_url: string;
-  max_scraped_tweet_id: 12345;
+  max_scraped_tweet_id: number;
   name: string;
   symbol?: string;
   type: CategoryTags;

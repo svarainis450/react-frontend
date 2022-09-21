@@ -26,8 +26,8 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
             <img
               className="project-icon"
               src={
-                (projectById && projectById.img) ||
-                (!projectById && projectByIdProp.img) ||
+                (projectById && projectById.img_url) ||
+                (!projectById && projectByIdProp.img_url) ||
                 icons.no_image
               }
               alt={(projectById && projectById.name) || projectByIdProp.name}
@@ -49,8 +49,8 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           <div>
             <TalkRateElement
               rate={
-                (projectById && projectById.rateData.talkRate) ||
-                projectByIdProp.rateData.talkRate
+                (projectById && projectById.talk_rate_score) ||
+                projectByIdProp.talk_rate_score
               }
               type="talk_rate"
             />
@@ -70,8 +70,8 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
             <IndexAxis
               isHalfAxis
               rating={
-                (projectById && projectById.rateData.bullRatio) ||
-                projectByIdProp.rateData.bullRatio
+                (projectById && projectById.bull_bear_score) ||
+                projectByIdProp.bull_bear_score
               }
               type="bull"
             />
@@ -91,8 +91,8 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
             <IndexAxis
               isHalfAxis
               rating={
-                (projectById && projectById.rateData.bullRatio) ||
-                projectByIdProp.rateData.bullRatio
+                (projectById && projectById.sentiment_score) ||
+                projectByIdProp.sentiment_score
               }
               type="positive"
             />

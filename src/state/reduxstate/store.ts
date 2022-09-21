@@ -10,7 +10,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { useDispatch } from 'react-redux';
-import logger from 'redux-logger';
 import { rootReducer } from './slice';
 import storageSession from 'redux-persist/lib/storage/session';
 
@@ -28,8 +27,9 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredPaths: ['projects', 'influencers'],
       },
-    }).concat(logger),
+    }),
 });
 
 export const persistor = persistStore(store);

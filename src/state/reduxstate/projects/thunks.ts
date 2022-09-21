@@ -6,14 +6,12 @@ import { useNavigateHook } from 'src/hooks';
 import { LinkList } from 'src/types';
 import { RootState } from '../slice';
 import { api, apiv1 } from '../types';
+import { FavInfluencersProjectsPayload } from '../user/types';
 import {
   set3LowestTalkRateProjects,
   setInfluencers,
-  setInfluencersCount,
   setInfluencersPages,
   setProjectById,
-  setProjects,
-  setProjectsCount,
   setProjectsData,
   setTop3BearProjects,
   setTop3bullProjects,
@@ -106,8 +104,6 @@ export const fetchInfluencers = createAsyncThunk(
 
         const { projects } = getState() as RootState;
 
-        dispatch(setInfluencersCount(resp.count));
-
         if (offset >= 50) {
           const expandedInfluencers = concat(projects.influencers, resp.result);
           const uniqueInfluencers = [
@@ -170,7 +166,7 @@ const token = JSON.parse(String(localStorage.getItem('token')));
 export const fetchProjects = createAsyncThunk(
   'projects/GET_PROJECTS_DATA',
   async (
-    { callBack, filter, skip, filterValue = 1 }: ProjectsPayload,
+    { callBack, filter, skip }: ProjectsPayload,
     { dispatch, getState }
   ) => {
     const { user, projects } = getState() as RootState;
@@ -180,9 +176,11 @@ export const fetchProjects = createAsyncThunk(
     //   filter.length > 0
     //     ? `${apiv1}/projects/today?filters[${filter}]=${filterValue}&limit=52&offset=${offset}`
     //     : `${apiv1}/projects/today?limit=52&offset=${offset}`;
+
+    const filterValue = filter ? `&orderBy=${filter}` : '';
     const url = skip
-      ? `${apiv1}/projects?take=52&orderBy=${filter}&skip=${skip}`
-      : `${apiv1}/projects?take=52`;
+      ? `${apiv1}/projects?take=8${filterValue}&skip=${skip}`
+      : `${apiv1}/projects?take=8`;
 
     if (token || tokenFromState) {
       try {
@@ -194,12 +192,11 @@ export const fetchProjects = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        console.log(resp);
-
-        const { projects } = getState() as RootState;
-
-        if (skip && skip >= 52) {
-          const expandedProjects = concat(projects.projects, resp.data);
+        if (skip && skip >= 8) {
+          const expandedProjects = concat(
+            projects.projects_data.projects,
+            resp.data
+          );
           const uniqueProjects = [
             ...(new Set(expandedProjects) as unknown as Project[]),
           ];
@@ -388,30 +385,33 @@ export const fetchProjectsByInfluencers = createAsyncThunk(
   }
 );
 
-// export const fetchProjectsPick = createAsyncThunk(
-//   'projects/GET_PROJECT_PICKS',
-//   async ({ tokenValue, dateFilter }: TrendsProjectsByInfluencersPayload) => {
-//     if (tokenValue) {
-//       try {
-//         const resp = await fetch(
-//           `${apiv1}/trends/influencer-top-mentioned-projects-${dateFilter}?take=10`,
-//           {
-//             headers: {
-//               Authorization: `Bearer ${tokenValue}`,
-//             },
-//           }
-//         ).then((res) => res.json());
+export const sendFavProject = createAsyncThunk(
+  'projects/POST_FAV_PROJECT',
+  async ({ id, callBack }: FavInfluencersProjectsPayload) => {
+    if (token) {
+      try {
+        callBack && callBack('pending');
 
-//         const pickedProjects = resp.data.map(
-//           (item: { place: number; project: Project }) => {
-//             return item.project;
-//           }
-//         );
+        const data = {
+          project_id: id,
+        };
 
-//         return pickedProjects;
-//       } catch (e) {
-//         console.log(e);
-//       }
-//     }
-//   }
-// );
+        const resp = await fetch(`${apiv1}/favorite-projects`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }).then((res) => res.json());
+
+        callBack && callBack('success');
+
+        return resp;
+      } catch (e) {
+        callBack && callBack('error');
+        console.log(e);
+      }
+    }
+  }
+);

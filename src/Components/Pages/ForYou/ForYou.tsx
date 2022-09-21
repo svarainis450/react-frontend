@@ -5,14 +5,12 @@ import {
   InfoBlockInstructions,
   ProjectMetrics,
   ProjectsSliderMobile,
-  Top3ElementsSlider,
 } from 'src/Components/Global';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import {
   projectByIdSelector,
-  projectsSelector,
-  trendingProjectsSelector,
+  projectsDataSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { fetchProjects } from 'src/state/reduxstate/projects/thunks';
 import { useAppDispatch } from 'src/state/reduxstate/store';
@@ -26,7 +24,6 @@ import {
 } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import {
-  Project,
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
@@ -42,6 +39,7 @@ import {
   filterProjectsLocaly,
 } from 'src/utils/localFilters';
 import { useMediaQuery } from 'src/hooks';
+import { Top3FavElementsSlider } from 'src/Components/Global/ForYourElements/Top3FavElementsSlider';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -67,7 +65,7 @@ export const ForYou: React.FC = () => {
   const projectByIdState = useSelector(projectByIdSelector);
   const [offsetCount, setOffsetCount] = useState(0);
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
-  const projects = useSelector(projectsSelector);
+  const { projects } = useSelector(projectsDataSelector);
 
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const userToken = useSelector(userTokenSelector);
@@ -87,6 +85,10 @@ export const ForYou: React.FC = () => {
       //@ts-ignore
       window.location = window.location + '#loaded';
       window.location.reload();
+    }
+
+    if (token) {
+      dispatch(getFavProjects({ tokenValue: token }));
     }
   }, []);
 
@@ -274,8 +276,8 @@ export const ForYou: React.FC = () => {
           </div>
         </div>
 
-        {/* {favoriteProjects && favoriteProjects.length > 0 && (
-          <Top3ElementsSlider
+        {favoriteProjects && favoriteProjects.length > 0 && (
+          <Top3FavElementsSlider
             isForYouProject
             topBull={(topBullProject && topBullProject) || favoriteProjects}
             topPositive={
@@ -285,7 +287,7 @@ export const ForYou: React.FC = () => {
               (topTalkRateProject && topTalkRateProject) || favoriteProjects
             }
           />
-        )} */}
+        )}
         {!favoriteProjects ||
           (!Array.isArray(favoriteProjects) && (
             <div className="empty-dashboard">

@@ -1,27 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
-import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { TrendsProjectsByInfluencersPayload } from '../projects/thunks';
 import {
   InfluencerFilterKeys,
-  Project,
   Statuses,
   TrendsDateFilterType,
 } from '../projects/types';
 import { RootState } from '../slice';
-import { api, apiv1 } from '../types';
+import { apiv1 } from '../types';
+import { FavInfluencersProjectsPayload } from '../user/types';
 import { setInfluencersData, setTrendingInfluencers } from './slice';
 import { InfluencerData } from './types';
-// import {
-//   setInfluencers,
-//   setInfluencersCount,
-//   setInfluencersPages,
-//   setTop3bullProjects,
-//   setTop3PositiveProjects,
-//   setTop3TalkRateProjects,
-// } from './slice';
-// import { Influencer, SubmenuFilters } from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
 
@@ -38,8 +28,6 @@ export const fetchProjectsPick = createAsyncThunk(
             },
           }
         ).then((res) => res.json());
-
-        console.log(resp);
 
         return resp.data;
       } catch (e) {
@@ -106,8 +94,8 @@ export const fetchInfluencers = createAsyncThunk(
   ) => {
     const filterValue = filter ? `&orderBy=${filter}` : '';
     const url = skip
-      ? `${apiv1}/twitter-users?take=52&skip=${skip}${filterValue}`
-      : `${apiv1}/twitter-users?take=52${filterValue}`;
+      ? `${apiv1}/twitter-users?take=8&skip=${skip}${filterValue}`
+      : `${apiv1}/twitter-users?take=8${filterValue}`;
 
     callBack && callBack('pending');
     if (tokenValue || token) {
@@ -159,120 +147,35 @@ export const fetchInfluencers = createAsyncThunk(
   }
 );
 
-// export const fetchMostFollowedInfluencers = createAsyncThunk(
-//   'projects/GET_MOST_FOLLOWED_INFLUENCERS',
-//   async () => {
-//     if (token) {
-//       try {
-//         const resp = await fetch(
-//           `${api}/projects?filters[followers]=1&limit=10`,
-//           {
-//             headers: {
-//               Authorization: `Bearer ${token}`,
-//             },
-//           }
-//         ).then((res) => res.json());
-//         return resp.result;
-//       } catch (e) {
-//         console.log(e);
-//       }
-//     }
-//   }
-// );
+export const sendFavInfluencer = createAsyncThunk(
+  'influencers/POST_FAV_INFLUENCER',
+  async ({ id, callBack }: FavInfluencersProjectsPayload) => {
+    if (token) {
+      try {
+        callBack && callBack('pending');
 
-// //NEW API
+        const data = {
+          project_id: id,
+        };
 
-// interface TrendingProjectsPayload {
-//   callBack: Dispatch<SetStateAction<Statuses>>;
-//   filter: SubmenuFilters;
-//   categoryFilter?: CategoryTags;
-//   tokenValue?: string;
-// }
+        const resp = await fetch(`${apiv1}/favorite-twitter-users`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(data),
+        }).then((res) => res.json());
 
-// export const fetchTrendingProjects = createAsyncThunk(
-//   'projects/GET_TRENDING_PROJECTS',
-//   async (
-//     { filter, callBack, categoryFilter, tokenValue }: TrendingProjectsPayload,
-//     { getState }
-//   ) => {
-//     const { user } = getState() as RootState;
-//     const tokenFromState = user.user_token;
+        callBack && callBack('success');
 
-//     if ((tokenValue || tokenFromState) && filter) {
-//       callBack('pending');
+        console.log(resp);
 
-//       const url = categoryFilter
-//         ? `${apiv1}/trends/trending-projects-${filter}?category=${categoryFilter.toLocaleLowerCase()}&take=5`
-//         : `${apiv1}/trends/trending-projects-${filter}?take=5`;
-
-//       try {
-//         const resp = await fetch(url, {
-//           headers: {
-//             Authorization: `Bearer ${tokenValue || tokenFromState}`,
-//           },
-//         }).then((res) => res.json());
-//         callBack('success');
-
-//         console.log(resp);
-//         return resp.data;
-//       } catch (e) {
-//         console.log(e);
-//         callBack('error');
-//       }
-//     } else {
-//       callBack('error');
-//     }
-//   }
-// );
-
-// type FilterKey =
-//   | 'top-bull'
-//   | 'lowest-bull'
-//   | 'top-sentiment'
-//   | 'lowest-sentiment'
-//   | 'top-talk-rate'
-//   | 'lowest-talk-rate';
-
-// interface FetchTop3ProjectsPayload {
-//   filter: FilterKey;
-//   tokenValue: string;
-//   dateFilter: 'daily' | 'weekly';
-// }
-
-// export const fetchTop3Projects = createAsyncThunk(
-//   'projects/GET_TOP3_PROJECTS',
-//   async (
-//     { filter, tokenValue, dateFilter }: FetchTop3ProjectsPayload,
-//     { dispatch, getState }
-//   ) => {
-//     const { user } = getState() as RootState;
-//     const tokenFromState = user.user_token;
-
-//     if (tokenValue || tokenFromState) {
-//       try {
-//         const resp = await fetch(
-//           `${apiv1}/trends/${filter}-${dateFilter}?take=3`,
-//           {
-//             headers: {
-//               Authorization: `Bearer ${tokenValue || tokenFromState}`,
-//             },
-//           }
-//         ).then((res) => res.json());
-
-//         console.log(resp);
-
-//         if (filter === 'top-bull') {
-//           dispatch(setTop3bullProjects(resp.data));
-//         } else if (filter === 'top-sentiment') {
-//           dispatch(setTop3PositiveProjects(resp.data));
-//         } else if (filter === 'top-talk-rate') {
-//           dispatch(setTop3TalkRateProjects(resp.data));
-//         } else {
-//           return;
-//         }
-//       } catch (e) {
-//         console.log(e);
-//       }
-//     }
-//   }
-// );
+        return resp;
+      } catch (e) {
+        callBack && callBack('error');
+        console.log(e);
+      }
+    }
+  }
+);

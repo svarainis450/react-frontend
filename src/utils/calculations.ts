@@ -1,4 +1,4 @@
-import { Project, TrendingProject } from 'src/state/reduxstate/projects/types';
+import { Project } from 'src/state/reduxstate/projects/types';
 
 export const calculateBigNumberValues = (foll: number) => {
   if (foll > 0 && foll < 1000) {

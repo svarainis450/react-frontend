@@ -27,6 +27,7 @@ import { scrollToElement } from 'src/utils/scrollers';
 import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 import { Typography } from 'src/Components/Global/Typography';
 import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -54,6 +55,7 @@ export const Discover: React.FC = () => {
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
   const [skipElements, setSkipElements] = useState<number | null>(null);
+  const token = useSelector(userTokenSelector);
   const skipElementsValue = skipElements === null ? 0 : skipElements;
   const notAllToShow =
     (skipElements !== null && skipElements) < Number(projectsData?.meta?.total);
@@ -61,6 +63,10 @@ export const Discover: React.FC = () => {
   const projectsLeftToSee =
     Number(projectsData?.meta?.total) -
     Number(skipElements !== null && skipElements);
+
+  const cardsPerOneRequest = 8;
+
+  console.log(projects);
 
   useEffect(() => {
     if (
@@ -79,13 +85,16 @@ export const Discover: React.FC = () => {
   }, [skipElements, projectsFilter]);
 
   useEffect(() => {
-    dispatch(fetchInfluencers({ skip: null }));
+    if (token) {
+      dispatch(fetchInfluencers({ skip: null }));
+      dispatch(getFavProjects({ tokenValue: token }));
+    }
   }, []);
 
   const handleLoadMoreBtn = () => {
-    if (notAllToShow && projectsLeftToSee >= 52) {
-      setSkipElements(skipElementsValue + 52);
-    } else if (notAllToShow && projectsLeftToSee < 52) {
+    if (notAllToShow && projectsLeftToSee >= cardsPerOneRequest) {
+      setSkipElements(skipElementsValue + cardsPerOneRequest);
+    } else if (notAllToShow && projectsLeftToSee < cardsPerOneRequest) {
       setSkipElements(skipElementsValue + projectsLeftToSee);
       const seenAll = 'You`ve seen it all';
       setSeenAll(seenAll);
@@ -94,7 +103,6 @@ export const Discover: React.FC = () => {
       setSeenAll(seenAll);
     }
   };
-
   return (
     <div className="Discover">
       <LoggedInLayout activeLink="Discover">

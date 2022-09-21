@@ -16,7 +16,7 @@ export const ProjectPicksList: React.FC<ProjectPicksListProps> = ({
     <div className="picks-list">
       <div className="picks-list__projects">
         {pickedProjects.map(({ id, img_url, name, type }, index) => (
-          <div key={id} className="picks-list__projects__project">
+          <div key={`${id}_${index}`} className="picks-list__projects__project">
             <img
               className="picks-list__projects__project__icon"
               src={img_url || icons.no_image}

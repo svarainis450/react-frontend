@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useMediaQuery } from 'src/hooks';
 import { Influencer } from 'src/state/reduxstate/influencers/types';
-import { Project, ProjectPicks } from 'src/state/reduxstate/projects/types';
+import { Project } from 'src/state/reduxstate/projects/types';
 import {
   calculateBigNumberValues,
   generateProjectsText,
@@ -32,8 +31,6 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   influencerProjects,
 }) => {
   const { isTablet } = useMediaQuery();
-
-  console.log(pickedProjects);
 
   return (
     <div className="project-picks">
@@ -84,9 +81,10 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                   <div className="project-picks__row__project__overlapping-images">
                     {project &&
                       project.length > 0 &&
-                      project.slice(0, 3).map((item) => {
+                      project.slice(0, 3).map((item, index) => {
                         return (
                           <img
+                            key={index}
                             src={item.img || icons.no_image}
                             alt={item.name}
                           />

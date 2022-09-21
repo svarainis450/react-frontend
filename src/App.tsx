@@ -43,22 +43,10 @@ import _ from 'lodash';
 import { YourInfluencers } from './Components/Pages/YourInfluencers/YourInfluencers';
 import { setUserToken } from './state/reduxstate/user/slice';
 import { CookiesComponent } from './Components/Global/CookiesComponent/CookiesComponent';
-import {
-  Appearance,
-  loadStripe,
-  StripeElementsOptions,
-} from '@stripe/stripe-js';
+import { Appearance, loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import CheckoutForm from './Components/Payments/StripeCheckout';
-import { api } from './state/reduxstate/types';
-import { createPaymentIntent } from './state/reduxstate/payments/thunks';
-import { useSelect } from '@mui/base';
 import { useSelector } from 'react-redux';
 import { secretKeySelector } from './state/reduxstate/payments/selectors';
-import {
-  getFavInfluencers,
-  getFavProjects,
-} from './state/reduxstate/user/thunks';
 
 const stripePromise = loadStripe(
   'pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGdxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk'
@@ -104,7 +92,7 @@ const App = () => {
 
   useEffect(() => {
     if (isLoggedIn()) {
-      getUserInfo();
+      // getUserInfo();
       const token = JSON.parse(String(localStorage.getItem('token')));
       dispatch(setUserToken(token));
       setToken(token);

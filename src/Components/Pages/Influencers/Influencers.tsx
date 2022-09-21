@@ -47,6 +47,7 @@ export const Influencers: React.FC = () => {
     Number(skipElements !== null && skipElements);
   const isLoadedInfluencers = influencers && influencers.length > 0;
   const [seenAll, setSeenAll] = useState('');
+  const cardsPerOneRequest = 8;
 
   console.log(skipElements);
   console.log(notAllToShow);
@@ -55,7 +56,7 @@ export const Influencers: React.FC = () => {
     if (
       !influencers ||
       (skipElements && skipElements > 0) ||
-      influencers.length < 52
+      influencers.length < cardsPerOneRequest
     ) {
       dispatch(
         fetchInfluencers({
@@ -70,9 +71,9 @@ export const Influencers: React.FC = () => {
   console.log(influencersLeftToSee);
 
   const handleLoadMoreBtn = () => {
-    if (notAllToShow && influencersLeftToSee >= 52) {
-      setSkipElements(skipElementsValue + 52);
-    } else if (notAllToShow && influencersLeftToSee < 52) {
+    if (notAllToShow && influencersLeftToSee >= cardsPerOneRequest) {
+      setSkipElements(skipElementsValue + cardsPerOneRequest);
+    } else if (notAllToShow && influencersLeftToSee < cardsPerOneRequest) {
       setSkipElements(skipElementsValue + influencersLeftToSee);
       const seenAll = 'You`ve seen it all';
       setSeenAll(seenAll);

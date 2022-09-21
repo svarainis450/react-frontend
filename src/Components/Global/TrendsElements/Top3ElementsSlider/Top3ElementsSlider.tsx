@@ -1,39 +1,134 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { infoBlocks } from 'src/Components/Pages/Trends/constants';
-import { TopOrLowestProject } from 'src/state/reduxstate/projects/types';
+import {
+  SubmenuFilters,
+  TopOrLowestProject,
+} from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { CardWrapper } from '../CardWrapper/CardWrapper';
 import { Top3Element } from '../Top3Element/Top3Element';
 import { InfoBlockTypes } from '../types';
 
+import {
+  fetchProjects,
+  fetchProjectsByInfluencers,
+  fetchTop3LowestProjects,
+  fetchTop3Projects,
+  fetchTrendingProjects,
+} from 'src/state/reduxstate/projects/thunks';
+import {
+  projectsByInfluencersSelector,
+  top3BullProjectsSelector,
+  top3PositiveProjectsSelector,
+  top3TalkRateProjectsSelector,
+  top3LowestTalkRateProjectsSelector,
+  top3BearProjectsSelector,
+  top3NegativeProjectsSelector,
+  trendingProjectsSelector,
+} from 'src/state/reduxstate/projects/selectors';
+
 import './Top3ElementsSlider.scss';
 import { Pagination } from 'swiper';
 import { RefreshCounter } from './RefreshCounter';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { useSelector } from 'react-redux';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 
 interface Top3ElementsSliderProps {
-  topPositive: TopOrLowestProject[];
-  topBull: TopOrLowestProject[];
-  topTalkRate: TopOrLowestProject[];
-  isForYouProject?: boolean;
   filterTitle?: string;
   isLowestList?: boolean;
+  filter: SubmenuFilters;
 }
 
 export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
-  topPositive,
-  topBull,
-  topTalkRate,
-  isForYouProject,
   filterTitle,
   isLowestList,
+  filter,
 }) => {
+  const dispatch = useAppDispatch();
   const [showInfoBlock, setShowInfoBlock] = useState<InfoBlockTypes | null>(
     null
   );
+  const token = useSelector(userTokenSelector);
+  const top3BullProjects = useSelector(top3BullProjectsSelector);
+  const top3BearProjects = useSelector(top3BearProjectsSelector);
+  const top3PositiveProjects = useSelector(top3PositiveProjectsSelector);
+  const top3NegativeProjects = useSelector(top3NegativeProjectsSelector);
+  const top3TalkRateProjects = useSelector(top3TalkRateProjectsSelector);
+  const top3LowestTalkRateProjects = useSelector(
+    top3LowestTalkRateProjectsSelector
+  );
+
+  const topPositive = isLowestList
+    ? top3NegativeProjects
+    : top3PositiveProjects;
+
+  const topBull = isLowestList ? top3BearProjects : top3BullProjects;
+  const topTalkRate = isLowestList
+    ? top3LowestTalkRateProjects
+    : top3TalkRateProjects;
+
+  useEffect(() => {
+    if (token && filter !== 'upcomming') {
+      dispatch(
+        fetchProjectsByInfluencers({ tokenValue: token, dateFilter: filter })
+      );
+      dispatch(
+        fetchTop3Projects({
+          filter: 'top-bull',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3Projects({
+          filter: 'top-sentiment',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3Projects({
+          filter: 'top-talk-rate',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3LowestProjects({
+          filter: 'lowest-bull',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3LowestProjects({
+          filter: 'lowest-sentiment',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+      dispatch(
+        fetchTop3LowestProjects({
+          filter: 'lowest-talk-rate',
+          tokenValue: token,
+          dateFilter: filter,
+        })
+      );
+    }
+
+    //   setTimeout(() => {
+    //     const interval = setInterval(() => {
+    //       setTimeLoaded((timeLoaded) => timeLoaded + 1);
+    //     }, 60000);
+    //     return () => clearInterval(interval);
+    //   });
+    // }
+  }, [token, filter]);
 
   return (
     <div className="top-elements">
@@ -46,7 +141,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
       >
         <SwiperSlide>
           <CardWrapper
-            isForYouProject={isForYouProject}
             title={
               isLowestList
                 ? 'Lowest Talk Rate Projects'
@@ -77,7 +171,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     />
                   )
                 )}
-                {!isForYouProject && <RefreshCounter />}
+                <RefreshCounter />
               </ul>
             ) : (
               <LoadError />
@@ -86,7 +180,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         </SwiperSlide>
         <SwiperSlide>
           <CardWrapper
-            isForYouProject={isForYouProject}
             title={
               isLowestList
                 ? 'Top 3 Negative Projects'
@@ -117,7 +210,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     />
                   )
                 )}
-                {!isForYouProject && <RefreshCounter />}
+                <RefreshCounter />
               </ul>
             ) : (
               <LoadError />
@@ -126,7 +219,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         </SwiperSlide>
         <SwiperSlide>
           <CardWrapper
-            isForYouProject={isForYouProject}
             title={
               isLowestList ? 'Biggest Bear Projects' : 'Top 3 Bull Projects'
             }
@@ -152,7 +244,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                     />
                   )
                 )}
-                {!isForYouProject && <RefreshCounter />}
+                <RefreshCounter />
               </ul>
             ) : (
               <LoadError />

@@ -1,11 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
-import { useNavigateHook } from 'src/hooks';
-import { LinkList } from 'src/types';
-import { fetchProjectById } from '../projects/thunks';
-import { Influencer, Project, Statuses } from '../projects/types';
+import { InfluencerData } from '../influencers/types';
+import { Statuses } from '../projects/types';
 import { RootState } from '../slice';
-import { api } from '../types';
+import { api, apiv1 } from '../types';
 import {
   setFavoriteProjects,
   setSubscribedInfluencers,
@@ -81,21 +79,21 @@ export const getFavProjects = createAsyncThunk(
 
     if (tokenFromState || tokenValue) {
       try {
-        const resp = await fetch(`${api}/fav/project`, {
+        const resp = await fetch(`${apiv1}/users`, {
           headers: {
             Authorization: `Bearer ${tokenFromState || tokenValue}`,
           },
         }).then((res) => res.json());
 
-        dispatch(setFavoriteProjects(resp));
+        console.log(resp);
+
+        dispatch(setFavoriteProjects(resp.favorite_projects));
 
         if (favCallBack) {
           favCallBack('success');
         }
 
         return resp;
-
-        console.log(resp);
       } catch (e) {
         console.log(e);
         if (favCallBack) {
@@ -111,14 +109,16 @@ export const getFavInfluencers = createAsyncThunk(
   async (_, { dispatch }) => {
     if (token) {
       try {
-        const resp = await fetch(`${api}/fav/influencer`, {
+        const resp = await fetch(`${apiv1}/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
 
         const uniqueSubscribedInfl = [
-          ...(new Set(resp) as unknown as Influencer[]),
+          ...(new Set(
+            resp.favorite_twitter_user
+          ) as unknown as InfluencerData[]),
         ];
         dispatch(setSubscribedInfluencers(uniqueSubscribedInfl));
       } catch (e) {
@@ -133,7 +133,7 @@ export const sendFavProjectOrInfluencer = createAsyncThunk(
   async ({ id, callBack, fav_type }: FavInfluencersProjectsPayload) => {
     if (token) {
       try {
-        callBack('pending');
+        callBack && callBack('pending');
 
         const resp = await fetch(`${api}/fav/${fav_type}/${id}`, {
           method: 'POST',
@@ -141,10 +141,11 @@ export const sendFavProjectOrInfluencer = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
-        callBack('success');
+        callBack && callBack('success');
+
         return resp;
       } catch (e) {
-        callBack('error');
+        callBack && callBack('error');
         console.log(e);
       }
     }
@@ -158,7 +159,7 @@ export const deleteFromFavorites = createAsyncThunk(
     { dispatch }
   ) => {
     if (token) {
-      callBack('pending');
+      callBack && callBack('pending');
       try {
         await fetch(`${api}/fav/${fav_type}/${id}`, {
           method: 'DELETE',
@@ -173,9 +174,9 @@ export const deleteFromFavorites = createAsyncThunk(
           dispatch(getFavProjects(token));
         }
 
-        callBack('success');
+        callBack && callBack('success');
       } catch (e) {
-        callBack('error');
+        callBack && callBack('error');
         console.log(e);
       }
     }
