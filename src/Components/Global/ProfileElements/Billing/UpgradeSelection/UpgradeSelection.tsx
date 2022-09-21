@@ -26,6 +26,7 @@ export const UpgradeSelection: React.FC = () => {
             type="radio"
             checked={isMonthly}
             onChange={() => setSelectedPlan('Monthly')}
+            readOnly
           />
           <div
             className={`upgrade-selection__select-wrapper__selection__circle ${
@@ -54,6 +55,7 @@ export const UpgradeSelection: React.FC = () => {
             type="radio"
             checked={!isMonthly}
             onChange={() => setSelectedPlan('Yearly')}
+            readOnly
           />
 
           <Typography>Bill yearly</Typography>

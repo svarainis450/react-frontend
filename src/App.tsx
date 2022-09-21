@@ -43,10 +43,9 @@ import _ from 'lodash';
 import { YourInfluencers } from './Components/Pages/YourInfluencers/YourInfluencers';
 import { setUserToken } from './state/reduxstate/user/slice';
 import { CookiesComponent } from './Components/Global/CookiesComponent/CookiesComponent';
-import { Appearance, loadStripe } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import { useSelector } from 'react-redux';
-import { secretKeySelector } from './state/reduxstate/payments/selectors';
+
 import { fetchTotalSentiment } from './state/reduxstate/projects/thunks';
 
 const stripePromise = loadStripe(
@@ -57,12 +56,6 @@ const App = () => {
   const dispatch = useAppDispatch();
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
   const [currecy, setCurrency] = useState('$');
-  const { userInfo, getUserInfo } = useContext(UserInfoContext);
-  const [token, setToken] = useState('');
-  const clientSecret = useSelector(secretKeySelector);
-  const appearance: Appearance = {
-    theme: 'stripe',
-  };
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
@@ -93,11 +86,8 @@ const App = () => {
 
   useEffect(() => {
     if (isLoggedIn()) {
-      // getUserInfo();
-
       const token = JSON.parse(String(localStorage.getItem('token')));
       dispatch(setUserToken(token));
-      setToken(token);
       dispatch(fetchTotalSentiment());
     }
   }, []);

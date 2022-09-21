@@ -50,11 +50,11 @@ export const BillingHistory: React.FC = () => {
           </Typography>
         ))}
       </div>
-      {BILLING_DATA.map(({ id, status, date, title, price }) => {
+      {BILLING_DATA.map(({ id, status, date, title, price }, index) => {
         const isSelected = selectedInvoice === id;
         return (
           <div
-            key={id}
+            key={index}
             className={`Billing-history__table ${isSelected ? 'selected' : ''}`}
           >
             <div
@@ -71,6 +71,7 @@ export const BillingHistory: React.FC = () => {
                   className="Billing-history__table__radio-wrapper__radio-input"
                   checked={isSelected}
                   type="radio"
+                  readOnly
                 />
               </label>
             </div>

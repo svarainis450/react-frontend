@@ -10,6 +10,7 @@ interface PaymentPayload {
   item_description: string;
   phone: string;
   price: string;
+  customer_description: string;
 }
 
 export const createPaymentIntent = createAsyncThunk(
@@ -28,7 +29,7 @@ export const createPaymentIntent = createAsyncThunk(
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            dispatch(setSecretKey(data.client_secret));
           });
 
         console.log(resp);

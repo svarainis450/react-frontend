@@ -39,10 +39,9 @@ export const Billing: React.FC = () => {
             Choose a Payment Method
           </Typography>
         </div>
-        {PAYMENT_METHODS.map(({ id, title, icon, method }) => (
-          <>
+        {PAYMENT_METHODS.map(({ id, title, icon, method }, index) => (
+          <div key={index}>
             <PaymentMethod
-              key={id}
               id={id}
               title={title}
               icon={icon}
@@ -50,7 +49,7 @@ export const Billing: React.FC = () => {
               isSelected={method === selectedMethod}
               onClick={() => handleMethodSelection(method)}
             />
-          </>
+          </div>
         ))}
       </div>
       <EmailInfo />

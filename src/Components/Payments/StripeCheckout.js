@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './StripeCheckout.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +28,15 @@ export default function CheckoutForm() {
     const clientSecret = new URLSearchParams(window.location.search).get(
       'payment_intent_client_secret'
     );
+
+    const paymentDetails = {
+      name: 'test',
+      item_description: 'Monthly subscription',
+      phone: '867777777',
+      price: '20',
+      customer_description: 'customer',
+    };
+    dispatch(createPaymentIntent(paymentDetails));
 
     if (!clientSecret) {
       return;
@@ -62,43 +71,14 @@ export default function CheckoutForm() {
 
     setIsLoading(true);
 
-    const paymentDetails = {
-      name: userName,
-      item_description: 'Monthly subscription',
-      phone: '867777777',
-      price: '20',
-    };
     const cardElement = elements.getElement(CardElement);
 
-    const { error } = await stripe.confirmCardPayment(
-      secretKey,
-      {
-        // Make sure to change this to your payment completion page
-        // elements,
-        // return_url: `${api}/order/${userData.id}/completed`,
-
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: userName,
-            item: 'Monthly subscription',
-            phone: '867777777',
-            price: '20',
-            currency: 'eur',
-          },
-          payment_method: cardElement,
-        },
+    const { error } = await stripe.confirmCardPayment(secretKey, {
+      payment_method: {
+        card: cardElement,
       },
-      dispatch(createPaymentIntent(paymentDetails))
+    });
 
-      // dispatch(completePaymentPost(userData.id))
-    );
-
-    // This point will only be reached if there is an immediate error when
-    // confirming the payment. Otherwise, your customer will be redirected to
-    // your `return_url`. For some payment methods like iDEAL, your customer will
-    // be redirected to an intermediate site first to authorize the payment, then
-    // redirected to the `return_url`.
     if (error.type === 'card_error' || error.type === 'validation_error') {
       setMessage(error.message);
     } else {
@@ -114,7 +94,7 @@ export default function CheckoutForm() {
         {/* <PaymentElement id="payment-element" /> */}
         <div>
           <input
-            class="full-name-input"
+            className="full-name-input"
             placeholder="Name on card"
             onChange={(e) => setUserName(e.target.value)}
           />
