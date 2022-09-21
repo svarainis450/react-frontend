@@ -76,7 +76,6 @@ export const ForYou: React.FC = () => {
 
   const [showInfo, setShowInfo] = useState(false);
   const [showMobileList, setShowMobileList] = useState(false);
-  console.log(projects);
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -105,22 +104,22 @@ export const ForYou: React.FC = () => {
 
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
 
-  // const topTalkRateProject =
-  //   favoriteProjects &&
-  //   filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.TALK_RATE)?.slice(
-  //     0,
-  //     1
-  //   );
-  // const topPositiveProject =
-  //   favoriteProjects &&
-  //   filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.POSITIVE)?.slice(
-  //     0,
-  //     1
-  //   );
+  const topTalkRateProject =
+    favoriteProjects &&
+    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.TALK_RATE)?.slice(
+      0,
+      1
+    );
+  const topPositiveProject =
+    favoriteProjects &&
+    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.POSITIVE)?.slice(
+      0,
+      1
+    );
 
-  // const topBullProject =
-  //   favoriteProjects &&
-  //   filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.BULL)?.slice(0, 1);
+  const topBullProject =
+    favoriteProjects &&
+    filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.BULL)?.slice(0, 1);
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -141,7 +140,7 @@ export const ForYou: React.FC = () => {
       setFilteredFavProjects(favoriteProjects);
     }
   };
-
+  console.log(favoriteProjects);
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
@@ -150,14 +149,17 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {(favoriteProjects.length > 0 || projects.length > 0) && (
+              {((favoriteProjects && favoriteProjects.length > 0) ||
+                projects.length > 0) && (
                 <ProjectMetrics
-                  projectByIdProp={favoriteProjects[0] || projects[0]}
+                  projectByIdProp={
+                    (favoriteProjects && favoriteProjects[0]) || projects[0]
+                  }
                 />
               )}
             </div>
 
-            {/* <div>
+            <div>
               {(favFetchStatus !== 'success' ||
                 (favoriteProjects && favoriteProjects.length > 0) ||
                 projects.length > 0) && (
@@ -169,7 +171,7 @@ export const ForYou: React.FC = () => {
                   chartVolume={dogeCoinProjectData.data.chart_volume}
                 />
               )}
-            </div> */}
+            </div>
           </div>
           <div className="For-you__wrapper__projects-list">
             {!isTablet && (
@@ -207,8 +209,9 @@ export const ForYou: React.FC = () => {
                 />
               </div>
             )}
-            {/* {!isTablet && projectByIdState && filterValue !== '1' && (
+            {!isTablet && projectByIdState && filterValue !== '1' && (
               <ForYouListItem
+                showMobileListCallback={setShowMobileList}
                 key={`${projectByIdState.id}`}
                 project={projectByIdState}
                 // projectIDCallback={projectByIdState.id}
@@ -218,7 +221,7 @@ export const ForYou: React.FC = () => {
                   )
                 }
               />
-            )} */}
+            )}
             <div className="For-you__wrapper__projects-list__desktop-mobile">
               {isTablet && showMobileList && (
                 <div className="input-wrapper">
@@ -239,7 +242,8 @@ export const ForYou: React.FC = () => {
                 </div>
               )}
               {(!isTablet || showMobileList) &&
-                (favFetchStatus === 'success' || favoriteProjects.length > 0) &&
+                (favFetchStatus === 'success' ||
+                  favoriteProjects?.length > 0) &&
                 filteredFavProjects.map((project, index) => (
                   <ForYouListItem
                     showMobileListCallback={setShowMobileList}
@@ -269,7 +273,7 @@ export const ForYou: React.FC = () => {
             )}
           </div>
         </div>
-        {/* 
+
         {favoriteProjects && favoriteProjects.length > 0 && (
           <Top3FavElementsSlider
             isForYouProject
@@ -281,7 +285,7 @@ export const ForYou: React.FC = () => {
               (topTalkRateProject && topTalkRateProject) || favoriteProjects
             }
           />
-        )} */}
+        )}
         {!favoriteProjects ||
           (!Array.isArray(favoriteProjects) && (
             <div className="empty-dashboard">
