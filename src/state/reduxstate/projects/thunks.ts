@@ -253,7 +253,6 @@ export const fetchTrendingProjects = createAsyncThunk(
           },
         }).then((res) => res.json());
         callBack('success');
-
         return resp.data;
       } catch (e) {
         console.log(e);
@@ -298,6 +297,8 @@ export const fetchTop3Projects = createAsyncThunk(
             },
           }
         ).then((res) => res.json());
+
+        console.log(resp);
 
         if (filter === 'top-bull') {
           dispatch(setTop3bullProjects(resp.data));

@@ -105,7 +105,13 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
             <ul className="Category__projects-wrapper">
               {trendingProjects.map(
                 (
-                  { category, project_name, mentions_num, img, place },
+                  {
+                    category,
+                    project_name,
+                    mentions_num,
+                    project_img_url,
+                    place,
+                  },
                   index
                 ) => (
                   <TrendingProjectCard
@@ -115,7 +121,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
                     projectTitle={project_name}
                     mentions={mentions_num}
                     categoryTitle={category as unknown as CategoryTags}
-                    img={img || icons.no_image}
+                    img={project_img_url || icons.no_image}
                   />
                 )
               )}

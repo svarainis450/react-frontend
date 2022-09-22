@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Influencer } from 'src/state/reduxstate/influencers/types';
 import {
   calculateBigNumberValues,
@@ -26,6 +27,13 @@ interface InfluencersTableRowProps {
 export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
   influencersData,
 }) => {
+  const [imgErr, setImgErr] = useState({
+    id: null as unknown as number,
+    isErr: false,
+  });
+
+  useEffect(() => {}, []);
+
   return (
     <div className="influencers-picks__influencers-table">
       <div className="influencers-picks__influencers-table__row titles">
@@ -56,9 +64,19 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
               >
                 <div className="influencers-picks__influencers-table__row__influencer">
                   <img
+                    onError={() =>
+                      setImgErr({
+                        id: twitter_user.id,
+                        isErr: true,
+                      })
+                    }
                     className="icon"
                     alt={twitter_user.twitter_username || 'Influencer'}
-                    src={twitter_user.twitter_img_url || icons.no_image}
+                    src={
+                      imgErr.id === twitter_user.id
+                        ? icons.no_image
+                        : twitter_user.twitter_img_url
+                    }
                   />
                   <div>
                     <Typography className="influencers-picks__influencers-table__row__influencer__tag-name">

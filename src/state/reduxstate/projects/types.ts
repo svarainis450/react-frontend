@@ -117,6 +117,7 @@ export interface TrendingProject {
   project_name: string;
   project_symbol: string;
   mentions_num: number;
+  project_img_url: string;
   //TODO: REMOVE
   id: number;
   name: string;
@@ -216,7 +217,7 @@ export interface TopOrLowestProject {
   sentiment?: number;
   talk_rate?: number;
   bull?: number;
-  icon: string;
+  img_url: string;
 }
 
 export type TrendsDateFilterType = 'daily' | 'weekly';

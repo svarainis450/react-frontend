@@ -63,6 +63,8 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
     top3LowestTalkRateProjectsSelector
   );
 
+  console.log(top3BullProjects);
+
   const topPositive = isLowestList
     ? top3NegativeProjects
     : top3PositiveProjects;
@@ -158,12 +160,12 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topTalkRate.map(
                   (
-                    { place, category, project_name, talk_rate, icon },
+                    { place, category, project_name, talk_rate, img_url },
                     index
                   ) => (
                     <Top3Element
                       key={`${place}_${index}`}
-                      icon={icon}
+                      icon={img_url}
                       projectName={project_name}
                       tagTitle={category}
                       talkRate={talk_rate}
@@ -197,12 +199,12 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topPositive.map(
                   (
-                    { place, category, project_name, sentiment, icon },
+                    { place, category, project_name, sentiment, img_url },
                     index
                   ) => (
                     <Top3Element
                       key={`${place}_${index}`}
-                      icon={icon}
+                      icon={img_url}
                       projectName={project_name}
                       tagTitle={category}
                       blockType={InfoBlockTypes.positive}
@@ -233,10 +235,10 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
             {topBull ? (
               <ul className="cards-grid">
                 {topBull.map(
-                  ({ place, category, project_name, bull, icon }, index) => (
+                  ({ place, category, project_name, bull, img_url }, index) => (
                     <Top3Element
                       key={`${place}_${index}`}
-                      icon={icon}
+                      icon={img_url}
                       projectName={project_name}
                       tagTitle={category}
                       bullRatio={bull}

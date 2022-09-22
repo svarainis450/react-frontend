@@ -29,6 +29,8 @@ export const fetchProjectsPick = createAsyncThunk(
           }
         ).then((res) => res.json());
 
+        console.log(resp);
+
         return resp.data;
       } catch (e) {
         console.log(e);
