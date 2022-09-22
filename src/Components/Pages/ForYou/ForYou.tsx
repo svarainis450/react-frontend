@@ -67,6 +67,8 @@ export const ForYou: React.FC = () => {
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
   const { projects } = useSelector(projectsDataSelector);
 
+  console.log(projectByIdState);
+
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const userToken = useSelector(userTokenSelector);
   const token = localStorage.getItem('token');
@@ -140,7 +142,6 @@ export const ForYou: React.FC = () => {
       setFilteredFavProjects(favoriteProjects);
     }
   };
-  console.log(favoriteProjects);
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
@@ -149,11 +150,14 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {((favoriteProjects && favoriteProjects.length > 0) ||
+              {(projectByIdState ||
+                (favoriteProjects && favoriteProjects.length > 0) ||
                 projects.length > 0) && (
                 <ProjectMetrics
                   projectByIdProp={
-                    (favoriteProjects && favoriteProjects[0]) || projects[0]
+                    projectByIdState ||
+                    (favoriteProjects && favoriteProjects[0]) ||
+                    projects[0]
                   }
                 />
               )}
@@ -165,10 +169,10 @@ export const ForYou: React.FC = () => {
                 projects.length > 0) && (
                 // this is chart
                 <ForYouChartView
-                  chartPrice={dogeCoinProjectData.data.chart_price}
-                  chartSentiment={dogeCoinProjectData.data.chart_sentiment}
-                  chartTalkRate={dogeCoinProjectData.data.chart_talk_rate}
-                  chartVolume={dogeCoinProjectData.data.chart_volume}
+                  chartPrice={projectByIdState.chart_price}
+                  chartSentiment={projectByIdState.chart_sentiment}
+                  chartTalkRate={projectByIdState.chart_talk_rate}
+                  chartVolume={projectByIdState.chart_volume}
                 />
               )}
             </div>

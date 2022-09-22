@@ -43,21 +43,18 @@ export const fetchProjectById = createAsyncThunk(
   ) => {
     if (token && id) {
       try {
-        const resp = await fetch(`${api}/project/${id}`, {
+        const resp = await fetch(`${apiv1}/projects/by-id/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
           .then((res) => res.json())
-          .then((res) => dispatch(setProjectById(res)));
+          .then((res) => {
+            console.log(res);
+            dispatch(setProjectById(res.data));
+          });
 
-        if (navigateToForYou && resp) {
-          useNavigateHook(LinkList.FORYOU);
-        }
-
-        // if (projectIDCallback) {
-        //   projectIDCallback(resp as Project);
-        // }
+        console.log(resp);
       } catch (e) {
         console.log(e);
       }
@@ -172,18 +169,20 @@ export const fetchProjects = createAsyncThunk(
     const tokenFromState = user.user_token;
 
     // const url =
-    //   filter.length > 0
+    //   filter.length > 0ff
     //     ? `${apiv1}/projects/today?filters[${filter}]=${filterValue}&limit=52&offset=${offset}`
     //     : `${apiv1}/projects/today?limit=52&offset=${offset}`;
 
     const filterValue = filter ? `&orderBy=${filter}` : '';
     const url = skip
       ? `${apiv1}/projects?take=8${filterValue}&skip=${skip}`
-      : `${apiv1}/projects?take=8`;
+      : `${apiv1}/projects?take=8${filterValue}`;
 
     if (token || tokenFromState) {
       try {
-        callBack && callBack('pending');
+        if (callBack) {
+          callBack('pending');
+        }
 
         const resp = await fetch(url, {
           headers: {
@@ -196,13 +195,15 @@ export const fetchProjects = createAsyncThunk(
             projects.projects_data.projects,
             resp.data
           );
+
           const uniqueProjects = [
             ...(new Set(expandedProjects) as unknown as Project[]),
           ];
+
           dispatch(
             setProjectsData({
-              ...projects.projects_data,
               projects: uniqueProjects,
+              meta: resp.meta,
             })
           );
         } else {
@@ -213,10 +214,21 @@ export const fetchProjects = createAsyncThunk(
             })
           );
         }
-        callBack && callBack('success');
-      } catch (e) {
-        callBack && callBack('error');
 
+        // dispatch(
+        //   setProjectsData({
+        //     projects: resp.data,
+        //     meta: resp.meta,
+        //   })
+        // );
+
+        if (callBack) {
+          callBack('success');
+        }
+      } catch (e) {
+        if (callBack) {
+          callBack('error');
+        }
         console.log(e);
       }
     }

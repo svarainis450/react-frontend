@@ -6,6 +6,6 @@ export enum ResponseCode {
 export enum ENUM_API {
   LOGIN = '/login',
   REGISTER = '/users',
-  ME = '/me',
+  ME = '/users',
   WAITLIST_SIGN = '/subscription-user',
 }

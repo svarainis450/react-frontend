@@ -26,21 +26,23 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
             <img
               className="project-icon"
               src={
-                (projectById && projectById.img_url) ||
-                (!projectById && projectByIdProp.img_url) ||
+                (projectById && projectById?.img_url) ||
+                (!projectById && projectByIdProp?.img_url) ||
                 icons.no_image
               }
-              alt={(projectById && projectById.name) || projectByIdProp.name}
+              alt={(projectById && projectById?.name) || projectByIdProp?.name}
             />
           </div>
           <div>
             <Typography className="project-title">
-              {(projectById && projectById.name) || projectByIdProp.name}
+              {(projectById && projectById?.name) || projectByIdProp?.name}
             </Typography>
             <CategoryTag
               isSmallerTag={isTablet}
               tagTitle={
-                (projectById && projectById.tag.name) || CategoryTags.coins
+                // @ts-ignore
+                (projectById && CategoryTags[projectById.type]) ||
+                CategoryTags.coins
               }
             />
           </div>
@@ -49,8 +51,8 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           <div>
             <TalkRateElement
               rate={
-                (projectById && projectById.talk_rate_score) ||
-                projectByIdProp.talk_rate_score
+                (projectById && projectById?.talk_rate_score) ||
+                projectByIdProp?.talk_rate_score
               }
               type="talk_rate"
             />
@@ -70,8 +72,8 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
             <IndexAxis
               isHalfAxis
               rating={
-                (projectById && projectById.bull_bear_score) ||
-                projectByIdProp.bull_bear_score
+                (projectById && projectById?.bull_bear_score) ||
+                projectByIdProp?.bull_bear_score
               }
               type="bull"
             />

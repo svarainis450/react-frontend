@@ -9,11 +9,7 @@ import {
   setSubscribedInfluencers,
   setUserData,
 } from './slice';
-import {
-  FavInfluencersProjectsPayload,
-  UserDataType,
-  UserUpdateType,
-} from './types';
+import { FavInfluencersProjectsPayload, UserUpdateType } from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
 
