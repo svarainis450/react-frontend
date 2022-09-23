@@ -29,40 +29,15 @@ interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
   categoryCallback: Dispatch<SetStateAction<CategoryTags | undefined>>;
   filterTitle: string;
-  filter: SubmenuFilters;
 }
 
 export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   categoryCallback,
   filterTitle,
-  filter,
 }) => {
-  const dispatch = useAppDispatch();
-  const token = useSelector(userTokenSelector);
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
-  const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
-  const [selectCategory, setSelectCategory] = useState<
-    CategoryTags | undefined
-  >(undefined);
   const trendingProjects = useSelector(trendingProjectsSelector);
-
-  useEffect(() => {
-    if (token) {
-      dispatch(
-        fetchTrendingProjects({
-          filter: filter,
-          callBack: setTrendingStatus,
-          categoryFilter: selectCategory,
-          tokenValue: token,
-        })
-      );
-    }
-  }, [token, selectCategory, filter]);
-
-  if (trendingStatus === 'pending') {
-    return <Loader width={50} height={50} />;
-  }
 
   return (
     <div className="Category">

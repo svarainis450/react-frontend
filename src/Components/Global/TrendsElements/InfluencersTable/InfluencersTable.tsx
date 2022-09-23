@@ -41,7 +41,6 @@ const FILTERS = [
 ];
 
 export const InfluencersTable: React.FC<InfluencersTableProps> = ({
-  influencersData,
   callBack,
   nameFilterCallBack,
   categoryCallBack,
@@ -50,12 +49,17 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
   const token = useSelector(userTokenSelector);
   const trendingInfluencersData = useSelector(trendingInfluencersSelector);
   const trendingInfluencers = trendingInfluencersData.trending_influencers;
-  const [takeProjects, setTakeProjects] = useState(10);
+  const [takeProjects, setTakeProjects] = useState(0);
+  const [inflFilterValue, setInflFilterValue] =
+    useState<InfluencerFilterKeys | null>(null);
+  const [categoryFilterValue, setCategoryFilterValue] =
+    useState<CategoryTags | null>(null);
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
-    callBack(filterKey);
-    nameFilterCallBack('1');
+    setInflFilterValue(filterKey);
   };
   const { isTablet } = useMediaQuery();
+
+  console.log(categoryFilterValue);
 
   useEffect(() => {
     if (token) {
@@ -65,15 +69,16 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
           tokenValue: token,
           skip: takeProjects,
           take: 10,
+          filterByFollowers: inflFilterValue === InfluencerFilterKeys.FOLLOWERS,
+          filterByCategoryValue: categoryFilterValue,
         })
       );
     }
-  }, [dispatch, takeProjects, token]);
+  }, [dispatch, takeProjects, token, categoryFilterValue, inflFilterValue]);
 
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
-    callBack(InfluencerFilterKeys.CATEGORY);
-    categoryCallBack(e.target.value as CategoryTags);
+    setCategoryFilterValue(e.target.value as CategoryTags);
   };
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {

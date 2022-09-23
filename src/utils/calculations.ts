@@ -15,7 +15,7 @@ export const calculateBigNumberValues = (foll: number) => {
 //NOTE: axis width for positive, negative, bull
 export const calculateRangeWidth = (rate: number, isHalfAxis?: boolean) => {
   if (isHalfAxis) {
-    if (rate === 0) {
+    if (rate === 0 || !rate) {
       return 100;
     } else if (rate <= 10) {
       return 90;

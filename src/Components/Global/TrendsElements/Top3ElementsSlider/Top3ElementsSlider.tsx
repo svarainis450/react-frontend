@@ -4,31 +4,24 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { infoBlocks } from 'src/Components/Pages/Trends/constants';
-import {
-  SubmenuFilters,
-  TopOrLowestProject,
-} from 'src/state/reduxstate/projects/types';
+import { SubmenuFilters } from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { CardWrapper } from '../CardWrapper/CardWrapper';
 import { Top3Element } from '../Top3Element/Top3Element';
 import { InfoBlockTypes } from '../types';
 
 import {
-  fetchProjects,
   fetchProjectsByInfluencers,
   fetchTop3LowestProjects,
   fetchTop3Projects,
-  fetchTrendingProjects,
 } from 'src/state/reduxstate/projects/thunks';
 import {
-  projectsByInfluencersSelector,
   top3BullProjectsSelector,
   top3PositiveProjectsSelector,
   top3TalkRateProjectsSelector,
   top3LowestTalkRateProjectsSelector,
   top3BearProjectsSelector,
   top3NegativeProjectsSelector,
-  trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 
 import './Top3ElementsSlider.scss';
@@ -62,8 +55,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
   const top3LowestTalkRateProjects = useSelector(
     top3LowestTalkRateProjectsSelector
   );
-
-  console.log(top3BullProjects);
 
   const topPositive = isLowestList
     ? top3NegativeProjects

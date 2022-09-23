@@ -44,17 +44,33 @@ export interface TrendingInfluencersPayload {
   dateFilter: TrendsDateFilterType;
   skip: number | null;
   take: number;
+  filterByFollowers: boolean;
+  filterByCategoryValue: string | null;
 }
 
 export const fetchTrendingInfluencers = createAsyncThunk(
   'influencers/GET_TRENDING_INFLUENCERS',
   async (
-    { tokenValue, dateFilter, skip, take }: TrendingInfluencersPayload,
+    {
+      tokenValue,
+      dateFilter,
+      skip,
+      take,
+      filterByCategoryValue,
+      filterByFollowers,
+    }: TrendingInfluencersPayload,
     { dispatch }
   ) => {
+    const filterByFollowersValue = filterByFollowers
+      ? '&orderBy=followers&order=DESC'
+      : '';
+    const filterByCategory = filterByCategoryValue
+      ? `&category=${filterByCategoryValue.toLocaleLowerCase()}`
+      : '';
+
     const url = skip
-      ? `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=${take}&skip=${skip}`
-      : `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10`;
+      ? `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=${take}&skip=${skip}${filterByFollowersValue}${filterByCategory}`
+      : `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10${filterByFollowersValue}${filterByCategory}`;
 
     if (tokenValue) {
       try {

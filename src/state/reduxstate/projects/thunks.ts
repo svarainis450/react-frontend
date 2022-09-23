@@ -237,7 +237,7 @@ export const fetchProjects = createAsyncThunk(
 
 interface TrendingProjectsPayload {
   callBack: Dispatch<SetStateAction<Statuses>>;
-  filter: SubmenuFilters;
+  dateFilter: SubmenuFilters;
   categoryFilter?: CategoryTags;
   tokenValue?: string;
 }
@@ -245,18 +245,23 @@ interface TrendingProjectsPayload {
 export const fetchTrendingProjects = createAsyncThunk(
   'projects/GET_TRENDING_PROJECTS',
   async (
-    { filter, callBack, categoryFilter, tokenValue }: TrendingProjectsPayload,
+    {
+      dateFilter,
+      callBack,
+      categoryFilter,
+      tokenValue,
+    }: TrendingProjectsPayload,
     { getState }
   ) => {
     const { user } = getState() as RootState;
     const tokenFromState = user.user_token;
 
-    if ((tokenValue || tokenFromState) && filter) {
+    if ((tokenValue || tokenFromState) && dateFilter) {
       callBack('pending');
 
       const url = categoryFilter
-        ? `${apiv1}/trends/trending-projects-${filter}?category=${categoryFilter.toLocaleLowerCase()}&take=5`
-        : `${apiv1}/trends/trending-projects-${filter}?take=5`;
+        ? `${apiv1}/trends/trending-projects-${dateFilter}?category=${categoryFilter.toLocaleLowerCase()}&take=5`
+        : `${apiv1}/trends/trending-projects-${dateFilter}?take=5`;
 
       try {
         const resp = await fetch(url, {

@@ -113,7 +113,7 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                         return (
                           <img
                             key={index}
-                            src={item.img || icons.no_image}
+                            src={item.img_url || icons.no_image}
                             alt={item.name}
                           />
                         );

@@ -27,13 +27,14 @@ export const Top3Element: React.FC<ElementProps> = ({
 }) => {
   const visual = {
     [InfoBlockTypes.rate]: talkRate && <TalkRateElement rate={talkRate} />,
-    [InfoBlockTypes.positive]: positiveRatio && (
-      <IndexAxis isHalfAxis type="positive" rating={positiveRatio} />
+    [InfoBlockTypes.positive]: (positiveRatio || positiveRatio === 0) && (
+      <IndexAxis isHalfAxis type="positive" rating={0} />
     ),
-    [InfoBlockTypes.bullish]: bullRatio && (
+    [InfoBlockTypes.bullish]: (bullRatio || bullRatio === 0) && (
       <IndexAxis isHalfAxis type="bull" rating={bullRatio} />
     ),
   };
+
   return (
     <li className="element">
       <div className="element__flex">

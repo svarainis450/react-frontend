@@ -58,14 +58,16 @@ export const Trends: React.FC = () => {
     if (token) {
       dispatch(
         fetchTrendingProjects({
-          filter: filter,
+          dateFilter: filter,
           callBack: setTrendingStatus,
           categoryFilter: selectCategory,
           tokenValue: token,
         })
       );
     }
-  }, [token]);
+  }, [token, filter, selectCategory]);
+
+  console.log(influencersFilter);
 
   useEffect(() => {
     if (token && filter !== 'upcomming') {
@@ -105,7 +107,6 @@ export const Trends: React.FC = () => {
                     categoryCallback={setSelectCategory}
                     trendingProjects={trendingProjects}
                     filterTitle={filterTitle}
-                    filter={filter}
                   />
                 )}
               </CardWrapper>
@@ -131,7 +132,6 @@ export const Trends: React.FC = () => {
                 subtitle={filterTitle}
               >
                 <InfluencersTable
-                  // influencersData={influencers}
                   callBack={setInfluencersFilter}
                   nameFilterCallBack={setInflFilterValue}
                   categoryCallBack={setInflFilterValue}
