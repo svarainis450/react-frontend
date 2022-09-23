@@ -39,7 +39,7 @@ export const Influencers: React.FC = () => {
     influencersFilter,
     nameFilterValue
   );
-  console.log(influencersFilterValue);
+  console.log(influencers);
   const notAllToShow =
     skipElementsValue <
     Number(

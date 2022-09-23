@@ -13,7 +13,7 @@ import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import './Login.scss';
 import { LinkList } from 'src/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { setUserData, setUserToken } from 'src/state/reduxstate/user/slice';
+import { setUserData } from 'src/state/reduxstate/user/slice';
 import { UserDataType } from 'src/state/reduxstate/user/types';
 
 export const Login = () => {
@@ -96,7 +96,7 @@ export const Login = () => {
 
           <p className="Login__teaser">
             New to Potato?
-            <Link to={LinkList.Register}>&nbsp; Sign Up here.</Link>
+            <Link to={LinkList.Checkout}>&nbsp; Sign Up here.</Link>
           </p>
         </div>
       </div>

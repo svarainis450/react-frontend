@@ -5,10 +5,10 @@ export const calculateBigNumberValues = (foll: number) => {
     return foll;
   } else if (foll >= 1000 && foll <= 1000000) {
     const result = (foll / 1000).toFixed();
-    return String(result + ' k');
+    return String(result + 'k');
   } else if (foll > 1000000) {
     const result = (foll / 1000000).toFixed();
-    return String(result + ' mln');
+    return String(result + 'mln');
   }
 };
 
