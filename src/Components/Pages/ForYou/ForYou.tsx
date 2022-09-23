@@ -140,7 +140,6 @@ export const ForYou: React.FC = () => {
       setFilteredFavProjects(favoriteProjects);
     }
   };
-
   console.log(dataForStats);
   return (
     <div className="For-you">

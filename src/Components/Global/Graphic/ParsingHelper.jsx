@@ -101,48 +101,52 @@ export const filterDataObjectsByPeriod = (
   );
   // price
   const priceThreeHours = parseFilterDataObject(
-    chartPrice.three_hours_price,
+    chartPrice?.three_hours_price,
     threeHourStartTime
   );
   const priceOneDay = parseFilterDataObject(
-    chartPrice.one_day_price,
+    chartPrice?.one_day_price,
     oneDayStartTime
   );
   const priceOneWeek = parseFilterDataObject(
-    chartPrice.one_week_price,
+    chartPrice?.one_week_price,
     oneWeekStartTime
   );
   const priceOneMonth = parseFilterDataObject(
-    chartPrice.one_month_price,
+    chartPrice?.one_month_price,
     oneMonthStartTime
   );
   const priceThreeMonths = parseFilterDataObject(
-    chartPrice.three_months_price,
+    chartPrice?.three_months_price,
     threeMonthsStartTime
   );
-  const priceAll = parseFilterDataObject(chartPrice.all_price, allStartTime);
+  const priceAll = parseFilterDataObject(chartPrice?.all_price, allStartTime);
+
   // volume
   const volumeThreeHours = parseFilterDataObject(
-    chartVolume.three_hours_volume,
+    chartVolume?.three_hours_volume,
     threeHourStartTime
   );
   const volumeOneDay = parseFilterDataObject(
-    chartVolume.one_day_volume,
+    chartVolume?.one_day_volume,
     oneDayStartTime
   );
   const volumeOneWeek = parseFilterDataObject(
-    chartVolume.one_week_volume,
+    chartVolume?.one_week_volume,
     oneWeekStartTime
   );
   const volumeOneMonth = parseFilterDataObject(
-    chartVolume.one_month_volume,
+    chartVolume?.one_month_volume,
     oneMonthStartTime
   );
   const volumeThreeMonths = parseFilterDataObject(
-    chartVolume.three_months_volume,
+    chartVolume?.three_months_volume,
     threeMonthsStartTime
   );
-  const volumeAll = parseFilterDataObject(chartVolume.all_volume, allStartTime);
+  const volumeAll = parseFilterDataObject(
+    chartVolume?.all_volume,
+    allStartTime
+  );
 
   const output = {
     threeHours: {
