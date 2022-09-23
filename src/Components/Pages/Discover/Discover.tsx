@@ -28,6 +28,7 @@ import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 import { Typography } from 'src/Components/Global/Typography';
 import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+import { useProjectFilters } from 'src/hooks';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -52,7 +53,17 @@ export const Discover: React.FC = () => {
   const projectsData = useSelector(projectsDataSelector);
   const projects = projectsData.projects;
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
-  const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
+  const [categoryFilter, setCategoryFilter] = useState<CategoryTags | null>(
+    null
+  );
+  const [nameFilter, setNameFilter] = useState<string | null>(null);
+
+  const filterValue = useProjectFilters(
+    projectsFilter,
+    categoryFilter,
+    nameFilter
+  );
+
   const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
 
   const [skipElements, setSkipElements] = useState<number | null>(null);
@@ -71,17 +82,18 @@ export const Discover: React.FC = () => {
   useEffect(() => {
     if (
       (projects && projects.length === 0) ||
-      (skipElements && skipElements > 0)
+      (skipElements && skipElements > 0) ||
+      filterValue
     ) {
       dispatch(
         fetchProjects({
-          filter: projectsFilter,
+          filter: filterValue,
           callBack: setProjectStatus,
           skip: skipElements,
         })
       ).then(() => scrollToElement('card-to-scroll'));
     }
-  }, [skipElements, projectsFilter]);
+  }, [skipElements, filterValue]);
 
   useEffect(() => {
     if (token) {
@@ -108,8 +120,8 @@ export const Discover: React.FC = () => {
         <Submenu pageTitleMob="Discover" menuItems={submenuList} />
         <ProjectFilters
           callBack={setProjectsFilter}
-          categoryCallBack={setFilterValue}
-          nameFilterCallBack={setFilterValue}
+          categoryCallBack={setCategoryFilter}
+          nameFilterCallBack={setNameFilter}
         />
         <div className="Discover__wrapper">
           {projectsStatus === 'error' ||

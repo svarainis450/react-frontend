@@ -150,9 +150,9 @@ export const fetchMostFollowedInfluencers = createAsyncThunk(
 
 interface ProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;
-  filter?: ProjectFilterKeys;
+  filter?: string;
   skip?: number | null;
-  filterValue?: CategoryTags | number | string;
+  filterValue?: string;
 }
 
 const token = JSON.parse(String(localStorage.getItem('token')));
@@ -171,10 +171,9 @@ export const fetchProjects = createAsyncThunk(
     //     ? `${apiv1}/projects/today?filters[${filter}]=${filterValue}&limit=52&offset=${offset}`
     //     : `${apiv1}/projects/today?limit=52&offset=${offset}`;
 
-    const filterValue = filter ? `&orderBy=${filter}` : '';
     const url = skip
-      ? `${apiv1}/projects?take=8${filterValue}&skip=${skip}`
-      : `${apiv1}/projects?take=8${filterValue}`;
+      ? `${apiv1}/projects?take=8&skip=${skip}${filter}`
+      : `${apiv1}/projects?take=8${filter}`;
 
     if (token || tokenFromState) {
       try {

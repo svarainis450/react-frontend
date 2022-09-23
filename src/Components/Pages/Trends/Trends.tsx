@@ -48,12 +48,6 @@ export const Trends: React.FC = () => {
     CategoryTags | undefined
   >(undefined);
 
-  const [influencersFilter, setInfluencersFilter] =
-    useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
-  const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
-    '1'
-  );
-
   useEffect(() => {
     if (token) {
       dispatch(
@@ -129,11 +123,7 @@ export const Trends: React.FC = () => {
                 title="List of influencers and their picks"
                 subtitle={filterTitle}
               >
-                <InfluencersTable
-                  callBack={setInfluencersFilter}
-                  nameFilterCallBack={setInflFilterValue}
-                  categoryCallBack={setInflFilterValue}
-                />
+                <InfluencersTable />
               </CardWrapper>
             </section>
           </>

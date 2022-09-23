@@ -170,7 +170,7 @@ export const tags = [
 
 export enum ProjectFilterKeys {
   TALK_RATE = 'talk_rate',
-  POSITIVE = 'positive',
+  POSITIVE = 'positiveNe',
   NEGATIVE = 'negative',
   BULL = 'bull',
   BEAR = 'bear',

@@ -1,17 +1,9 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { MobileFilter } from 'src/Components/MobileFilter/MobileFilter';
 import { useMediaQuery } from 'src/hooks';
 import { trendingInfluencersSelector } from 'src/state/reduxstate/influencers/selectors';
 import { fetchTrendingInfluencers } from 'src/state/reduxstate/influencers/thunks';
-import { Influencer } from 'src/state/reduxstate/influencers/types';
-import { influencersPagesSelector } from 'src/state/reduxstate/projects/selectors';
 import {
   InfluencerFilterKeys,
   tags,
@@ -28,23 +20,12 @@ import { CategoryTags } from '../types';
 import './InfluencersTable.scss';
 import { InfluencersTableRows } from './InfluencersTableRows';
 
-interface InfluencersTableProps {
-  influencersData?: Influencer[];
-  callBack: Dispatch<SetStateAction<InfluencerFilterKeys>>;
-  categoryCallBack: Dispatch<SetStateAction<CategoryTags | string>>;
-  nameFilterCallBack: Dispatch<SetStateAction<string>>;
-}
-
 const FILTERS = [
   { title: 'Followers', key: InfluencerFilterKeys.FOLLOWERS },
   // { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
 ];
 
-export const InfluencersTable: React.FC<InfluencersTableProps> = ({
-  callBack,
-  nameFilterCallBack,
-  categoryCallBack,
-}) => {
+export const InfluencersTable: React.FC = () => {
   const dispatch = useAppDispatch();
   const token = useSelector(userTokenSelector);
   const trendingInfluencersData = useSelector(trendingInfluencersSelector);
@@ -58,8 +39,6 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
     setInflFilterValue(filterKey);
   };
   const { isTablet } = useMediaQuery();
-
-  console.log(categoryFilterValue);
 
   useEffect(() => {
     if (token) {
@@ -83,13 +62,7 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.target.value.length >= 3) {
-      nameFilterCallBack(e.target.value);
-      callBack(InfluencerFilterKeys.NAME);
-    } else if (e.target.value.length === 0) {
-      callBack(InfluencerFilterKeys.NONE);
-      nameFilterCallBack('1');
-    }
+    console.log('name filter');
   };
 
   const handlePrevousBtn = () => {
@@ -160,10 +133,10 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
         {isTablet && (
           <MobileFilter
             whatFiltering="influencers"
-            influencersCallBack={callBack}
+            // influencersCallBack={callBack}
             options={FILTERS}
             hasCategory
-            categoryCallBack={categoryCallBack}
+            // categoryCallBack={categoryCallBack}
           />
         )}
       </div>

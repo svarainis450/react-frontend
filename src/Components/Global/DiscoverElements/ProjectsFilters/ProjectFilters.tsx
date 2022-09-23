@@ -16,16 +16,16 @@ const FILTERS = [
   { title: 'Talk Rate', key: ProjectFilterKeys.TALK_RATE },
   { title: 'Positive', key: ProjectFilterKeys.POSITIVE },
   { title: 'Negative', key: ProjectFilterKeys.NEGATIVE },
-  { title: 'Bull', key: ProjectFilterKeys.BULL },
-  { title: 'Bear', key: ProjectFilterKeys.BEAR },
+  // { title: 'Bull', key: ProjectFilterKeys.BULL },
+  // { title: 'Bear', key: ProjectFilterKeys.BEAR },
   { title: 'Newest', key: ProjectFilterKeys.NEWEST },
   { title: 'Oldest', key: ProjectFilterKeys.OLDEST },
 ];
 
 interface ProjectFiltersProps {
   callBack: Dispatch<SetStateAction<ProjectFilterKeys>>;
-  categoryCallBack: Dispatch<SetStateAction<CategoryTags | string>>;
-  nameFilterCallBack: Dispatch<SetStateAction<string>>;
+  categoryCallBack: Dispatch<SetStateAction<CategoryTags | null>>;
+  nameFilterCallBack: Dispatch<SetStateAction<string | null>>;
 }
 
 export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
@@ -47,13 +47,13 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       callBack(ProjectFilterKeys.NAME);
     } else if (e.target.value.length === 0) {
       callBack(ProjectFilterKeys.NONE);
-      nameFilterCallBack('1');
+      nameFilterCallBack(null);
     }
   };
 
   const handleFilterCallBack = (key: ProjectFilterKeys) => {
     callBack(key);
-    nameFilterCallBack('1');
+    nameFilterCallBack(null);
   };
 
   return (
