@@ -188,8 +188,8 @@ export enum InfluencerFilterKeys {
   BULLSEYE = 'bullseye_score',
   FIRST_MOVER = 'first_mover_reviewer_score', //ASC
   REVIEWER = 'first_mover_reviewer_score', //DESC
-  CATEGORY = 'influence_score',
-  RATE = 'rate',
+  CATEGORY = 'category',
+  INFLUENCE_RATE = 'influence_score',
   NAME = 'name',
   NONE = '',
 }

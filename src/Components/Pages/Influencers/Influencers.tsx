@@ -11,6 +11,7 @@ import {
 import { Button } from 'src/Components/Global/Button';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
+import { useInfluencersFilters } from 'src/hooks';
 import { influencersDataSelector } from 'src/state/reduxstate/influencers/selectors';
 import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import {
@@ -29,11 +30,16 @@ export const Influencers: React.FC = () => {
   const dispatch = useAppDispatch();
   const [influencersFilter, setInfluencersFilter] =
     useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
-  const [filterValue, setFilterValue] = useState<string>('1');
+  const [nameFilterValue, setNameFilterValue] = useState<string | null>(null);
   const [influencersStatus, setInfluencersStatus] = useState<Statuses>('idle');
   const [skipElements, setSkipElements] = useState<number | null>(null);
   const skipElementsValue = skipElements === null ? 0 : skipElements;
 
+  const influencersFilterValue = useInfluencersFilters(
+    influencersFilter,
+    nameFilterValue
+  );
+  console.log(influencersFilterValue);
   const notAllToShow =
     skipElementsValue <
     Number(
@@ -53,19 +59,18 @@ export const Influencers: React.FC = () => {
     if (
       !influencers ||
       (skipElements && skipElements > 0) ||
-      influencers.length < cardsPerOneRequest
+      influencers.length < cardsPerOneRequest ||
+      influencersFilterValue
     ) {
       dispatch(
         fetchInfluencers({
-          filter: influencersFilter,
+          filter: influencersFilterValue,
           callBack: setInfluencersStatus,
           skip: skipElements,
         })
       ).then(() => scrollToElement('infl-to-scroll'));
     }
-  }, [skipElements, influencersFilter]);
-
-  console.log(influencersLeftToSee);
+  }, [skipElements, influencersFilterValue, cardsPerOneRequest]);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow && influencersLeftToSee >= cardsPerOneRequest) {
@@ -86,7 +91,7 @@ export const Influencers: React.FC = () => {
         <Submenu menuItems={submenuList} pageTitleMob="Discover" />
         <InfluencerFilters
           callBack={setInfluencersFilter}
-          nameFilterCallBack={setFilterValue}
+          nameFilterCallBack={setNameFilterValue}
         />
 
         {influencersStatus === 'error' && <LoadError />}

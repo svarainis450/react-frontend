@@ -12,18 +12,18 @@ import {
 import './InfluencerFilters.scss';
 
 const FILTERS = [
-  { title: 'Top Expert', key: InfluencerFilterKeys.TOP_EXPERT },
+  // { title: 'Top Expert', key: InfluencerFilterKeys.TOP_EXPERT },
   { title: 'Most followers', key: InfluencerFilterKeys.FOLLOWERS },
-  { title: 'Most active', key: InfluencerFilterKeys.MOST_ACTIVE },
-  { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
-  { title: 'First mover', key: InfluencerFilterKeys.FIRST_MOVER },
-  { title: 'Reviewer', key: InfluencerFilterKeys.REVIEWER },
-  { title: 'Influence rate', key: InfluencerFilterKeys.RATE },
+  // { title: 'Most active', key: InfluencerFilterKeys.MOST_ACTIVE },
+  // { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
+  // { title: 'First mover', key: InfluencerFilterKeys.FIRST_MOVER },
+  // { title: 'Reviewer', key: InfluencerFilterKeys.REVIEWER },
+  { title: 'Influence rate', key: InfluencerFilterKeys.INFLUENCE_RATE },
 ];
 
 interface InfluencerFiltersProps {
   callBack: Dispatch<SetStateAction<InfluencerFilterKeys>>;
-  nameFilterCallBack: Dispatch<SetStateAction<string>>;
+  nameFilterCallBack: Dispatch<SetStateAction<string | null>>;
 }
 
 export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
@@ -34,7 +34,7 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
 
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
-    nameFilterCallBack('1');
+    nameFilterCallBack(null);
   };
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +44,7 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
       callBack(InfluencerFilterKeys.NAME);
     } else if (e.target.value.length === 0) {
       callBack(InfluencerFilterKeys.NONE);
-      nameFilterCallBack('1');
+      nameFilterCallBack(null);
     }
   };
 

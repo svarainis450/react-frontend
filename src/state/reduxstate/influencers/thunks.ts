@@ -98,7 +98,7 @@ export const fetchTrendingInfluencers = createAsyncThunk(
 interface InfluencersPayload {
   tokenValue?: string;
   callBack?: Dispatch<SetStateAction<Statuses>>;
-  filter?: InfluencerFilterKeys;
+  filter?: string | null;
   skip: number | null;
 }
 
@@ -108,10 +108,9 @@ export const fetchInfluencers = createAsyncThunk(
     { callBack, filter, skip, tokenValue }: InfluencersPayload,
     { dispatch, getState }
   ) => {
-    const filterValue = filter ? `&orderBy=${filter}` : '';
     const url = skip
-      ? `${apiv1}/twitter-users?take=8&skip=${skip}${filterValue}`
-      : `${apiv1}/twitter-users?take=8${filterValue}`;
+      ? `${apiv1}/twitter-users?take=8&skip=${skip}${filter}`
+      : `${apiv1}/twitter-users?take=8${filter}`;
 
     callBack && callBack('pending');
     if (tokenValue || token) {
