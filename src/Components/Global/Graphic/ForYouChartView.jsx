@@ -29,7 +29,6 @@ export const ForYouChartView = ({
   chartVolume,
 }) => {
   const [graphToggleButtons, setGraphToggleButtons] = useState(toggleButtons);
-
   const chartData = filterDataObjectsByPeriod(
     chartPrice,
     chartSentiment,
