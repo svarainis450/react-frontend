@@ -1,4 +1,5 @@
 import { Project } from 'src/state/reduxstate/projects/types';
+import { icons } from './icons';
 
 export const calculateBigNumberValues = (foll: number) => {
   if (foll > 0 && foll < 1000) {
@@ -92,3 +93,12 @@ export const formatDate = (date: string) => {
 
   return [year, month, day].join('-');
 };
+
+export function isImgUrl(url: string) {
+  const img = new Image();
+  img.src = url;
+  return new Promise((resolve) => {
+    img.onerror = () => resolve(icons.no_image);
+    img.onload = () => resolve(url);
+  });
+}

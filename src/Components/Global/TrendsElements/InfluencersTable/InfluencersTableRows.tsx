@@ -3,6 +3,7 @@ import { Influencer } from 'src/state/reduxstate/influencers/types';
 import {
   calculateBigNumberValues,
   generateProjectsText,
+  isImgUrl,
 } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
@@ -31,8 +32,13 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
     id: null as unknown as number,
     isErr: false,
   });
+  const [imgurl, setImgUrl] = useState('');
 
-  useEffect(() => {}, []);
+  const newData = influencersData.map((item) =>
+    isImgUrl(item.twitter_user.twitter_img_url).then((res) => res)
+  );
+
+  console.log(newData);
 
   return (
     <div className="influencers-picks__influencers-table">
@@ -63,21 +69,19 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                 className="influencers-picks__influencers-table__row"
               >
                 <div className="influencers-picks__influencers-table__row__influencer">
-                  <img
-                    onError={() =>
-                      setImgErr({
-                        id: twitter_user.id,
-                        isErr: true,
-                      })
-                    }
-                    className="icon"
-                    alt={twitter_user.twitter_username || 'Influencer'}
-                    src={
-                      imgErr.id === twitter_user.id
-                        ? icons.no_image
-                        : twitter_user.twitter_img_url
-                    }
-                  />
+                  {
+                    <img
+                      // onError={() =>
+                      //   setImgErr({
+                      //     id: twitter_user.id,
+                      //     isErr: true,
+                      //   })
+                      // }
+                      className="icon"
+                      alt={twitter_user.twitter_username || 'Influencer'}
+                      src={twitter_user.twitter_img_url}
+                    />
+                  }
                   <div>
                     <Typography className="influencers-picks__influencers-table__row__influencer__tag-name">
                       {twitter_user.twitter_displayname}
