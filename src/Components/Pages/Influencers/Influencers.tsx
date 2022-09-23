@@ -19,6 +19,7 @@ import {
   Statuses,
 } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
+import { getFavInfluencers } from 'src/state/reduxstate/user/thunks';
 import { scrollToElement } from 'src/utils/scrollers';
 import { submenuList } from '../Discover/Discover';
 
@@ -39,7 +40,6 @@ export const Influencers: React.FC = () => {
     influencersFilter,
     nameFilterValue
   );
-  console.log(influencers);
   const notAllToShow =
     skipElementsValue <
     Number(
@@ -84,6 +84,10 @@ export const Influencers: React.FC = () => {
       setSeenAll(seenAll);
     }
   };
+
+  useEffect(() => {
+    dispatch(getFavInfluencers());
+  });
 
   return (
     <div className="Influencers">

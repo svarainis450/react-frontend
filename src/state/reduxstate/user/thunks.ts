@@ -115,6 +115,8 @@ export const getFavInfluencers = createAsyncThunk(
           },
         }).then((res) => res.json());
 
+        console.log(resp);
+
         const uniqueSubscribedInfl = [
           ...(new Set(
             resp.favorite_twitter_user
@@ -195,11 +197,12 @@ export const deleteFavInfluencer = createAsyncThunk(
         await fetch(`${apiv1}/favorite-twitter-users`, {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(body),
-        }).then((res) => res.json());
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
 
         dispatch(getFavInfluencers());
 

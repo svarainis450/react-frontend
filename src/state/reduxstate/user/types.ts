@@ -30,7 +30,7 @@ export interface UserUpdateType {
   first_name?: string;
   last_name?: string;
   img_url?: string;
-  password: string;
+  password?: string;
 }
 export interface FavInfluencersProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;

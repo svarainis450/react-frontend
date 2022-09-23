@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
 import { InfluencerData } from 'src/state/reduxstate/influencers/types';
@@ -53,6 +53,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   const isSubscribedInfluencer = subscribedInfluencers.find(
     (influencer) => influencer.id === id
   );
+
   const [imgErr, setImgErr] = useState({
     id: null as unknown as number,
     isErr: false,
@@ -67,14 +68,14 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
           callBack: setStatus,
         })
       );
-    } else if (isSubscribedInfluencer !== undefined) {
-      setSubscribed(false);
+    } else if (!!isSubscribedInfluencer) {
       dispatch(
         deleteFavInfluencer({
           id,
           callBack: setStatus,
         })
       );
+      setSubscribed(false);
     }
   };
 
@@ -272,7 +273,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
               </div>
               <SubscribeButton
                 onClick={() => handleSubscribeBtn(id)}
-                isSubscribed={subscribed || !!isSubscribedInfluencer}
+                isSubscribed={!!isSubscribedInfluencer}
                 isLoading={status === 'pending'}
               />
             </div>
