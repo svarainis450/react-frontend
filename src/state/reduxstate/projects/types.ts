@@ -1,4 +1,5 @@
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { InfluencerData } from '../influencers/types';
 
 export interface ProjectsState {
   trending_projects: TrendingProject[];
@@ -19,12 +20,6 @@ export interface ProjectsState {
   project_filter_key: ProjectFilterKeys | null;
   project_by_id: Project;
   status: Statuses;
-  influencers: Influencer[];
-  most_followed_influencers: Influencer[];
-  influencers_pages_data: {
-    page: number;
-    pages: number;
-  };
 }
 export interface RateData {
   talkRate: number;
@@ -58,7 +53,7 @@ export interface Project {
   sentiment_score: number;
   bull_bear_score: number;
   talk_rate_daily_change: number;
-  project_twitter_user_card: Influencer[];
+  project_twitter_user_card: InfluencerData[];
   chart_price: {
     date: string;
     three_hour_price: string;
@@ -144,20 +139,6 @@ export interface ProjectPicks {
     color: string;
   };
   projects?: TrendingProject[];
-}
-
-export interface Influencer extends ProjectPicks {
-  flag?: 'expert' | null;
-  bullseye: number;
-  rateData: {
-    reviewer: number;
-  };
-  followers: number;
-  posts: number;
-  focus: CategoryTags[];
-  social?: {
-    twitter: string;
-  };
 }
 
 export const tags = [

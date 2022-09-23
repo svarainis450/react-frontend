@@ -2,15 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
-import { useNavigateHook } from 'src/hooks';
-import { LinkList } from 'src/types';
+
 import { RootState } from '../slice';
-import { api, apiv1 } from '../types';
+import { apiv1 } from '../types';
 import { FavInfluencersProjectsPayload } from '../user/types';
 import {
   set3LowestTalkRateProjects,
-  setInfluencers,
-  setInfluencersPages,
   setProjectById,
   setProjectsData,
   setTop3BearProjects,
@@ -20,10 +17,7 @@ import {
   setTop3TalkRateProjects,
 } from './slice';
 import {
-  Influencer,
-  InfluencerFilterKeys,
   Project,
-  ProjectFilterKeys,
   Statuses,
   SubmenuFilters,
   TrendsDateFilterType,
@@ -31,26 +25,20 @@ import {
 
 interface ProjectByIdPayload {
   id: number;
-  projectIDCallback?: Dispatch<SetStateAction<Project>>;
-  navigateToForYou?: boolean;
 }
 
 export const fetchProjectById = createAsyncThunk(
   'projects/GET_PROJECT_BY_ID',
-  async (
-    { id, projectIDCallback, navigateToForYou }: ProjectByIdPayload,
-    { dispatch }
-  ) => {
+  async ({ id }: ProjectByIdPayload, { dispatch }) => {
     if (token && id) {
       try {
-        const resp = await fetch(`${apiv1}/projects-by-id/${id}`, {
+        await fetch(`${apiv1}/projects-by-id/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
           .then((res) => res.json())
           .then((res) => {
-            console.log(res);
             dispatch(setProjectById(res.data));
           });
       } catch (e) {
@@ -59,94 +47,6 @@ export const fetchProjectById = createAsyncThunk(
     }
   }
 );
-
-interface InfluencersPayload {
-  callBack: Dispatch<SetStateAction<Statuses>>;
-  filter: InfluencerFilterKeys;
-  limit?: number;
-  offset: number;
-  filterValue?: string | CategoryTags;
-  tokenValue?: string;
-}
-
-export const fetchInfluencers = createAsyncThunk(
-  'projects/GET_INFLUENCERS',
-  async (
-    {
-      callBack,
-      filter,
-      limit = 52,
-      offset,
-      filterValue = '1',
-      tokenValue,
-    }: InfluencersPayload,
-    { dispatch, getState }
-  ) => {
-    const filterType = String(filter).toLowerCase();
-    const filterValuePure = filterValue.toLocaleLowerCase();
-    const url = filter
-      ? `${api}/influencers/today?filter[${filterType}]=${filterValuePure}&limit=${limit}&offset=${offset}`
-      : `${api}/influencers/today?limit=${limit}&offset=${offset}`;
-
-    callBack('pending');
-    if (tokenValue || token) {
-      try {
-        const resp = await fetch(url, {
-          headers: {
-            Authorization: `Bearer ${tokenValue || token}`,
-          },
-        }).then((res) => res.json());
-
-        const { projects } = getState() as RootState;
-
-        if (offset >= 50) {
-          const expandedInfluencers = concat(projects.influencers, resp.result);
-          const uniqueInfluencers = [
-            ...(new Set(expandedInfluencers) as unknown as Influencer[]),
-          ];
-          dispatch(setInfluencers(uniqueInfluencers));
-        } else {
-          dispatch(setInfluencers(resp.result));
-        }
-
-        callBack('success');
-
-        dispatch(
-          setInfluencersPages({
-            page: resp.page,
-            pages: resp.pages,
-          })
-        );
-      } catch (e) {
-        callBack('error');
-        console.log(e);
-      }
-    }
-  }
-);
-
-export const fetchMostFollowedInfluencers = createAsyncThunk(
-  'projects/GET_MOST_FOLLOWED_INFLUENCERS',
-  async () => {
-    if (token) {
-      try {
-        const resp = await fetch(
-          `${api}/projects?filters[followers]=1&limit=10`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        ).then((res) => res.json());
-        return resp.result;
-      } catch (e) {
-        console.log(e);
-      }
-    }
-  }
-);
-
-//NEW API
 
 interface ProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;
@@ -166,14 +66,9 @@ export const fetchProjects = createAsyncThunk(
     const { user, projects } = getState() as RootState;
     const tokenFromState = user.user_token;
 
-    // const url =
-    //   filter.length > 0ff
-    //     ? `${apiv1}/projects/today?filters[${filter}]=${filterValue}&limit=52&offset=${offset}`
-    //     : `${apiv1}/projects/today?limit=52&offset=${offset}`;
-
     const url = skip
-      ? `${apiv1}/projects?take=8&skip=${skip}${filter}`
-      : `${apiv1}/projects?take=8${filter}`;
+      ? `${apiv1}/projects?take=8&skip=${skip}${filter || ''}`
+      : `${apiv1}/projects?take=8${filter || ''}`;
 
     if (token || tokenFromState) {
       try {

@@ -3,24 +3,21 @@ import {
   fetchTrendingProjects,
   fetchProjects,
   fetchProjectsByInfluencers,
-  fetchMostFollowedInfluencers,
   fetchTotalSentiment,
 } from './thunks';
 import {
-  Influencer,
   Project,
   ProjectFilterKeys,
   ProjectsDataType,
   ProjectsState,
   Statuses,
 } from './types';
-//TODO: Separate influencers and projects for code cleanliness
+
 const initialState: ProjectsState = {
   project_filter_key: null,
   project_by_id: null as unknown as Project,
   trending_projects: [] as ProjectsState['trending_projects'],
   status: 'idle' as Statuses,
-  influencers: [] as ProjectsState['influencers'],
   top_3_bull: [],
   top_3_positive: [],
   top_3_talk_rate: [],
@@ -28,8 +25,6 @@ const initialState: ProjectsState = {
   top_3_lowest_talk_rate: [],
   top_3_negative: [],
   projects_by_influencers: [],
-  most_followed_influencers: [],
-  influencers_pages_data: { page: 0, pages: 0 },
   projects_data: {
     meta: {
       skip: 0,
@@ -115,20 +110,6 @@ const projectsSlice = createSlice({
     ) => {
       state.projects_data = action.payload;
     },
-    setInfluencers: (
-      state: { influencers: ProjectsState['influencers'] },
-      action: PayloadAction<Influencer[]>
-    ) => {
-      state.influencers = action.payload;
-    },
-    setInfluencersPages: (
-      state: {
-        influencers_pages_data: ProjectsState['influencers_pages_data'];
-      },
-      action: PayloadAction<{ page: number; pages: number }>
-    ) => {
-      state.influencers_pages_data = action.payload;
-    },
     setProjectById: (
       state: { project_by_id: ProjectsState['project_by_id'] },
       action: PayloadAction<Project>
@@ -146,12 +127,6 @@ const projectsSlice = createSlice({
         state.trending_projects = action.payload;
       }
     );
-    // builder.addCase(
-    //   fetchProjectsPick.fulfilled,
-    //   (state, action: PayloadAction<ProjectsState['project_picks']>) => {
-    //     state.project_picks = action.payload;
-    //   }
-    // );
     builder.addCase(
       fetchProjectsByInfluencers.fulfilled,
       (
@@ -161,15 +136,7 @@ const projectsSlice = createSlice({
         state.projects_by_influencers = action.payload;
       }
     );
-    builder.addCase(
-      fetchMostFollowedInfluencers.fulfilled,
-      (
-        state,
-        action: PayloadAction<ProjectsState['most_followed_influencers']>
-      ) => {
-        state.most_followed_influencers = action.payload;
-      }
-    );
+
     builder.addCase(
       fetchTotalSentiment.fulfilled,
       (state, action: PayloadAction<ProjectsState['total_sentiment']>) => {
@@ -190,7 +157,5 @@ export const {
   setTop3NegativeProjects,
   set3LowestTalkRateProjects,
   setProjectById,
-  setInfluencers,
-  setInfluencersPages,
 } = projectsSlice.actions;
 export default projectsSlice;

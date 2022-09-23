@@ -5,14 +5,11 @@ import { InfluencerData } from 'src/state/reduxstate/influencers/types';
 import { Statuses, tags } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { subscribedInfluencersSelector } from 'src/state/reduxstate/user/selectors';
-import {
-  deleteFromFavorites,
-  sendFavProjectOrInfluencer,
-} from 'src/state/reduxstate/user/thunks';
+import { deleteFavInfluencer } from 'src/state/reduxstate/user/thunks';
+import { sendFavInfluencer } from 'src/state/reduxstate/influencers/thunks';
 import { calculateBigNumberValues } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { SubscribeButton } from '../../Button/SubscribeButton/SubscribeButton';
-import { IndexAxis } from '../../DiscoverElements/IndexAxis/IndexAxis';
 import { TalkRateElement } from '../../TalkRateElement/TalkRateElement';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
 import { CategoryTag } from '../../TrendsElements/CategoryTag/CategoryTag';
@@ -65,27 +62,21 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
     if (!isSubscribedInfluencer) {
       setSubscribed(true);
       dispatch(
-        sendFavProjectOrInfluencer({
+        sendFavInfluencer({
           id,
           callBack: setStatus,
-          fav_type: 'influencer',
         })
       );
     } else if (isSubscribedInfluencer !== undefined) {
       setSubscribed(false);
       dispatch(
-        deleteFromFavorites({
+        deleteFavInfluencer({
           id,
           callBack: setStatus,
-          fav_type: 'influencer',
         })
       );
     }
   };
-
-  // useEffect(() => {
-  //   dispatch(getFavInfluencers());
-  // }, [subscribed]);
 
   return (
     <div className="wrapper">

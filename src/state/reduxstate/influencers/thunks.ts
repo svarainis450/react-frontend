@@ -2,11 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import { TrendsProjectsByInfluencersPayload } from '../projects/thunks';
-import {
-  InfluencerFilterKeys,
-  Statuses,
-  TrendsDateFilterType,
-} from '../projects/types';
+import { Statuses, TrendsDateFilterType } from '../projects/types';
 import { RootState } from '../slice';
 import { apiv1 } from '../types';
 import { FavInfluencersProjectsPayload } from '../user/types';
@@ -109,8 +105,8 @@ export const fetchInfluencers = createAsyncThunk(
     { dispatch, getState }
   ) => {
     const url = skip
-      ? `${apiv1}/twitter-users?take=8&skip=${skip}${filter}`
-      : `${apiv1}/twitter-users?take=8${filter}`;
+      ? `${apiv1}/twitter-users?take=8&skip=${skip}${filter || ''}`
+      : `${apiv1}/twitter-users?take=8${filter || ''}`;
 
     callBack && callBack('pending');
     if (tokenValue || token) {
@@ -145,13 +141,6 @@ export const fetchInfluencers = createAsyncThunk(
         }
 
         callBack && callBack('success');
-
-        // dispatch(
-        //   setInfluencersPages({
-        //     page: resp.page,
-        //     pages: resp.pages,
-        //   })
-        // );
       } catch (e) {
         callBack && callBack('error');
         console.log(e);
@@ -168,7 +157,7 @@ export const sendFavInfluencer = createAsyncThunk(
         callBack && callBack('pending');
 
         const data = {
-          project_id: id,
+          twitter_user_id: id,
         };
 
         const resp = await fetch(`${apiv1}/favorite-twitter-users`, {
