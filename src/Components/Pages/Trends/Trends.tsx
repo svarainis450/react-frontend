@@ -67,8 +67,6 @@ export const Trends: React.FC = () => {
     }
   }, [token, filter, selectCategory]);
 
-  console.log(influencersFilter);
-
   useEffect(() => {
     if (token && filter !== 'upcomming') {
       dispatch(fetchProjectsPick({ tokenValue: token, dateFilter: filter }));

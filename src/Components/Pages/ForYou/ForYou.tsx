@@ -24,6 +24,7 @@ import {
 } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import {
+  Project,
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
@@ -39,7 +40,7 @@ import {
   filterProjectsByName,
   filterProjectsLocaly,
 } from 'src/utils/localFilters';
-import { useMediaQuery } from 'src/hooks';
+import { useForYouPageData, useMediaQuery } from 'src/hooks';
 import { Top3FavElementsSlider } from 'src/Components/Global/ForYourElements/Top3FavElementsSlider';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
@@ -67,8 +68,6 @@ export const ForYou: React.FC = () => {
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
   const { projects } = useSelector(projectsDataSelector);
 
-  console.log(projectByIdState);
-
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const userToken = useSelector(userTokenSelector);
   const token = localStorage.getItem('token');
@@ -78,6 +77,8 @@ export const ForYou: React.FC = () => {
 
   const [showInfo, setShowInfo] = useState(false);
   const [showMobileList, setShowMobileList] = useState(false);
+
+  const dataForStats = useForYouPageData();
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -95,7 +96,6 @@ export const ForYou: React.FC = () => {
     dispatch(
       fetchProjects({
         filter: projectsFilter,
-        callBack: setProjectStatus,
       })
     );
 
@@ -103,8 +103,6 @@ export const ForYou: React.FC = () => {
   }, [projectsFilter, dispatch, filterValue, userToken, token]);
 
   const { isTablet } = useMediaQuery();
-
-  const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
 
   const topTalkRateProject =
     favoriteProjects &&
@@ -130,7 +128,7 @@ export const ForYou: React.FC = () => {
       setFilterValue(e.target.value);
       setFilteredFavProjects(
         favoriteProjects.filter(
-          (project) =>
+          (project: Project) =>
             project.name
               .toLocaleLowerCase()
               .includes(e.target.value.toLocaleLowerCase()) && project
@@ -142,6 +140,8 @@ export const ForYou: React.FC = () => {
       setFilteredFavProjects(favoriteProjects);
     }
   };
+
+  console.log(dataForStats && dataForStats[0].chart_volume);
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
@@ -150,29 +150,18 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {(projectByIdState ||
-                (favoriteProjects && favoriteProjects.length > 0) ||
-                projects.length > 0) && (
-                <ProjectMetrics
-                  projectByIdProp={
-                    projectByIdState ||
-                    (favoriteProjects && favoriteProjects[0]) ||
-                    projects[0]
-                  }
-                />
+              {dataForStats && (
+                <ProjectMetrics projectByIdProp={dataForStats[0]} />
               )}
             </div>
 
             <div>
-              {(favFetchStatus !== 'success' ||
-                (favoriteProjects && favoriteProjects.length > 0) ||
-                projects.length > 0) && (
-                // this is chart
+              {dataForStats && (
                 <ForYouChartView
-                  chartPrice={projectByIdState.chart_price}
-                  chartSentiment={projectByIdState.chart_sentiment}
-                  chartTalkRate={projectByIdState.chart_talk_rate}
-                  chartVolume={projectByIdState.chart_volume}
+                  chartPrice={dataForStats[0].chart_price}
+                  chartSentiment={dataForStats[0].chart_sentiment}
+                  chartTalkRate={dataForStats[0].chart_talk_rate}
+                  chartVolume={dataForStats[0].chart_volume}
                 />
               )}
             </div>
@@ -246,9 +235,9 @@ export const ForYou: React.FC = () => {
                 </div>
               )}
               {(!isTablet || showMobileList) &&
-                (favFetchStatus === 'success' ||
-                  favoriteProjects?.length > 0) &&
-                filteredFavProjects.map((project, index) => (
+                filteredFavProjects &&
+                favoriteProjects.length > 0 &&
+                filteredFavProjects.map((project: Project, index) => (
                   <ForYouListItem
                     showMobileListCallback={setShowMobileList}
                     key={`${project.id}${index}`}

@@ -43,7 +43,7 @@ export const fetchProjectById = createAsyncThunk(
   ) => {
     if (token && id) {
       try {
-        const resp = await fetch(`${apiv1}/projects/by-id/${id}`, {
+        const resp = await fetch(`${apiv1}/projects-by-id/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -53,8 +53,6 @@ export const fetchProjectById = createAsyncThunk(
             console.log(res);
             dispatch(setProjectById(res.data));
           });
-
-        console.log(resp);
       } catch (e) {
         console.log(e);
       }
@@ -215,6 +213,7 @@ export const fetchProjects = createAsyncThunk(
           );
         }
 
+        console.log(resp);
         // dispatch(
         //   setProjectsData({
         //     projects: resp.data,

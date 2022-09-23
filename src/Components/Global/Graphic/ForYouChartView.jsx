@@ -37,6 +37,10 @@ export const ForYouChartView = ({
     chartVolume
   );
 
+  if (!chartData) {
+    return null;
+  }
+
   const toggleGraphActivity = (event) => {
     let newState;
     const pressedTitle = event.currentTarget.textContent;
