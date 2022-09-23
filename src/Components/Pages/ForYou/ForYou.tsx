@@ -141,7 +141,7 @@ export const ForYou: React.FC = () => {
     }
   };
 
-  console.log(dataForStats && dataForStats[0].chart_volume);
+  console.log(dataForStats);
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
@@ -150,7 +150,7 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {dataForStats && (
+              {dataForStats && dataForStats.length > 0 && (
                 <ProjectMetrics projectByIdProp={dataForStats[0]} />
               )}
             </div>

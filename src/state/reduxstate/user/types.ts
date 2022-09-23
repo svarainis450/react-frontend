@@ -26,10 +26,10 @@ export interface UserDataType extends UserUpdateType {
 }
 
 export interface UserUpdateType {
-  email: string;
-  firstName: string;
-  lastName: string;
-  img?: string;
+  email?: string;
+  first_name?: string;
+  last_name?: string;
+  img_url?: string;
   password: string;
 }
 export interface FavInfluencersProjectsPayload {

@@ -10,9 +10,9 @@ const initialState: UserState = {
   user_token: null,
   user_data: {
     email: '',
-    firstName: '',
-    lastName: '',
-    img: undefined,
+    first_name: '',
+    last_name: '',
+    img_url: undefined,
     id: 123,
     paypal_id: null,
     stripe_id: null,

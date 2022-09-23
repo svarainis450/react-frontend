@@ -95,6 +95,10 @@
         line-height: 22px;
       }
 
+      ::placeholder {
+        color: var(--color-black);
+      }
+
       input.email-input {
         padding: 16px 16px 16px 22%;
       }

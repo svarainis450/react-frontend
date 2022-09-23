@@ -41,14 +41,16 @@ export const updateUserInfo = createAsyncThunk(
   async (data: UserUpdateType) => {
     if (token) {
       try {
-        const resp = await fetch(`${api}/me`, {
+        const resp = await fetch(`${apiv1}/users`, {
           method: 'PATCH',
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
+
+        console.log(resp);
 
         return resp;
       } catch (e) {

@@ -29,18 +29,20 @@ export const ProfileCard: React.FC = () => {
   const [profileImg, setProfileImg] = useState<any>();
   const [imgUrl, setImgUrl] = useState('');
   const [newData, setNewData] = useState<UserUpdateType>({
-    img: profileImg,
-    firstName: userData.firstName,
-    lastName: userData.lastName,
+    img_url: profileImg,
+    first_name: userData.first_name,
+    last_name: userData.last_name,
     email: userData.email,
     password: userData.password,
   });
+
+  console.log(newData);
 
   useEffect(() => {
     if (profileImg) {
       const url = URL.createObjectURL(profileImg);
       setImgUrl(url);
-      dispatch(setUserData({ ...userData, img: url }));
+      dispatch(setUserData({ ...userData, img_url: url }));
     }
   }, [profileImg]);
 
@@ -60,8 +62,8 @@ export const ProfileCard: React.FC = () => {
     if (editingData === 'information') {
       setNewData({
         ...newData,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
+        first_name: userData.first_name,
+        last_name: userData.last_name,
       });
     } else if (editingData === 'account') {
       setNewData({
@@ -132,11 +134,12 @@ export const ProfileCard: React.FC = () => {
             <label>First name</label>
             {/* TODO: billing. value={name from state} */}
             <input
-              value={newData.firstName || 'Name'}
+              value={newData.first_name}
+              placeholder={newData.first_name || 'Name'}
               type="text"
               disabled={editData.information}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setNewData({ ...newData, firstName: e.target.value })
+                setNewData({ ...newData, first_name: e.target.value })
               }
             />
             <CancelXmark onClick={() => handleCancelInput('information')} />
@@ -149,11 +152,12 @@ export const ProfileCard: React.FC = () => {
             <label>Last name</label>
             {/* TODO: billing. value={last name from state} */}
             <input
-              value={newData.lastName || 'Last Name'}
+              value={newData.last_name}
+              placeholder={newData.last_name || 'Last Name'}
               type="text"
               disabled={editData.information}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setNewData({ ...newData, lastName: e.target.value })
+                setNewData({ ...newData, last_name: e.target.value })
               }
             />
             <CancelXmark onClick={() => handleCancelInput('information')} />
@@ -181,7 +185,8 @@ export const ProfileCard: React.FC = () => {
             <label>Email</label>
             {/* TODO: billing. value={email from state} */}
             <input
-              value={newData.email || 'your@email.com'}
+              value={newData.email}
+              placeholder={newData.email || 'your@email.com'}
               type="email"
               className="email-input"
               disabled={editData.account}
@@ -199,7 +204,7 @@ export const ProfileCard: React.FC = () => {
             <label>Password</label>
             {/* TODO: billing. value={pasw from state}  not sure if this a good decision*/}
             <input
-              value={newData.password || 'unknown'}
+              value={newData.password}
               type="password"
               disabled={editData.account}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>

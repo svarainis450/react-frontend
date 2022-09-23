@@ -21,7 +21,7 @@ export const createPaymentIntent = createAsyncThunk(
         const resp = fetch(`${apiv1}/stripe`, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            e: 'application/json',
             Authorization: `Bearer ${token}`,
           },
           // TODO: add items

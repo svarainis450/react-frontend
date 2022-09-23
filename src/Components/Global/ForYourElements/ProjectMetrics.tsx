@@ -15,7 +15,6 @@ interface Props {
   projectByIdProp: Project;
 }
 export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
-  const projectById = useSelector(projectByIdSelector);
   const { isTablet } = useMediaQuery();
 
   return (
@@ -25,23 +24,19 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           <div>
             <img
               className="project-icon"
-              src={
-                (projectById && projectById?.img_url) ||
-                (!projectById && projectByIdProp?.img_url) ||
-                icons.no_image
-              }
-              alt={(projectById && projectById?.name) || projectByIdProp?.name}
+              src={projectByIdProp?.img_url || icons.no_image}
+              alt={projectByIdProp?.name}
             />
           </div>
           <div>
             <Typography className="project-title">
-              {(projectById && projectById?.name) || projectByIdProp?.name}
+              {projectByIdProp?.name}
             </Typography>
             <CategoryTag
               isSmallerTag={isTablet}
               tagTitle={
                 // @ts-ignore
-                (projectById && CategoryTags[projectById.type]) ||
+                (projectByIdProp && CategoryTags[projectByIdProp?.type]) ||
                 CategoryTags.coins
               }
             />
@@ -50,10 +45,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
         <div className="Metrics metrics-flex bordered centered smaller ">
           <div>
             <TalkRateElement
-              rate={
-                (projectById && projectById?.talk_rate_score) ||
-                projectByIdProp?.talk_rate_score
-              }
+              rate={projectByIdProp?.talk_rate_score}
               type="talk_rate"
             />
           </div>
@@ -71,10 +63,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           <div>
             <IndexAxis
               isHalfAxis
-              rating={
-                (projectById && projectById?.bull_bear_score) ||
-                projectByIdProp?.bull_bear_score
-              }
+              rating={projectByIdProp?.bull_bear_score}
               type="bull"
             />
           </div>
@@ -92,10 +81,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           <div>
             <IndexAxis
               isHalfAxis
-              rating={
-                (projectById && projectById.sentiment_score) ||
-                projectByIdProp.sentiment_score
-              }
+              rating={projectByIdProp?.sentiment_score}
               type="positive"
             />
           </div>

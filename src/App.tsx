@@ -39,7 +39,6 @@ import { isLoggedIn } from './Common/utils/isLoggedIn';
 import './App.scss';
 import '../src/utils/breakpointsMixins.scss';
 import 'normalize.css';
-import _ from 'lodash';
 import { YourInfluencers } from './Components/Pages/YourInfluencers/YourInfluencers';
 import { setUserToken } from './state/reduxstate/user/slice';
 import { CookiesComponent } from './Components/Global/CookiesComponent/CookiesComponent';
