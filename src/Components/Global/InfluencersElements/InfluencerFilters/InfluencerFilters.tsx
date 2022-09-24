@@ -1,7 +1,12 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useSelector } from 'react-redux';
 import { MobileFilter } from 'src/Components/MobileFilter/MobileFilter';
 import { useMediaQuery } from 'src/hooks';
+import { setModalType } from 'src/state/reduxstate/modals/slice';
+import { ModalTypes } from 'src/state/reduxstate/modals/types';
 import { InfluencerFilterKeys } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { icons } from 'src/utils/icons';
 import {
   Typography,
@@ -30,7 +35,9 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
   callBack,
   nameFilterCallBack,
 }) => {
+  const dispatch = useAppDispatch();
   const { isTablet } = useMediaQuery();
+  const { type } = useSelector(userDataSelector);
 
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
@@ -48,9 +55,16 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
     }
   };
 
+  const handlePremiumModal = () => {
+    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+  };
+
   return (
     <div className="influencer-filters">
-      <div className="influencer-filters__input-wrapper">
+      <div
+        className="influencer-filters__input-wrapper"
+        onClick={handlePremiumModal}
+      >
         <img
           className="influencer-filters__input-wrapper__magnifier"
           src={icons.search_magnifier}
@@ -63,6 +77,7 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             handleNameInputChange(e)
           }
+          disabled={type === 'Potato Starter' || !type}
         />
       </div>
       {!isTablet && (

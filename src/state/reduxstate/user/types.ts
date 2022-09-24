@@ -24,7 +24,6 @@ export interface UserDataType extends UserUpdateType {
   paypal_id: string | null;
   stripe_id: string | null;
   subscription_expires_at: string | null;
-  type?: string;
 }
 
 export interface UserUpdateType {
@@ -33,6 +32,7 @@ export interface UserUpdateType {
   last_name?: string;
   img_url?: string;
   password?: string;
+  type?: PlanType;
 }
 export interface FavInfluencersProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;
@@ -44,5 +44,7 @@ export interface SelectedPlan {
   monthly_price: number;
   begin_price: number;
   billing_type: 'monthly' | 'yearly';
-  plan: 'Potato Starter' | 'Potato Pro';
+  plan: PlanType;
 }
+
+export type PlanType = 'Potato Starter' | 'Potato Pro';

@@ -76,7 +76,11 @@ import paypal_card from '../Assets/icons/payments/paypal_card.svg';
 // Funnel
 import rocket_ticket from '../Assets/images/rocketTicket.svg';
 
+// Modals
+import premium_modal from '../Assets/icons/premium_modal.svg';
+
 export const icons = {
+  premium_modal,
   rocket_ticket,
   input_arrow_filled,
   chart_empty,

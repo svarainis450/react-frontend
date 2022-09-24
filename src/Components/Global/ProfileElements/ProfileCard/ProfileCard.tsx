@@ -36,7 +36,7 @@ export const ProfileCard: React.FC = () => {
     password: userData.password,
   });
 
-  console.log(newData);
+  console.log(userData);
 
   useEffect(() => {
     if (profileImg) {

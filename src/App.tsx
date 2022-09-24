@@ -46,6 +46,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 
 import { fetchTotalSentiment } from './state/reduxstate/projects/thunks';
+import { Modals } from './modals';
 
 const stripePromise = loadStripe(
   'pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGdxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk'
@@ -99,6 +100,7 @@ const App = () => {
         <ScrollOnNavigation />
         {
           <Elements stripe={stripePromise}>
+            <Modals />
             <Routes>
               <Route>
                 <Route index element={<Frontpage />} />

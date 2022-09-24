@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { setModalType } from 'src/state/reduxstate/modals/slice';
+import { useAppDispatch } from 'src/state/reduxstate/store';
 import styled from 'styled-components';
 
 interface ModalWrapperProps extends Styles {
@@ -9,8 +11,10 @@ export const ModalWrapper: React.FC<ModalWrapperProps> = ({
   children,
   ...props
 }) => {
+  const dispatch = useAppDispatch();
+
   const onMount = () => {
-    const body = document.getElementById('body');
+    const body = document.getElementById('root');
     if (typeof window !== 'undefined') {
       body?.classList.add('disable-scrolling');
     }
@@ -23,11 +27,16 @@ export const ModalWrapper: React.FC<ModalWrapperProps> = ({
       }
     };
   };
+
+  const closeModal = () => {
+    dispatch(setModalType(null));
+  };
+
   useEffect(onMount, []);
 
   return (
     <>
-      <Overlay />
+      <Overlay onClick={() => closeModal()} {...props} />
       <ModalView id="modal" {...props}>
         {children}
       </ModalView>
@@ -65,5 +74,7 @@ const ModalView = styled.div<Styles>`
   left: 0;
   max-width: ${({ maxWidth }) => maxWidth || '480px'};
   margin: auto;
-  z-index: 101;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1002;
 `;

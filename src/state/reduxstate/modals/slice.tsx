@@ -15,4 +15,6 @@ const modalSlice = createSlice({
   },
 });
 
+export const { setModalType } = modalSlice.actions;
+
 export default modalSlice;

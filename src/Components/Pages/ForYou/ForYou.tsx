@@ -42,6 +42,8 @@ import {
 } from 'src/utils/localFilters';
 import { useForYouPageData, useMediaQuery } from 'src/hooks';
 import { Top3FavElementsSlider } from 'src/Components/Global/ForYourElements/Top3FavElementsSlider';
+import { setModalType } from 'src/state/reduxstate/modals/slice';
+import { ModalTypes } from 'src/state/reduxstate/modals/types';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -62,6 +64,8 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 ];
 
 export const ForYou: React.FC = () => {
+  const dataForStats = useForYouPageData();
+
   const dispatch = useAppDispatch();
   const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
   const projectByIdState = useSelector(projectByIdSelector);
@@ -69,16 +73,14 @@ export const ForYou: React.FC = () => {
   const { projects } = useSelector(projectsDataSelector);
 
   const favoriteProjects = useSelector(favoriteProjectsSelector);
+  const hasFavProjects = favoriteProjects && favoriteProjects.length > 0;
   const userToken = useSelector(userTokenSelector);
   const token = localStorage.getItem('token');
   const [filteredFavProjects, setFilteredFavProjects] =
     useState(favoriteProjects);
-  const [favFetchStatus, setFavFetchStatus] = useState<Statuses>('idle');
 
   const [showInfo, setShowInfo] = useState(false);
   const [showMobileList, setShowMobileList] = useState(false);
-
-  const dataForStats = useForYouPageData();
 
   useEffect(() => {
     if (!window.location.hash) {
@@ -101,20 +103,20 @@ export const ForYou: React.FC = () => {
   const { isTablet } = useMediaQuery();
 
   const topTalkRateProject =
-    favoriteProjects &&
+    hasFavProjects &&
     filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.TALK_RATE)?.slice(
       0,
       1
     );
   const topPositiveProject =
-    favoriteProjects &&
+    hasFavProjects &&
     filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.POSITIVE)?.slice(
       0,
       1
     );
 
   const topBullProject =
-    favoriteProjects &&
+    hasFavProjects &&
     filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.BULL)?.slice(0, 1);
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -136,7 +138,13 @@ export const ForYou: React.FC = () => {
       setFilteredFavProjects(favoriteProjects);
     }
   };
+
+  const handlePremiumModal = () => {
+    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+  };
+
   console.log(dataForStats);
+
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
@@ -262,7 +270,7 @@ export const ForYou: React.FC = () => {
           </div>
         </div>
 
-        {favoriteProjects && favoriteProjects.length > 0 && (
+        {hasFavProjects && (
           <Top3FavElementsSlider
             isForYouProject
             topBull={(topBullProject && topBullProject) || favoriteProjects}

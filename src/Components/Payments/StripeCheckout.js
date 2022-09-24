@@ -1,18 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './StripeCheckout.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  userDataSelector,
-  userTokenSelector,
-} from 'src/state/reduxstate/user/selectors';
-import { secretKeySelector } from 'src/state/reduxstate/payments/selectors';
-import {
-  completePaymentPost,
-  createPaymentIntent,
-} from 'src/state/reduxstate/payments/thunks';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+
 import axios from 'axios';
-import { apiv1, apiv2 } from 'src/state/reduxstate/types';
+import { apiv1 } from 'src/state/reduxstate/types';
+import { updateUserInfo } from 'src/state/reduxstate/user/thunks';
 
 export default function CheckoutForm() {
   const dispatch = useDispatch();
@@ -21,7 +15,6 @@ export default function CheckoutForm() {
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const userData = useSelector(userDataSelector);
   const token = useSelector(userTokenSelector);
   const [userName, setUserName] = useState('');
   const paymentDetails = {
@@ -57,6 +50,8 @@ export default function CheckoutForm() {
       console.log(confirm);
 
       setMessage('Payment succeeded!');
+
+      dispatch(updateUserInfo({ type: 'Potato Starter' }));
       //TODO: check all the messages
       // stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       //   switch (paymentIntent.status) {
