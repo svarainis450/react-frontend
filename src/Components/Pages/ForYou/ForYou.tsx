@@ -93,11 +93,7 @@ export const ForYou: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(
-      fetchProjects({
-        filter: projectsFilter,
-      })
-    );
+    dispatch(fetchProjects({}));
 
     dispatch(getFavInfluencers());
   }, [projectsFilter, dispatch, filterValue, userToken, token]);

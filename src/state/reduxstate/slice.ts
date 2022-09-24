@@ -1,6 +1,8 @@
 import { AnyAction, CombinedState, combineReducers } from '@reduxjs/toolkit';
 import influencersSlice from './influencers/slice';
 import { InfluencersState } from './influencers/types';
+import modalSlice from './modals/slice';
+import { ModalState } from './modals/types';
 import paymentsSlice from './payments/slice';
 import { PaymentsState } from './payments/types';
 import projectsSlice from './projects/slice';
@@ -14,6 +16,7 @@ export interface RootState {
   influencers: InfluencersState;
   user: UserState;
   payments: PaymentsState;
+  modals: ModalState;
 }
 
 const combinedReducer = combineReducers<CombinedState<RootState>>({
@@ -21,6 +24,7 @@ const combinedReducer = combineReducers<CombinedState<RootState>>({
   user: userSlice.reducer,
   payments: paymentsSlice.reducer,
   influencers: influencersSlice.reducer,
+  modals: modalSlice.reducer,
 });
 
 export const rootReducer = (state: RootState | undefined, action: AnyAction) =>

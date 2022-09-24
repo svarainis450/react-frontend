@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   projectByIdSelector,
@@ -10,7 +11,9 @@ export const useForYouPageData = () => {
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const { projects } = useSelector(projectsDataSelector);
 
-  if (projectByIdState !== undefined) {
+  useEffect(() => {}, [projectByIdState, favoriteProjects, projects]);
+
+  if (projectByIdState) {
     const projectById = [projectByIdState];
     return projectById;
   } else if (favoriteProjects && favoriteProjects.length > 0) {

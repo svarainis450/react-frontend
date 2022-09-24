@@ -1,4 +1,3 @@
-
 /** layouts */
 export * from './layouts/OurPromise';
 export * from './layouts/SubscriptionLayout';
@@ -10,6 +9,7 @@ export * from './wrappers/Container';
 export * from './wrappers/Box';
 export * from './wrappers/Flex';
 export * from './wrappers/FormWrapper';
+export * from './wrappers/ModalWrapper';
 
 /** forms */
 export * from './forms/GeneralInformationForm';
