@@ -36,5 +36,4 @@ const Background = styled(Flex)`
 const CloseButtonPosition = styled.div`
   display: block;
   width: 100%;
-  margin-bottom: 1.5rem;
 `;

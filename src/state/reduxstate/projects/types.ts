@@ -125,7 +125,7 @@ export interface TrendingProject {
   };
 }
 
-export type Statuses = 'idle' | 'pending' | 'success' | 'error';
+export type Statuses = 'idle' | 'pending' | 'success' | 'error' | 'succeeded';
 
 export interface ProjectPicks {
   id: number;

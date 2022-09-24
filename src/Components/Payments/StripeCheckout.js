@@ -2,26 +2,31 @@ import { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './StripeCheckout.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+import {
+  selectedPlanSelector,
+  userTokenSelector,
+} from 'src/state/reduxstate/user/selectors';
 
 import axios from 'axios';
 import { apiv1 } from 'src/state/reduxstate/types';
 import { updateUserInfo } from 'src/state/reduxstate/user/thunks';
+import { setPaymentStatus } from 'src/state/reduxstate/payments/slice';
 
-export default function CheckoutForm() {
+const CheckoutForm = () => {
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
+  const selectedPlan = useSelector(selectedPlanSelector);
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const token = useSelector(userTokenSelector);
   const [userName, setUserName] = useState('');
   const paymentDetails = {
-    item_description: 'Monthly subscription',
-    phone: '867777777',
-    price: '20',
+    item_description: `${selectedPlan.billing_type} subscription`,
+    price: String(selectedPlan.begin_price),
     customer_description: 'customer',
+    phone: 'we do not collect phone data yet',
   };
 
   const handleSubmit = async (e) => {
@@ -42,38 +47,31 @@ export default function CheckoutForm() {
       });
       const { client_secret } = res.data;
 
-      const confirm = await stripe.confirmCardPayment(client_secret, {
-        payment_method: {
-          card: cardElement,
-        },
-      });
-      console.log(confirm);
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        client_secret,
+        {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: userName,
+            },
+          },
+        }
+      );
+      console.log(paymentIntent);
 
-      setMessage('Payment succeeded!');
-
+      if (error) {
+        setMessage(error.message);
+      } else {
+        dispatch(setPaymentStatus('succeeded'));
+        setMessage('Payment successful!');
+      }
       dispatch(updateUserInfo({ type: 'Potato Starter' }));
-      //TODO: check all the messages
-      // stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      //   switch (paymentIntent.status) {
-      //     case 'succeeded':
-      //       setMessage('Payment succeeded!');
-      //       break;
-      //     case 'processing':
-      //       setMessage('Your payment is processing.');
-      //       break;
-      //     case 'requires_payment_method':
-      //       setMessage('Your payment was not successful, please try again.');
-      //       break;
-      //     default:
-      //       setMessage('Something went wrong.');
-      //       break;
-      //   }
-      // });
 
       console.log(res.data);
     } catch {
       console.log('err');
-      setMessage('Something went wrong.');
+      setMessage('An unexpected error occurred.');
       setIsLoading(false);
     }
 
@@ -89,15 +87,17 @@ export default function CheckoutForm() {
   return (
     <div className="stripe-payment">
       <form id="payment-form" onSubmit={handleSubmit}>
-        {/* <PaymentElement id="payment-element" /> */}
         <div>
+          <label>Full name</label>
           <input
             className="full-name-input"
             placeholder="Name on card"
             onChange={(e) => setUserName(e.target.value)}
           />
         </div>
-        <CardElement />
+        <div className="card-wrapper">
+          <CardElement />
+        </div>
         <button disabled={isLoading || !stripe || !elements} id="submit">
           <span id="button-text">
             {isLoading ? (
@@ -112,4 +112,6 @@ export default function CheckoutForm() {
       </form>
     </div>
   );
-}
+};
+
+export default CheckoutForm;

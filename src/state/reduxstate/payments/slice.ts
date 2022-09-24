@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Statuses } from '../projects/types';
 import { PaymentsState } from './types';
 
 const initialState: PaymentsState = {
   secret_key: '',
+  payment_status: 'idle',
 };
 
 const paymentsSlice = createSlice({
@@ -15,8 +17,14 @@ const paymentsSlice = createSlice({
     ) => {
       state.secret_key = action.payload;
     },
+    setPaymentStatus: (
+      state: { payment_status: Statuses },
+      action: PayloadAction<Statuses>
+    ) => {
+      state.payment_status = action.payload;
+    },
   },
 });
 
-export const { setSecretKey } = paymentsSlice.actions;
+export const { setSecretKey, setPaymentStatus } = paymentsSlice.actions;
 export default paymentsSlice;

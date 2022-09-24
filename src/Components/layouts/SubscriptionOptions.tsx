@@ -63,7 +63,7 @@ export const SubscriptionOptions: FC = memo(() => {
           onClick={() => setSelectedPeriod('yearly')}
         >
           <div>
-            <Flex>
+            <Flex alignItems="flex-start">
               <Caption margin="0 0.375rem 0 0">Bill yearly</Caption>
               <Discount>
                 {
@@ -76,9 +76,9 @@ export const SubscriptionOptions: FC = memo(() => {
             </Flex>
             <Small>
               {getCookie.currencySymbol}
-              {priceOptions['yearly'].find(
-                (p) => p.plan === user.selectedPlan?.plan
-              )?.begin_price || 0 / 12}
+              {(priceOptions['yearly'].find(
+                (p) => p.plan === user?.selectedPlan?.plan
+              )?.begin_price || 0) / 12}
               /month
             </Small>
           </div>
@@ -109,7 +109,7 @@ const OptionCard = styled(Flex).attrs({
   justifyContent: 'space-between',
 })<{ isSelected?: boolean }>`
   flex: 1;
-  padding: 0.625rem 1.125rem;
+  padding: 0.625rem 0.9rem;
   background: ${theme.colors.white};
   border: 1.5px solid
     ${({ isSelected }) =>
@@ -137,6 +137,7 @@ const OptionCard = styled(Flex).attrs({
 const Caption = styled(Box).attrs({ as: 'p' })`
   margin-bottom: 0.25rem;
   font-size: 1rem;
+  letter-spacing: -0.02rem;
 `;
 
 // @TODO: move to Typography component
