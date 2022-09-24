@@ -2,7 +2,7 @@ import { PaymentOptions, priceOptions } from '../PaymentOptions';
 import { FunnelTopProps } from './types';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import ImageGallery from 'react-image-gallery';
-import { useContext, useMemo, useState , useEffect} from 'react';
+import { useContext, useMemo, useState, useEffect } from 'react';
 
 import './FunnelTop.scss';
 import { images, imagesMobile } from './constants';
@@ -14,13 +14,13 @@ import { useMediaQuery } from '../../../hooks';
 import { UserContext } from '../../../state/userContext';
 import { Link } from 'react-router-dom';
 import { LinkList } from '../../../types';
-import { useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie';
 
 export const FunnelTop = ({
   currentPricingOption,
   setCurrentPricingOption,
 }: FunnelTopProps) => {
-  const [getCookie, setCookie] = useCookies(['currencySymbol'])
+  const [getCookie, setCookie] = useCookies(['currencySymbol']);
   const { setUser } = useContext(UserContext);
   const [isSelectedm, setIsSelected] = useState(1);
   const { isDesktop } = useMediaQuery();
@@ -32,7 +32,7 @@ export const FunnelTop = ({
   useEffect(() => {
     setUser((prev) => ({ ...prev, selectedPlan }));
   }, [selectedPlan, setUser]);
-    var currencySymbol = getCookie.currencySymbol;
+  var currencySymbol = getCookie.currencySymbol;
 
   return (
     <div className="FunnelTop">
@@ -61,7 +61,10 @@ export const FunnelTop = ({
 
           <Link to={LinkList.Checkout}>
             <Button className="FunnelTop__cta desktop">
-              <>Buy now - {currencySymbol}{selectedPlan?.beginPrice || ''}</>
+              <>
+                Buy now - {currencySymbol}
+                {selectedPlan?.begin_price || ''}
+              </>
             </Button>
           </Link>
 

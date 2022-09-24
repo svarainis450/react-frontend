@@ -17,8 +17,11 @@ import { SolidSidedHero } from '../../Global/SolidSidedHero';
 import './Pricing.scss';
 import { Layout } from '../Layout';
 import { UserContext } from '../../../state/userContext';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
 
 export const Pricing = () => {
+  const dispatch = useAppDispatch();
   const [currentPricingOption, setCurrentPricingOption] = useState<string>(
     planTypes.yearly
   );
@@ -29,8 +32,18 @@ export const Pricing = () => {
     [currentPricingOption, isSelectedm]
   );
 
+  console.log(currentPricingOption);
+
   useEffect(() => {
     setUser((prev) => ({ ...prev, selectedPlan }));
+    dispatch(
+      setSelectedPlan({
+        plan: selectedPlan.plan,
+        billing_type: selectedPlan.billing_type,
+        monthly_price: selectedPlan.monthly_price,
+        begin_price: selectedPlan.begin_price,
+      })
+    );
   }, [selectedPlan, setUser]);
 
   return (

@@ -26,6 +26,8 @@ export const fetchUserData = createAsyncThunk(
           },
         }).then((res) => res.json());
 
+        console.log(resp);
+
         dispatch(setUserData(resp));
 
         return resp;
@@ -114,8 +116,6 @@ export const getFavInfluencers = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
-
-        console.log(resp);
 
         const uniqueSubscribedInfl = [
           ...(new Set(

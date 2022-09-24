@@ -8,6 +8,7 @@ export interface UserState {
   subscribed_influencers: InfluencerData[];
   user_token: string | null;
   user_data: UserDataType;
+  selected_plan?: SelectedPlan;
 }
 
 export type NavClassTypes =
@@ -23,6 +24,7 @@ export interface UserDataType extends UserUpdateType {
   paypal_id: string | null;
   stripe_id: string | null;
   subscription_expires_at: string | null;
+  type?: string;
 }
 
 export interface UserUpdateType {
@@ -36,4 +38,11 @@ export interface FavInfluencersProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;
   id: number;
   fav_type?: 'project' | 'influencer';
+}
+
+export interface SelectedPlan {
+  monthly_price: number;
+  begin_price: number;
+  billing_type: 'monthly' | 'yearly';
+  plan: 'Potato Starter' | 'Potato Pro';
 }

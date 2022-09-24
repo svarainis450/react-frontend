@@ -8,21 +8,21 @@ import { priceOptions } from '../Global/PaymentOptions';
 
 import { Box } from '../wrappers/Box';
 import { Flex } from '../wrappers/Flex';
-import { useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie';
 
 export const SubscriptionOptions: FC = memo(() => {
   const { isMobile } = useMediaQuery();
   const { user, setUser } = useContext(UserContext);
   const [selectedPeriod, setSelectedPeriod] = useState(
-    user.selectedPlan?.period.toLocaleLowerCase() || 'yearly'
+    user.selectedPlan?.billing_type.toLocaleLowerCase() || 'yearly'
   );
-  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol'])
+  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   useEffect(() => {
     setUser((prev) => ({
       ...prev,
       selectedPlan: priceOptions[String(selectedPeriod)].find(
-        (p) => p.name === user.selectedPlan?.name
+        (p) => p.plan === user.selectedPlan?.plan
       ),
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -31,7 +31,7 @@ export const SubscriptionOptions: FC = memo(() => {
   return (
     <>
       <Title margin={isMobile ? '0 0 1.25rem 0' : '0 0 3.25rem 0'}>
-        Subscribe to {user.selectedPlan?.name}
+        Subscribe to {user.selectedPlan?.plan}
       </Title>
       <Flex
         margin={isMobile ? '0 0 2.875rem 0' : '0 0 2.5rem 0'}
@@ -45,11 +45,9 @@ export const SubscriptionOptions: FC = memo(() => {
             <Caption>Bill monthly</Caption>
             <Small>
               {getCookie.currencySymbol}
-              {parseInt(
-                priceOptions['monthly'].find(
-                  (p) => p.name === user.selectedPlan?.name
-                )?.beginPrice || ''
-              )}
+              {priceOptions['monthly'].find(
+                (p) => p.plan === user.selectedPlan?.plan
+              )?.begin_price || 0}
               /month
             </Small>
           </div>
@@ -70,20 +68,17 @@ export const SubscriptionOptions: FC = memo(() => {
               <Discount>
                 {
                   priceOptions['yearly'].find(
-                    (p) => p.name === user.selectedPlan?.name
+                    (p) => p.plan === user.selectedPlan?.plan
                   )?.discount
                 }
                 %
               </Discount>
             </Flex>
             <Small>
-            {getCookie.currencySymbol}
-
-              {parseInt(
-                priceOptions['yearly'].find(
-                  (p) => p.name === user.selectedPlan?.name
-                )?.beginPrice || ''
-              ) / 12}
+              {getCookie.currencySymbol}
+              {priceOptions['yearly'].find(
+                (p) => p.plan === user.selectedPlan?.plan
+              )?.begin_price || 0 / 12}
               /month
             </Small>
           </div>

@@ -42,14 +42,14 @@ export const AddToCardPage: FC = memo(() => {
         transactionId: user.orderId,
         transactionTotal:
           user.selectedPlan?.priceAfterDownsell ||
-          Number(user.selectedPlan?.beginPrice),
+          Number(user.selectedPlan?.begin_price),
         transactionProducts: [
           {
-            sku: user.selectedPlan?.name,
-            name: user.selectedPlan?.name,
+            sku: user.selectedPlan?.plan,
+            name: user.selectedPlan?.plan,
             price:
               user.selectedPlan?.priceAfterDownsell ||
-              Number(user.selectedPlan?.beginPrice),
+              Number(user.selectedPlan?.begin_price),
             quantity: 1,
           },
         ],

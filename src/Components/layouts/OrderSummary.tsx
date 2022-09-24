@@ -5,12 +5,12 @@ import { UserContext } from '../../state/userContext';
 import { theme } from '../../theme';
 import { Box } from '../wrappers/Box';
 import { Flex } from '../wrappers/Flex';
-import { useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie';
 
 export const OrderSummary: FC = memo(() => {
   const { user } = useContext(UserContext);
-  let totalPrice = Number(user.selectedPlan?.beginPrice);
-  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol'])
+  let totalPrice = Number(user.selectedPlan?.begin_price);
+  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   return (
     <>
@@ -21,29 +21,27 @@ export const OrderSummary: FC = memo(() => {
       <Background>
         <Row margin="0 0 1rem 0">
           <Regular>Subtotal</Regular>
-          <Regular>{getCookie?.currencySymbol}{`${
-            Number(user.selectedPlan?.beginPrice) -
-            Number(user.selectedPlan?.discount)
-          }.00`}</Regular>
+          <Regular>
+            {getCookie?.currencySymbol}
+            {`${
+              Number(user.selectedPlan?.begin_price) -
+              Number(user.selectedPlan?.discount)
+            }.00`}
+          </Regular>
         </Row>
         {user.selectedPlan?.discount ? (
           <Row margin="0 0 1rem 0">
-            <Regular>
-              {user.selectedPlan?.period} plan discount
-            </Regular>
-            <Regular>
-              {user.selectedPlan?.discount}.00
-            </Regular>
+            <Regular>{user.selectedPlan?.billing_type} plan discount</Regular>
+            <Regular>{user.selectedPlan?.discount}.00</Regular>
           </Row>
         ) : null}
         {user.selectedPlan?.priceAfterDownsell ? (
           <Row margin="0 0 1rem 0">
             <Regular color="#FA5000">Additional discount</Regular>
             <Regular color="#FA5000">
-              -
-              {getCookie?.currencySymbol}
+              -{getCookie?.currencySymbol}
               {parseFloat(
-                String(Number(user.selectedPlan?.beginPrice) * 0.15)
+                String(Number(user.selectedPlan?.begin_price) * 0.15)
               ).toFixed(2)}
             </Regular>
           </Row>
@@ -52,7 +50,8 @@ export const OrderSummary: FC = memo(() => {
         <Row>
           <Regular>Billed now</Regular>
           <Regular>
-          {getCookie?.currencySymbol}{user.selectedPlan?.priceAfterDownsell || `${totalPrice}`}.00
+            {getCookie?.currencySymbol}
+            {user.selectedPlan?.priceAfterDownsell || `${totalPrice}`}.00
           </Regular>
         </Row>
       </Background>

@@ -9,8 +9,7 @@ import { useMediaQuery } from '../../hooks';
 import { Button } from '../Global/Button';
 import { icons } from '../../utils/icons';
 import { UserContext } from '../../state/userContext';
-import { useCookies } from 'react-cookie'
-
+import { useCookies } from 'react-cookie';
 
 interface DownsellProps {
   onClose?: () => void;
@@ -20,9 +19,9 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
   const { isMobile, isTablet } = useMediaQuery();
   const { user, setUser } = useContext(UserContext);
   const myRef = useRef<null | HTMLDivElement>(null);
-  const price = parseFloat(user.selectedPlan?.beginPrice || '0');
+  const price = user.selectedPlan?.begin_price || 0;
   const newPrice = parseFloat(parseFloat(String(price * 0.85)).toFixed(2));
-  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol'])
+  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   const handleClose = useCallback(() => {
     setUser((prev) => {
@@ -72,8 +71,14 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
               justifyContent="center"
               margin={isMobile ? '0 0 0.625rem 0' : '0 0 2rem 0'}
             >
-              <Price margin="0 0.5rem 0 0">{newPrice}{getCookie.currencySymbol}</Price>
-              <OldPrice>{user.selectedPlan?.beginPrice}{getCookie.currencySymbol}</OldPrice>
+              <Price margin="0 0.5rem 0 0">
+                {newPrice}
+                {getCookie.currencySymbol}
+              </Price>
+              <OldPrice>
+                {user.selectedPlan?.begin_price}
+                {getCookie.currencySymbol}
+              </OldPrice>
             </Flex>
             <Small margin="0 0 1.5rem 0">
               One-time, limited discount. Don't miss it!
