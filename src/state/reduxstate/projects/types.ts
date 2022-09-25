@@ -108,7 +108,7 @@ export interface Project {
 }
 
 export interface TrendingProject {
-  id: number;
+  project_id: number;
   place: number;
   category: CategoryTags;
   project_name: string;
@@ -116,6 +116,7 @@ export interface TrendingProject {
   mentions_num: number;
   project_img_url: string;
   //TODO: REMOVE
+  id: number;
   name: string;
   ticker: string;
   additional: string;
@@ -129,7 +130,7 @@ export interface TrendingProject {
 export type Statuses = 'idle' | 'pending' | 'success' | 'error' | 'succeeded';
 
 export interface ProjectPicks {
-  id: number;
+  project_id: number;
   name: string;
   tagName: string;
   postCount: number;
@@ -140,6 +141,7 @@ export interface ProjectPicks {
     color: string;
   };
   projects?: TrendingProject[];
+  id: number;
 }
 
 export const tags = [
@@ -192,7 +194,7 @@ export enum PaymentDetailTypes {
 export type SubmenuFilters = 'daily' | 'weekly' | 'upcomming';
 
 export interface TopOrLowestProject {
-  id: number;
+  project_id: number;
   category: CategoryTags;
   place: number;
   project_name: string;

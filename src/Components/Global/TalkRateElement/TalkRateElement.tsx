@@ -9,12 +9,14 @@ interface TalkRateProps {
   rate: number;
   type?: 'talk_rate' | 'bullseye' | 'influence';
   isBiggerBullseye?: boolean;
+  isSmalller?: boolean;
 }
 
 export const TalkRateElement: React.FC<TalkRateProps> = ({
   rate,
   type = 'talk_rate',
   isBiggerBullseye = false,
+  isSmalller = false,
 }) => {
   const title = {
     talk_rate: 'Talk Rate',
@@ -25,8 +27,8 @@ export const TalkRateElement: React.FC<TalkRateProps> = ({
   return (
     <div
       className={`circluar-wrapper ${type === 'bullseye' ? type : ''} ${
-        isBiggerBullseye ? 'bigger' : ''
-      }`}
+        isSmalller ? 'smaller' : ''
+      } ${isBiggerBullseye ? 'bigger' : ''}`}
     >
       <CircularProgressbar
         styles={buildStyles({

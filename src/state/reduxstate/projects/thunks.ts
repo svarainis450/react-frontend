@@ -5,6 +5,7 @@ import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 
 import { RootState } from '../slice';
 import { apiv1 } from '../types';
+import { getFavProjects } from '../user/thunks';
 import { FavInfluencersProjectsPayload } from '../user/types';
 import {
   set3LowestTalkRateProjects,
@@ -289,7 +290,7 @@ export const fetchProjectsByInfluencers = createAsyncThunk(
 
 export const sendFavProject = createAsyncThunk(
   'projects/POST_FAV_PROJECT',
-  async ({ id, callBack }: FavInfluencersProjectsPayload) => {
+  async ({ id, callBack }: FavInfluencersProjectsPayload, { dispatch }) => {
     if (token) {
       try {
         callBack && callBack('pending');
@@ -306,6 +307,8 @@ export const sendFavProject = createAsyncThunk(
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
+
+        dispatch(getFavProjects({}));
 
         callBack && callBack('success');
 

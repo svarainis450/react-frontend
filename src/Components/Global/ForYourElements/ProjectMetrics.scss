@@ -1,7 +1,7 @@
 @import '../../../utils/breakpointsMixins.scss';
 
 .metrics-wrapper {
-  margin: 0 0 16px;
+  margin: 32px auto 16px;
   width: 100%;
   overflow-x: scroll;
   background-color: var(--color-grey);
@@ -10,18 +10,26 @@
 
   @include desktop {
     border: none;
+    max-width: 1300px;
   }
 
   .metrics-flex {
     display: flex;
     justify-content: flex-start;
-    padding: 0 0 16px 45%;
+    padding: 0 0 16px 35%;
+    width: 460px;
     background-color: var(--color-grey);
 
     @include desktop {
       padding: 0;
       flex: 1.4;
       width: 100%;
+      max-width: 950px;
+    }
+  }
+  .metrics-flex.nft-project {
+    @media screen and (max-width: 780px) {
+      width: 560px;
     }
   }
 
@@ -45,11 +53,32 @@
     @include desktop {
       padding: 0;
     }
+    @media screen and (max-width: 780px) {
+      .talk-rate-wrapper {
+        margin: 8px 0 0;
+      }
+
+      .axis-wrapper.half {
+        margin: 8px 0 0;
+        width: 44px;
+
+        .circle.half {
+          top: -2px;
+          width: 9px;
+          height: 9px;
+          border: 2px solid var(--color-green);
+        }
+
+        .circle.half.negative {
+          border: 2px solid var(--color-red);
+        }
+      }
+    }
   }
   .metrics-flex.larger {
     position: absolute;
-    width: 40%;
-    left: 0;
+    width: 37%;
+    left: 16px;
     flex: 1.8;
     margin: 0 0 16px;
     padding: 20px 16px 16px 0;
@@ -77,6 +106,7 @@
 
   .metrics-flex.centered.prices {
     padding: 10px 0 0 0;
+    width: 220px;
 
     @include desktop {
       padding: 0;
@@ -85,12 +115,26 @@
   }
 
   .metrics-flex.centered.prices.nft {
-    display: block;
+    flex-direction: column;
+    align-items: center;
+
+    .nft-title {
+      margin: 0 0 4px;
+      font-size: 0.625rem;
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+
+    .price-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
   }
 
   .project-title {
     margin: 0 0 4px;
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 14px;
     font-weight: 500;
 
@@ -105,11 +149,18 @@
   }
 
   .price-title {
-    font-size: 1rem;
+    font-size: 0.75rem;
+    letter-spacing: -0.02rem;
 
     @include desktop {
       font-size: 1.5rem;
     }
+  }
+
+  .price-symbol {
+    font-size: 0.6rem;
+    line-height: 0.875rem;
+    letter-spacing: -0.02rem;
   }
 
   .metrics-question-mark {

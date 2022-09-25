@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import { projectByIdSelector } from 'src/state/reduxstate/projects/selectors';
 import { Project } from 'src/state/reduxstate/projects/types';
 
 import { icons } from 'src/utils/icons';
@@ -16,12 +14,13 @@ interface Props {
 }
 export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
   const { isTablet } = useMediaQuery();
-  const isNftProject = projectByIdProp.type === CategoryTags.nft;
+  const isNftProject =
+    projectByIdProp.type === CategoryTags.nft.toLocaleLowerCase();
   const priceTitle = isNftProject ? 'Floor price' : '';
 
   return (
     <div className="metrics-wrapper ">
-      <div className="metrics-flex">
+      <div className={`metrics-flex ${isNftProject ? 'nft-project' : ''}`}>
         <div className="metrics-flex bordered centered larger">
           <div>
             <img
@@ -45,21 +44,24 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           </div>
         </div>
         <div className="Metrics metrics-flex bordered centered smaller ">
-          <div>
+          <div className="talk-rate-wrapper">
             <TalkRateElement
               rate={projectByIdProp?.talk_rate_score}
               type="talk_rate"
+              isSmalller={isTablet}
             />
           </div>
-          <img
-            className="metrics-question-mark"
-            src={icons.question_mark_grey}
-            alt="question mark"
-            // onMouseOver={() => setShowInfo(true)}
-            // onMouseLeave={() => setShowInfo(false)}
-            // onTouchEnd={() => setShowInfo(false)}
-            // onClick={() => setShowInfo(true)}
-          />
+          {!isTablet && (
+            <img
+              className="metrics-question-mark"
+              src={icons.question_mark_grey}
+              alt="question mark"
+              // onMouseOver={() => setShowInfo(true)}
+              // onMouseLeave={() => setShowInfo(false)}
+              // onTouchEnd={() => setShowInfo(false)}
+              // onClick={() => setShowInfo(true)}
+            />
+          )}
         </div>
         <div className="Metrics metrics-flex bordered centered smaller">
           <div>
@@ -69,15 +71,17 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
               type="bull"
             />
           </div>
-          <img
-            className="metrics-question-mark"
-            src={icons.question_mark_grey}
-            alt="question mark"
-            // onMouseOver={() => setShowInfo(true)}
-            // onMouseLeave={() => setShowInfo(false)}
-            // onTouchEnd={() => setShowInfo(false)}
-            // onClick={() => setShowInfo(true)}
-          />
+          {!isTablet && (
+            <img
+              className="metrics-question-mark"
+              src={icons.question_mark_grey}
+              alt="question mark"
+              // onMouseOver={() => setShowInfo(true)}
+              // onMouseLeave={() => setShowInfo(false)}
+              // onTouchEnd={() => setShowInfo(false)}
+              // onClick={() => setShowInfo(true)}
+            />
+          )}
         </div>
         <div className="Metrics metrics-flex bordered centered smaller">
           <div>
@@ -87,30 +91,35 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
               type="positive"
             />
           </div>
-          <img
-            className="metrics-question-mark"
-            src={icons.question_mark_grey}
-            alt="question mark"
-            // onMouseOver={() => setShowInfo(true)}
-            // onMouseLeave={() => setShowInfo(false)}
-            // onTouchEnd={() => setShowInfo(false)}
-            // onClick={() => setShowInfo(true)}
-          />
+          {!isTablet && (
+            <img
+              className="metrics-question-mark"
+              src={icons.question_mark_grey}
+              alt="question mark"
+              // onMouseOver={() => setShowInfo(true)}
+              // onMouseLeave={() => setShowInfo(false)}
+              // onTouchEnd={() => setShowInfo(false)}
+              // onClick={() => setShowInfo(true)}
+            />
+          )}
         </div>
         {isNftProject ? (
           <div className="Metrics metrics-flex bordered centered prices nft">
-            <img src={icons.nft_symbol} alt="nft symbol" />
-            <Typography
-              className="price-title"
-              weight={TypographyWeight.MEDIUM}
-            >
-              {projectByIdProp.price}
-            </Typography>
+            <Typography className="nft-title">{priceTitle}</Typography>
+            <div className="price-wrapper">
+              <img src={icons.nft_symbol} alt="nft symbol" />
+              <Typography
+                className="price-title"
+                weight={TypographyWeight.MEDIUM}
+              >
+                {projectByIdProp.price}
+              </Typography>
+            </div>
           </div>
         ) : (
           <div className="Metrics metrics-flex bordered centered prices">
             <Typography
-              variant={TypographyVariant.DEFAULT}
+              className="price-symbol"
               weight={TypographyWeight.MEDIUM}
             >
               1 {projectByIdProp.symbol}
@@ -126,6 +135,20 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
             >
               $ {projectByIdProp.price}
             </Typography>
+          </div>
+        )}
+        {isNftProject && (
+          <div className="Metrics metrics-flex bordered centered prices nft">
+            <Typography className="nft-title">total volume</Typography>
+            <div className="price-wrapper">
+              <img src={icons.nft_symbol} alt="nft symbol" />
+              <Typography
+                className="price-title"
+                weight={TypographyWeight.MEDIUM}
+              >
+                {projectByIdProp.price}
+              </Typography>
+            </div>
           </div>
         )}
       </div>

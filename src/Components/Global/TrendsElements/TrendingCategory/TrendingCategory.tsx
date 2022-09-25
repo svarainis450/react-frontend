@@ -38,6 +38,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
   const trendingProjects = useSelector(trendingProjectsSelector);
+  console.log(trendingProjects);
 
   return (
     <div className="Category">
@@ -81,18 +82,17 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
               {trendingProjects.map(
                 (
                   {
-                    id,
                     category,
                     project_name,
                     mentions_num,
                     project_img_url,
-                    place,
+                    project_id,
                   },
                   index
                 ) => (
                   <TrendingProjectCard
                     key={index}
-                    id={id}
+                    id={project_id}
                     rankNumber={index + 1}
                     projectTitle={project_name}
                     mentions={mentions_num}

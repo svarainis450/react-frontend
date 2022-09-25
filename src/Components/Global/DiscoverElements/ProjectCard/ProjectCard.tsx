@@ -107,13 +107,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               <img
                 className="icon"
                 src={img_url || icons.no_image}
-                alt="bitkoin"
+                alt={name}
               />
               <div>
                 <Typography className="title" weight={TypographyWeight.MEDIUM}>
                   {name}
                 </Typography>
-                <CategoryTag tagTitle={CategoryTags.coins} />
+                {/* @ts-ignore */}
+                <CategoryTag tagTitle={CategoryTags[type]} />
               </div>
             </div>
             {isTablet && !showMore && (

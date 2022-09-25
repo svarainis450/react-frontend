@@ -173,7 +173,7 @@ export const deleteFavProject = createAsyncThunk(
           body: JSON.stringify(body),
         }).then((res) => res.json());
 
-        dispatch(getFavProjects(token));
+        dispatch(getFavProjects({ tokenValue: token }));
 
         callBack && callBack('success');
       } catch (e) {

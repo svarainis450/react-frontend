@@ -17,7 +17,7 @@ export const useProjectFilters = (
   } else if (filterValue === ProjectFilterKeys.TALK_RATE) {
     return '&orderBy=talk_rate&order=DESC';
   } else if (filterValue === ProjectFilterKeys.CATEGORY && categoryValue) {
-    return `&category=${categoryValue.toLocaleLowerCase}`;
+    return `&category=${categoryValue.toLocaleLowerCase()}`;
   } else if (filterValue === ProjectFilterKeys.NAME && nameValue) {
     return `&search=${nameValue}`;
   } else {

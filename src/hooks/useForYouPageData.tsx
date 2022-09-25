@@ -11,8 +11,6 @@ export const useForYouPageData = () => {
   const favoriteProjects = useSelector(favoriteProjectsSelector);
   const { projects } = useSelector(projectsDataSelector);
 
-  console.log(projectByIdState);
-
   useEffect(() => {}, [projectByIdState, favoriteProjects, projects]);
 
   if (projectByIdState) {
