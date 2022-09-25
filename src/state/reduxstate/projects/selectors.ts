@@ -1,8 +1,6 @@
 import { AppState } from '../types';
 
 export const projectsDataSelector = (s: AppState) => s.projects.projects_data;
-
-export const influencersSelector = (s: AppState) => s.projects.influencers;
 export const trendingProjectsSelector = (s: AppState) =>
   s.projects.trending_projects;
 // export const projectPicksSelector = (s: AppState) => s.projects.project_picks;
@@ -20,10 +18,6 @@ export const top3LowestTalkRateProjectsSelector = (s: AppState) =>
   s.projects.top_3_lowest_talk_rate;
 export const projectsByInfluencersSelector = (s: AppState) =>
   s.projects.projects_by_influencers;
-export const mostFollowedInfluencersSelector = (s: AppState) =>
-  s.projects.most_followed_influencers;
-export const influencersPagesSelector = (s: AppState) =>
-  s.projects.influencers_pages_data;
 export const projectByIdSelector = (s: AppState) => s.projects.project_by_id;
 export const totalSentimentSelector = (s: AppState) =>
   s.projects.total_sentiment;

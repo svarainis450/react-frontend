@@ -3,8 +3,8 @@ import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import { TrendsProjectsByInfluencersPayload } from '../projects/thunks';
 import {
-  InfluencerFilterKeys,
   Statuses,
+  SubmenuFilters,
   TrendsDateFilterType,
 } from '../projects/types';
 import { RootState } from '../slice';
@@ -39,20 +39,40 @@ export const fetchProjectsPick = createAsyncThunk(
 
 export interface TrendingInfluencersPayload {
   tokenValue: string;
-  dateFilter: TrendsDateFilterType;
+  dateFilter: SubmenuFilters;
   skip: number | null;
   take: number;
+  filterByFollowers: boolean;
+  filterByCategoryValue: string | null;
+  filterByName?: string | null;
 }
 
 export const fetchTrendingInfluencers = createAsyncThunk(
   'influencers/GET_TRENDING_INFLUENCERS',
   async (
-    { tokenValue, dateFilter, skip, take }: TrendingInfluencersPayload,
+    {
+      tokenValue,
+      dateFilter,
+      skip,
+      take,
+      filterByCategoryValue,
+      filterByFollowers,
+      filterByName,
+    }: TrendingInfluencersPayload,
     { dispatch }
   ) => {
+    const filterByFollowersValue = filterByFollowers
+      ? '&orderBy=followers&order=DESC'
+      : '';
+    const filterByCategory = filterByCategoryValue
+      ? `&category=${filterByCategoryValue.toLocaleLowerCase()}`
+      : '';
+
+    const filterByNameValue = filterByName ? `&name=${filterByName}` : '';
+
     const url = skip
-      ? `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=${take}&skip=${skip}`
-      : `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10`;
+      ? `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=${take}&skip=${skip}${filterByFollowersValue}${filterByCategory}${filterByNameValue}`
+      : `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10${filterByFollowersValue}${filterByCategory}${filterByNameValue}`;
 
     if (tokenValue) {
       try {
@@ -82,7 +102,7 @@ export const fetchTrendingInfluencers = createAsyncThunk(
 interface InfluencersPayload {
   tokenValue?: string;
   callBack?: Dispatch<SetStateAction<Statuses>>;
-  filter?: InfluencerFilterKeys;
+  filter?: string | null;
   skip: number | null;
 }
 
@@ -92,10 +112,9 @@ export const fetchInfluencers = createAsyncThunk(
     { callBack, filter, skip, tokenValue }: InfluencersPayload,
     { dispatch, getState }
   ) => {
-    const filterValue = filter ? `&orderBy=${filter}` : '';
     const url = skip
-      ? `${apiv1}/twitter-users?take=8&skip=${skip}${filterValue}`
-      : `${apiv1}/twitter-users?take=8${filterValue}`;
+      ? `${apiv1}/twitter-users?take=8&skip=${skip}${filter || ''}`
+      : `${apiv1}/twitter-users?take=8${filter || ''}`;
 
     callBack && callBack('pending');
     if (tokenValue || token) {
@@ -129,14 +148,9 @@ export const fetchInfluencers = createAsyncThunk(
           );
         }
 
-        callBack && callBack('success');
+        console.log(resp);
 
-        // dispatch(
-        //   setInfluencersPages({
-        //     page: resp.page,
-        //     pages: resp.pages,
-        //   })
-        // );
+        callBack && callBack('success');
       } catch (e) {
         callBack && callBack('error');
         console.log(e);
@@ -153,7 +167,7 @@ export const sendFavInfluencer = createAsyncThunk(
         callBack && callBack('pending');
 
         const data = {
-          project_id: id,
+          twitter_user_id: id,
         };
 
         const resp = await fetch(`${apiv1}/favorite-twitter-users`, {

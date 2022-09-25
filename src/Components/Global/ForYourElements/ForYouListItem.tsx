@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { fetchProjectById } from 'src/state/reduxstate/projects/thunks';
+import {
+  fetchProjectById,
+  sendFavProject,
+} from 'src/state/reduxstate/projects/thunks';
 import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import {
-  deleteFromFavorites,
-  sendFavProjectOrInfluencer,
-} from 'src/state/reduxstate/user/thunks';
+import { deleteFavProject } from 'src/state/reduxstate/user/thunks';
 import { icons } from 'src/utils/icons';
 import { Loader } from '../Loader/Loader';
 import { CategoryTag } from '../TrendsElements/CategoryTag/CategoryTag';
@@ -18,12 +18,14 @@ interface ForYouListItemProps {
   showMobileListCallback: Dispatch<SetStateAction<boolean>>;
   isInFavorites?: boolean;
   isCheckingStats?: boolean;
+  nameFilterValue?: string | null;
 }
 
 export const ForYouListItem: React.FC<ForYouListItemProps> = ({
   isInFavorites,
   project,
   showMobileListCallback,
+  nameFilterValue,
   isCheckingStats,
 }) => {
   const dispatch = useAppDispatch();
@@ -33,15 +35,12 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
 
   const hanldeAddOrRemoveBtn = (id: number) => {
     if (isInFavorites) {
-      dispatch(
-        deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })
-      );
+      dispatch(deleteFavProject({ id, callBack: setStatus }));
       setIsRemoved(true);
     } else {
       dispatch(
-        sendFavProjectOrInfluencer({
+        sendFavProject({
           id,
-          fav_type: 'project',
           callBack: setStatus,
         })
       );
@@ -54,6 +53,13 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
   };
 
   if (isRemoved) return null;
+  if (
+    nameFilterValue &&
+    !project.name
+      .toLocaleLowerCase()
+      .includes(nameFilterValue.toLocaleLowerCase())
+  )
+    return null;
 
   return (
     <div className={`for-you-list-item ${isCheckingStats ? 'checking' : ''}`}>

@@ -10,7 +10,7 @@ import './PaymentOptions.scss';
 import mostPopular from '../../../Assets/images/mostPopular.svg';
 import teaserArrow from '../../../Assets/images/teaserArrow.svg';
 import { LinkList } from '../../../types';
-import { useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie';
 
 export const PaymentOptions = ({
   className,
@@ -20,7 +20,7 @@ export const PaymentOptions = ({
   isSelected,
   isSelectedHandler,
 }: PaymentOptionsProps) => {
-  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol'])
+  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   return (
     <div
@@ -65,11 +65,12 @@ export const PaymentOptions = ({
                 <img className="most-popular-img" src={mostPopular} alt="" />
               )}
               <p className="PaymentOptions__card-plantype">Membership</p>
-              <p className="PaymentOptions__card-name"> {item.name}</p>
+              <p className="PaymentOptions__card-name"> {item.plan}</p>
               <p className="PaymentOptions__card-dsc">{item.description}</p>
 
               <div className="PaymentOptions__card-price">
-              {getCookie?.currencySymbol}{item.price}
+                {getCookie?.currencySymbol}
+                {item.monthly_price}
                 {item.discount && (
                   <div className="PaymentOptions__card-discount-item">
                     <p className="PaymentOptions__card-discount">
@@ -115,10 +116,9 @@ export const PaymentOptions = ({
               </ul>
 
               <p className="PaymentOptions__card-tobegin">
-                {currentOption === planTypes.yearly 
-                  ? `Plan renews at ${getCookie?.currencySymbol}${item.beginPrice} after 1 year. VAT may apply.`
-                  : `Plan renews at ${getCookie?.currencySymbol}${item.beginPrice} after 1 month. VAT may apply.`
-                }
+                {currentOption === planTypes.yearly
+                  ? `Plan renews at ${getCookie?.currencySymbol}${item.begin_price} after 1 year. VAT may apply.`
+                  : `Plan renews at ${getCookie?.currencySymbol}${item.begin_price} after 1 month. VAT may apply.`}
               </p>
             </div>
           );

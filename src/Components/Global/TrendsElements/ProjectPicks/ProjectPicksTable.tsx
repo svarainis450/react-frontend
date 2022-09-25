@@ -57,6 +57,10 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                     className="icon"
                     src={twitter_user.twitter_img_url || icons.no_image}
                     alt={twitter_user.name}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = icons.no_image;
+                    }}
                   />
                   <div>
                     <Typography className="project-picks__row__influencer__tag-name">
@@ -84,8 +88,9 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                       project.slice(0, 3).map((item, index) => {
                         return (
                           <img
+                            className="project-picks__row__project__overlapping-images"
                             key={index}
-                            src={item.img || icons.no_image}
+                            src={item.img_url || icons.no_image}
                             alt={item.name}
                           />
                         );

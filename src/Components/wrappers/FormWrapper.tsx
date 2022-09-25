@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { theme } from '../../theme';
 
 export const FormWrapper = styled.div`
-  padding-top: 4rem;
+  padding-top: 3rem;
   width: 22rem;
   margin: auto;
 

@@ -13,7 +13,7 @@
 
     @include desktop {
       margin: 0 auto 32px;
-      padding: 30px 0 0;
+      padding: 10px 0 0;
       flex-direction: row;
       justify-content: space-between;
       max-width: 1300px;
@@ -40,10 +40,11 @@
       width: 100%;
 
       @include desktop {
-        margin: 115px 0 0;
+        margin: 57px 0 0;
         padding: 16px 30px;
         max-width: 420px;
         max-height: 444px;
+        height: 444px;
 
         overflow-y: scroll;
         border-radius: 10px;
@@ -67,6 +68,24 @@
         @include desktop {
           position: static;
           all: unset;
+        }
+      }
+
+      .load-more-projects {
+        margin: 16px 0;
+        width: 100%;
+        cursor: pointer;
+        text-align: center;
+
+        @include desktop {
+          margin: 16px 0 0;
+        }
+
+        p {
+          color: var(--color-grey-text);
+          font-size: 0.875rem;
+          font-weight: 500;
+          text-align: center;
         }
       }
 

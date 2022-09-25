@@ -13,11 +13,13 @@
   &__flex {
     display: flex;
     align-items: center;
+    max-width: 70%;
 
     &__icon {
       margin: 0 6px 0;
       width: 54px;
       height: 54px;
+      border-radius: 50%;
     }
 
     &__diff-color {

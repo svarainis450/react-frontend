@@ -48,24 +48,18 @@ export const Trends: React.FC = () => {
     CategoryTags | undefined
   >(undefined);
 
-  const [influencersFilter, setInfluencersFilter] =
-    useState<InfluencerFilterKeys>(InfluencerFilterKeys.NONE);
-  const [inflFilterValue, setInflFilterValue] = useState<CategoryTags | string>(
-    '1'
-  );
-
   useEffect(() => {
     if (token) {
       dispatch(
         fetchTrendingProjects({
-          filter: filter,
+          dateFilter: filter,
           callBack: setTrendingStatus,
           categoryFilter: selectCategory,
           tokenValue: token,
         })
       );
     }
-  }, [token]);
+  }, [token, filter, selectCategory]);
 
   useEffect(() => {
     if (token && filter !== 'upcomming') {
@@ -105,7 +99,6 @@ export const Trends: React.FC = () => {
                     categoryCallback={setSelectCategory}
                     trendingProjects={trendingProjects}
                     filterTitle={filterTitle}
-                    filter={filter}
                   />
                 )}
               </CardWrapper>
@@ -130,12 +123,7 @@ export const Trends: React.FC = () => {
                 title="List of influencers and their picks"
                 subtitle={filterTitle}
               >
-                <InfluencersTable
-                  // influencersData={influencers}
-                  callBack={setInfluencersFilter}
-                  nameFilterCallBack={setInflFilterValue}
-                  categoryCallBack={setInflFilterValue}
-                />
+                <InfluencersTable filter={filter} />
               </CardWrapper>
             </section>
           </>

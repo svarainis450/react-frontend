@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { InfluencerData } from '../influencers/types';
 import { Project } from '../projects/types';
-import { NavClassTypes, UserDataType, UserState } from './types';
+import { NavClassTypes, SelectedPlan, UserDataType, UserState } from './types';
 
 const initialState: UserState = {
   profile_block: 'notifications',
@@ -10,15 +10,16 @@ const initialState: UserState = {
   user_token: null,
   user_data: {
     email: '',
-    firstName: '',
-    lastName: '',
-    img: undefined,
+    first_name: '',
+    last_name: '',
+    img_url: undefined,
     id: 123,
     paypal_id: null,
     stripe_id: null,
     subscription_expires_at: null,
     password: '',
   },
+  selected_plan: undefined,
 };
 
 const userSlice = createSlice({
@@ -55,10 +56,17 @@ const userSlice = createSlice({
     ) => {
       state.user_data = action.payload;
     },
+    setSelectedPlan: (
+      state: { selected_plan?: SelectedPlan },
+      action: PayloadAction<SelectedPlan>
+    ) => {
+      state.selected_plan = action.payload;
+    },
   },
 });
 
 export const {
+  setSelectedPlan,
   setProfileBlock,
   setFavoriteProjects,
   setSubscribedInfluencers,

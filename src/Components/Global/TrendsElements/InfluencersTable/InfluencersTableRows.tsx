@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { Influencer } from 'src/state/reduxstate/influencers/types';
 import {
   calculateBigNumberValues,
   generateProjectsText,
+  isImgUrl,
 } from 'src/utils/calculations';
 import { icons } from 'src/utils/icons';
 import { Typography, TypographyWeight } from '../../Typography';
@@ -56,9 +58,13 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
               >
                 <div className="influencers-picks__influencers-table__row__influencer">
                   <img
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = icons.no_image;
+                    }}
                     className="icon"
                     alt={twitter_user.twitter_username || 'Influencer'}
-                    src={twitter_user.twitter_img_url || icons.no_image}
+                    src={twitter_user.twitter_img_url}
                   />
                   <div>
                     <Typography className="influencers-picks__influencers-table__row__influencer__tag-name">
@@ -95,7 +101,7 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                         return (
                           <img
                             key={index}
-                            src={item.img || icons.no_image}
+                            src={item.img_url || icons.no_image}
                             alt={item.name}
                           />
                         );

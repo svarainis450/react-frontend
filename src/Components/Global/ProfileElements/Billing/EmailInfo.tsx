@@ -1,12 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useAppDispatch } from 'src/state/reduxstate/store';
 import { userDataSelector } from 'src/state/reduxstate/user/selectors';
+import { updateUserInfo } from 'src/state/reduxstate/user/thunks';
 import { icons } from 'src/utils/icons';
 import { Typography } from '../../Typography';
 
 import './Billing.scss';
 
 export const EmailInfo: React.FC = () => {
+  const dispatch = useAppDispatch();
   const userInfo = useSelector(userDataSelector);
   const [contactEmail, setContactEmail] = useState(userInfo.email);
   const [arrowIcon, setArrowIcon] = useState(icons.input_arrow);
@@ -14,7 +17,10 @@ export const EmailInfo: React.FC = () => {
   const hanldeInputSubmit = (e?: FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     document.getElementById('inputForm')?.blur();
-    setArrowIcon(icons.blue_checkmark);
+    if (contactEmail) {
+      dispatch(updateUserInfo({ email: contactEmail }));
+      setArrowIcon(icons.blue_checkmark);
+    }
   };
 
   return (

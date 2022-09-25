@@ -1,4 +1,5 @@
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
+import { InfluencerData } from '../influencers/types';
 
 export interface ProjectsState {
   trending_projects: TrendingProject[];
@@ -19,12 +20,6 @@ export interface ProjectsState {
   project_filter_key: ProjectFilterKeys | null;
   project_by_id: Project;
   status: Statuses;
-  influencers: Influencer[];
-  most_followed_influencers: Influencer[];
-  influencers_pages_data: {
-    page: number;
-    pages: number;
-  };
 }
 export interface RateData {
   talkRate: number;
@@ -53,12 +48,13 @@ export interface Project {
   max_scraped_tweet_id: number;
   name: string;
   symbol?: string;
+  price: string;
   type: CategoryTags;
   talk_rate_score: number;
   sentiment_score: number;
   bull_bear_score: number;
   talk_rate_daily_change: number;
-  project_twitter_user_card: Influencer[];
+  project_twitter_user_card: InfluencerData[];
   chart_price: {
     date: string;
     three_hour_price: string;
@@ -112,11 +108,13 @@ export interface Project {
 }
 
 export interface TrendingProject {
+  project_id: number;
   place: number;
   category: CategoryTags;
   project_name: string;
   project_symbol: string;
   mentions_num: number;
+  project_img_url: string;
   //TODO: REMOVE
   id: number;
   name: string;
@@ -129,10 +127,10 @@ export interface TrendingProject {
   };
 }
 
-export type Statuses = 'idle' | 'pending' | 'success' | 'error';
+export type Statuses = 'idle' | 'pending' | 'success' | 'error' | 'succeeded';
 
 export interface ProjectPicks {
-  id: number;
+  project_id: number;
   name: string;
   tagName: string;
   postCount: number;
@@ -143,20 +141,7 @@ export interface ProjectPicks {
     color: string;
   };
   projects?: TrendingProject[];
-}
-
-export interface Influencer extends ProjectPicks {
-  flag?: 'expert' | null;
-  bullseye: number;
-  rateData: {
-    reviewer: number;
-  };
-  followers: number;
-  posts: number;
-  focus: CategoryTags[];
-  social?: {
-    twitter: string;
-  };
+  id: number;
 }
 
 export const tags = [
@@ -169,7 +154,7 @@ export const tags = [
 
 export enum ProjectFilterKeys {
   TALK_RATE = 'talk_rate',
-  POSITIVE = 'positive',
+  POSITIVE = 'positiveNe',
   NEGATIVE = 'negative',
   BULL = 'bull',
   BEAR = 'bear',
@@ -187,8 +172,8 @@ export enum InfluencerFilterKeys {
   BULLSEYE = 'bullseye_score',
   FIRST_MOVER = 'first_mover_reviewer_score', //ASC
   REVIEWER = 'first_mover_reviewer_score', //DESC
-  CATEGORY = 'influence_score',
-  RATE = 'rate',
+  CATEGORY = 'category',
+  INFLUENCE_RATE = 'influence_score',
   NAME = 'name',
   NONE = '',
 }
@@ -209,6 +194,7 @@ export enum PaymentDetailTypes {
 export type SubmenuFilters = 'daily' | 'weekly' | 'upcomming';
 
 export interface TopOrLowestProject {
+  project_id: number;
   category: CategoryTags;
   place: number;
   project_name: string;
@@ -216,7 +202,7 @@ export interface TopOrLowestProject {
   sentiment?: number;
   talk_rate?: number;
   bull?: number;
-  icon: string;
+  img_url: string;
 }
 
 export type TrendsDateFilterType = 'daily' | 'weekly';

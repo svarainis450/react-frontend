@@ -9,11 +9,7 @@ import {
   setSubscribedInfluencers,
   setUserData,
 } from './slice';
-import {
-  FavInfluencersProjectsPayload,
-  UserDataType,
-  UserUpdateType,
-} from './types';
+import { FavInfluencersProjectsPayload, UserUpdateType } from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
 
@@ -30,6 +26,8 @@ export const fetchUserData = createAsyncThunk(
           },
         }).then((res) => res.json());
 
+        console.log(resp);
+
         dispatch(setUserData(resp));
 
         return resp;
@@ -45,14 +43,16 @@ export const updateUserInfo = createAsyncThunk(
   async (data: UserUpdateType) => {
     if (token) {
       try {
-        const resp = await fetch(`${api}/me`, {
+        const resp = await fetch(`${apiv1}/users`, {
           method: 'PATCH',
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
+
+        console.log(resp);
 
         return resp;
       } catch (e) {
@@ -146,6 +146,67 @@ export const sendFavProjectOrInfluencer = createAsyncThunk(
         callBack && callBack('success');
 
         return resp;
+      } catch (e) {
+        callBack && callBack('error');
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const deleteFavProject = createAsyncThunk(
+  'user/DELETE_FAV_PROJECT',
+  async ({ id, callBack }: FavInfluencersProjectsPayload, { dispatch }) => {
+    if (token && id) {
+      callBack && callBack('pending');
+
+      const body = {
+        project_id: id,
+      };
+      try {
+        await fetch(`${apiv1}/favorite-projects`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        }).then((res) => res.json());
+
+        dispatch(getFavProjects({ tokenValue: token }));
+
+        callBack && callBack('success');
+      } catch (e) {
+        callBack && callBack('error');
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const deleteFavInfluencer = createAsyncThunk(
+  'user/DELETE_FAV_INFLUENCER',
+  async ({ id, callBack }: FavInfluencersProjectsPayload, { dispatch }) => {
+    if (token && id) {
+      callBack && callBack('pending');
+
+      const body = {
+        twitter_user_id: Number(id),
+      };
+      try {
+        await fetch(`${apiv1}/favorite-twitter-users`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
+
+        dispatch(getFavInfluencers());
+
+        callBack && callBack('success');
       } catch (e) {
         callBack && callBack('error');
         console.log(e);

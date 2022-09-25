@@ -4,31 +4,24 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { infoBlocks } from 'src/Components/Pages/Trends/constants';
-import {
-  SubmenuFilters,
-  TopOrLowestProject,
-} from 'src/state/reduxstate/projects/types';
+import { SubmenuFilters } from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { CardWrapper } from '../CardWrapper/CardWrapper';
 import { Top3Element } from '../Top3Element/Top3Element';
 import { InfoBlockTypes } from '../types';
 
 import {
-  fetchProjects,
   fetchProjectsByInfluencers,
   fetchTop3LowestProjects,
   fetchTop3Projects,
-  fetchTrendingProjects,
 } from 'src/state/reduxstate/projects/thunks';
 import {
-  projectsByInfluencersSelector,
   top3BullProjectsSelector,
   top3PositiveProjectsSelector,
   top3TalkRateProjectsSelector,
   top3LowestTalkRateProjectsSelector,
   top3BearProjectsSelector,
   top3NegativeProjectsSelector,
-  trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 
 import './Top3ElementsSlider.scss';
@@ -158,12 +151,12 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topTalkRate.map(
                   (
-                    { place, category, project_name, talk_rate, icon },
+                    { place, category, project_name, talk_rate, img_url },
                     index
                   ) => (
                     <Top3Element
                       key={`${place}_${index}`}
-                      icon={icon}
+                      icon={img_url}
                       projectName={project_name}
                       tagTitle={category}
                       talkRate={talk_rate}
@@ -197,12 +190,12 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topPositive.map(
                   (
-                    { place, category, project_name, sentiment, icon },
+                    { place, category, project_name, sentiment, img_url },
                     index
                   ) => (
                     <Top3Element
                       key={`${place}_${index}`}
-                      icon={icon}
+                      icon={img_url}
                       projectName={project_name}
                       tagTitle={category}
                       blockType={InfoBlockTypes.positive}
@@ -233,10 +226,10 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
             {topBull ? (
               <ul className="cards-grid">
                 {topBull.map(
-                  ({ place, category, project_name, bull, icon }, index) => (
+                  ({ place, category, project_name, bull, img_url }, index) => (
                     <Top3Element
                       key={`${place}_${index}`}
-                      icon={icon}
+                      icon={img_url}
                       projectName={project_name}
                       tagTitle={category}
                       bullRatio={bull}

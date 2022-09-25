@@ -24,6 +24,8 @@ export const filterProjectsLocaly = (
         .sort((a, b) => b.bull_bear_score - a.bull_bear_score);
       return filteredProjects;
     }
+  } else {
+    return projects;
   }
 };
 

@@ -1,7 +1,12 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useSelector } from 'react-redux';
 import { MobileFilter } from 'src/Components/MobileFilter/MobileFilter';
 import { useMediaQuery } from 'src/hooks';
+import { setModalType } from 'src/state/reduxstate/modals/slice';
+import { ModalTypes } from 'src/state/reduxstate/modals/types';
 import { InfluencerFilterKeys } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { icons } from 'src/utils/icons';
 import {
   Typography,
@@ -12,29 +17,31 @@ import {
 import './InfluencerFilters.scss';
 
 const FILTERS = [
-  { title: 'Top Expert', key: InfluencerFilterKeys.TOP_EXPERT },
+  // { title: 'Top Expert', key: InfluencerFilterKeys.TOP_EXPERT },
   { title: 'Most followers', key: InfluencerFilterKeys.FOLLOWERS },
-  { title: 'Most active', key: InfluencerFilterKeys.MOST_ACTIVE },
-  { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
-  { title: 'First mover', key: InfluencerFilterKeys.FIRST_MOVER },
-  { title: 'Reviewer', key: InfluencerFilterKeys.REVIEWER },
-  { title: 'Influence rate', key: InfluencerFilterKeys.RATE },
+  // { title: 'Most active', key: InfluencerFilterKeys.MOST_ACTIVE },
+  // { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
+  // { title: 'First mover', key: InfluencerFilterKeys.FIRST_MOVER },
+  // { title: 'Reviewer', key: InfluencerFilterKeys.REVIEWER },
+  { title: 'Influence rate', key: InfluencerFilterKeys.INFLUENCE_RATE },
 ];
 
 interface InfluencerFiltersProps {
   callBack: Dispatch<SetStateAction<InfluencerFilterKeys>>;
-  nameFilterCallBack: Dispatch<SetStateAction<string>>;
+  nameFilterCallBack: Dispatch<SetStateAction<string | null>>;
 }
 
 export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
   callBack,
   nameFilterCallBack,
 }) => {
+  const dispatch = useAppDispatch();
   const { isTablet } = useMediaQuery();
+  const { type } = useSelector(userDataSelector);
 
   const handleFilters = (filterKey: InfluencerFilterKeys) => {
     callBack(filterKey);
-    nameFilterCallBack('1');
+    nameFilterCallBack(null);
   };
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,13 +51,20 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
       callBack(InfluencerFilterKeys.NAME);
     } else if (e.target.value.length === 0) {
       callBack(InfluencerFilterKeys.NONE);
-      nameFilterCallBack('1');
+      nameFilterCallBack(null);
     }
+  };
+
+  const handlePremiumModal = () => {
+    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
   };
 
   return (
     <div className="influencer-filters">
-      <div className="influencer-filters__input-wrapper">
+      <div
+        className="influencer-filters__input-wrapper"
+        onClick={handlePremiumModal}
+      >
         <img
           className="influencer-filters__input-wrapper__magnifier"
           src={icons.search_magnifier}
@@ -63,6 +77,7 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             handleNameInputChange(e)
           }
+          disabled={type === 'Potato Starter' || !type}
         />
       </div>
       {!isTablet && (

@@ -1,7 +1,12 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { MobileFilter } from 'src/Components/MobileFilter/MobileFilter';
 import { useMediaQuery } from 'src/hooks';
+import { setModalType } from 'src/state/reduxstate/modals/slice';
+import { ModalTypes } from 'src/state/reduxstate/modals/types';
 import { ProjectFilterKeys, tags } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { icons } from 'src/utils/icons';
 import { CategoryTags } from '../../TrendsElements/types';
 import {
@@ -16,16 +21,16 @@ const FILTERS = [
   { title: 'Talk Rate', key: ProjectFilterKeys.TALK_RATE },
   { title: 'Positive', key: ProjectFilterKeys.POSITIVE },
   { title: 'Negative', key: ProjectFilterKeys.NEGATIVE },
-  { title: 'Bull', key: ProjectFilterKeys.BULL },
-  { title: 'Bear', key: ProjectFilterKeys.BEAR },
+  // { title: 'Bull', key: ProjectFilterKeys.BULL },
+  // { title: 'Bear', key: ProjectFilterKeys.BEAR },
   { title: 'Newest', key: ProjectFilterKeys.NEWEST },
   { title: 'Oldest', key: ProjectFilterKeys.OLDEST },
 ];
 
 interface ProjectFiltersProps {
   callBack: Dispatch<SetStateAction<ProjectFilterKeys>>;
-  categoryCallBack: Dispatch<SetStateAction<CategoryTags | string>>;
-  nameFilterCallBack: Dispatch<SetStateAction<string>>;
+  categoryCallBack: Dispatch<SetStateAction<CategoryTags | null>>;
+  nameFilterCallBack: Dispatch<SetStateAction<string | null>>;
 }
 
 export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
@@ -33,7 +38,9 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   categoryCallBack,
   nameFilterCallBack,
 }) => {
+  const dispatch = useAppDispatch();
   const { isTablet } = useMediaQuery();
+  const { type } = useSelector(userDataSelector);
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     callBack(ProjectFilterKeys.CATEGORY);
@@ -47,18 +54,25 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       callBack(ProjectFilterKeys.NAME);
     } else if (e.target.value.length === 0) {
       callBack(ProjectFilterKeys.NONE);
-      nameFilterCallBack('1');
+      nameFilterCallBack(null);
     }
   };
 
   const handleFilterCallBack = (key: ProjectFilterKeys) => {
     callBack(key);
-    nameFilterCallBack('1');
+    nameFilterCallBack(null);
+  };
+
+  const handlePremiumModal = () => {
+    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
   };
 
   return (
     <div className="project-filters">
-      <div className="project-filters__input-wrapper">
+      <div
+        className="project-filters__input-wrapper"
+        onClick={handlePremiumModal}
+      >
         <img
           className="project-filters__input-wrapper__magnifier"
           src={icons.search_magnifier}
@@ -71,6 +85,7 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             handleNameInputChange(e)
           }
+          disabled={type === 'Potato Starter' || !type}
         />
       </div>
       {!isTablet && (

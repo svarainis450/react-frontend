@@ -1,21 +1,22 @@
 import { Project } from 'src/state/reduxstate/projects/types';
+import { icons } from './icons';
 
 export const calculateBigNumberValues = (foll: number) => {
   if (foll > 0 && foll < 1000) {
     return foll;
   } else if (foll >= 1000 && foll <= 1000000) {
     const result = (foll / 1000).toFixed();
-    return String(result + ' k');
+    return String(result + 'k');
   } else if (foll > 1000000) {
     const result = (foll / 1000000).toFixed();
-    return String(result + ' mln');
+    return String(result + 'mln');
   }
 };
 
 //NOTE: axis width for positive, negative, bull
 export const calculateRangeWidth = (rate: number, isHalfAxis?: boolean) => {
   if (isHalfAxis) {
-    if (rate === 0) {
+    if (rate === 0 || !rate) {
       return 100;
     } else if (rate <= 10) {
       return 90;
@@ -92,3 +93,12 @@ export const formatDate = (date: string) => {
 
   return [year, month, day].join('-');
 };
+
+export function isImgUrl(url: string) {
+  const img = new Image();
+  img.src = url;
+  return new Promise((resolve) => {
+    img.onerror = () => resolve(icons.no_image);
+    img.onload = () => resolve(url);
+  });
+}

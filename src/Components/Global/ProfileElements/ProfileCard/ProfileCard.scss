@@ -12,7 +12,7 @@
 
   &__avatar {
     position: absolute;
-    top: -57px;
+    top: -70px;
     left: calc(50% - 114px / 2);
 
     width: 114px;
@@ -22,6 +22,10 @@
     border-radius: 50%;
     z-index: 1;
     cursor: pointer;
+
+    @include desktop {
+      top: -57px;
+    }
   }
 
   &__active-bubble {
@@ -93,6 +97,10 @@
         font-weight: 500;
         font-size: 14px;
         line-height: 22px;
+      }
+
+      ::placeholder {
+        color: var(--color-black);
       }
 
       input.email-input {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CountUp, { useCountUp } from 'react-countup';
+import CountUp from 'react-countup';
 import { useTimer } from 'src/hooks';
 import { icons } from 'src/utils/icons';
 

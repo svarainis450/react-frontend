@@ -72,6 +72,7 @@
     }
     .check-stats-btn.remove.add-to-list {
       justify-self: flex-end;
+      max-width: 107px;
 
       @include desktop {
         max-width: 107px;

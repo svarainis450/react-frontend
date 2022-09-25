@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {
   ForYouListItem,
   InfoBlockInstructions,
+  Loader,
   ProjectMetrics,
   ProjectsSliderMobile,
 } from 'src/Components/Global';
@@ -20,27 +21,27 @@ import { SubmenuListProps } from 'src/Components/Global/Submenu';
 import { Star, Influencers } from '../../../Assets/icons/IconElements';
 import {
   favoriteProjectsSelector,
+  userDataSelector,
   userTokenSelector,
 } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import {
+  Project,
   ProjectFilterKeys,
   Statuses,
 } from 'src/state/reduxstate/projects/types';
-import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { icons } from 'src/utils/icons';
 import { ForYouChartView } from 'src/Components/Global/Graphic/ForYouChartView';
-import { dogeCoinProjectData } from 'src/Components/Global/Graphic/chartDevData';
 import {
   getFavInfluencers,
   getFavProjects,
 } from 'src/state/reduxstate/user/thunks';
-import {
-  filterProjectsByName,
-  filterProjectsLocaly,
-} from 'src/utils/localFilters';
-import { useMediaQuery } from 'src/hooks';
+import { filterProjectsLocaly } from 'src/utils/localFilters';
+import { useForYouPageData, useMediaQuery, useProjectFilters } from 'src/hooks';
 import { Top3FavElementsSlider } from 'src/Components/Global/ForYourElements/Top3FavElementsSlider';
+import { setModalType } from 'src/state/reduxstate/modals/slice';
+import { ModalTypes } from 'src/state/reduxstate/modals/types';
+import { is } from 'cheerio/lib/api/traversing';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -61,114 +62,119 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 ];
 
 export const ForYou: React.FC = () => {
+  const dataForStats = useForYouPageData();
   const dispatch = useAppDispatch();
-  const [filterValue, setFilterValue] = useState<CategoryTags | string>('1');
+  const { type } = useSelector(userDataSelector);
+  const isPotatoStarter = type === 'Potato Starter';
+
+  const [nameFilter, setNameFilter] = useState<string | null>(null);
   const projectByIdState = useSelector(projectByIdSelector);
-  const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
-  const { projects } = useSelector(projectsDataSelector);
+  const [projectsFilter, setProjectsFilter] = useState<ProjectFilterKeys>(
+    ProjectFilterKeys.NONE
+  );
+  const { projects, meta } = useSelector(projectsDataSelector);
+  const [takeProjects, setTakeProjects] = useState(0);
+  const [loadMoreProjectsStatus, setLoadmoreProjectsStatus] =
+    useState<Statuses>('idle');
 
   const favoriteProjects = useSelector(favoriteProjectsSelector);
-  const userToken = useSelector(userTokenSelector);
-  const token = localStorage.getItem('token');
-  const [filteredFavProjects, setFilteredFavProjects] =
-    useState(favoriteProjects);
-  const [favFetchStatus, setFavFetchStatus] = useState<Statuses>('idle');
+  const hasFavProjects = favoriteProjects && favoriteProjects.length > 0;
+  const filterValue = useProjectFilters(projectsFilter, null, nameFilter);
 
   const [showInfo, setShowInfo] = useState(false);
   const [showMobileList, setShowMobileList] = useState(false);
 
   useEffect(() => {
-    if (!window.location.hash) {
-      //@ts-ignore
-      window.location = window.location + '#loaded';
-      window.location.reload();
-    }
+    // if (!window.location.hash) {
+    //   //@ts-ignore
+    //   window.location = window.location + '#loaded';
+    //   window.location.reload();
+    // }
 
-    if (token) {
-      dispatch(getFavProjects({ tokenValue: token }));
-    }
+    dispatch(getFavProjects({}));
   }, []);
 
   useEffect(() => {
-    dispatch(
-      fetchProjects({
-        filter: projectsFilter,
-        callBack: setProjectStatus,
-      })
-    );
-
+    if (!isPotatoStarter) {
+      dispatch(fetchProjects({ filter: filterValue }));
+    }
     dispatch(getFavInfluencers());
-  }, [projectsFilter, dispatch, filterValue, userToken, token]);
+  }, [projectsFilter, filterValue, nameFilter]);
 
   const { isTablet } = useMediaQuery();
 
-  const [projectsStatus, setProjectStatus] = useState<Statuses>('idle');
+  useEffect(() => {
+    if (takeProjects > 0) {
+      if (meta && projects.length >= meta.total) {
+        return;
+      }
+      if (takeProjects < ((meta && meta?.total) || 1000)) {
+        setProjectsFilter(ProjectFilterKeys.NONE);
+        dispatch(
+          fetchProjects({
+            skip: takeProjects,
+            callBack: setLoadmoreProjectsStatus,
+          })
+        );
+      }
+    }
+  }, [takeProjects]);
 
   const topTalkRateProject =
-    favoriteProjects &&
+    hasFavProjects &&
     filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.TALK_RATE)?.slice(
       0,
       1
     );
   const topPositiveProject =
-    favoriteProjects &&
+    hasFavProjects &&
     filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.POSITIVE)?.slice(
       0,
       1
     );
 
   const topBullProject =
-    favoriteProjects &&
+    hasFavProjects &&
     filterProjectsLocaly(favoriteProjects, ProjectFilterKeys.BULL)?.slice(0, 1);
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.target.value.length >= 3 && favoriteProjects.length > 0) {
-      setProjectsFilter(ProjectFilterKeys.NAME);
-      setFilterValue(e.target.value);
-      setFilteredFavProjects(
-        favoriteProjects.filter(
-          (project) =>
-            project.name
-              .toLocaleLowerCase()
-              .includes(e.target.value.toLocaleLowerCase()) && project
-        )
-      );
-    } else if (e.target.value.length === 0) {
-      setProjectsFilter(ProjectFilterKeys.NONE);
-      setFilterValue('1');
-      setFilteredFavProjects(favoriteProjects);
+
+    if (!isPotatoStarter) {
+      if (e.target.value.length >= 3) {
+        setProjectsFilter(ProjectFilterKeys.NAME);
+        setNameFilter(e.target.value);
+      } else if (e.target.value.length === 0) {
+        setProjectsFilter(ProjectFilterKeys.NONE);
+        setNameFilter(null);
+      }
     }
   };
-  console.log(favoriteProjects);
+
+  const handleUpgradeModal = () => {
+    if (isPotatoStarter) {
+      dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+    }
+  };
+
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">
         <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
-
+        <div>
+          {dataForStats && dataForStats.length > 0 && (
+            <ProjectMetrics projectByIdProp={dataForStats[0]} />
+          )}
+        </div>
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {((favoriteProjects && favoriteProjects.length > 0) ||
-                projects.length > 0) && (
-                <ProjectMetrics
-                  projectByIdProp={
-                    (favoriteProjects && favoriteProjects[0]) || projects[0]
-                  }
-                />
-              )}
-            </div>
-
-            <div>
-              {(favFetchStatus !== 'success' ||
-                (favoriteProjects && favoriteProjects.length > 0) ||
-                projects.length > 0) && (
-                // this is chart
+              {dataForStats && (
                 <ForYouChartView
-                  chartPrice={dogeCoinProjectData.data.chart_price}
-                  chartSentiment={dogeCoinProjectData.data.chart_sentiment}
-                  chartTalkRate={dogeCoinProjectData.data.chart_talk_rate}
-                  chartVolume={dogeCoinProjectData.data.chart_volume}
+                  chartPrice={dataForStats[0].chart_price}
+                  chartSentiment={dataForStats[0].chart_sentiment}
+                  chartTalkRate={dataForStats[0].chart_talk_rate}
+                  chartVolume={dataForStats[0].chart_volume}
                 />
               )}
             </div>
@@ -192,7 +198,7 @@ export const ForYou: React.FC = () => {
               </div>
             )}
             {(!isTablet || !showMobileList) && (
-              <div className="input-wrapper">
+              <div className="input-wrapper" onClick={handleUpgradeModal}>
                 <img
                   className="input-wrapper__magnifier"
                   src={icons.search_magnifier}
@@ -206,15 +212,15 @@ export const ForYou: React.FC = () => {
                     handleNameInputChange(e)
                   }
                   onFocus={() => setShowMobileList(true)}
+                  disabled={isPotatoStarter}
                 />
               </div>
             )}
-            {!isTablet && projectByIdState && filterValue !== '1' && (
+            {!isTablet && projectByIdState && filterValue !== '' && (
               <ForYouListItem
                 showMobileListCallback={setShowMobileList}
                 key={`${projectByIdState.id}`}
                 project={projectByIdState}
-                // projectIDCallback={projectByIdState.id}
                 isInFavorites={
                   !!favoriteProjects?.find(
                     (item) => item.id === projectByIdState?.id
@@ -242,10 +248,10 @@ export const ForYou: React.FC = () => {
                 </div>
               )}
               {(!isTablet || showMobileList) &&
-                (favFetchStatus === 'success' ||
-                  favoriteProjects?.length > 0) &&
-                filteredFavProjects.map((project, index) => (
+                hasFavProjects &&
+                favoriteProjects.map((project: Project, index) => (
                   <ForYouListItem
+                    nameFilterValue={nameFilter}
                     showMobileListCallback={setShowMobileList}
                     key={`${project.id}${index}`}
                     project={project}
@@ -255,16 +261,37 @@ export const ForYou: React.FC = () => {
                 ))}
               {(!isTablet || showMobileList) &&
                 projects &&
-                projects.map((project, index) => (
-                  <ForYouListItem
-                    showMobileListCallback={setShowMobileList}
-                    key={`${project.id + index}`}
-                    project={project}
-                    isCheckingStats={project.id === projectByIdState?.id}
-                  />
+                projects.map((project, index) => {
+                  const isIncludedInFavs = favoriteProjects.find(
+                    (item) => item.id === project.id
+                  );
+
+                  if (!isIncludedInFavs) {
+                    return (
+                      <ForYouListItem
+                        showMobileListCallback={setShowMobileList}
+                        key={`${project.id + index}`}
+                        project={project}
+                        isCheckingStats={project.id === projectByIdState?.id}
+                      />
+                    );
+                  }
+                })}
+              {!isTablet ||
+                (showMobileList && (
+                  <div
+                    className="load-more-projects"
+                    onClick={() => setTakeProjects(takeProjects + 8)}
+                  >
+                    {loadMoreProjectsStatus === 'pending' ? (
+                      <Loader width={20} height={20} />
+                    ) : (
+                      <Typography>Load more...</Typography>
+                    )}
+                  </div>
                 ))}
             </div>
-            {isTablet && (filteredFavProjects || projects) && (
+            {isTablet && (hasFavProjects || projects) && (
               <ProjectsSliderMobile
                 // projectIDCallback={setSelectedProjectID}
                 favoriteProjects={favoriteProjects}
@@ -274,7 +301,7 @@ export const ForYou: React.FC = () => {
           </div>
         </div>
 
-        {favoriteProjects && favoriteProjects.length > 0 && (
+        {hasFavProjects && (
           <Top3FavElementsSlider
             isForYouProject
             topBull={(topBullProject && topBullProject) || favoriteProjects}
@@ -286,7 +313,7 @@ export const ForYou: React.FC = () => {
             }
           />
         )}
-        {!favoriteProjects ||
+        {!hasFavProjects ||
           (!Array.isArray(favoriteProjects) && (
             <div className="empty-dashboard">
               <Typography>

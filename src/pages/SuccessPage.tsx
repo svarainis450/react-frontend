@@ -16,7 +16,7 @@ import { LinkList } from '../types';
 import { icons } from '../utils/icons';
 import { images } from '../utils/images';
 
-import "./SuccessHero.scss";
+import './SuccessHero.scss';
 
 const TIME_UNTIL_ERROR = 6000;
 
@@ -50,30 +50,36 @@ export const SuccessPage: FC = memo(() => {
               <div className="SuccessHero__content">
                 <div className="SuccessHero__left">
                   <div className="SuccessHero__title">
-                    <img className="SuccessHero__img"  src={images.successIcon} />
+                    <img
+                      className="SuccessHero__img"
+                      src={images.successIcon}
+                    />
                     Thank you for your order
                   </div>
                   <div className="SuccessHero__subtitle">
-                    To start using your plan, please login to your Potato dashboard.
+                    To start using your plan, please login to your Potato
+                    dashboard.
                   </div>
 
-                  <Link to={LinkList.Login} className='SuccessHero__cta'>
-                    <Button>
-                      Login to your dashboard
-                    </Button>
+                  <Link to={LinkList.Login} className="SuccessHero__cta">
+                    <Button>Login to your dashboard</Button>
                   </Link>
                 </div>
 
-                <img className="SuccessHero__img"  src={images.successHeroImg} />
+                <img className="SuccessHero__img" src={images.successHeroImg} />
               </div>
 
               <div className="SuccessHero__subcontent">
-                We’ve also sent you a letter with <b>app access link</b> to your email <b>{user.email}</b> (Didn’t get the link? <Link to="#"><b>Try one more time</b></Link>)
+                We’ve also sent you a letter with <b>app access link</b> to your
+                email <b>{user.email}</b> (Didn’t get the link?{' '}
+                <Link to="#">
+                  <b>Try one more time</b>
+                </Link>
+                )
               </div>
             </div>
 
             <FormWrapper>
-              <OrderNumber margin="0 0 2rem 0">{user.orderId}</OrderNumber>
               <OrderSummary />
               <LinkTag to={LinkList.Landing}>
                 <Button>Go to the homepage</Button>

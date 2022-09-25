@@ -10,6 +10,7 @@ import { Project, Statuses } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 import {
+  deleteFavProject,
   deleteFromFavorites,
   getFavProjects,
   sendFavProjectOrInfluencer,
@@ -80,9 +81,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       setIsFavInstance(true);
       dispatch(getFavProjects({}));
     } else if ((isFavoriteProject || isFavInstance) && id) {
-      dispatch(
-        deleteFromFavorites({ id, callBack: setStatus, fav_type: 'project' })
-      );
+      dispatch(deleteFavProject({ id, callBack: setStatus }));
       setIsFavInstance(false);
     }
   };
@@ -108,13 +107,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               <img
                 className="icon"
                 src={img_url || icons.no_image}
-                alt="bitkoin"
+                alt={name}
               />
               <div>
                 <Typography className="title" weight={TypographyWeight.MEDIUM}>
                   {name}
                 </Typography>
-                <CategoryTag tagTitle={CategoryTags.coins} />
+                {/* @ts-ignore */}
+                <CategoryTag tagTitle={CategoryTags[type]} />
               </div>
             </div>
             {isTablet && !showMore && (

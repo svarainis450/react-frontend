@@ -48,22 +48,29 @@ export const ProjectsSliderMobile: React.FC<ProjectsSliderMobileProps> = ({
               <img
                 onClick={() => handleCheckStatsBtn(project.id)}
                 className="project-image"
-                src={project.img || icons.no_image}
+                src={project.img_url || icons.no_image}
                 alt={project.name}
               />
             </SwiperSlide>
           ))}
         {projects &&
-          projects.map((project) => (
-            <SwiperSlide>
-              <img
-                onClick={() => handleCheckStatsBtn(project.id)}
-                className="project-image"
-                src={project.img || icons.no_image}
-                alt={project.name}
-              />
-            </SwiperSlide>
-          ))}
+          projects.map((project) => {
+            const isInFavorites = favoriteProjects.find(
+              (item) => item.id === project.id
+            );
+            return (
+              !isInFavorites && (
+                <SwiperSlide>
+                  <img
+                    onClick={() => handleCheckStatsBtn(project.id)}
+                    className="project-image"
+                    src={project.img_url || icons.no_image}
+                    alt={project.name}
+                  />
+                </SwiperSlide>
+              )
+            );
+          })}
       </Swiper>
     </div>
   );

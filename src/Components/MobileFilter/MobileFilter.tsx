@@ -19,7 +19,7 @@ interface MobileFilterProps {
   whatFiltering?: 'projects' | 'influencers';
   projectsCallBack?: Dispatch<SetStateAction<ProjectFilterKeys>>;
   influencersCallBack?: Dispatch<SetStateAction<InfluencerFilterKeys>>;
-  categoryCallBack?: Dispatch<SetStateAction<CategoryTags | string>>;
+  categoryCallBack?: Dispatch<SetStateAction<CategoryTags | null>>;
   hasCategory?: boolean;
 }
 

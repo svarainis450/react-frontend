@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ForYouChart } from './forYouChart';
 import { filterDataObjectsByPeriod } from './ParsingHelper';
 import './mainScreen.css';
+import { EmptyChartStateComp } from '../ForYourElements/EmptyChartStateComp';
 
 export const toggleButtons = [
   {
@@ -29,6 +30,10 @@ export const ForYouChartView = ({
   chartVolume,
 }) => {
   const [graphToggleButtons, setGraphToggleButtons] = useState(toggleButtons);
+
+  if (!chartPrice || !chartSentiment || !chartTalkRate || !chartVolume) {
+    return <EmptyChartStateComp />;
+  }
 
   const chartData = filterDataObjectsByPeriod(
     chartPrice,

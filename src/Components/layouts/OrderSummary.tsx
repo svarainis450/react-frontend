@@ -5,60 +5,66 @@ import { UserContext } from '../../state/userContext';
 import { theme } from '../../theme';
 import { Box } from '../wrappers/Box';
 import { Flex } from '../wrappers/Flex';
-import { useCookies } from 'react-cookie'
+import { useCookies } from 'react-cookie';
 
-export const OrderSummary: FC = memo(() => {
-  const { user } = useContext(UserContext);
-  let totalPrice = Number(user.selectedPlan?.beginPrice);
-  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol'])
+interface OrderSummaryProps {
+  hideTitle?: boolean;
+}
 
-  return (
-    <>
-      <Subtitle margin="0 0 0.625rem 0">Order Summary</Subtitle>
+export const OrderSummary: FC<OrderSummaryProps> = memo(
+  ({ hideTitle = false }) => {
+    const { user } = useContext(UserContext);
+    let totalPrice = Number(user.selectedPlan?.begin_price);
+    const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
-      <Line margin="0 0 0.875rem 0" />
+    return (
+      <>
+        {!hideTitle && (
+          <Subtitle margin="2rem 0 0.625rem 0">Order Summary</Subtitle>
+        )}
+        <Line margin="0 0 0.875rem 0" />
 
-      <Background>
-        <Row margin="0 0 1rem 0">
-          <Regular>Subtotal</Regular>
-          <Regular>{getCookie?.currencySymbol}{`${
-            Number(user.selectedPlan?.beginPrice) -
-            Number(user.selectedPlan?.discount)
-          }.00`}</Regular>
-        </Row>
-        {user.selectedPlan?.discount ? (
+        <Background>
           <Row margin="0 0 1rem 0">
+            <Regular>Subtotal</Regular>
             <Regular>
-              {user.selectedPlan?.period} plan discount
-            </Regular>
-            <Regular>
-              {user.selectedPlan?.discount}.00
-            </Regular>
-          </Row>
-        ) : null}
-        {user.selectedPlan?.priceAfterDownsell ? (
-          <Row margin="0 0 1rem 0">
-            <Regular color="#FA5000">Additional discount</Regular>
-            <Regular color="#FA5000">
-              -
               {getCookie?.currencySymbol}
-              {parseFloat(
-                String(Number(user.selectedPlan?.beginPrice) * 0.15)
-              ).toFixed(2)}
+              {`${
+                Number(user.selectedPlan?.begin_price) -
+                Number(user.selectedPlan?.discount)
+              }.00`}
             </Regular>
           </Row>
-        ) : null}
+          {user.selectedPlan?.discount ? (
+            <Row margin="0 0 1rem 0">
+              <Regular>{user.selectedPlan?.billing_type} plan discount</Regular>
+              <Regular>{user.selectedPlan?.discount}.00</Regular>
+            </Row>
+          ) : null}
+          {user.selectedPlan?.priceAfterDownsell ? (
+            <Row margin="0 0 1rem 0">
+              <Regular color="#FA5000">Additional discount</Regular>
+              <Regular color="#FA5000">
+                -{getCookie?.currencySymbol}
+                {parseFloat(
+                  String(Number(user.selectedPlan?.begin_price) * 0.15)
+                ).toFixed(2)}
+              </Regular>
+            </Row>
+          ) : null}
 
-        <Row>
-          <Regular>Billed now</Regular>
-          <Regular>
-          {getCookie?.currencySymbol}{user.selectedPlan?.priceAfterDownsell || `${totalPrice}`}.00
-          </Regular>
-        </Row>
-      </Background>
-    </>
-  );
-});
+          <Row>
+            <Regular>Billed now</Regular>
+            <Regular>
+              {getCookie?.currencySymbol}
+              {user.selectedPlan?.priceAfterDownsell || `${totalPrice}`}.00
+            </Regular>
+          </Row>
+        </Background>
+      </>
+    );
+  }
+);
 
 OrderSummary.displayName = 'OrderSummary';
 

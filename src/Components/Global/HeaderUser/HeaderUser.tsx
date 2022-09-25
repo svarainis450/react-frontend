@@ -136,7 +136,7 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
       </div>
 
       <Link to={LinkList.PROFILE} className="HeaderUser__profile desktop">
-        <img src={userData.img || icons.no_profile_pic} alt="user img" />
+        <img src={userData.img_url || icons.no_profile_pic} alt="user img" />
       </Link>
     </div>
   );

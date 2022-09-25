@@ -29,40 +29,15 @@ interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];
   categoryCallback: Dispatch<SetStateAction<CategoryTags | undefined>>;
   filterTitle: string;
-  filter: SubmenuFilters;
 }
 
 export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   categoryCallback,
   filterTitle,
-  filter,
 }) => {
-  const dispatch = useAppDispatch();
-  const token = useSelector(userTokenSelector);
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
-  const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
-  const [selectCategory, setSelectCategory] = useState<
-    CategoryTags | undefined
-  >(undefined);
   const trendingProjects = useSelector(trendingProjectsSelector);
-
-  useEffect(() => {
-    if (token) {
-      dispatch(
-        fetchTrendingProjects({
-          filter: filter,
-          callBack: setTrendingStatus,
-          categoryFilter: selectCategory,
-          tokenValue: token,
-        })
-      );
-    }
-  }, [token, selectCategory, filter]);
-
-  if (trendingStatus === 'pending') {
-    return <Loader width={50} height={50} />;
-  }
 
   return (
     <div className="Category">
@@ -78,7 +53,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
         </Typography>
         <CustomSelectDropdown categoryCallBack={categoryCallback} />
       </div>
-      {isTablet && (
+      {isTablet && !showProjects && (
         <div
           className="Category__expand-toggle"
           onClick={() => setShowProjects(!showProjects)}
@@ -105,23 +80,40 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
             <ul className="Category__projects-wrapper">
               {trendingProjects.map(
                 (
-                  { category, project_name, mentions_num, img, place },
+                  {
+                    category,
+                    project_name,
+                    mentions_num,
+                    project_img_url,
+                    project_id,
+                  },
                   index
                 ) => (
                   <TrendingProjectCard
                     key={index}
-                    id={place}
+                    id={project_id}
                     rankNumber={index + 1}
                     projectTitle={project_name}
                     mentions={mentions_num}
                     categoryTitle={category as unknown as CategoryTags}
-                    img={img || icons.no_image}
+                    img={project_img_url || icons.no_image}
                   />
                 )
               )}
             </ul>
           ) : (
             <LoadError />
+          )}
+          {isTablet && showProjects && (
+            <div
+              className="Category__expand-toggle"
+              onClick={() => setShowProjects(!showProjects)}
+            >
+              <img src={icons.finger_tap} alt="Toggle projects" />
+              <Typography>
+                {showProjects ? 'tap to shrink' : 'tap to expand'}
+              </Typography>
+            </div>
           )}
         </>
       )}
