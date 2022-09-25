@@ -190,6 +190,15 @@ export const addLineWithGradient = (
     .attr('id', `gradientPathLine${ids.pathId}`);
 };
 
+export const getChartDimensionsCards = () => {
+  let width = d3.select('.graph-wrapper').style('width');
+  let height = width;
+  return {
+    width,
+    height,
+  };
+};
+
 export const getChartDimensions = () => {
   let width = d3.select('.plot-area').style('width');
   let height = d3.select('.plot-area').style('height');
