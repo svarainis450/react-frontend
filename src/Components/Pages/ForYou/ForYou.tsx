@@ -41,6 +41,7 @@ import { useForYouPageData, useMediaQuery, useProjectFilters } from 'src/hooks';
 import { Top3FavElementsSlider } from 'src/Components/Global/ForYourElements/Top3FavElementsSlider';
 import { setModalType } from 'src/state/reduxstate/modals/slice';
 import { ModalTypes } from 'src/state/reduxstate/modals/types';
+import { is } from 'cheerio/lib/api/traversing';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -138,17 +139,22 @@ export const ForYou: React.FC = () => {
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.target.value.length >= 3) {
-      setProjectsFilter(ProjectFilterKeys.NAME);
-      setNameFilter(e.target.value);
-    } else if (e.target.value.length === 0) {
-      setProjectsFilter(ProjectFilterKeys.NONE);
-      setNameFilter(null);
+
+    if (!isPotatoStarter) {
+      if (e.target.value.length >= 3) {
+        setProjectsFilter(ProjectFilterKeys.NAME);
+        setNameFilter(e.target.value);
+      } else if (e.target.value.length === 0) {
+        setProjectsFilter(ProjectFilterKeys.NONE);
+        setNameFilter(null);
+      }
     }
   };
 
-  const handlePremiumModal = () => {
-    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+  const handleUpgradeModal = () => {
+    if (isPotatoStarter) {
+      dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+    }
   };
 
   return (
@@ -192,7 +198,7 @@ export const ForYou: React.FC = () => {
               </div>
             )}
             {(!isTablet || !showMobileList) && (
-              <div className="input-wrapper">
+              <div className="input-wrapper" onClick={handleUpgradeModal}>
                 <img
                   className="input-wrapper__magnifier"
                   src={icons.search_magnifier}
@@ -206,6 +212,7 @@ export const ForYou: React.FC = () => {
                     handleNameInputChange(e)
                   }
                   onFocus={() => setShowMobileList(true)}
+                  disabled={isPotatoStarter}
                 />
               </div>
             )}
