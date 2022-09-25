@@ -49,6 +49,7 @@ import coin_base from '../Assets/icons/coin_base_icon.svg';
 import open_sea from '../Assets/icons/open_sea_icon.svg';
 import top_expert from '../Assets/icons/top_expert.svg';
 import top_expert_mobile from '../Assets/icons/top_expert_mobile.svg';
+import nft_symbol from '../Assets/icons/nft_symbol.svg';
 
 //Influencers page icons
 import first_mover from '../Assets/icons/first_mover.svg';
@@ -80,6 +81,7 @@ import rocket_ticket from '../Assets/images/rocketTicket.svg';
 import premium_modal from '../Assets/icons/premium_modal.svg';
 
 export const icons = {
+  nft_symbol,
   premium_modal,
   rocket_ticket,
   input_arrow_filled,

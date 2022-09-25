@@ -48,6 +48,7 @@ export interface Project {
   max_scraped_tweet_id: number;
   name: string;
   symbol?: string;
+  price: string;
   type: CategoryTags;
   talk_rate_score: number;
   sentiment_score: number;
@@ -107,6 +108,7 @@ export interface Project {
 }
 
 export interface TrendingProject {
+  id: number;
   place: number;
   category: CategoryTags;
   project_name: string;
@@ -114,7 +116,6 @@ export interface TrendingProject {
   mentions_num: number;
   project_img_url: string;
   //TODO: REMOVE
-  id: number;
   name: string;
   ticker: string;
   additional: string;
@@ -191,6 +192,7 @@ export enum PaymentDetailTypes {
 export type SubmenuFilters = 'daily' | 'weekly' | 'upcomming';
 
 export interface TopOrLowestProject {
+  id: number;
   category: CategoryTags;
   place: number;
   project_name: string;

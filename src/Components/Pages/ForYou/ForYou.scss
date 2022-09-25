@@ -44,6 +44,7 @@
         padding: 16px 30px;
         max-width: 420px;
         max-height: 444px;
+        height: 444px;
 
         overflow-y: scroll;
         border-radius: 10px;
@@ -67,6 +68,20 @@
         @include desktop {
           position: static;
           all: unset;
+        }
+      }
+
+      .load-more-projects {
+        margin: 16px 0 0;
+        width: 100%;
+        cursor: pointer;
+        text-align: center;
+
+        p {
+          color: var(--color-grey-text);
+          font-size: 0.875rem;
+          font-weight: 500;
+          text-align: center;
         }
       }
 

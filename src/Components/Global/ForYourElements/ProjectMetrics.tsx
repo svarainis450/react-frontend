@@ -16,6 +16,8 @@ interface Props {
 }
 export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
   const { isTablet } = useMediaQuery();
+  const isNftProject = projectByIdProp.type === CategoryTags.nft;
+  const priceTitle = isNftProject ? 'Floor price' : '';
 
   return (
     <div className="metrics-wrapper ">
@@ -95,22 +97,37 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
             // onClick={() => setShowInfo(true)}
           />
         </div>
-        <div className="Metrics metrics-flex bordered centered prices">
-          <Typography
-            variant={TypographyVariant.DEFAULT}
-            weight={TypographyWeight.MEDIUM}
-          >
-            1 DOGE
-          </Typography>
-          <img
-            className="exchange-icon"
-            src={icons.transfer_arrows}
-            alt="exchange rate"
-          />
-          <Typography className="price-title" weight={TypographyWeight.MEDIUM}>
-            $ 0.092
-          </Typography>
-        </div>
+        {isNftProject ? (
+          <div className="Metrics metrics-flex bordered centered prices nft">
+            <img src={icons.nft_symbol} alt="nft symbol" />
+            <Typography
+              className="price-title"
+              weight={TypographyWeight.MEDIUM}
+            >
+              {projectByIdProp.price}
+            </Typography>
+          </div>
+        ) : (
+          <div className="Metrics metrics-flex bordered centered prices">
+            <Typography
+              variant={TypographyVariant.DEFAULT}
+              weight={TypographyWeight.MEDIUM}
+            >
+              1 {projectByIdProp.symbol}
+            </Typography>
+            <img
+              className="exchange-icon"
+              src={icons.transfer_arrows}
+              alt="exchange rate"
+            />
+            <Typography
+              className="price-title"
+              weight={TypographyWeight.MEDIUM}
+            >
+              $ {projectByIdProp.price}
+            </Typography>
+          </div>
+        )}
       </div>
     </div>
   );

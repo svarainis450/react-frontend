@@ -30,7 +30,6 @@ export const ForYouChartView = ({
   chartVolume,
 }) => {
   const [graphToggleButtons, setGraphToggleButtons] = useState(toggleButtons);
-  console.log(chartPrice);
 
   if (!chartPrice || !chartSentiment || !chartTalkRate || !chartVolume) {
     return <EmptyChartStateComp />;

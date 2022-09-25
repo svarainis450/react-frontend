@@ -39,6 +39,7 @@ export const fetchProjectById = createAsyncThunk(
         })
           .then((res) => res.json())
           .then((res) => {
+            console.log(res);
             dispatch(setProjectById(res.data));
           });
       } catch (e) {
@@ -52,7 +53,6 @@ interface ProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;
   filter?: string;
   skip?: number | null;
-  filterValue?: string;
 }
 
 const token = JSON.parse(String(localStorage.getItem('token')));
@@ -155,6 +155,8 @@ export const fetchTrendingProjects = createAsyncThunk(
           },
         }).then((res) => res.json());
         callBack('success');
+
+        console.log(resp);
         return resp.data;
       } catch (e) {
         console.log(e);
