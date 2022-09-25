@@ -123,7 +123,7 @@ export const Trends: React.FC = () => {
                 title="List of influencers and their picks"
                 subtitle={filterTitle}
               >
-                <InfluencersTable />
+                <InfluencersTable filter={filter} />
               </CardWrapper>
             </section>
           </>

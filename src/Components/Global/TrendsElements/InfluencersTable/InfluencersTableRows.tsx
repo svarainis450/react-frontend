@@ -28,18 +28,6 @@ interface InfluencersTableRowProps {
 export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
   influencersData,
 }) => {
-  const [imgErr, setImgErr] = useState({
-    id: null as unknown as number,
-    isErr: false,
-  });
-  const [imgurl, setImgUrl] = useState('');
-
-  const newData = influencersData.map((item) =>
-    isImgUrl(item.twitter_user.twitter_img_url).then((res) => res)
-  );
-
-  console.log(newData);
-
   return (
     <div className="influencers-picks__influencers-table">
       <div className="influencers-picks__influencers-table__row titles">
@@ -69,19 +57,15 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                 className="influencers-picks__influencers-table__row"
               >
                 <div className="influencers-picks__influencers-table__row__influencer">
-                  {
-                    <img
-                      // onError={() =>
-                      //   setImgErr({
-                      //     id: twitter_user.id,
-                      //     isErr: true,
-                      //   })
-                      // }
-                      className="icon"
-                      alt={twitter_user.twitter_username || 'Influencer'}
-                      src={twitter_user.twitter_img_url}
-                    />
-                  }
+                  <img
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = icons.no_image;
+                    }}
+                    className="icon"
+                    alt={twitter_user.twitter_username || 'Influencer'}
+                    src={twitter_user.twitter_img_url}
+                  />
                   <div>
                     <Typography className="influencers-picks__influencers-table__row__influencer__tag-name">
                       {twitter_user.twitter_displayname}

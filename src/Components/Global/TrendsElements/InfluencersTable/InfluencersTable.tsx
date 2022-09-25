@@ -6,6 +6,7 @@ import { trendingInfluencersSelector } from 'src/state/reduxstate/influencers/se
 import { fetchTrendingInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import {
   InfluencerFilterKeys,
+  SubmenuFilters,
   tags,
 } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
@@ -25,12 +26,19 @@ const FILTERS = [
   // { title: 'Bullseye', key: InfluencerFilterKeys.BULLSEYE },
 ];
 
-export const InfluencersTable: React.FC = () => {
+interface InfluencersTableProps {
+  filter: SubmenuFilters;
+}
+
+export const InfluencersTable: React.FC<InfluencersTableProps> = ({
+  filter,
+}) => {
   const dispatch = useAppDispatch();
   const token = useSelector(userTokenSelector);
   const trendingInfluencersData = useSelector(trendingInfluencersSelector);
   const trendingInfluencers = trendingInfluencersData.trending_influencers;
   const [takeProjects, setTakeProjects] = useState(0);
+  const [nameFilter, setNameFilter] = useState<null | string>(null);
   const [inflFilterValue, setInflFilterValue] =
     useState<InfluencerFilterKeys | null>(null);
   const [categoryFilterValue, setCategoryFilterValue] =
@@ -44,16 +52,25 @@ export const InfluencersTable: React.FC = () => {
     if (token) {
       dispatch(
         fetchTrendingInfluencers({
-          dateFilter: 'daily',
+          dateFilter: filter,
           tokenValue: token,
           skip: takeProjects,
           take: 10,
+          filterByName: nameFilter,
           filterByFollowers: inflFilterValue === InfluencerFilterKeys.FOLLOWERS,
           filterByCategoryValue: categoryFilterValue,
         })
       );
     }
-  }, [dispatch, takeProjects, token, categoryFilterValue, inflFilterValue]);
+  }, [
+    filter,
+    dispatch,
+    takeProjects,
+    token,
+    categoryFilterValue,
+    inflFilterValue,
+    nameFilter,
+  ]);
 
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -62,7 +79,11 @@ export const InfluencersTable: React.FC = () => {
 
   const handleNameInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log('name filter');
+    if (e.target.value.length >= 3) {
+      setNameFilter(e.target.value);
+    } else if (e.target.value.length === 0) {
+      setNameFilter(null);
+    }
   };
 
   const handlePrevousBtn = () => {

@@ -115,7 +115,7 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
             {isTablet && (
               <TalkRateElement
                 rate={influence_score}
-                type="bullseye"
+                type="influence"
                 isBiggerBullseye
               />
             )}

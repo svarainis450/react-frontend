@@ -45,6 +45,7 @@ export interface SelectedPlan {
   begin_price: number;
   billing_type: 'monthly' | 'yearly';
   plan: PlanType;
+  stripe_price_id?: string;
 }
 
 export type PlanType = 'Potato Starter' | 'Potato Pro';

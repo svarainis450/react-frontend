@@ -2,7 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import { TrendsProjectsByInfluencersPayload } from '../projects/thunks';
-import { Statuses, TrendsDateFilterType } from '../projects/types';
+import {
+  Statuses,
+  SubmenuFilters,
+  TrendsDateFilterType,
+} from '../projects/types';
 import { RootState } from '../slice';
 import { apiv1 } from '../types';
 import { FavInfluencersProjectsPayload } from '../user/types';
@@ -35,11 +39,12 @@ export const fetchProjectsPick = createAsyncThunk(
 
 export interface TrendingInfluencersPayload {
   tokenValue: string;
-  dateFilter: TrendsDateFilterType;
+  dateFilter: SubmenuFilters;
   skip: number | null;
   take: number;
   filterByFollowers: boolean;
   filterByCategoryValue: string | null;
+  filterByName?: string | null;
 }
 
 export const fetchTrendingInfluencers = createAsyncThunk(
@@ -52,6 +57,7 @@ export const fetchTrendingInfluencers = createAsyncThunk(
       take,
       filterByCategoryValue,
       filterByFollowers,
+      filterByName,
     }: TrendingInfluencersPayload,
     { dispatch }
   ) => {
@@ -62,9 +68,11 @@ export const fetchTrendingInfluencers = createAsyncThunk(
       ? `&category=${filterByCategoryValue.toLocaleLowerCase()}`
       : '';
 
+    const filterByNameValue = filterByName ? `&name=${filterByName}` : '';
+
     const url = skip
-      ? `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=${take}&skip=${skip}${filterByFollowersValue}${filterByCategory}`
-      : `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10${filterByFollowersValue}${filterByCategory}`;
+      ? `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=${take}&skip=${skip}${filterByFollowersValue}${filterByCategory}${filterByNameValue}`
+      : `${apiv1}/trends/trending-twitter-user-project-${dateFilter}?take=10${filterByFollowersValue}${filterByCategory}${filterByNameValue}`;
 
     if (tokenValue) {
       try {

@@ -57,6 +57,10 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
                     className="icon"
                     src={twitter_user.twitter_img_url || icons.no_image}
                     alt={twitter_user.name}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = icons.no_image;
+                    }}
                   />
                   <div>
                     <Typography className="project-picks__row__influencer__tag-name">

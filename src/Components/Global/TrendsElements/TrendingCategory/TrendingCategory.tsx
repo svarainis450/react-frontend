@@ -38,7 +38,6 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
   const { isTablet } = useMediaQuery();
   const [showProjects, setShowProjects] = useState(false);
   const trendingProjects = useSelector(trendingProjectsSelector);
-  console.log(trendingProjects);
 
   return (
     <div className="Category">
@@ -54,7 +53,7 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
         </Typography>
         <CustomSelectDropdown categoryCallBack={categoryCallback} />
       </div>
-      {isTablet && (
+      {isTablet && !showProjects && (
         <div
           className="Category__expand-toggle"
           onClick={() => setShowProjects(!showProjects)}
@@ -104,6 +103,17 @@ export const TrendingCategory: React.FC<TrendingCategoryProps> = ({
             </ul>
           ) : (
             <LoadError />
+          )}
+          {isTablet && showProjects && (
+            <div
+              className="Category__expand-toggle"
+              onClick={() => setShowProjects(!showProjects)}
+            >
+              <img src={icons.finger_tap} alt="Toggle projects" />
+              <Typography>
+                {showProjects ? 'tap to shrink' : 'tap to expand'}
+              </Typography>
+            </div>
           )}
         </>
       )}
