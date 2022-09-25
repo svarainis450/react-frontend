@@ -45,6 +45,8 @@ interface ProjectCardProps
     | 'coinbase_url'
     | 'nft_address'
     | 'img_url'
+    | 'chart_talk_rate'
+    | 'chart_sentiment'
     | 'type'
   > {}
 
@@ -59,6 +61,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   talk_rate_score,
   sentiment_score,
   bull_bear_score,
+  chart_talk_rate,
+  chart_sentiment,
   type,
 }) => {
   const dispatch = useAppDispatch();
@@ -167,7 +171,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 </div>
               </div>
               <div className="graph-wrapper">
-                {/* <CardChart projectId={id} /> */}
+                <CardChart
+                  projectId={id}
+                  chart_talk_rate={chart_talk_rate}
+                  chart_sentiment={chart_sentiment}
+                />
               </div>
               <PositiveBullsBlock
                 sentiment_score={sentiment_score}
