@@ -10,9 +10,19 @@ import { genChart } from './forYouChart';
 import {
   getIntervalDomain,
   getChartDimensions,
+  getChartDimensionsCards,
 } from './ChartElements/ChartCreateElements';
 
+const intervalMapper = {
+  '3H': 'threeHours',
+  '1D': 'oneDay',
+  '1W': 'oneWeek',
+  '1M': 'oneMonth',
+  '3M': 'threeMonths',
+};
+
 const getCanvasSvg = (projectId, width, height, margin) => {
+  d3.select(`.chart-area-${projectId}`).selectAll('svg').remove();
   const svg = d3
     .select(`.chart-area-${projectId}`)
     .append('svg')
@@ -36,9 +46,11 @@ const addLineNoGradient = (
   data,
   isSpline
 ) => {
+  console.log('I am fired');
+  // console.log(d3.select(`.chart-area-${projectId}`).selectAll('*').remove());
   let line = d3
     .line()
-    .x((d) => xScale(d.date))
+    .x((d) => xScale(d.datetime))
     .y((d) => yScale(d.value));
   line = isSpline ? line.curve(d3.curveCatmullRom.alpha(0.1)) : line;
 
@@ -121,7 +133,66 @@ export const genCardChart = (
   const domain = getIntervalDomain(chartData, interval);
   const svg = getCanvasSvg(projectId, width, height, margin);
   const xScale = d3.scaleTime().domain(domain).range([0, width]);
-  console.log(chartData);
+  const sentimentName =
+    'sentiment' +
+    intervalMapper[interval].charAt(0).toUpperCase() +
+    intervalMapper[interval].slice(1);
+  const talkRateName =
+    'talkRate' +
+    intervalMapper[interval].charAt(0).toUpperCase() +
+    intervalMapper[interval].slice(1);
+  // console.log(chartData[intervalMapper[interval]][sentimentName]);
+  const sentimentData = chartData[intervalMapper[interval]][sentimentName];
+  const talkRateData = chartData[intervalMapper[interval]][talkRateName];
+  if (sentimentData && sentimentData.length > 2) {
+    const yScaleSentiment = d3
+      .scaleLinear()
+      .domain([
+        d3.min(sentimentData, (d) => d.value),
+        d3.max(sentimentData, (d) => d.value),
+      ])
+      .range([height, 0]);
+
+    addLineNoGradient(
+      svg,
+      xScale,
+      yScaleSentiment,
+      '#2B59D1',
+      'Sentiment',
+      projectId,
+      sentimentData,
+      true
+    );
+  }
+  if (talkRateData && talkRateData.length > 2) {
+    const yScaleTalkRate = d3
+      .scaleLinear()
+      .domain([
+        d3.min(talkRateData, (d) => d.value),
+        d3.max(talkRateData, (d) => d.value),
+      ])
+      .range([height, 0]);
+
+    addLineNoGradient(
+      svg,
+      xScale,
+      yScaleTalkRate,
+      '#2BD130',
+      'Mentions',
+      projectId,
+      talkRateData,
+      true
+    );
+
+    svg
+      .append('svg:line')
+      .attr('x1', 0)
+      .attr('x2', width)
+      .attr('y1', height / 2)
+      .attr('y2', height / 2)
+      .attr('stroke-dasharray', `2, 2`)
+      .style('stroke', 'rgb(189, 189, 189)');
+  }
 };
 
 export const margin = {
@@ -131,29 +202,20 @@ export const margin = {
   right: 0,
 };
 
-export const CardChart = ({
-  projectId,
-  chartPrice,
-  chartSentiment,
-  chartTalkRate,
-  chartVolume,
-}) => {
+export const CardChart = ({ projectId, chart_talk_rate, chart_sentiment }) => {
   const [windowSize, setWindowSize] = useState(getWindowSize());
   const [interval, setInterval] = useState('1M');
-  const [activeToggleButtons, setActiveToggleButtons] = useState([1, 1]);
-  const [chartDimensions, setChartDimensions] = useState(null);
+  // const [activeToggleButtons, setActiveToggleButtons] = useState([1, 1]);
+  // const [chartDimensions, setChartDimensions] = useState(null);
 
   const chartData = filterDataObjectsByPeriod(
-    chartPrice,
-    chartSentiment,
-    chartTalkRate,
-    chartVolume
+    null,
+    chart_sentiment,
+    chart_talk_rate,
+    null
   );
+
   const buttonIntervals = ['3H', '1D', '1W', '1M', '3M'];
-  let width = d3.select('.project-card').style('width');
-  let height = width;
-  width = parseInt(width) - margin.left - margin.right;
-  height = width / 3.52;
 
   useEffect(() => {
     window.addEventListener('resize', () => {
@@ -167,13 +229,14 @@ export const CardChart = ({
   }, []);
 
   useEffect(() => {
-    setChartDimensions(getChartDimensions());
-  }, [windowSize]);
-
-  useEffect(() => {
-    if (chartDimensions)
+    let width = d3.select(`.project-card`)?.style('width');
+    let height = width;
+    width = parseInt(width) - margin.left - margin.right;
+    height = width / 3.52;
+    if (height && width)
       genCardChart(projectId, chartData, interval, width, height, margin);
-  }, []);
+    console.log(width);
+  }, [chartData, interval, windowSize]);
 
   return (
     <>
@@ -188,13 +251,13 @@ export const CardChart = ({
                   'opacity',
                   1
                 );
-                setActiveToggleButtons([1, 1]);
+                // setActiveToggleButtons([1, 1]);
               } else {
                 d3.select(`#gradientPathLineSentiment${projectId}`).style(
                   'opacity',
                   0
                 );
-                setActiveToggleButtons([0, 1]);
+                // setActiveToggleButtons([0, 1]);
               }
             }}
           />
@@ -210,13 +273,13 @@ export const CardChart = ({
                   'opacity',
                   1
                 );
-                setActiveToggleButtons([1, 1]);
+                // setActiveToggleButtons([1, 1]);
               } else {
                 d3.select(`#gradientPathLineMentions${projectId}`).style(
                   'opacity',
                   0
                 );
-                setActiveToggleButtons([1, 0]);
+                // setActiveToggleButtons([1, 0]);
               }
             }}
           />
@@ -231,7 +294,7 @@ export const CardChart = ({
               key={idx}
               onClick={(event) => {
                 if (event.target.textContent !== interval) {
-                  d3.select(`.chart-svg-${projectId}`).remove();
+                  d3.select(`chart-area-${projectId}`).selectAll('*').remove();
                 }
                 setInterval(event.target.textContent);
               }}
@@ -244,7 +307,7 @@ export const CardChart = ({
               key={idx}
               onClick={(event) => {
                 if (event.target.textContent !== interval) {
-                  d3.select(`.chart-svg-${projectId}`).remove();
+                  d3.select(`chart-area-${projectId}`).selectAll('*').remove();
                 }
                 setInterval(event.target.textContent);
               }}
