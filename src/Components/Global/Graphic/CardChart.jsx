@@ -235,7 +235,6 @@ export const CardChart = ({ projectId, chart_talk_rate, chart_sentiment }) => {
     height = width / 3.52;
     if (height && width)
       genCardChart(projectId, chartData, interval, width, height, margin);
-    console.log(width);
   }, [chartData, interval, windowSize]);
 
   return (

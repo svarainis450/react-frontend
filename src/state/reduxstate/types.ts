@@ -11,4 +11,4 @@ export const demoToken =
 
 export const apiv1 = 'http://188.166.2.245/api/v1';
 
-export const apiv2 = 'http://188.166.2.245/api/v1';
+export const apiv2 = 'https://api.potato.to/api/v1';
