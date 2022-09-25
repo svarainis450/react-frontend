@@ -112,8 +112,8 @@
     &__market-info {
       position: absolute;
       top: -30px;
-      left: 0;
-      width: 100vw;
+      left: 35px;
+      width: 90vw;
 
       @media (min-width: 1024px) {
         width: 500px;
@@ -121,6 +121,8 @@
       }
 
       .show-info {
+        padding: 40px 40px 60px;
+
         left: unset;
         top: 90px;
 

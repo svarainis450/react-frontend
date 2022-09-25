@@ -48,9 +48,9 @@ import { Elements } from '@stripe/react-stripe-js';
 import { fetchTotalSentiment } from './state/reduxstate/projects/thunks';
 import { Modals } from './modals';
 
-const stripePromise = loadStripe(
-  'pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGdxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk'
-);
+const secretKey = process.env.STRIPE_SECRET_KEY;
+
+const stripePromise = secretKey && loadStripe(secretKey);
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -99,7 +99,7 @@ const App = () => {
       <BrowserRouter>
         <ScrollOnNavigation />
         {
-          <Elements stripe={stripePromise}>
+          <Elements stripe={stripePromise || null}>
             <Modals />
             <Routes>
               <Route>

@@ -113,7 +113,10 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
           />
         )}
         {showMarketDesc && (
-          <div className="HeaderUser__market-tag-wrapper__market-info">
+          <div
+            className="HeaderUser__market-tag-wrapper__market-info"
+            onClick={() => setShowMarketDesc(false)}
+          >
             <InfoBlock
               showInfoBlock={showMarketDesc}
               infoTitle="What’s the overall social sentiment?"
@@ -129,7 +132,6 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
                   calculate indexes like Talk Rate and Bull v.s. Bear
                 </>
               }
-              onCloseClick={() => setShowMarketDesc(false)}
             />
           </div>
         )}

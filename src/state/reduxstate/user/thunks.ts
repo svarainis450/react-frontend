@@ -40,7 +40,7 @@ export const fetchUserData = createAsyncThunk(
 
 export const updateUserInfo = createAsyncThunk(
   'user/UPDATE_USER_DATA',
-  async (data: UserUpdateType) => {
+  async (data: UserUpdateType, { dispatch }) => {
     if (token) {
       try {
         const resp = await fetch(`${apiv1}/users`, {
@@ -51,6 +51,7 @@ export const updateUserInfo = createAsyncThunk(
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
+        dispatch(fetchUserData(token));
 
         console.log(resp);
 

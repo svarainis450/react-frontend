@@ -9,6 +9,7 @@ import {
 } from '../projects/types';
 import { RootState } from '../slice';
 import { apiv1 } from '../types';
+import { getFavInfluencers } from '../user/thunks';
 import { FavInfluencersProjectsPayload } from '../user/types';
 import { setInfluencersData, setTrendingInfluencers } from './slice';
 import { InfluencerData } from './types';
@@ -161,7 +162,7 @@ export const fetchInfluencers = createAsyncThunk(
 
 export const sendFavInfluencer = createAsyncThunk(
   'influencers/POST_FAV_INFLUENCER',
-  async ({ id, callBack }: FavInfluencersProjectsPayload) => {
+  async ({ id, callBack }: FavInfluencersProjectsPayload, { dispatch }) => {
     if (token) {
       try {
         callBack && callBack('pending');
@@ -178,6 +179,8 @@ export const sendFavInfluencer = createAsyncThunk(
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
+
+        dispatch(getFavInfluencers());
 
         callBack && callBack('success');
 
