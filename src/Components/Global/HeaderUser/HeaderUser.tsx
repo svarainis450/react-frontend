@@ -30,6 +30,7 @@ import { pathColorHandler } from 'src/utils/styleHelpers';
 import { AddProjectManually } from './AddProjectManually/AddProjectManually';
 import { fetchTotalSentiment } from 'src/state/reduxstate/projects/thunks';
 import { totalSentimentSelector } from 'src/state/reduxstate/projects/selectors';
+import { isLoggedIn } from 'src/Common/utils/isLoggedIn';
 
 export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
   const dispatch = useAppDispatch();
@@ -50,7 +51,7 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
 
   return (
     <div className="HeaderUser">
-      <Link to="/">
+      <Link to={isLoggedIn() ? LinkList.TRENDS : '/'}>
         <img src={Logo} alt="logo" className="desktop" />
       </Link>
 
@@ -58,7 +59,10 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
         <NavigationToggler onMenuToggle={onMenuToggle} />
       </div>
 
-      <Link to="/" className="HeaderUser__mobile-logo mobile">
+      <Link
+        to={isLoggedIn() ? LinkList.TRENDS : '/'}
+        className="HeaderUser__mobile-logo mobile"
+      >
         <img src={Logo} alt="logo" />
       </Link>
 

@@ -90,7 +90,7 @@ export const AddToCardPage: FC = memo(() => {
 
   return !user.selectedPlan ? null : (
     <>
-      <LayoutWithHeader onClick={handleLogoClick}>
+      <LayoutWithHeader showLoginOption onClick={handleLogoClick}>
         <FlexStyled ref={myRef} isDownsell={showDownsell}>
           {isTablet ? null : <OurPromise />}
           <SubscriptionLayout onBack={handleLogoClick}>

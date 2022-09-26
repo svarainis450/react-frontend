@@ -10,6 +10,7 @@ import { Button } from '../Button';
 
 import Logo from '../../../Assets/images/logo.svg';
 import './Header.scss';
+import { isLoggedIn } from 'src/Common/utils/isLoggedIn';
 
 export const Header = ({ onMenuToggle }: HeaderProps) => {
   return (
@@ -22,7 +23,10 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
         <NavigationToggler onMenuToggle={onMenuToggle} />
       </div>
 
-      <Link to="/" className="Header__mobile-logo mobile">
+      <Link
+        to={isLoggedIn() ? LinkList.TRENDS : '/'}
+        className="Header__mobile-logo mobile"
+      >
         <img src={Logo} alt="logo" />
       </Link>
 
