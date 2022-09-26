@@ -28,7 +28,7 @@ const CheckoutForm = () => {
     customer_description: 'customer',
     phone: 'we do not collect phone data yet',
   };
-
+  console.log(elements);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -96,7 +96,7 @@ const CheckoutForm = () => {
           />
         </div>
         <div className="card-wrapper">
-          <CardElement />
+          <CardElement aria="aria-enabled" />
         </div>
         <button disabled={isLoading || !stripe || !elements} id="submit">
           <span id="button-text">

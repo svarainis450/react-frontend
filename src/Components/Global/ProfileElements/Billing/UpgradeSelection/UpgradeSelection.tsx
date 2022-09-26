@@ -6,16 +6,24 @@ import './UpgradeSelection.scss';
 
 type Selection = 'Monthly' | 'Yearly';
 
-export const UpgradeSelection: React.FC = () => {
+interface UpgradeSelectionProps {
+  hideTitle?: boolean;
+}
+
+export const UpgradeSelection: React.FC<UpgradeSelectionProps> = ({
+  hideTitle = false,
+}) => {
   const [selectedPlan, setSelectedPlan] = useState<Selection>('Yearly');
   const isMonthly = selectedPlan === 'Monthly';
   const discount = 25;
 
   return (
     <div className="upgrade-selection">
-      <Typography className="upgrade-selection__title">
-        Upgrade to Potato Pro
-      </Typography>
+      {!hideTitle && (
+        <Typography className="upgrade-selection__title">
+          Upgrade to Potato Pro
+        </Typography>
+      )}
       <div className="upgrade-selection__select-wrapper">
         <label
           className={`upgrade-selection__select-wrapper__selection ${
