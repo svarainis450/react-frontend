@@ -89,7 +89,6 @@ export const ForYouChartView = ({
         break;
     }
   };
-  console.log(showInfoBlock);
   return (
     <div className="main-screen">
       <div className="toggle-buttons">

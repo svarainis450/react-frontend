@@ -2,7 +2,14 @@ import React from 'react';
 import './infoBlocks.scss';
 
 interface InfoBlocksProps {
-  infoType: 'sentiment' | 'mentions' | 'volume' | 'price';
+  infoType:
+    | 'sentiment'
+    | 'mentions'
+    | 'volume'
+    | 'price'
+    | 'talk_rate'
+    | 'bull'
+    | 'positive_negative';
 }
 
 export const InfoBlocks: React.FC<InfoBlocksProps> = ({ infoType }) => {
@@ -13,6 +20,10 @@ export const InfoBlocks: React.FC<InfoBlocksProps> = ({ infoType }) => {
       'The volume of the mentions of the product within different social networks',
     volume: 'Total amount of crypto exchanged',
     price: 'Price of the product',
+    talk_rate:
+      'Talk Rate summarizes which projects are most often discussed among crypto experts and the community.',
+    bull: 'Bull v.s. Bear spots whether the project is Bullish, meaning is on the rise, or Bearish, meaning it is declining in value.',
+    positive_negative: `Positive v.s. A negative Index shows whether people are more positive or negative about the project's growth.`,
   };
   return (
     <div className={`tgl-btns-info ${infoType}`}>
