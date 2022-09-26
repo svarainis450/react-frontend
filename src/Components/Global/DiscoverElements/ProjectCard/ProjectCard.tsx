@@ -48,10 +48,12 @@ interface ProjectCardProps
     | 'chart_talk_rate'
     | 'chart_sentiment'
     | 'type'
+    | 'price'
   > {}
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
   id,
+  price,
   name,
   first_historical_data,
   img_url,
@@ -76,6 +78,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
   const [status, setStatus] = useState<Statuses>('idle');
+  const [showSentimentInfo, setShowSentimentInfo] = useState(false);
   const url = nft_address || coinbase_url || null;
   const urlBtnType = nft_address ? 'opensea' : 'coinbase';
 
@@ -90,7 +93,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     }
   };
 
-  const handleLearnMoreBtn = () => {
+  const hanldeGoToForYou = () => {
     if (id) {
       dispatch(fetchProjectById({ id })).then(() => navigate(LinkList.FORYOU));
     }
@@ -107,7 +110,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       <CardWrapper>
         <div className="project-card">
           <div className="flex border-wrapper">
-            <div className="flex icon-project">
+            <div className="flex icon-project" onClick={hanldeGoToForYou}>
               <img
                 className="icon"
                 src={img_url || icons.no_image}
@@ -136,20 +139,37 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 
           {(!isTablet || showMore) && (
             <>
-              <div className="border-wrapper">
-                <Typography
-                  className="grey-text"
-                  variant={TypographyVariant.TEXT_SMALL}
-                  weight={TypographyWeight.MEDIUM}
-                >
-                  Project started
-                </Typography>
-                <Typography
-                  variant={TypographyVariant.HEADING_SMALL}
-                  weight={TypographyWeight.BOLD700}
-                >
-                  {formatDate(first_historical_data)}
-                </Typography>
+              <div className="border-wrapper flex flex-start">
+                <div>
+                  <Typography
+                    className="grey-text"
+                    variant={TypographyVariant.TEXT_SMALL}
+                    weight={TypographyWeight.MEDIUM}
+                  >
+                    Project started
+                  </Typography>
+                  <Typography
+                    variant={TypographyVariant.HEADING_SMALL}
+                    weight={TypographyWeight.BOLD700}
+                  >
+                    {formatDate(first_historical_data)}
+                  </Typography>
+                </div>
+                <div>
+                  <Typography
+                    className="grey-text"
+                    variant={TypographyVariant.TEXT_SMALL}
+                    weight={TypographyWeight.MEDIUM}
+                  >
+                    Current price
+                  </Typography>
+                  <Typography
+                    variant={TypographyVariant.HEADING_SMALL}
+                    weight={TypographyWeight.BOLD700}
+                  >
+                    ${price}
+                  </Typography>
+                </div>
               </div>
               <div className="flex border-wrapper">
                 <TalkRateElement rate={talk_rate_score} />
@@ -171,6 +191,35 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 </div>
               </div>
               <div className="graph-wrapper">
+                <img
+                  src={icons.info_label_grey}
+                  alt="sentiment-info"
+                  className="sentiment-info-icon"
+                  onMouseOver={() => setShowSentimentInfo(true)}
+                  onMouseLeave={() => setShowSentimentInfo(false)}
+                />
+                {showSentimentInfo && (
+                  <div className="sentiment-info">
+                    <p>
+                      Social sentiment has been shown to be useful in predicting
+                      whether Crypto & NFT prices will increase or decrease.
+                    </p>
+                    <a
+                      href="https://jfin-swufe.springeropen.com/articles/10.1186/s40854-022-00352-7"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img
+                        src={icons.info_label_yellow}
+                        alt="Scientific info link"
+                      />
+                      <p className="link">
+                        Click here for scientific information about sentiment
+                        tracking
+                      </p>
+                    </a>
+                  </div>
+                )}
                 <CardChart
                   projectId={id}
                   chart_talk_rate={chart_talk_rate}
@@ -187,7 +236,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 </Typography>
               </div>
               {url && <CoinBaseButton url={url} btnType={urlBtnType} />}
-              <div className="learn-more" onClick={handleLearnMoreBtn}>
+              <div className="learn-more" onClick={hanldeGoToForYou}>
                 <Typography weight={TypographyWeight.MEDIUM}>
                   Learn more
                 </Typography>

@@ -46,7 +46,6 @@ const addLineNoGradient = (
   data,
   isSpline
 ) => {
-  console.log('I am fired');
   // console.log(d3.select(`.chart-area-${projectId}`).selectAll('*').remove());
   let line = d3
     .line()

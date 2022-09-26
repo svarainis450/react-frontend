@@ -33,16 +33,13 @@ export const fetchProjectById = createAsyncThunk(
   async ({ id }: ProjectByIdPayload, { dispatch }) => {
     if (token && id) {
       try {
-        await fetch(`${apiv1}/projects-by-id/${id}`, {
+        const resp = await fetch(`${apiv1}/projects-by-id/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            console.log(res);
-            dispatch(setProjectById(res.data));
-          });
+        }).then((res) => res.json());
+
+        dispatch(setProjectById(resp.data));
       } catch (e) {
         console.log(e);
       }
