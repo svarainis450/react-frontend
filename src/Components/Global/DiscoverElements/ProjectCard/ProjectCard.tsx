@@ -81,6 +81,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const [showSentimentInfo, setShowSentimentInfo] = useState(false);
   const url = nft_address || coinbase_url || null;
   const urlBtnType = nft_address ? 'opensea' : 'coinbase';
+  const [projectByIsStatus, setProjectByIdStatus] = useState<Statuses>('idle');
 
   const handleFavoritesIcon = (id: number | undefined) => {
     if ((!isFavoriteProject || !isFavInstance) && id) {
@@ -93,9 +94,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     }
   };
 
+  console.log(projectByIsStatus);
+
   const hanldeGoToForYou = () => {
     if (id) {
-      dispatch(fetchProjectById({ id })).then(() => navigate(LinkList.FORYOU));
+      dispatch(fetchProjectById({ id, statusCallBack: setProjectByIdStatus }));
     }
   };
 
@@ -103,7 +106,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     if (isFavoriteProject) {
       setIsFavInstance(true);
     }
-  }, [dispatch, isFavoriteProject]);
+
+    if (projectByIsStatus === 'succeeded') {
+      navigate(LinkList.FORYOU);
+    }
+  }, [dispatch, isFavoriteProject, projectByIsStatus]);
 
   return (
     <div className="wrapper">

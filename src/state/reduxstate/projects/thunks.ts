@@ -26,22 +26,34 @@ import {
 
 interface ProjectByIdPayload {
   id: number;
+  statusCallBack?: Dispatch<SetStateAction<Statuses>>;
 }
 
 export const fetchProjectById = createAsyncThunk(
   'projects/GET_PROJECT_BY_ID',
-  async ({ id }: ProjectByIdPayload, { dispatch }) => {
-    if (token && id) {
+  async (
+    { id, statusCallBack }: ProjectByIdPayload,
+    { getState, dispatch }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+    console.log(tokenFromState);
+
+    if (tokenFromState && id) {
+      statusCallBack && statusCallBack('pending');
       try {
         const resp = await fetch(`${apiv1}/projects-by-id/${id}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenFromState}`,
           },
         }).then((res) => res.json());
 
         dispatch(setProjectById(resp.data));
+
+        statusCallBack && statusCallBack('succeeded');
       } catch (e) {
         console.log(e);
+        statusCallBack && statusCallBack('error');
       }
     }
   }
@@ -154,7 +166,6 @@ export const fetchTrendingProjects = createAsyncThunk(
         }).then((res) => res.json());
         callBack('success');
 
-        console.log(resp);
         return resp.data;
       } catch (e) {
         console.log(e);

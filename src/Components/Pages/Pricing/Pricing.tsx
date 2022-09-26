@@ -32,8 +32,6 @@ export const Pricing = () => {
     [currentPricingOption, isSelectedm]
   );
 
-  console.log(currentPricingOption);
-
   useEffect(() => {
     setUser((prev) => ({ ...prev, selectedPlan }));
     dispatch(
