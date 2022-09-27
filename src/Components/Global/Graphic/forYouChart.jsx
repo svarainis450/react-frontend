@@ -337,9 +337,16 @@ export const genChart = (
         chartTypeMap.get(activeItems[0].title) + intervalMapFirstCapitalized
       ];
     if (data.length > 2) {
+      console.log(activeItems[0].title);
+      let maxScaleValue;
+      if (['Mentions', 'Sentiment'].includes(activeItems[0].title)) {
+        maxScaleValue = 100;
+      } else {
+        maxScaleValue = d3.max(data, (d) => d.value);
+      }
       const yScale = d3
         .scaleLinear()
-        .domain([0, d3.max(data, (d) => d.value)])
+        .domain([0, maxScaleValue])
         .range([chartDimensions.height, 0]);
 
       addLineWithGradient(
@@ -376,9 +383,15 @@ export const genChart = (
           chartTypeMap.get(item.title) + intervalMapFirstCapitalized
         ];
       if (data.length > 2) {
+        let maxScaleValue;
+        if (['Mentions', 'Sentiment'].includes(item.title)) {
+          maxScaleValue = 100;
+        } else {
+          maxScaleValue = d3.max(data, (d) => d.value);
+        }
         const yScale = d3
           .scaleLinear()
-          .domain([0, d3.max(data, (d) => d.value)])
+          .domain([0, maxScaleValue])
           .range([chartDimensions.height, 0]);
 
         addLineWithGradient(
