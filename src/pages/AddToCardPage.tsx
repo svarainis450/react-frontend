@@ -78,6 +78,7 @@ export const AddToCardPage: FC = memo(() => {
 
   useEffect(() => {
     if (paymentStatus === 'succeeded') {
+      handlePaymentSubmit();
       navigate(LinkList.Success);
     }
   }, [paymentStatus]);

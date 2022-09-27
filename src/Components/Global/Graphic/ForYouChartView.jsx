@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ForYouChart } from './forYouChart';
 import { filterDataObjectsByPeriod } from './ParsingHelper';
 import './mainScreen.css';

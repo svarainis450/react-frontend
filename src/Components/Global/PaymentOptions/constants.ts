@@ -1,3 +1,7 @@
+import {
+  StripeProductKeys,
+  SubsPriceIdStripe,
+} from 'src/globalConstants/prices';
 import { SelectedPlan } from 'src/state/reduxstate/user/types';
 import { LinkList } from '../../../types';
 
@@ -31,6 +35,14 @@ export const priceOptions: Record<string, Plan[]> = {
         'Social sentiment & mentions volume analysis only (excl. price & volume)',
       ],
       billing_type: 'monthly',
+      stripe_price_id:
+        process.env.NODE_ENV === 'development'
+          ? SubsPriceIdStripe.STARTER_MONTHLY_DEV
+          : SubsPriceIdStripe.STARTER_MONTHLY_PROD,
+      stripe_product:
+        process.env.NODE_ENV === 'development'
+          ? StripeProductKeys.POTATO_STARTER_DEV
+          : StripeProductKeys.POTATO_STARTER_PROD,
     },
     {
       isMostPopular: false,
@@ -48,6 +60,14 @@ export const priceOptions: Record<string, Plan[]> = {
         '24/7 support with a four-hour response time',
       ],
       billing_type: 'monthly',
+      stripe_price_id:
+        process.env.NODE_ENV === 'development'
+          ? SubsPriceIdStripe.PRO_MONTHLY_DEV
+          : SubsPriceIdStripe.PRO_MONTHLY_PROD,
+      stripe_product:
+        process.env.NODE_ENV === 'development'
+          ? StripeProductKeys.POTATO_PRO_DEV
+          : StripeProductKeys.POTATO_PRO_PROD,
     },
   ],
 
@@ -66,6 +86,14 @@ export const priceOptions: Record<string, Plan[]> = {
         'Social sentiment & mentions volume analysis only (excl. price & volume)',
       ],
       billing_type: 'yearly',
+      stripe_price_id:
+        process.env.NODE_ENV === 'development'
+          ? SubsPriceIdStripe.STARTER_YEARLY_DEV
+          : SubsPriceIdStripe.STARTER_YEARLY_PROD,
+      stripe_product:
+        process.env.NODE_ENV === 'development'
+          ? StripeProductKeys.POTATO_STARTER_DEV
+          : StripeProductKeys.POTATO_STARTER_PROD,
     },
     {
       isMostPopular: true,
@@ -83,6 +111,14 @@ export const priceOptions: Record<string, Plan[]> = {
         '24/7 support with a four-hour response time',
       ],
       billing_type: 'yearly',
+      stripe_price_id:
+        process.env.NODE_ENV === 'development'
+          ? SubsPriceIdStripe.PRO_YEARLY_DEV
+          : SubsPriceIdStripe.PRO_YEARLY_DEV,
+      stripe_product:
+        process.env.NODE_ENV === 'development'
+          ? StripeProductKeys.POTATO_PRO_DEV
+          : StripeProductKeys.POTATO_PRO_PROD,
     },
   ],
 };

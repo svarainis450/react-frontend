@@ -165,6 +165,7 @@ export const fetchTrendingProjects = createAsyncThunk(
           },
         }).then((res) => res.json());
         callBack('success');
+        console.log(resp.data);
 
         return resp.data;
       } catch (e) {

@@ -62,7 +62,7 @@ export const CheckoutPage: FC = memo(() => {
           {isTablet ? null : <OurPromise />}
           <SubscriptionLayout onBack={handleLogoClick}>
             <Title margin={isMobile ? '0 0 1.5rem 0' : '0 0 2.5rem 0'}>
-              Your Information
+              Create account
             </Title>
             <GeneralInformationForm onSubmit={handleSubmit} />
           </SubscriptionLayout>
