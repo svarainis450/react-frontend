@@ -63,9 +63,10 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 
 export const ForYou: React.FC = () => {
   const dataForStats = useForYouPageData();
+  console.log(dataForStats);
   const dispatch = useAppDispatch();
-  const { type } = useSelector(userDataSelector);
-  const isPotatoStarter = type === 'Potato Starter';
+  const userData = useSelector(userDataSelector);
+  const isPotatoStarter = userData?.type === 'Potato Starter';
 
   const [nameFilter, setNameFilter] = useState<string | null>(null);
   const projectByIdState = useSelector(projectByIdSelector);
@@ -92,13 +93,13 @@ export const ForYou: React.FC = () => {
     // }
 
     dispatch(getFavProjects({}));
+    dispatch(getFavInfluencers());
   }, []);
 
   useEffect(() => {
     if (!isPotatoStarter) {
       dispatch(fetchProjects({ filter: filterValue }));
     }
-    dispatch(getFavInfluencers());
   }, [projectsFilter, filterValue, nameFilter]);
 
   const { isTablet } = useMediaQuery();
@@ -262,7 +263,7 @@ export const ForYou: React.FC = () => {
               {(!isTablet || showMobileList) &&
                 projects &&
                 projects.map((project, index) => {
-                  const isIncludedInFavs = favoriteProjects.find(
+                  const isIncludedInFavs = favoriteProjects?.find(
                     (item) => item.id === project.id
                   );
 
