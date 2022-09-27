@@ -184,7 +184,7 @@ export const addLineWithGradient = (
     .enter()
     .append('path')
     .attr('d', (d) => line(d))
-    .attr('stroke-width', '2')
+    .attr('stroke-width', '0.8')
     .style('fill', 'none')
     .attr('stroke', colors.strokeColorHex)
     .attr('id', `gradientPathLine${ids.pathId}`);
