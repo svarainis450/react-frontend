@@ -143,32 +143,19 @@ export const genCardChart = (
   // console.log(chartData[intervalMapper[interval]][sentimentName]);
   const sentimentData = chartData[intervalMapper[interval]][sentimentName];
   const talkRateData = chartData[intervalMapper[interval]][talkRateName];
-  console.log('//////////////////////////////');
-  console.log(talkRateData);
-  // WORKING ON VALUE DISPLAY IN CHART
-  const hasMinSentiment = sentimentData.reduce((prev, curr) => {
-    return prev.value < curr.value ? prev : curr;
-  });
-  const hasMaxSentiment = sentimentData.reduce((prev, curr) => {
-    return prev.value > curr.value ? prev : curr;
-  });
 
-  const hasMinTalkRate = talkRateData.reduce((prev, curr) => {
-    return prev.value < curr.value ? prev : curr;
-  });
-  const hasMaxTalkRate = talkRateData.reduce((prev, curr) => {
-    return prev.value > curr.value ? prev : curr;
-  });
-
-  console.log(hasMinSentiment);
   if (sentimentData && sentimentData.length > 2) {
     const yScaleSentiment = d3
       .scaleLinear()
-      .domain([
-        d3.min(sentimentData, (d) => d.value),
-        d3.max(sentimentData, (d) => d.value),
-      ])
+      .domain([0, 100])
       .range([height, 0]);
+
+    const hasMinSentiment = sentimentData.reduce((prev, curr) => {
+      return prev.value < curr.value ? prev : curr;
+    });
+    const hasMaxSentiment = sentimentData.reduce((prev, curr) => {
+      return prev.value > curr.value ? prev : curr;
+    });
 
     addLineNoGradient(
       svg,
@@ -206,7 +193,12 @@ export const genCardChart = (
         d3.max(talkRateData, (d) => d.value),
       ])
       .range([height, 0]);
-
+    const hasMinTalkRate = talkRateData.reduce((prev, curr) => {
+      return prev.value < curr.value ? prev : curr;
+    });
+    const hasMaxTalkRate = talkRateData.reduce((prev, curr) => {
+      return prev.value > curr.value ? prev : curr;
+    });
     addLineNoGradient(
       svg,
       xScale,
