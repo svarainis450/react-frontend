@@ -145,17 +145,40 @@ export const genCardChart = (
   const talkRateData = chartData[intervalMapper[interval]][talkRateName];
 
   if (sentimentData && sentimentData.length > 2) {
-    const yScaleSentiment = d3
-      .scaleLinear()
-      .domain([0, 100])
-      .range([height, 0]);
-
     const hasMinSentiment = sentimentData.reduce((prev, curr) => {
       return prev.value < curr.value ? prev : curr;
     });
     const hasMaxSentiment = sentimentData.reduce((prev, curr) => {
       return prev.value > curr.value ? prev : curr;
     });
+
+    let sentimentDomain;
+    if (
+      hasMinSentiment &&
+      hasMaxSentiment &&
+      50 - hasMinSentiment.value > hasMaxSentiment.value - 50
+    ) {
+      sentimentDomain = [
+        50 - (50 - hasMinSentiment.value),
+        50 + (50 - hasMinSentiment.value),
+      ];
+    } else if (
+      hasMinSentiment &&
+      hasMaxSentiment &&
+      50 - hasMinSentiment.value <= hasMaxSentiment.value - 50
+    ) {
+      sentimentDomain = [
+        50 - (hasMaxSentiment.value - 50),
+        50 + (hasMaxSentiment.value - 50),
+      ];
+    } else {
+      sentimentDomain = [0, 100];
+    }
+
+    const yScaleSentiment = d3
+      .scaleLinear()
+      .domain(sentimentDomain)
+      .range([height, 0]);
 
     addLineNoGradient(
       svg,
@@ -186,19 +209,41 @@ export const genCardChart = (
       .text(`${Math.round(hasMaxSentiment.value)}`);
   }
   if (talkRateData && talkRateData.length > 2) {
-    const yScaleTalkRate = d3
-      .scaleLinear()
-      .domain([
-        d3.min(talkRateData, (d) => d.value),
-        d3.max(talkRateData, (d) => d.value),
-      ])
-      .range([height, 0]);
     const hasMinTalkRate = talkRateData.reduce((prev, curr) => {
       return prev.value < curr.value ? prev : curr;
     });
     const hasMaxTalkRate = talkRateData.reduce((prev, curr) => {
       return prev.value > curr.value ? prev : curr;
     });
+
+    let talkRateDomain;
+    if (
+      hasMinTalkRate &&
+      hasMaxTalkRate &&
+      50 - hasMinTalkRate.value > hasMaxTalkRate.value - 50
+    ) {
+      talkRateDomain = [
+        50 - (50 - hasMinTalkRate.value),
+        50 + (50 - hasMinTalkRate.value),
+      ];
+    } else if (
+      hasMinTalkRate &&
+      hasMaxTalkRate &&
+      50 - hasMinTalkRate.value <= hasMaxTalkRate.value - 50
+    ) {
+      talkRateDomain = [
+        50 - (hasMaxTalkRate.value - 50),
+        50 + (hasMaxTalkRate.value - 50),
+      ];
+    } else {
+      talkRateDomain = [0, 100];
+    }
+
+    const yScaleTalkRate = d3
+      .scaleLinear()
+      .domain(talkRateDomain)
+      .range([height, 0]);
+
     addLineNoGradient(
       svg,
       xScale,
