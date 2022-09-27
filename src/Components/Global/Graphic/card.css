@@ -56,3 +56,25 @@
   font-weight: 600;
   box-shadow: 0 0 1px 0px rgb(0, 0, 0, 0.2);
 }
+
+/* font colors */
+.sentimentLowest {
+  fill: #2b59d1;
+  font-size: 80%;
+  font-weight: 500;
+}
+.sentimentHighest {
+  fill: #2b59d1;
+  font-size: 80%;
+  font-weight: 500;
+}
+.talkRateLowest {
+  fill: #2bd130;
+  font-size: 80%;
+  font-weight: 500;
+}
+.talkRateHighest {
+  fill: #2bd130;
+  font-size: 80%;
+  font-weight: 500;
+}

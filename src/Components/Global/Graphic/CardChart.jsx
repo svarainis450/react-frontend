@@ -46,7 +46,6 @@ const addLineNoGradient = (
   data,
   isSpline
 ) => {
-  console.log('I am fired');
   // console.log(d3.select(`.chart-area-${projectId}`).selectAll('*').remove());
   let line = d3
     .line()
@@ -144,6 +143,24 @@ export const genCardChart = (
   // console.log(chartData[intervalMapper[interval]][sentimentName]);
   const sentimentData = chartData[intervalMapper[interval]][sentimentName];
   const talkRateData = chartData[intervalMapper[interval]][talkRateName];
+  console.log('//////////////////////////////');
+  console.log(talkRateData);
+  // WORKING ON VALUE DISPLAY IN CHART
+  const hasMinSentiment = sentimentData.reduce((prev, curr) => {
+    return prev.value < curr.value ? prev : curr;
+  });
+  const hasMaxSentiment = sentimentData.reduce((prev, curr) => {
+    return prev.value > curr.value ? prev : curr;
+  });
+
+  const hasMinTalkRate = talkRateData.reduce((prev, curr) => {
+    return prev.value < curr.value ? prev : curr;
+  });
+  const hasMaxTalkRate = talkRateData.reduce((prev, curr) => {
+    return prev.value > curr.value ? prev : curr;
+  });
+
+  console.log(hasMinSentiment);
   if (sentimentData && sentimentData.length > 2) {
     const yScaleSentiment = d3
       .scaleLinear()
@@ -163,6 +180,23 @@ export const genCardChart = (
       sentimentData,
       true
     );
+
+    // ADD TEXT TO LINE
+    svg
+      .append('text')
+      .attr('y', yScaleSentiment(hasMinSentiment.value) + 15)
+      .attr('x', xScale(hasMinSentiment.datetime) + 5)
+      .attr('text-anchor', 'middle')
+      .attr('class', 'sentimentLowest')
+      .text(`${Math.round(hasMinSentiment.value)}`);
+
+    svg
+      .append('text')
+      .attr('y', yScaleSentiment(hasMaxSentiment.value) - 5)
+      .attr('x', xScale(hasMaxSentiment.datetime) - 10)
+      .attr('text-anchor', 'middle')
+      .attr('class', 'sentimentHighest')
+      .text(`${Math.round(hasMaxSentiment.value)}`);
   }
   if (talkRateData && talkRateData.length > 2) {
     const yScaleTalkRate = d3
@@ -183,6 +217,22 @@ export const genCardChart = (
       talkRateData,
       true
     );
+
+    svg
+      .append('text')
+      .attr('y', yScaleTalkRate(hasMinTalkRate.value) + 15)
+      .attr('x', xScale(hasMinTalkRate.datetime) + 5)
+      .attr('text-anchor', 'middle')
+      .attr('class', 'talkRateLowest')
+      .text(`${Math.round(hasMinTalkRate.value)}`);
+
+    svg
+      .append('text')
+      .attr('y', yScaleTalkRate(hasMaxTalkRate.value) - 5)
+      .attr('x', xScale(hasMaxTalkRate.datetime) - 10)
+      .attr('text-anchor', 'middle')
+      .attr('class', 'talkRateHighest')
+      .text(`${Math.round(hasMaxTalkRate.value)}`);
 
     svg
       .append('svg:line')
