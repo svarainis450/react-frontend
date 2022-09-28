@@ -23,27 +23,29 @@ export const filterDataObjectsByPeriod = (
 ) => {
   // end datetimes
   let endTime = new Date();
-  endTime.setUTCHours(endTime.getHours(), 0, 0, 0);
+  endTime.setUTCHours(endTime.getUTCHours() - 3, 0, 0, 0);
   let endTimeDay = new Date();
   endTimeDay.setUTCHours(0, 0, 0, 0);
 
+  console.log(endTime);
+
   // start datetimes
   let threeHourStartTime = new Date();
-  threeHourStartTime.setUTCHours(threeHourStartTime.getHours() - 3, 0, 0, 0);
+  threeHourStartTime.setHours(threeHourStartTime.getHours() - 6, 0, 0, 0);
 
   let oneDayStartTime = new Date();
-  oneDayStartTime.setUTCHours(oneDayStartTime.getHours() - 24, 0, 0, 0);
+  oneDayStartTime.setHours(oneDayStartTime.getHours() - 24, 0, 0, 0);
 
   let oneWeekStartTime = new Date();
-  oneWeekStartTime.setDate(oneWeekStartTime.getDate() - 7);
+  oneWeekStartTime.setDate(oneWeekStartTime.getDate() - 6);
   oneWeekStartTime.setUTCHours(0, 0, 0, 0);
 
   let oneMonthStartTime = new Date();
-  oneMonthStartTime.setDate(oneMonthStartTime.getDate() - 30);
+  oneMonthStartTime.setDate(oneMonthStartTime.getDate() - 29);
   oneMonthStartTime.setUTCHours(0, 0, 0, 0);
 
   let threeMonthsStartTime = new Date();
-  threeMonthsStartTime.setDate(threeMonthsStartTime.getDate() - 90);
+  threeMonthsStartTime.setDate(threeMonthsStartTime.getDate() - 89);
   threeMonthsStartTime.setUTCHours(0, 0, 0, 0);
 
   let allStartTime = new Date('2022-05-01');
