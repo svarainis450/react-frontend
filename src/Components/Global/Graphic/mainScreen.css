@@ -87,6 +87,7 @@
   .toggle-buttons button {
     /* flex: 40%; */
     margin: 5px;
+    color: black;
   }
 
   .selection-window {
