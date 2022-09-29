@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ForYouChart } from './forYouChart';
 import { filterDataObjectsByPeriod } from './ParsingHelper';
 import './mainScreen.css';
 import { EmptyChartStateComp } from '../ForYourElements/EmptyChartStateComp';
+import { icons } from 'src/utils/icons';
+import { InfoBlocks } from './InfoBlocks';
 
 export const toggleButtons = [
   {
@@ -30,6 +32,12 @@ export const ForYouChartView = ({
   chartVolume,
 }) => {
   const [graphToggleButtons, setGraphToggleButtons] = useState(toggleButtons);
+  const [showInfoBlock, setShowInfoBlock] = useState({
+    sentiment: false,
+    volume: false,
+    price: false,
+    mentions: false,
+  });
 
   if (!chartPrice || !chartSentiment || !chartTalkRate || !chartVolume) {
     return <EmptyChartStateComp />;
@@ -81,11 +89,11 @@ export const ForYouChartView = ({
         break;
     }
   };
-
   return (
     <div className="main-screen">
       <div className="toggle-buttons">
         {graphToggleButtons.map(({ active, title }, idx) => {
+          const titleLowerCased = title.toLocaleLowerCase();
           if (active) {
             return (
               <button
@@ -93,8 +101,24 @@ export const ForYouChartView = ({
                 onClick={toggleGraphActivity}
                 className="tgl-btn"
                 id="active"
+                onMouseLeave={() =>
+                  setShowInfoBlock({
+                    ...showInfoBlock,
+                    [titleLowerCased]: false,
+                  })
+                }
+                onMouseOver={() =>
+                  setShowInfoBlock({
+                    ...showInfoBlock,
+                    [titleLowerCased]: true,
+                  })
+                }
               >
-                {title}
+                <span>{title}</span>
+                <img src={icons.question_mark_white} alt="question mark" />
+                {showInfoBlock[titleLowerCased] && (
+                  <InfoBlocks infoType={titleLowerCased} />
+                )}
               </button>
             );
           } else {
@@ -103,8 +127,24 @@ export const ForYouChartView = ({
                 key={idx}
                 onClick={toggleGraphActivity}
                 className="tgl-btn"
+                onMouseOver={() =>
+                  setShowInfoBlock({
+                    ...showInfoBlock,
+                    [titleLowerCased]: true,
+                  })
+                }
+                onMouseLeave={() =>
+                  setShowInfoBlock({
+                    ...showInfoBlock,
+                    [titleLowerCased]: false,
+                  })
+                }
               >
                 {title}
+                <img src={icons.question_mark_grey} alt="question mark" />
+                {showInfoBlock[titleLowerCased] && (
+                  <InfoBlocks infoType={titleLowerCased} />
+                )}
               </button>
             );
           }

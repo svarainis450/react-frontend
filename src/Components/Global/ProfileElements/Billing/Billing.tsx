@@ -33,7 +33,7 @@ export const Billing: React.FC = () => {
           Update your billing details and address
         </Typography>
       </div>
-      <div className="Billing__border-wrapper">
+      {/* <div className="Billing__border-wrapper">
         <div className="Billing__border-wrapper__texts">
           <Typography className="Billing__border-wrapper__texts__title">
             Choose a Payment Method
@@ -51,7 +51,7 @@ export const Billing: React.FC = () => {
             />
           </div>
         ))}
-      </div>
+      </div> */}
       <EmailInfo />
       <PaymentDetails selectedPaymentMethod={selectedMethod} />
       <BillingHistory />

@@ -32,8 +32,6 @@ export const Pricing = () => {
     [currentPricingOption, isSelectedm]
   );
 
-  console.log(currentPricingOption);
-
   useEffect(() => {
     setUser((prev) => ({ ...prev, selectedPlan }));
     dispatch(
@@ -42,6 +40,8 @@ export const Pricing = () => {
         billing_type: selectedPlan.billing_type,
         monthly_price: selectedPlan.monthly_price,
         begin_price: selectedPlan.begin_price,
+        stripe_price_id: selectedPlan.stripe_price_id,
+        stripe_product: selectedPlan.stripe_product,
       })
     );
   }, [selectedPlan, setUser]);

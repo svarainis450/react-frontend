@@ -4,6 +4,7 @@ import { ModalWrapper } from 'src/Components';
 import { Button } from 'src/Components/Global/Button';
 import { Typography } from 'src/Components/Global/Typography';
 import { setModalType } from 'src/state/reduxstate/modals/slice';
+import { ModalTypes } from 'src/state/reduxstate/modals/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
 import { SelectedPlan } from 'src/state/reduxstate/user/types';
@@ -34,6 +35,7 @@ export const UpgradeToPro: React.FC = () => {
 
   const handleUpgradeToPro = () => {
     dispatch(setSelectedPlan(upgradePlan));
+    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO_PAYMENT));
   };
 
   return (
@@ -57,7 +59,7 @@ export const UpgradeToPro: React.FC = () => {
         </Typography>
         <ul>
           {PRO_FEATURES.map((item, index) => (
-            <li>
+            <li key={index}>
               <img src={icons.circle_check_green} alt="checkmark" />
               <Typography>{item}</Typography>
             </li>

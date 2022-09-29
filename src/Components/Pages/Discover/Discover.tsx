@@ -57,7 +57,6 @@ export const Discover: React.FC = () => {
     null
   );
   const [nameFilter, setNameFilter] = useState<string | null>(null);
-  console.log(projects);
   const filterValue = useProjectFilters(
     projectsFilter,
     categoryFilter,
@@ -148,6 +147,7 @@ export const Discover: React.FC = () => {
                   sentiment_score,
                   chart_talk_rate,
                   chart_sentiment,
+                  price,
                 },
                 index
               ) => (
@@ -168,6 +168,7 @@ export const Discover: React.FC = () => {
                     first_historical_data={first_historical_data}
                     chart_talk_rate={chart_talk_rate}
                     chart_sentiment={chart_sentiment}
+                    price={price}
                     // influencers={influencers}
                     type={type as unknown as CategoryTags}
                   />

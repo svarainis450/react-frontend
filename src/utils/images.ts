@@ -8,11 +8,13 @@ import errorSign from '../Assets/images/error_sign.png';
 import manWithRocket from '../Assets/images/manWithRocket.svg';
 import successHeroImg from '../Assets/images/successHeroImg.svg';
 import successIcon from '../Assets/images/compareTrue.svg';
+import lena_testimonial from '../Assets/images/lena_testimonial.png';
 
 //TODO: Remove this bitkoin before production. it's for demo purpose
 import bitkoin from '../Assets/images/bitkoin.png';
 
 export const images = {
+  lena_testimonial,
   bitkoin,
   logo,
   avatar,

@@ -5,7 +5,7 @@ import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { SideMenuProps } from './types';
 import { Button } from '../Button';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavigationList } from '../NavigationList';
 import { simpleNavList } from '../NavigationList/const';
 import { LinkList } from '../../../types/links';
@@ -14,7 +14,8 @@ import closeIcon from '../../../Assets/images/close.svg';
 import './SideMenu.scss';
 
 export const SideMenu = ({ isActive, isActiveToggler }: SideMenuProps) => {
-  const {userInfo, setUserInfo, isLoggedIn} = useContext(UserInfoContext);
+  const { userInfo, setUserInfo, isLoggedIn } = useContext(UserInfoContext);
+  const navigate = useNavigate();
 
   return (
     <div className={classNames('SideMenu', { 'SideMenu--active': isActive })}>
@@ -47,10 +48,15 @@ export const SideMenu = ({ isActive, isActiveToggler }: SideMenuProps) => {
           <Button className="SideMenu__login">Sign up</Button>
         </Link> */}
 
-       
-        <Link to={LinkList.WAITLIST} className="SideMenu__signup">
-          <Button className="SideMenu__login">Get started</Button>
-        </Link>
+        <Button
+          className="SideMenu__login"
+          onClick={() => {
+            navigate(LinkList.Pricing);
+            isActiveToggler(false);
+          }}
+        >
+          Get started
+        </Button>
       </div>
     </div>
   );
