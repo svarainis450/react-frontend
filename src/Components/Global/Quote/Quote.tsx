@@ -16,7 +16,7 @@ export const Quote = ({ quoteList, className }: QuoteProps) => {
       {/* Title */}
       <HeroTitle
         className="Quote__hero"
-        title="What top crypto influencers are saying"
+        title="What crypto traders are saying"
       />
 
       {/* quotelist */}
