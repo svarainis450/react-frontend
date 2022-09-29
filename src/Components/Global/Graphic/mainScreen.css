@@ -90,9 +90,9 @@
     color: black !important;
   }
 
-  .toggle-buttons #active {
+  .toggle-buttons button#active {
     background-color: #2b59d1;
-    color: white;
+    color: white !important;
   }
 
   .selection-window {
@@ -115,11 +115,11 @@
 @media screen and (max-width: 380px) {
   .toggle-buttons button {
     width: 130px;
-    color: black !important;
+    color: black;
   }
 
-  .toggle-buttons #active {
+  button#active {
     background-color: #2b59d1;
-    color: white;
+    color: white !important;
   }
 }
