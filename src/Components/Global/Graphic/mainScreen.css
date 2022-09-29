@@ -1,8 +1,9 @@
 .plot-area {
   background-color: white;
   /* max-height: 500px; */
-  max-height: 700px;
-  min-height: 500px;
+  max-height: 444px;
+  height: 444px;
+  /* min-height: 444px; */
   width: 100%;
   border-radius: 10px;
 }
@@ -13,8 +14,9 @@
 }
 
 .chart-area {
-  max-height: 700px;
-  min-height: 500px;
+  max-height: 444px;
+
+  /* min-height: 444px; */
 }
 
 .graph {
@@ -91,6 +93,12 @@
   .toggle-buttons button {
     /* flex: 40%; */
     margin: 5px;
+    color: black !important;
+  }
+
+  .toggle-buttons button#active {
+    background-color: #2b59d1;
+    color: white !important;
   }
 
   .selection-window {
@@ -113,5 +121,11 @@
 @media screen and (max-width: 380px) {
   .toggle-buttons button {
     width: 130px;
+    color: black;
+  }
+
+  button#active {
+    background-color: #2b59d1;
+    color: white !important;
   }
 }
