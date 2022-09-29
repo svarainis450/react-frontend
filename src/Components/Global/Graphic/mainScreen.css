@@ -90,6 +90,11 @@
     color: black !important;
   }
 
+  .toggle-buttons #active {
+    background-color: #2b59d1;
+    color: white;
+  }
+
   .selection-window {
     margin: 0;
   }
@@ -111,5 +116,10 @@
   .toggle-buttons button {
     width: 130px;
     color: black !important;
+  }
+
+  .toggle-buttons #active {
+    background-color: #2b59d1;
+    color: white;
   }
 }
