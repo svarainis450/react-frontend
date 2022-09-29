@@ -28,13 +28,13 @@ export const phoneSliderContent = [
   {
     number: '4',
     title: "Discover upcoming crypto & NFT projects",
-    description: "You know the saying 'When your cab driver starts talking about Bitcoin, it is already too late'. With the help of our intelligent AI algorithms, you will be able to jump on the upcoming crypto projects early.",
+    description: "You know the saying, \"When your cab driver starts talking about Bitcoin, it is already too late\". With the help of our intelligent algorithms, you will be able to jump on the upcoming crypto projects early.",
     img: phoneSliderImg4
   },
   {
     number: '5',
     title: "Keep tabs on crypto & NFT experts",
-    description: "Today everyone can say anything, and not necessarily, they would be accountable for their words. Therefore, we are tracking every word the crypto experts, and their community is saying to encourage consistency in their content.",
+    description: "Today everyone says anything without full accountability for their words. To prevent false information, we are tracking everything influential people in the industry say to encourage consistency and accountability.",
     img: phoneSliderImg5
   },
   {
