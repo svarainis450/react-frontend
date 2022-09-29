@@ -337,7 +337,6 @@ export const genChart = (
         chartTypeMap.get(activeItems[0].title) + intervalMapFirstCapitalized
       ];
     if (data.length > 2) {
-      console.log(activeItems[0].title);
       let maxScaleValue;
       if (['Mentions', 'Sentiment'].includes(activeItems[0].title)) {
         maxScaleValue = 100;
