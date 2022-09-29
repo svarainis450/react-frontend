@@ -42,7 +42,7 @@ export const Reasoning = () => {
                 className="Reasoning__text-block"
                 smallTitle
                 title="Market experience"
-                subtitle="We're a team of the most experienced web data extraction professionals, entrepreneurs, and data scientists"
+                subtitle="We're a team of experienced web data extraction professionals, entrepreneurs, and data scientists"
               />
             </div>
 
