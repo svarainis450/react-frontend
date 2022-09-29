@@ -77,8 +77,10 @@ export const fetchProjects = createAsyncThunk(
     const tokenFromState = user.user_token;
 
     const url = skip
-      ? `${apiv1}/projects?take=8&skip=${skip}${filter || ''}`
-      : `${apiv1}/projects?take=8${filter || ''}`;
+      ? `${apiv1}/projects?take=8&skip=${skip}${
+          filter || '&orderBy=talk_rate&order=DESC'
+        }`
+      : `${apiv1}/projects?take=8${filter || '&orderBy=talk_rate&order=DESC'}`;
 
     if (token || tokenFromState) {
       try {

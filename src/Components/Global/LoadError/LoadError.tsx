@@ -6,8 +6,6 @@ import './LoadError.scss';
 export const LoadError: React.FC = () => (
   <div className="load-error">
     <Loader height={54} width={54} />
-    <Typography>
-      Sorry, champ. Got nothing yet. Give me another hour to gather some data.
-    </Typography>
+    <Typography>Give me a sec to load all the projects for you.</Typography>
   </div>
 );

@@ -102,13 +102,13 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
                 </Typography>
               </div>
             </div>
-            {twitter_is_verified && (
+            {/* {twitter_is_verified && (
               <img
                 className="influencer-card__border-wrapper__top-expert"
                 src={isTablet ? icons.top_expert_mobile : icons.top_expert}
                 alt="Top Expert"
               />
-            )}
+            )} */}
             {isTablet && (
               <TalkRateElement
                 rate={influence_score}

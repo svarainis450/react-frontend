@@ -101,21 +101,24 @@ export const ForYouChartView = ({
                 onClick={toggleGraphActivity}
                 className="tgl-btn"
                 id="active"
-                onMouseLeave={() =>
-                  setShowInfoBlock({
-                    ...showInfoBlock,
-                    [titleLowerCased]: false,
-                  })
-                }
-                onMouseOver={() =>
-                  setShowInfoBlock({
-                    ...showInfoBlock,
-                    [titleLowerCased]: true,
-                  })
-                }
               >
                 <span>{title}</span>
-                <img src={icons.question_mark_white} alt="question mark" />
+                <img
+                  onMouseLeave={() =>
+                    setShowInfoBlock({
+                      ...showInfoBlock,
+                      [titleLowerCased]: false,
+                    })
+                  }
+                  onMouseOver={() =>
+                    setShowInfoBlock({
+                      ...showInfoBlock,
+                      [titleLowerCased]: true,
+                    })
+                  }
+                  src={icons.question_mark_white}
+                  alt="question mark"
+                />
                 {showInfoBlock[titleLowerCased] && (
                   <InfoBlocks infoType={titleLowerCased} />
                 )}
@@ -127,21 +130,24 @@ export const ForYouChartView = ({
                 key={idx}
                 onClick={toggleGraphActivity}
                 className="tgl-btn"
-                onMouseOver={() =>
-                  setShowInfoBlock({
-                    ...showInfoBlock,
-                    [titleLowerCased]: true,
-                  })
-                }
-                onMouseLeave={() =>
-                  setShowInfoBlock({
-                    ...showInfoBlock,
-                    [titleLowerCased]: false,
-                  })
-                }
               >
                 {title}
-                <img src={icons.question_mark_grey} alt="question mark" />
+                <img
+                  onMouseOver={() =>
+                    setShowInfoBlock({
+                      ...showInfoBlock,
+                      [titleLowerCased]: true,
+                    })
+                  }
+                  onMouseLeave={() =>
+                    setShowInfoBlock({
+                      ...showInfoBlock,
+                      [titleLowerCased]: false,
+                    })
+                  }
+                  src={icons.question_mark_grey}
+                  alt="question mark"
+                />
                 {showInfoBlock[titleLowerCased] && (
                   <InfoBlocks infoType={titleLowerCased} />
                 )}

@@ -94,8 +94,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     }
   };
 
-  console.log(projectByIsStatus);
-
   const hanldeGoToForYou = () => {
     if (id) {
       dispatch(fetchProjectById({ id, statusCallBack: setProjectByIdStatus }));
@@ -123,9 +121,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 src={img_url || icons.no_image}
                 alt={name}
               />
-              <div>
+              <div className="project-title-wrapper">
                 <Typography className="title" weight={TypographyWeight.MEDIUM}>
-                  {name}
+                  {name.substring(0, 20)}
+                  {name.length >= 20 && '...'}
                 </Typography>
                 {/* @ts-ignore */}
                 <CategoryTag tagTitle={CategoryTags[type]} />
@@ -179,7 +178,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 </div>
               </div>
               <div className="flex border-wrapper">
-                <TalkRateElement rate={talk_rate_score} />
+                {talk_rate_score ? (
+                  <TalkRateElement rate={talk_rate_score} />
+                ) : (
+                  <img src={icons.empty_talk_rate} alt="no talk rate data" />
+                )}
                 <div className="talk-rate-desc">
                   <div className="rate-change-wrapper">
                     <div
