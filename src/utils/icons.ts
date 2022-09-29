@@ -53,6 +53,7 @@ import open_sea from '../Assets/icons/open_sea_icon.svg';
 import top_expert from '../Assets/icons/top_expert.svg';
 import top_expert_mobile from '../Assets/icons/top_expert_mobile.svg';
 import nft_symbol from '../Assets/icons/nft_symbol.svg';
+import empty_talk_rate from '../Assets/icons/empty_talk_rate.svg';
 
 //Influencers page icons
 import first_mover from '../Assets/icons/first_mover.svg';
@@ -85,6 +86,7 @@ import premium_modal from '../Assets/icons/premium_modal.svg';
 
 export const icons = {
   info_label_grey,
+  empty_talk_rate,
   info_label_yellow,
   nft_symbol,
   premium_modal,

@@ -56,6 +56,8 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
     top3LowestTalkRateProjectsSelector
   );
 
+  console.log(top3BullProjects);
+
   const topPositive = isLowestList
     ? top3NegativeProjects
     : top3PositiveProjects;
@@ -151,7 +153,14 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topTalkRate.map(
                   (
-                    { place, category, project_name, talk_rate, img_url },
+                    {
+                      place,
+                      category,
+                      project_name,
+                      talk_rate,
+                      img_url,
+                      project_id,
+                    },
                     index
                   ) => (
                     <Top3Element
@@ -161,6 +170,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                       tagTitle={category}
                       talkRate={talk_rate}
                       blockType={InfoBlockTypes.rate}
+                      project_id={project_id}
                     />
                   )
                 )}
@@ -190,10 +200,18 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
               <ul className="cards-grid">
                 {topPositive.map(
                   (
-                    { place, category, project_name, sentiment, img_url },
+                    {
+                      place,
+                      category,
+                      project_name,
+                      sentiment,
+                      img_url,
+                      project_id,
+                    },
                     index
                   ) => (
                     <Top3Element
+                      project_id={project_id}
                       key={`${place}_${index}`}
                       icon={img_url}
                       projectName={project_name}
@@ -226,8 +244,19 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
             {topBull ? (
               <ul className="cards-grid">
                 {topBull.map(
-                  ({ place, category, project_name, bull, img_url }, index) => (
+                  (
+                    {
+                      place,
+                      category,
+                      project_name,
+                      bull,
+                      img_url,
+                      project_id,
+                    },
+                    index
+                  ) => (
                     <Top3Element
+                      project_id={project_id}
                       key={`${place}_${index}`}
                       icon={img_url}
                       projectName={project_name}

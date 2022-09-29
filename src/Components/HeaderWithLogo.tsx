@@ -37,8 +37,8 @@ const Background = styled(Container)<{ showLoginOption?: boolean }>`
   display: ${({ showLoginOption }) => (showLoginOption ? 'flex' : 'block')};
   justify-content: space-between;
   align-items: center;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding: 1.5rem 1.2rem;
+  max-width: 1300px;
   background: ${theme.colors.white};
 
   @media (max-width: ${theme.breakpoints.mobile}px) {

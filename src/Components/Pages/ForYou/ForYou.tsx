@@ -63,7 +63,6 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 
 export const ForYou: React.FC = () => {
   const dataForStats = useForYouPageData();
-  console.log(dataForStats);
   const dispatch = useAppDispatch();
   const userData = useSelector(userDataSelector);
   const isPotatoStarter = userData?.type === 'Potato Starter';

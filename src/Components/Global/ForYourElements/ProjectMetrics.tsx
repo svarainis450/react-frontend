@@ -54,11 +54,15 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
         <div className="Metrics metrics-flex bordered centered smaller ">
           {showInfoBlock.talk_rate && <InfoBlocks infoType="talk_rate" />}
           <div className="talk-rate-wrapper">
-            <TalkRateElement
-              rate={projectByIdProp?.talk_rate_score}
-              type="talk_rate"
-              isSmalller={isTablet}
-            />
+            {projectByIdProp.talk_rate_score ? (
+              <TalkRateElement
+                rate={projectByIdProp.talk_rate_score}
+                type="talk_rate"
+                isSmalller={isTablet}
+              />
+            ) : (
+              <img src={icons.empty_talk_rate} alt="no talk rate data" />
+            )}
           </div>
           {!isTablet && (
             <img
