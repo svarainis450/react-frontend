@@ -11,6 +11,7 @@ import {
 import { Button } from 'src/Components/Global/Button';
 import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
+import { ModalWrapper } from 'src/Components/wrappers/ModalWrapper';
 import { useInfluencersFilters } from 'src/hooks';
 import { influencersDataSelector } from 'src/state/reduxstate/influencers/selectors';
 import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
@@ -35,6 +36,7 @@ export const Influencers: React.FC = () => {
   const [influencersStatus, setInfluencersStatus] = useState<Statuses>('idle');
   const [skipElements, setSkipElements] = useState<number | null>(null);
   const skipElementsValue = skipElements === null ? 0 : skipElements;
+  const [showModalLoader, setShowModalLoader] = useState(false);
 
   const influencersFilterValue = useInfluencersFilters(
     influencersFilter,
@@ -68,9 +70,17 @@ export const Influencers: React.FC = () => {
           callBack: setInfluencersStatus,
           skip: skipElements,
         })
-      ).then(() => scrollToElement('infl-to-scroll'));
+      );
+      if (influencersStatus === 'success' && !showModalLoader) {
+        scrollToElement('infl-to-scroll');
+      }
     }
-  }, [skipElements, influencersFilterValue, cardsPerOneRequest]);
+  }, [
+    skipElements,
+    influencersFilter,
+    influencersFilterValue,
+    cardsPerOneRequest,
+  ]);
 
   const handleLoadMoreBtn = () => {
     if (notAllToShow && influencersLeftToSee >= cardsPerOneRequest) {
@@ -83,6 +93,10 @@ export const Influencers: React.FC = () => {
       const seenAll = 'You`ve seen it all';
       setSeenAll(seenAll);
     }
+    if (influencersStatus === 'success') {
+      scrollToElement('infl-to-scroll');
+    }
+    setShowModalLoader(false);
   };
 
   useEffect(() => {
@@ -96,15 +110,29 @@ export const Influencers: React.FC = () => {
         <InfluencerFilters
           callBack={setInfluencersFilter}
           nameFilterCallBack={setNameFilterValue}
+          onClick={() => setShowModalLoader(true)}
         />
 
+        {influencersStatus === 'pending' &&
+          showModalLoader &&
+          influencersFilter !== InfluencerFilterKeys.NONE && (
+            <ModalWrapper
+              overlayOpacity="0.8"
+              overlayBackground="#fff"
+              topPositionOverlay="64px"
+            >
+              <div className="full-screen-loader">
+                <Loader width={50} height={50} />
+              </div>
+            </ModalWrapper>
+          )}
         {influencersStatus === 'error' && <LoadError />}
         <div className="Influencers__wrapper">
-          {influencersStatus === 'pending' && (
-            <div className="Influencers__err-wrapper">
+          {/* {influencersStatus === 'pending' && (
+            <div className="Influencers__err-wrapper full-screen-loader">
               <Loader width={50} height={50} />
             </div>
-          )}
+          )} */}
           {influencersStatus === 'error' ||
             (influencersStatus === 'success' && influencers.length === 0 && (
               <div className="Influencers__err-wrapper">

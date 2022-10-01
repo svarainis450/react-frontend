@@ -50,6 +50,7 @@ export interface Project {
   symbol?: string;
   price: string;
   type: CategoryTags;
+  opensea_project_url: string;
   talk_rate_score: number;
   sentiment_score: number;
   bull_bear_score: number;

@@ -43,12 +43,12 @@ interface ProjectCardProps
     | 'name'
     | 'first_historical_data'
     | 'coinbase_url'
-    | 'nft_address'
     | 'img_url'
     | 'chart_talk_rate'
     | 'chart_sentiment'
     | 'type'
     | 'price'
+    | 'opensea_project_url'
   > {}
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -57,7 +57,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   name,
   first_historical_data,
   img_url,
-  nft_address,
   coinbase_url,
   talk_rate_daily_change,
   talk_rate_score,
@@ -66,6 +65,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   chart_talk_rate,
   chart_sentiment,
   type,
+  opensea_project_url,
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
@@ -79,8 +79,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const [showMore, setShowMore] = useState(false);
   const [status, setStatus] = useState<Statuses>('idle');
   const [showSentimentInfo, setShowSentimentInfo] = useState(false);
-  const url = nft_address || coinbase_url || null;
-  const urlBtnType = nft_address ? 'opensea' : 'coinbase';
+  const url = opensea_project_url || coinbase_url || null;
+  const urlBtnType = opensea_project_url ? 'opensea' : 'coinbase';
   const [projectByIsStatus, setProjectByIdStatus] = useState<Statuses>('idle');
 
   const handleFavoritesIcon = (id: number | undefined) => {

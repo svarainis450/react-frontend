@@ -27,8 +27,6 @@ export const fetchUserData = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        console.log(resp);
-
         dispatch(setUserData(resp));
 
         return resp;
@@ -53,8 +51,6 @@ export const updateUserInfo = createAsyncThunk(
           body: JSON.stringify(data),
         }).then((res) => res.json());
         dispatch(fetchUserData(token));
-
-        console.log(resp);
 
         return resp;
       } catch (e) {

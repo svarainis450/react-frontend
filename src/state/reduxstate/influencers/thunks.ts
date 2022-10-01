@@ -2,11 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import { TrendsProjectsByInfluencersPayload } from '../projects/thunks';
-import {
-  Statuses,
-  SubmenuFilters,
-  TrendsDateFilterType,
-} from '../projects/types';
+import { Statuses, SubmenuFilters } from '../projects/types';
 import { RootState } from '../slice';
 import { apiv1 } from '../types';
 import { getFavInfluencers } from '../user/thunks';
@@ -129,7 +125,7 @@ export const fetchInfluencers = createAsyncThunk(
         const { influencers } = getState() as RootState;
         const influencersArray = influencers.influencers_data.influencers;
 
-        if (skip && skip >= 52) {
+        if (skip && skip >= 8) {
           const expandedInfluencers = concat(influencersArray, resp.data);
           const uniqueInfluencers = [
             ...(new Set(expandedInfluencers) as unknown as InfluencerData[]),

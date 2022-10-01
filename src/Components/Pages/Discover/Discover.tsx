@@ -124,7 +124,7 @@ export const Discover: React.FC = () => {
             overlayBackground="#fff"
             topPositionOverlay="64px"
           >
-            <div className="full-screen-loader ">
+            <div className="full-screen-loader">
               <Loader width={50} height={50} />
             </div>
           </ModalWrapper>
@@ -154,12 +154,12 @@ export const Discover: React.FC = () => {
                   talk_rate_score,
                   talk_rate_daily_change,
                   bull_bear_score,
-                  nft_address,
                   first_historical_data,
                   sentiment_score,
                   chart_talk_rate,
                   chart_sentiment,
                   price,
+                  opensea_project_url,
                 },
                 index
               ) => (
@@ -171,7 +171,6 @@ export const Discover: React.FC = () => {
                     id={id}
                     name={name}
                     img_url={img_url}
-                    nft_address={nft_address}
                     coinbase_url={coinbase_url}
                     talk_rate_score={talk_rate_score}
                     talk_rate_daily_change={talk_rate_daily_change}
@@ -181,6 +180,7 @@ export const Discover: React.FC = () => {
                     chart_talk_rate={chart_talk_rate}
                     chart_sentiment={chart_sentiment}
                     price={price}
+                    opensea_project_url={opensea_project_url}
                     // influencers={influencers}
                     type={type as unknown as CategoryTags}
                   />

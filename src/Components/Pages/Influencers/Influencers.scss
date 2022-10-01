@@ -48,3 +48,12 @@
     }
   }
 }
+
+.full-screen-loader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  z-index: 1009;
+}

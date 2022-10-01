@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CheckoutForm from 'src/Components/Payments/StripeCheckout';
 import { paymentStatusSelector } from 'src/state/reduxstate/payments/selectors';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import styled from 'styled-components';
 
 import {
@@ -37,6 +38,9 @@ export const AddToCardPage: FC = memo(() => {
   const { user } = useContext(UserContext);
   const paymentStatus = useSelector(paymentStatusSelector);
   const myRef = useRef<null | HTMLDivElement>(null);
+  const userToken = useSelector(userTokenSelector);
+
+  console.log(userToken);
 
   const handlePaymentSubmit = useCallback(() => {
     TagManager.dataLayer({
