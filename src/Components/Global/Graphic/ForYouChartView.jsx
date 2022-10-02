@@ -26,6 +26,7 @@ export const toggleButtons = [
 ];
 
 export const ForYouChartView = ({
+  projectType,
   chartPrice,
   chartSentiment,
   chartTalkRate,
@@ -70,6 +71,7 @@ export const ForYouChartView = ({
               return obj;
             }
           });
+          console.log(newState);
           setGraphToggleButtons(newState);
         }
         break;
@@ -85,6 +87,7 @@ export const ForYouChartView = ({
             return item;
           }
         });
+        console.log(newState);
         setGraphToggleButtons(newState);
         break;
     }
@@ -160,6 +163,7 @@ export const ForYouChartView = ({
         <div className="plot-area">
           <div className="graph">
             <ForYouChart
+              projectType={projectType}
               chartData={chartData}
               chartTypeButtons={graphToggleButtons}
             />

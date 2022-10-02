@@ -52,21 +52,14 @@ const CheckoutForm = () => {
       const client_secret =
         res.data.latest_invoice.payment_intent.client_secret;
 
-      console.log(res.data.latest_invoice.payment_intent.client_secret);
-
-      const { error, paymentIntent } = await stripe.confirmCardPayment(
-        client_secret,
-        {
-          payment_method: {
-            card: cardElement,
-            billing_details: {
-              name: userName,
-            },
+      const { error } = await stripe.confirmCardPayment(client_secret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: userName,
           },
-        }
-      );
-      console.log(paymentIntent);
-      console.log(error);
+        },
+      });
 
       if (error) {
         setMessage(error.message);
