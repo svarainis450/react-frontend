@@ -134,7 +134,8 @@ export type Statuses =
   | 'success'
   | 'error'
   | 'succeeded'
-  | 'loading';
+  | 'loading'
+  | 'unauthorized';
 
 export interface ProjectPicks {
   project_id: number;

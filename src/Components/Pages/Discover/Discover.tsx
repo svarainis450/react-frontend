@@ -85,15 +85,29 @@ export const Discover: React.FC = () => {
       (skipElements && skipElements > 0) ||
       filterValue
     ) {
-      dispatch(
-        fetchProjects({
-          filter: filterValue,
-          callBack: setProjectStatus,
-          skip: skipElements,
-        })
-      ).then(() => scrollToElement('card-to-scroll'));
+      if (
+        (categoryFilter || projectsFilter) &&
+        skipElements &&
+        skipElements > 0
+      ) {
+        dispatch(
+          fetchProjects({
+            filter: filterValue,
+            callBack: setProjectStatus,
+            skip: 0,
+          })
+        ).then(() => scrollToElement('card-to-scroll'));
+      } else {
+        dispatch(
+          fetchProjects({
+            filter: filterValue,
+            callBack: setProjectStatus,
+            skip: skipElements,
+          })
+        ).then(() => scrollToElement('card-to-scroll'));
+      }
     }
-  }, [skipElements, filterValue]);
+  }, [skipElements, filterValue, categoryFilter]);
 
   useEffect(() => {
     if (token) {

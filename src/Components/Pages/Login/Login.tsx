@@ -41,9 +41,8 @@ export const Login = () => {
       })
       .catch((err) => {
         setLoginInProgress(false);
-
         err
-          ? setError(err.data.message)
+          ? setError(err.data.error.message)
           : setError(
               `We're experiencing some internal problems. Try in few minutes`
             );

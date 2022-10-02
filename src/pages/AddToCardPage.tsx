@@ -40,8 +40,6 @@ export const AddToCardPage: FC = memo(() => {
   const myRef = useRef<null | HTMLDivElement>(null);
   const userToken = useSelector(userTokenSelector);
 
-  console.log(userToken);
-
   const handlePaymentSubmit = useCallback(() => {
     TagManager.dataLayer({
       dataLayer: {

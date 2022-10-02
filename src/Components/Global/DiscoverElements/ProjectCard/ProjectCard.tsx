@@ -31,6 +31,7 @@ import { PositiveBullsBlock } from './PositiveBullsBlock';
 import { CardChart } from '../../Graphic/CardChart';
 import './ProjectCard.scss';
 import { formatDate } from 'src/utils/calculations';
+import { Flex } from 'src/Components/wrappers/Flex';
 
 interface ProjectCardProps
   extends Pick<
@@ -82,6 +83,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const url = opensea_project_url || coinbase_url || null;
   const urlBtnType = opensea_project_url ? 'opensea' : 'coinbase';
   const [projectByIsStatus, setProjectByIdStatus] = useState<Statuses>('idle');
+  const isNftProject =
+    type.toLocaleLowerCase() === CategoryTags.nft.toLowerCase();
 
   const handleFavoritesIcon = (id: number | undefined) => {
     if ((!isFavoriteProject || !isFavInstance) && id) {
@@ -131,7 +134,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               </div>
             </div>
             {isTablet && !showMore && (
-              <div>
+              <div className="talk-rate-mobile-wrap">
                 <TalkRateElement rate={talk_rate_score} />
               </div>
             )}
@@ -167,14 +170,27 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                     variant={TypographyVariant.TEXT_SMALL}
                     weight={TypographyWeight.MEDIUM}
                   >
-                    Current price
+                    {isNftProject ? 'Project Price' : 'Current price'}
                   </Typography>
-                  <Typography
-                    variant={TypographyVariant.HEADING_SMALL}
-                    weight={TypographyWeight.BOLD700}
-                  >
-                    ${price}
-                  </Typography>
+                  {isNftProject ? (
+                    <Flex>
+                      <img src={icons.nft_symbol} alt="nft project" />
+                      <Typography
+                        variant={TypographyVariant.HEADING_SMALL}
+                        weight={TypographyWeight.BOLD700}
+                      >
+                        {' '}
+                        {price}
+                      </Typography>
+                    </Flex>
+                  ) : (
+                    <Typography
+                      variant={TypographyVariant.HEADING_SMALL}
+                      weight={TypographyWeight.BOLD700}
+                    >
+                      ${price}
+                    </Typography>
+                  )}
                 </div>
               </div>
               <div className="flex border-wrapper">

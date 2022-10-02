@@ -29,7 +29,7 @@ const CheckoutForm = () => {
     phone: 'dont collect phones',
     product: selectedPlan.stripe_product,
   };
-  console.log(paymentDetails);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,7 +46,13 @@ const CheckoutForm = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { client_secret } = res.data;
+
+      console.log(res);
+
+      const client_secret =
+        res.data.latest_invoice.payment_intent.client_secret;
+
+      console.log(res.data.latest_invoice.payment_intent.client_secret);
 
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         client_secret,
@@ -60,6 +66,7 @@ const CheckoutForm = () => {
         }
       );
       console.log(paymentIntent);
+      console.log(error);
 
       if (error) {
         setMessage(error.message);
@@ -67,10 +74,10 @@ const CheckoutForm = () => {
         dispatch(setPaymentStatus('succeeded'));
         setMessage('Payment successful!');
       }
-      dispatch(updateUserInfo({ type: 'Potato Starter' }));
+      dispatch(updateUserInfo({ type: selectedPlan.plan }));
       console.log(res.data);
-    } catch {
-      console.log('err');
+    } catch (e) {
+      console.log(e);
       setMessage('An unexpected error occurred.');
       setIsLoading(false);
     }
