@@ -127,7 +127,13 @@ export interface TrendingProject {
   };
 }
 
-export type Statuses = 'idle' | 'pending' | 'success' | 'error' | 'succeeded';
+export type Statuses =
+  | 'idle'
+  | 'pending'
+  | 'success'
+  | 'error'
+  | 'succeeded'
+  | 'loading';
 
 export interface ProjectPicks {
   project_id: number;

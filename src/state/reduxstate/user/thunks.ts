@@ -8,6 +8,7 @@ import {
   setFavoriteProjects,
   setSubscribedInfluencers,
   setUserData,
+  setUserToken,
 } from './slice';
 import { FavInfluencersProjectsPayload, UserUpdateType } from './types';
 
@@ -40,7 +41,7 @@ export const fetchUserData = createAsyncThunk(
 
 export const updateUserInfo = createAsyncThunk(
   'user/UPDATE_USER_DATA',
-  async (data: UserUpdateType) => {
+  async (data: UserUpdateType, { dispatch }) => {
     if (token) {
       try {
         const resp = await fetch(`${apiv1}/users`, {
@@ -51,6 +52,7 @@ export const updateUserInfo = createAsyncThunk(
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
+        dispatch(fetchUserData(token));
 
         console.log(resp);
 
@@ -242,6 +244,47 @@ export const deleteFromFavorites = createAsyncThunk(
         callBack && callBack('error');
         console.log(e);
       }
+    }
+  }
+);
+
+interface LoginPayload {
+  email: string;
+  password: string;
+  callBack?: Dispatch<SetStateAction<Statuses>>;
+  errMessageCallBack?: Dispatch<SetStateAction<string>>;
+}
+
+export const loginUser = createAsyncThunk(
+  'users/USER_LOGIN',
+  async (
+    { email, password, errMessageCallBack, callBack }: LoginPayload,
+    { dispatch }
+  ) => {
+    try {
+      callBack && callBack('loading');
+
+      const data = {
+        email: email,
+        password: password,
+      };
+
+      const resp = await fetch(`${apiv1}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }).then((res) => res.json());
+
+      dispatch(setUserToken(resp.access_token));
+
+      callBack && callBack('success');
+
+      return resp;
+    } catch (e) {
+      callBack && callBack('error');
+      console.log(e);
     }
   }
 );

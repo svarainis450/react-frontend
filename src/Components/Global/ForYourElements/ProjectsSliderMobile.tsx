@@ -55,7 +55,7 @@ export const ProjectsSliderMobile: React.FC<ProjectsSliderMobileProps> = ({
           ))}
         {projects &&
           projects.map((project) => {
-            const isInFavorites = favoriteProjects.find(
+            const isInFavorites = favoriteProjects?.find(
               (item) => item.id === project.id
             );
             return (

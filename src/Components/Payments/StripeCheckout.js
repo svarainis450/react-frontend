@@ -24,11 +24,12 @@ const CheckoutForm = () => {
   const [userName, setUserName] = useState('');
   const paymentDetails = {
     item_description: `${selectedPlan.billing_type} subscription`,
-    price: String(selectedPlan.begin_price),
+    price: selectedPlan.stripe_price_id,
     customer_description: 'customer',
-    phone: 'we do not collect phone data yet',
+    phone: 'dont collect phones',
+    product: selectedPlan.stripe_product,
   };
-
+  console.log(paymentDetails);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,6 +67,10 @@ const CheckoutForm = () => {
         setMessage('Payment successful!');
       }
       dispatch(updateUserInfo({ type: 'Potato Starter' }));
+
+
+      console.log(res.data);
+
     } catch {
       console.log('err');
       setMessage('An unexpected error occurred.');
@@ -93,7 +98,7 @@ const CheckoutForm = () => {
           />
         </div>
         <div className="card-wrapper">
-          <CardElement />
+          <CardElement aria="aria-enabled" />
         </div>
         <button disabled={isLoading || !stripe || !elements} id="submit">
           <span id="button-text">

@@ -9,23 +9,45 @@ import { priceOptions } from '../Global/PaymentOptions';
 import { Box } from '../wrappers/Box';
 import { Flex } from '../wrappers/Flex';
 import { useCookies } from 'react-cookie';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
+import { useSelector } from 'react-redux';
+import { selectedPlanSelector } from 'src/state/reduxstate/user/selectors';
 
 export const SubscriptionOptions: FC = memo(() => {
+  const dispatch = useAppDispatch();
   const { isMobile } = useMediaQuery();
   const { user, setUser } = useContext(UserContext);
   const [selectedPeriod, setSelectedPeriod] = useState(
     user.selectedPlan?.billing_type.toLocaleLowerCase() || 'yearly'
   );
+  const selectedPlan = useSelector(selectedPlanSelector);
+  const userPlanContext = user.selectedPlan;
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   useEffect(() => {
+    const selectedPlanDetails = priceOptions[String(selectedPeriod)].find(
+      (p) => p.plan === user.selectedPlan?.plan
+    );
+    console.log(selectedPlanDetails);
     setUser((prev) => ({
       ...prev,
       selectedPlan: priceOptions[String(selectedPeriod)].find(
         (p) => p.plan === user.selectedPlan?.plan
       ),
     }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (selectedPlanDetails) {
+      dispatch(
+        setSelectedPlan({
+          monthly_price: selectedPlanDetails.monthly_price,
+          begin_price: selectedPlanDetails.begin_price,
+          billing_type: selectedPlanDetails.billing_type,
+          plan: selectedPlanDetails.plan,
+          stripe_price_id: selectedPlanDetails.stripe_price_id,
+          stripe_product: selectedPlanDetails.stripe_product,
+        })
+      );
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPeriod, setUser]);
 
   return (

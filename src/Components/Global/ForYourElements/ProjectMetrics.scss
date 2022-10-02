@@ -9,11 +9,14 @@
   border-bottom: 1px solid var(--color-grey-lighter);
 
   @include desktop {
+    overflow-x: visible;
     border: none;
     max-width: 1300px;
   }
 
   .metrics-flex {
+    position: relative;
+
     display: flex;
     justify-content: flex-start;
     padding: 0 0 16px 35%;

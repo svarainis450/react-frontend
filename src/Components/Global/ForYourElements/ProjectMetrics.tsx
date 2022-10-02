@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useMediaQuery } from 'src/hooks';
 import { Project } from 'src/state/reduxstate/projects/types';
 
 import { icons } from 'src/utils/icons';
 import { IndexAxis } from '../DiscoverElements/IndexAxis/IndexAxis';
+import { InfoBlocks } from '../Graphic/InfoBlocks';
 import { TalkRateElement } from '../TalkRateElement/TalkRateElement';
 import { CategoryTag } from '../TrendsElements/CategoryTag/CategoryTag';
 import { CategoryTags } from '../TrendsElements/types';
@@ -17,6 +19,12 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
   const isNftProject =
     projectByIdProp.type === CategoryTags.nft.toLocaleLowerCase();
   const priceTitle = isNftProject ? 'Floor price' : '';
+
+  const [showInfoBlock, setShowInfoBlock] = useState({
+    talk_rate: false,
+    bull: false,
+    positive_negative: false,
+  });
 
   return (
     <div className="metrics-wrapper ">
@@ -44,22 +52,35 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           </div>
         </div>
         <div className="Metrics metrics-flex bordered centered smaller ">
+          {showInfoBlock.talk_rate && <InfoBlocks infoType="talk_rate" />}
           <div className="talk-rate-wrapper">
-            <TalkRateElement
-              rate={projectByIdProp?.talk_rate_score}
-              type="talk_rate"
-              isSmalller={isTablet}
-            />
+            {projectByIdProp.talk_rate_score ? (
+              <TalkRateElement
+                rate={projectByIdProp.talk_rate_score}
+                type="talk_rate"
+                isSmalller={isTablet}
+              />
+            ) : (
+              <img src={icons.empty_talk_rate} alt="no talk rate data" />
+            )}
           </div>
           {!isTablet && (
             <img
               className="metrics-question-mark"
               src={icons.question_mark_grey}
               alt="question mark"
-              // onMouseOver={() => setShowInfo(true)}
-              // onMouseLeave={() => setShowInfo(false)}
-              // onTouchEnd={() => setShowInfo(false)}
-              // onClick={() => setShowInfo(true)}
+              onMouseLeave={() =>
+                setShowInfoBlock({
+                  ...showInfoBlock,
+                  talk_rate: false,
+                })
+              }
+              onMouseOver={() =>
+                setShowInfoBlock({
+                  ...showInfoBlock,
+                  talk_rate: true,
+                })
+              }
             />
           )}
         </div>
@@ -76,12 +97,21 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
               className="metrics-question-mark"
               src={icons.question_mark_grey}
               alt="question mark"
-              // onMouseOver={() => setShowInfo(true)}
-              // onMouseLeave={() => setShowInfo(false)}
-              // onTouchEnd={() => setShowInfo(false)}
-              // onClick={() => setShowInfo(true)}
+              onMouseOver={() =>
+                setShowInfoBlock({
+                  ...showInfoBlock,
+                  bull: true,
+                })
+              }
+              onMouseLeave={() =>
+                setShowInfoBlock({
+                  ...showInfoBlock,
+                  bull: false,
+                })
+              }
             />
           )}
+          {showInfoBlock.bull && <InfoBlocks infoType="bull" />}{' '}
         </div>
         <div className="Metrics metrics-flex bordered centered smaller">
           <div>
@@ -96,12 +126,23 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
               className="metrics-question-mark"
               src={icons.question_mark_grey}
               alt="question mark"
-              // onMouseOver={() => setShowInfo(true)}
-              // onMouseLeave={() => setShowInfo(false)}
-              // onTouchEnd={() => setShowInfo(false)}
-              // onClick={() => setShowInfo(true)}
+              onMouseEnter={() =>
+                setShowInfoBlock({
+                  ...showInfoBlock,
+                  positive_negative: true,
+                })
+              }
+              onMouseLeave={() =>
+                setShowInfoBlock({
+                  ...showInfoBlock,
+                  positive_negative: false,
+                })
+              }
             />
           )}
+          {showInfoBlock.positive_negative && (
+            <InfoBlocks infoType="positive_negative" />
+          )}{' '}
         </div>
         {isNftProject ? (
           <div className="Metrics metrics-flex bordered centered prices nft">

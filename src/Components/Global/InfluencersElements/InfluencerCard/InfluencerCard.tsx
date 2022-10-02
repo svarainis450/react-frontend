@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
 import { InfluencerData } from 'src/state/reduxstate/influencers/types';
@@ -45,7 +45,6 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
   const [showMore, setShowMore] = useState(false);
   const isPositiveBullseye = bullseyeChange > 0;
   const isPositiveInfluence = influenceChange > 0;
-  const [subscribed, setSubscribed] = useState(false);
   const [status, setStatus] = useState<Statuses>('idle');
 
   const followersCalculated = calculateBigNumberValues(twitter_followers);
@@ -61,7 +60,6 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
 
   const handleSubscribeBtn = (id: number) => {
     if (!isSubscribedInfluencer) {
-      setSubscribed(true);
       dispatch(
         sendFavInfluencer({
           id,
@@ -75,7 +73,6 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
           callBack: setStatus,
         })
       );
-      setSubscribed(false);
     }
   };
 
@@ -105,13 +102,13 @@ export const InfluencerCard: React.FC<InfluencerCardProps> = ({
                 </Typography>
               </div>
             </div>
-            {twitter_is_verified && (
+            {/* {twitter_is_verified && (
               <img
                 className="influencer-card__border-wrapper__top-expert"
                 src={isTablet ? icons.top_expert_mobile : icons.top_expert}
                 alt="Top Expert"
               />
-            )}
+            )} */}
             {isTablet && (
               <TalkRateElement
                 rate={influence_score}

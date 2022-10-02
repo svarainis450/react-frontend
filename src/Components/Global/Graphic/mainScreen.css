@@ -28,11 +28,13 @@
 .toggle-buttons {
   margin-bottom: 10px;
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   align-content: flex-start;
 }
 
 .toggle-buttons button {
+  position: relative;
   background-color: white;
   border: none;
   width: 160px;
@@ -47,6 +49,10 @@
 .toggle-buttons #active {
   background-color: #2b59d1;
   color: white;
+}
+
+.toggle-buttons button img {
+  margin-left: 6px;
 }
 
 @media screen and (max-width: 780px) {

@@ -36,6 +36,7 @@ export const ProfileCard: React.FC = () => {
     password: userData.password,
   });
 
+
   useEffect(() => {
     if (profileImg) {
       const url = URL.createObjectURL(profileImg);
@@ -98,9 +99,9 @@ export const ProfileCard: React.FC = () => {
       </label>
       <CardWrapper>
         <Typography className="profile-card__name">
-          {userInfo.name || 'Name'} {userInfo.surname || 'Surname'}
+          {userData.first_name || 'Name'} {userData.last_name || 'Surname'}
         </Typography>
-        <div className="profile-card__border-wrapper">
+        {/* <div className="profile-card__border-wrapper">
           <div className="profile-card__border-wrapper__edit">
             <Typography className="bolded-text">Selected Interests</Typography>
           </div>
@@ -109,7 +110,7 @@ export const ProfileCard: React.FC = () => {
               <CategoryTag key={index} tagTitle={item} />
             ))}
           </div>
-        </div>
+        </div> */}
         <div className="profile-card__border-wrapper">
           <div className="profile-card__border-wrapper__edit">
             <Typography className="bolded-text">Your Information</Typography>

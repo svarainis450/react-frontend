@@ -16,20 +16,6 @@ const BILLING_DATA = [
     date: 'Dec 1, 2022',
     status: 'Paid',
   },
-  {
-    id: 2,
-    title: 'Potato Starter monthly',
-    price: 12,
-    date: 'Dec 1, 2022',
-    status: 'Paid',
-  },
-  {
-    id: 3,
-    title: 'Potato Starter monthly',
-    price: 12,
-    date: 'Dec 1, 2022',
-    status: 'Paid',
-  },
 ];
 
 export const BillingHistory: React.FC = () => {

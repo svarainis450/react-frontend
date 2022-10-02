@@ -12,7 +12,7 @@
 
   &__overlay {
     position: absolute;
-    transition: background-color ease-in .1s;
+    transition: background-color ease-in 0.1s;
 
     &--inactive {
       background-color: transparent;
@@ -29,14 +29,14 @@
     position: static;
   }
 
-  &__content { 
+  &__content {
     width: 17.5rem;
     z-index: var(--z-side-menu);
     background-color: var(--color-white);
     height: 100%;
     position: absolute;
     transform: translateX(calc(17.5rem * -1));
-    transition: transform ease-in .1s;
+    transition: transform ease-in 0.1s;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -52,7 +52,7 @@
 
   &--active {
     left: 0;
-    
+
     #{$block}__content {
       transform: translateX(0);
 
@@ -68,7 +68,7 @@
       left: 0;
       right: 0;
       z-index: var(--z-side-menu--overlay);
-      background-color: rgba(0,0,0,0.8);
+      background-color: rgba(0, 0, 0, 0.8);
     }
   }
 
@@ -80,9 +80,9 @@
   }
 
   &__login {
-    height: 1.875rem;
-    padding: 0;
-    width: 4.875rem;
+    margin-top: 10px;
+    width: 109px;
+    padding: 8px 16px;
   }
 
   &__close {
@@ -109,7 +109,7 @@
 
   &__signup {
     margin-top: 3.5rem;
-    
+
     button {
       width: 8.125rem;
       height: 3rem;

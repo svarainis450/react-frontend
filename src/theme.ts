@@ -6,7 +6,7 @@ export const theme = {
     grey: '#F4F4F4',
     greyDark: 'rgba(0, 0, 0, 0.6)',
     red: '#FA5000',
-    heroYellow: '#FCF158',
+    heroYellow: '#FFFF00',
     orange: '#FA5000',
     electric: '#2BC7D1',
     potatoGreen: '#2BD130',

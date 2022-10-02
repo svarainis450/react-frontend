@@ -1,8 +1,9 @@
-import { Plan } from "../Components/Global/PaymentOptions/constants";
+import { Plan } from '../Components/Global/PaymentOptions/constants';
 
 export interface UserBasicInfo {
-  name: string,
-  email: string
+  name?: string;
+  email: string;
+  password: string;
 }
 
 export interface PaymentCardInfo {
@@ -13,7 +14,7 @@ export interface PaymentCardInfo {
 }
 
 export interface User extends UserBasicInfo {
-  orderId: number,
-  paymentCard: Partial<PaymentCardInfo>,
-  selectedPlan?: Plan
-};
+  orderId: number;
+  paymentCard: Partial<PaymentCardInfo>;
+  selectedPlan?: Plan;
+}

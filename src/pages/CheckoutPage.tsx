@@ -57,12 +57,12 @@ export const CheckoutPage: FC = memo(() => {
 
   return !user.selectedPlan ? null : (
     <>
-      <LayoutWithHeader onClick={handleLogoClick}>
+      <LayoutWithHeader showLoginOption onClick={handleLogoClick}>
         <FlexStyled ref={myRef} isDownsell={showDownsell}>
           {isTablet ? null : <OurPromise />}
           <SubscriptionLayout onBack={handleLogoClick}>
             <Title margin={isMobile ? '0 0 1.5rem 0' : '0 0 2.5rem 0'}>
-              Your Information
+              Create account
             </Title>
             <GeneralInformationForm onSubmit={handleSubmit} />
           </SubscriptionLayout>

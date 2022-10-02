@@ -13,6 +13,7 @@ import { User } from '../types';
 const DEFAULT_USER: User = {
   name: '',
   email: '',
+  password: '',
   paymentCard: {},
   /** @TODO: persist this random number */
   orderId: Math.floor(Math.random() * (999999 - 100000)) + 100000,

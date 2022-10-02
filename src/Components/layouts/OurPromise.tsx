@@ -14,15 +14,15 @@ export const OurPromise: FC = () => {
           Potato Pro is amazing, but don’t just take our word for it.
         </Title>
         <Description margin="0 0 1rem 0">
-          “I recently started investing in NFTs, and I’ve had a steady
-          understanding of the industry, all thanks to Potato. Best investment
-          I’ve made was becoming Pro.”
+          “This tool helps me a lot to understand how NFT and Crypto market
+          works. I follow interesting projects to get a sense of what makes them
+          grow. Great tool for curious!”
         </Description>
         <Flex alignItems="center">
-          <Avatar src={images.avatar} alt="Avatar" />
+          <Avatar src={images.lena_testimonial} alt="Avatar" />
           <Box margin="0 0 0 0.75rem">
-            <SmallText fontWeight={400}>Calvin Harley</SmallText>
-            <SmallText fontWeight={300}>NFT enthusiast</SmallText>
+            <SmallText fontWeight={400}>Lina | DCL Wearables Daily</SmallText>
+            <SmallText fontWeight={300}>@lenalisabona</SmallText>
           </Box>
         </Flex>
       </div>
