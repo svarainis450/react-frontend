@@ -109,11 +109,11 @@
       .input-wrapper {
         position: relative;
         display: flex;
-        margin: 16px 0;
         width: 100%;
 
         @include desktop {
           max-width: 256px;
+          margin: 16px 0;
         }
 
         &__magnifier {
