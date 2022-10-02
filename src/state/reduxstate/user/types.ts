@@ -27,7 +27,6 @@ export interface UserDataType extends UserUpdateType {
   id?: number;
   paypal_id: string | null;
   stripe_id: string | null;
-  subscription_expires_at: string | null;
 }
 
 export interface UserUpdateType {
@@ -37,6 +36,7 @@ export interface UserUpdateType {
   img_url?: string;
   password?: string;
   type?: PlanType;
+  subscription_expires_at?: string | null;
 }
 export interface FavInfluencersProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;

@@ -42,7 +42,6 @@ export const Influencers: React.FC = () => {
   const skipElementsValue = skipElements === null ? 0 : skipElements;
   const [showModalLoader, setShowModalLoader] = useState(false);
   const influencerByName = useSelector(influencerByNameSelector);
-  console.log(influencerByName);
   const influencersFilterValue = useInfluencersFilters(
     influencersFilter,
     nameFilterValue

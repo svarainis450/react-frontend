@@ -10,6 +10,7 @@ import {
   SubsPriceIdStripe,
 } from 'src/globalConstants/prices';
 import { setModalType } from 'src/state/reduxstate/modals/slice';
+import { paymentStatusSelector } from 'src/state/reduxstate/payments/selectors';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { selectedPlanSelector } from 'src/state/reduxstate/user/selectors';
 import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
@@ -21,6 +22,7 @@ export const UpgradeToProPayments: React.FC = () => {
   const dispatch = useAppDispatch();
   const [billingType, setBillingType] = useState<BillingType>('yearly');
   const selectedPlan = useSelector(selectedPlanSelector);
+  const paymentStatus = useSelector(paymentStatusSelector);
   const isDevelopmentEnv = process.env.NODE_ENV === 'development';
 
   const price: { [key in BillingType]: SubsPriceIdStripe } = {
@@ -47,11 +49,12 @@ export const UpgradeToProPayments: React.FC = () => {
     stripe_price_id: price[billingType],
   };
 
-  // console.log(selectedPlan);
-
   useEffect(() => {
     dispatch(setSelectedPlan(upgradePlan));
-  }, [billingType]);
+    if (paymentStatus === 'succeeded') {
+      dispatch(setModalType(null));
+    }
+  }, [billingType, paymentStatus]);
 
   return (
     <ModalWrapper overlayBackground="rgba(255,255,255,0.80)">

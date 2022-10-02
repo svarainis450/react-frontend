@@ -47,8 +47,6 @@ export const GeneralInformationForm: FC<Props> = memo(({ onSubmit }) => {
     []
   );
 
-  console.log(formData);
-
   const handleRegister = (event: FormEvent) => {
     event.preventDefault();
     setError('');

@@ -198,9 +198,7 @@ export const deleteFavInfluencer = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(body),
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data));
+        }).then((res) => res.json());
 
         dispatch(getFavInfluencers());
 

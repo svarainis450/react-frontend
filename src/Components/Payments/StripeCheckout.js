@@ -47,19 +47,20 @@ const CheckoutForm = () => {
         },
       });
 
-      console.log(res);
-
       const client_secret =
         res.data.latest_invoice.payment_intent.client_secret;
 
-      const { error } = await stripe.confirmCardPayment(client_secret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: userName,
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        client_secret,
+        {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: userName,
+            },
           },
-        },
-      });
+        }
+      );
 
       if (error) {
         setMessage(error.message);
@@ -67,8 +68,14 @@ const CheckoutForm = () => {
         dispatch(setPaymentStatus('succeeded'));
         setMessage('Payment successful!');
       }
-      dispatch(updateUserInfo({ type: selectedPlan.plan }));
-      console.log(res.data);
+      dispatch(
+        updateUserInfo({
+          type: selectedPlan.plan,
+          subscription_expires_at: String(
+            new Date(res.data.current_period_end * 1000)
+          ),
+        })
+      );
     } catch (e) {
       console.log(e);
       setMessage('An unexpected error occurred.');
