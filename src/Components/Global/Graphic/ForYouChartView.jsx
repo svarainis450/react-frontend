@@ -71,7 +71,6 @@ export const ForYouChartView = ({
               return obj;
             }
           });
-          console.log(newState);
           setGraphToggleButtons(newState);
         }
         break;
@@ -81,13 +80,29 @@ export const ForYouChartView = ({
             if (event.currentTarget.id === 'active') {
               return { ...item, active: false };
             } else {
-              return item;
+              return { ...item, active: true };
+              // return item;
             }
           } else {
             return item;
           }
         });
-        console.log(newState);
+
+        const activeButtons = newState.filter((d) => d.active === true);
+        let dropButton;
+        if (activeButtons.length > 2) {
+          dropButton = activeButtons
+            .filter((d) => d.title !== pressedTitle)
+            .at(-1);
+          newState = newState.map((item) => {
+            if (item.title === dropButton.title) {
+              return { ...item, active: false };
+            } else {
+              return item;
+            }
+          });
+        }
+
         setGraphToggleButtons(newState);
         break;
     }
