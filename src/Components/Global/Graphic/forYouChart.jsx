@@ -334,15 +334,32 @@ export const genChart = (
         chartTypeMap.get(activeItems[0].title) + intervalMapFirstCapitalized
       ];
     if (data.length > 2) {
-      let maxScaleValue;
-      if (['Mentions', 'Sentiment'].includes(activeItems[0].title)) {
-        maxScaleValue = 100;
+      let forYouChartDomain;
+      if (
+        ['Mentions', 'Sentiment'].includes(activeItems[0].title) &&
+        ['1M', '3M', 'All'].includes(interval)
+      ) {
+        forYouChartDomain = [0, 100];
+      } else if (['3H', '1D', '1W'].includes(interval)) {
+        const minVal = d3.min(data, (d) => d.value);
+        let maxVal = d3.max(data, (d) => d.value);
+        maxVal =
+          maxVal * 1.1 > 100 &&
+          ['Mentions', 'Sentiment'].includes(activeItems[0].title)
+            ? maxVal
+            : maxVal * 1.1;
+
+        const diff = maxVal - minVal;
+        forYouChartDomain =
+          minVal - diff < 0 ? [0, maxVal] : [minVal - diff * 0.4, maxVal];
       } else {
-        maxScaleValue = d3.max(data, (d) => d.value);
+        console.log('ugh');
+        forYouChartDomain = [0, d3.max(data, (d) => d.value)];
       }
+      console.log(forYouChartDomain);
       const yScale = d3
         .scaleLinear()
-        .domain([0, maxScaleValue])
+        .domain(forYouChartDomain)
         .range([chartDimensions.height, 0]);
 
       addLineWithGradient(
@@ -379,15 +396,31 @@ export const genChart = (
           chartTypeMap.get(item.title) + intervalMapFirstCapitalized
         ];
       if (data.length > 2) {
-        let maxScaleValue;
-        if (['Mentions', 'Sentiment'].includes(item.title)) {
-          maxScaleValue = 100;
+        let forYouChartDomain;
+        if (
+          ['Mentions', 'Sentiment'].includes(activeItems[0].title) &&
+          ['1M', '3M', 'All'].includes(interval)
+        ) {
+          forYouChartDomain = [0, 100];
+        } else if (['3H', '1D', '1W'].includes(interval)) {
+          const minVal = d3.min(data, (d) => d.value);
+          let maxVal = d3.max(data, (d) => d.value);
+          maxVal =
+            maxVal * 1.1 > 100 &&
+            ['Mentions', 'Sentiment'].includes(activeItems[0].title)
+              ? maxVal
+              : maxVal * 1.1;
+
+          const diff = maxVal - minVal;
+          forYouChartDomain =
+            minVal - diff < 0 ? [0, maxVal] : [minVal - diff * 0.4, maxVal];
         } else {
-          maxScaleValue = d3.max(data, (d) => d.value);
+          forYouChartDomain = [0, d3.max(data, (d) => d.value)];
         }
+        console.log(forYouChartDomain);
         const yScale = d3
           .scaleLinear()
-          .domain([0, maxScaleValue])
+          .domain(forYouChartDomain)
           .range([chartDimensions.height, 0]);
 
         addLineWithGradient(
@@ -429,7 +462,6 @@ export const ForYouChart = ({ projectType, chartData, chartTypeButtons }) => {
   const [interval, setInterval] = useState('All');
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [chartDimensions, setChartDimensions] = useState(null);
-  console.log(projectType);
   const buttonIntervals =
     projectType === 'nft'
       ? ['1W', '1M', '3M', 'All']
