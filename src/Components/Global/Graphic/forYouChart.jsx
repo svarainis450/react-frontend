@@ -337,10 +337,10 @@ export const genChart = (
       let forYouChartDomain;
       if (
         ['Mentions', 'Sentiment'].includes(activeItems[0].title) &&
-        ['1M', '3M', 'All'].includes(interval)
+        ['3M', 'All'].includes(interval)
       ) {
         forYouChartDomain = [0, 100];
-      } else if (['3H', '1D', '1W'].includes(interval)) {
+      } else if (['3H', '1D', '1W', '1M'].includes(interval)) {
         const minVal = d3.min(data, (d) => d.value);
         let maxVal = d3.max(data, (d) => d.value);
         maxVal =
@@ -399,10 +399,10 @@ export const genChart = (
         let forYouChartDomain;
         if (
           ['Mentions', 'Sentiment'].includes(activeItems[0].title) &&
-          ['1M', '3M', 'All'].includes(interval)
+          ['3M', 'All'].includes(interval)
         ) {
           forYouChartDomain = [0, 100];
-        } else if (['3H', '1D', '1W'].includes(interval)) {
+        } else if (['3H', '1D', '1W', '1M'].includes(interval)) {
           const minVal = d3.min(data, (d) => d.value);
           let maxVal = d3.max(data, (d) => d.value);
           maxVal =
