@@ -16,7 +16,7 @@ import { DotExplain } from './ChartElements/ChartGraphicsElements';
 import './linePlot.css';
 import { isConstructorDeclaration } from 'typescript';
 
-const buttonIntervals = ['3H', '1D', '1W', '1M', '3M', 'All'];
+// const buttonIntervals = ['3H', '1D', '1W', '1M', '3M', 'All'];
 
 export const getOffsetTop = (element) => {
   let offsetTop = 0;
@@ -60,7 +60,6 @@ export const addTooltip = (
         .select('#value')
         .html(`${activeItems[0].title}: ${closestDataPoint.value}`);
 
-      // console.log(event.pageX, window.innerWidth, chartDimensions.width);
       const svgCoords = document
         .querySelector('.listening-rect')
         .getBoundingClientRect();
@@ -76,7 +75,6 @@ export const addTooltip = (
         tooltip.style('left', `${event.pageX - tooltipWidth.width - 20}px`);
       }
 
-      // console.log(yScale(closestDataPoint.value));
       if (coords[1] > yScale(closestDataPoint.value)) {
         tooltip.style(
           'top',
@@ -162,7 +160,6 @@ export const addTooltipTwoLines = (chartDimensions, realOffset, dataItems) => {
         .html(
           `${dataItems[1].item.title}: ${dataItems[1].closestDataPoint.value}`
         );
-      // console.log(event.pageX, window.innerWidth, chartDimensions.width);
       const svgCoords = document
         .querySelector('.listening-rect')
         .getBoundingClientRect();
@@ -428,10 +425,15 @@ export const genChart = (
   }
 };
 
-export const ForYouChart = ({ chartData, chartTypeButtons }) => {
+export const ForYouChart = ({ projectType, chartData, chartTypeButtons }) => {
   const [interval, setInterval] = useState('All');
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [chartDimensions, setChartDimensions] = useState(null);
+  console.log(projectType);
+  const buttonIntervals =
+    projectType === 'nft'
+      ? ['1W', '1M', '3M', 'All']
+      : ['3H', '1D', '1W', '1M', '3M', 'All'];
 
   useEffect(() => {
     window.addEventListener('resize', () => {
@@ -451,7 +453,7 @@ export const ForYouChart = ({ chartData, chartTypeButtons }) => {
   useEffect(() => {
     if (chartDimensions)
       genChart(chartData, interval, chartDimensions, chartTypeButtons, margin);
-  }, [interval, chartDimensions, chartTypeButtons, windowSize]);
+  }, [chartData, interval, chartDimensions, chartTypeButtons, windowSize]);
 
   return (
     <>

@@ -57,7 +57,6 @@ export const Discover: React.FC = () => {
     null
   );
   const [nameFilter, setNameFilter] = useState<string | null>(null);
-  console.log(projects);
   const filterValue = useProjectFilters(
     projectsFilter,
     categoryFilter,

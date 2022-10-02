@@ -148,8 +148,6 @@ export const fetchInfluencers = createAsyncThunk(
           );
         }
 
-        console.log(resp);
-
         callBack && callBack('success');
       } catch (e) {
         callBack && callBack('error');

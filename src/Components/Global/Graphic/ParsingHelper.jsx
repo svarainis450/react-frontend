@@ -27,8 +27,6 @@ export const filterDataObjectsByPeriod = (
   let endTimeDay = new Date();
   endTimeDay.setUTCHours(0, 0, 0, 0);
 
-  console.log(endTime);
-
   // start datetimes
   let threeHourStartTime = new Date();
   threeHourStartTime.setHours(threeHourStartTime.getHours() - 6, 0, 0, 0);

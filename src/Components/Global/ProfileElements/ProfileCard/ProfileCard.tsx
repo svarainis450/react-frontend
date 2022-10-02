@@ -36,8 +36,6 @@ export const ProfileCard: React.FC = () => {
     password: userData.password,
   });
 
-  console.log(userData);
-
   useEffect(() => {
     if (profileImg) {
       const url = URL.createObjectURL(profileImg);
