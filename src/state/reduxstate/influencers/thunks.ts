@@ -7,7 +7,11 @@ import { RootState } from '../slice';
 import { apiv1 } from '../types';
 import { getFavInfluencers } from '../user/thunks';
 import { FavInfluencersProjectsPayload } from '../user/types';
-import { setInfluencersData, setTrendingInfluencers } from './slice';
+import {
+  setInfluencerByName,
+  setInfluencersData,
+  setTrendingInfluencers,
+} from './slice';
 import { InfluencerData } from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
@@ -182,6 +186,39 @@ export const sendFavInfluencer = createAsyncThunk(
       } catch (e) {
         callBack && callBack('error');
         console.log(e);
+      }
+    }
+  }
+);
+
+interface InfluencerByNamePayload {
+  name: string;
+  statusCallBack?: Dispatch<SetStateAction<Statuses>>;
+}
+export const fetchInfluencerByName = createAsyncThunk(
+  'influencers/GET_IFLUENCER_BY_NAME',
+  async (
+    { name, statusCallBack }: InfluencerByNamePayload,
+    { getState, dispatch }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if (tokenFromState && name) {
+      statusCallBack && statusCallBack('pending');
+      try {
+        const resp = await fetch(`${apiv1}/twitter-users/${name}`, {
+          headers: {
+            Authorization: `Bearer ${tokenFromState}`,
+          },
+        }).then((res) => res.json());
+        console.log(resp);
+        dispatch(setInfluencerByName(resp.data));
+
+        statusCallBack && statusCallBack('succeeded');
+      } catch (e) {
+        console.log(e);
+        statusCallBack && statusCallBack('error');
       }
     }
   }

@@ -38,7 +38,6 @@ export const fetchProjectById = createAsyncThunk(
   ) => {
     const { user } = getState() as RootState;
     const tokenFromState = user.user_token;
-    console.log(tokenFromState);
 
     if (tokenFromState && id) {
       statusCallBack && statusCallBack('pending');

@@ -13,7 +13,11 @@ import { Submenu } from 'src/Components/Global/Submenu';
 import { LoggedInLayout } from 'src/Components/layouts/LoggedInLayout';
 import { ModalWrapper } from 'src/Components/wrappers/ModalWrapper';
 import { useInfluencersFilters } from 'src/hooks';
-import { influencersDataSelector } from 'src/state/reduxstate/influencers/selectors';
+import {
+  influencerByNameSelector,
+  influencersDataSelector,
+} from 'src/state/reduxstate/influencers/selectors';
+import { setInfluencerByName } from 'src/state/reduxstate/influencers/slice';
 import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import {
   InfluencerFilterKeys,
@@ -37,7 +41,8 @@ export const Influencers: React.FC = () => {
   const [skipElements, setSkipElements] = useState<number | null>(null);
   const skipElementsValue = skipElements === null ? 0 : skipElements;
   const [showModalLoader, setShowModalLoader] = useState(false);
-
+  const influencerByName = useSelector(influencerByNameSelector);
+  console.log(influencerByName);
   const influencersFilterValue = useInfluencersFilters(
     influencersFilter,
     nameFilterValue
@@ -83,6 +88,7 @@ export const Influencers: React.FC = () => {
   ]);
 
   const handleLoadMoreBtn = () => {
+    dispatch(setInfluencerByName(null));
     if (notAllToShow && influencersLeftToSee >= cardsPerOneRequest) {
       setSkipElements(skipElementsValue + cardsPerOneRequest);
     } else if (notAllToShow && influencersLeftToSee < cardsPerOneRequest) {
@@ -139,7 +145,9 @@ export const Influencers: React.FC = () => {
                 <LoadError />
               </div>
             ))}
+          {influencerByName && <InfluencerCard {...influencerByName} />}
           {(influencersStatus === 'success' || isLoadedInfluencers) &&
+            !influencerByName &&
             influencers.map(({ ...rest }, index) => (
               <Element
                 key={index}
