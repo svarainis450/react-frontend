@@ -29,8 +29,8 @@ export const GeneralInformationForm: FC<Props> = memo(({ onSubmit }) => {
   const { user, setUser } = useContext(UserContext);
   const userData = useSelector(userDataSelector);
   const [formData, setFormData] = useState<UserBasicInfo>({
-    email: userData.email || '',
-    password: userData.password || '',
+    email: '',
+    password: '',
   });
   const [error, setError] = useState<string>('');
   const [RegisterInProgress, setRegisterInProgress] = useState<boolean>(false);
@@ -47,8 +47,6 @@ export const GeneralInformationForm: FC<Props> = memo(({ onSubmit }) => {
     []
   );
 
-  console.log(formData);
-
   const handleRegister = (event: FormEvent) => {
     event.preventDefault();
     setError('');
@@ -63,11 +61,15 @@ export const GeneralInformationForm: FC<Props> = memo(({ onSubmit }) => {
       .catch((err) => {
         setRegisterInProgress(false);
 
-        err
-          ? setError(err.data.message)
-          : setError(
-              `We're experiencing some internal problems. Try in few minutes`
-            );
+        if (err?.data?.error?.faults[0].includes('Duplicate entry')) {
+          setError(`${formData.email} user exists.`);
+        } else if (err) {
+          setError(err.data.error.message);
+        } else {
+          setError(
+            `We're experiencing some internal problems. Try in few minutes`
+          );
+        }
       });
   };
 

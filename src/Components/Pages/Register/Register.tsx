@@ -1,4 +1,11 @@
-import { useState, ChangeEvent, useCallback, FormEvent, useContext, SyntheticEvent } from 'react';
+import {
+  useState,
+  ChangeEvent,
+  useCallback,
+  FormEvent,
+  useContext,
+  SyntheticEvent,
+} from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -7,7 +14,7 @@ import rocketTicket from 'src/Assets/images/rocketTicket.svg';
 import { LayoutWithHeader } from 'src/Components/';
 import { Input } from 'src/Components';
 
-import { API_USER_REGISTER } from 'src/Common/services/register'
+import { API_USER_REGISTER } from 'src/Common/services/register';
 
 import './Register.scss';
 import { LinkList } from 'src/types';
@@ -21,7 +28,7 @@ export const Register = () => {
   const navigate = useNavigate();
 
   const handleRegister = () => {
-    setError("");
+    setError('');
     setRegisterInProgress(true);
 
     API_USER_REGISTER(email, pass)
@@ -29,17 +36,21 @@ export const Register = () => {
       .catch((err) => {
         setRegisterInProgress(false);
 
-        err
-          ? setError(err.data.message)
-          : setError(
-              `We're experiencing some internal problems. Try in few minutes`
-            );
+        if (err.data.error.faults[0].includes('Duplicate entry')) {
+          setError(`${email} user exists.`);
+        } else if (err) {
+          setError(err.data.error.message);
+        } else {
+          setError(
+            `We're experiencing some internal problems. Try in few minutes`
+          );
+        }
       });
-  }
+  };
 
   const handlePassChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPass(e.target.value);
-  }; 
+  };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -57,7 +68,7 @@ export const Register = () => {
             value={email}
             onChange={handleEmailChange}
             placeholder="Email"
-            className='Register__input'
+            className="Register__input"
           />
 
           <Input
@@ -67,17 +78,36 @@ export const Register = () => {
             onChange={handlePassChange}
             placeholder="Password"
             error={error}
-            className='Register__input'
+            className="Register__input"
           />
 
-          <Button textWeight='heavy' className="Register__button" type="submit" onClick={handleRegister}>
-            {RegisterInProgress ? "Signing up  ..." : "Sign up"}
+          <Button
+            textWeight="heavy"
+            className="Register__button"
+            type="submit"
+            onClick={handleRegister}
+          >
+            {RegisterInProgress ? 'Signing up  ...' : 'Sign up'}
           </Button>
 
-          <img className="Register__img" src={rocketTicket} alt="rocketTicket" />
+          <img
+            className="Register__img"
+            src={rocketTicket}
+            alt="rocketTicket"
+          />
 
-          <p className="Register__teaser"> 
-            By continuing, you agree to Potato's <Link to={LinkList.TermsAndConditions} className="Register__teaser-link">Terms of Use</Link> and confirm that you have read Potato's  <Link to={LinkList.PrivacyPolicy} className="Register__teaser-link">Privacy Policy</Link>
+          <p className="Register__teaser">
+            By continuing, you agree to Potato's{' '}
+            <Link
+              to={LinkList.TermsAndConditions}
+              className="Register__teaser-link"
+            >
+              Terms of Use
+            </Link>{' '}
+            and confirm that you have read Potato's{' '}
+            <Link to={LinkList.PrivacyPolicy} className="Register__teaser-link">
+              Privacy Policy
+            </Link>
           </p>
         </div>
       </div>

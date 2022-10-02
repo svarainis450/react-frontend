@@ -32,6 +32,7 @@
     }
 
     .favorites {
+      margin-left: 10px;
       width: 30px;
       height: 30px;
       cursor: pointer;
@@ -49,9 +50,11 @@
           margin: 0 0 6px;
           font-size: 1rem;
           word-break: keep-all;
+          width: 100%;
 
           @include desktop {
             font-size: 1.125rem;
+            width: 100%;
           }
         }
       }
@@ -127,7 +130,7 @@
 
   .flex.icon-project {
     justify-content: flex-start;
-    width: calc(100% - 38px);
+    width: calc(100% - 20px);
   }
 
   .flex.flex-start {

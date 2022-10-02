@@ -1,20 +1,23 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Typography } from 'src/Components/Global/Typography';
 import { Prices } from 'src/globalConstants/prices';
+import { BillingType } from 'src/state/reduxstate/user/types';
 
 import './UpgradeSelection.scss';
 
-type Selection = 'Monthly' | 'Yearly';
-
 interface UpgradeSelectionProps {
   hideTitle?: boolean;
+  onClick?: () => void;
+  selectedBillingCallback?: Dispatch<SetStateAction<BillingType>>;
 }
 
 export const UpgradeSelection: React.FC<UpgradeSelectionProps> = ({
   hideTitle = false,
+  selectedBillingCallback,
+  onClick,
 }) => {
-  const [selectedPlan, setSelectedPlan] = useState<Selection>('Yearly');
-  const isMonthly = selectedPlan === 'Monthly';
+  const [selectedPlan, setSelectedPlan] = useState<BillingType>('yearly');
+  const isMonthly = selectedPlan === 'monthly';
   const discount = 25;
 
   return (
@@ -26,6 +29,7 @@ export const UpgradeSelection: React.FC<UpgradeSelectionProps> = ({
       )}
       <div className="upgrade-selection__select-wrapper">
         <label
+          onClick={onClick}
           className={`upgrade-selection__select-wrapper__selection ${
             isMonthly ? 'selected' : ''
           }`}
@@ -33,7 +37,10 @@ export const UpgradeSelection: React.FC<UpgradeSelectionProps> = ({
           <input
             type="radio"
             checked={isMonthly}
-            onChange={() => setSelectedPlan('Monthly')}
+            onChange={() => {
+              setSelectedPlan('monthly');
+              selectedBillingCallback && selectedBillingCallback('monthly');
+            }}
             readOnly
           />
           <div
@@ -47,6 +54,7 @@ export const UpgradeSelection: React.FC<UpgradeSelectionProps> = ({
           </Typography>
         </label>
         <label
+          onClick={onClick}
           className={`upgrade-selection__select-wrapper__selection ${
             !isMonthly ? 'selected' : ''
           }`}
@@ -62,7 +70,10 @@ export const UpgradeSelection: React.FC<UpgradeSelectionProps> = ({
           <input
             type="radio"
             checked={!isMonthly}
-            onChange={() => setSelectedPlan('Yearly')}
+            onChange={() => {
+              setSelectedPlan('yearly');
+              selectedBillingCallback && selectedBillingCallback('yearly');
+            }}
             readOnly
           />
 

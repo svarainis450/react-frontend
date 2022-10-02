@@ -62,6 +62,7 @@ export const forYouSubmenuList: SubmenuListProps[] = [
 ];
 
 export const ForYou: React.FC = () => {
+  const { isTablet } = useMediaQuery();
   const dataForStats = useForYouPageData();
   const dispatch = useAppDispatch();
   const userData = useSelector(userDataSelector);
@@ -100,8 +101,6 @@ export const ForYou: React.FC = () => {
       dispatch(fetchProjects({ filter: filterValue }));
     }
   }, [projectsFilter, filterValue, nameFilter]);
-
-  const { isTablet } = useMediaQuery();
 
   useEffect(() => {
     if (takeProjects > 0) {
@@ -162,7 +161,7 @@ export const ForYou: React.FC = () => {
       <LoggedInLayout activeLink="For you">
         <Submenu pageTitleMob="For You" menuItems={forYouSubmenuList} />
         <div>
-          {dataForStats && dataForStats.length > 0 && (
+          {!isTablet && dataForStats && dataForStats.length > 0 && (
             <ProjectMetrics projectByIdProp={dataForStats[0]} />
           )}
         </div>
@@ -298,6 +297,9 @@ export const ForYou: React.FC = () => {
                 favoriteProjects={favoriteProjects}
                 projects={projects}
               />
+            )}
+            {isTablet && dataForStats && dataForStats.length > 0 && (
+              <ProjectMetrics projectByIdProp={dataForStats[0]} />
             )}
           </div>
         </div>

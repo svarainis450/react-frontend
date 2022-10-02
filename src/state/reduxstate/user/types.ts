@@ -1,4 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
+import {
+  StripeProductKeys,
+  SubsPriceIdStripe,
+} from 'src/globalConstants/prices';
 import { InfluencerData } from '../influencers/types';
 import { Project, Statuses } from '../projects/types';
 
@@ -23,7 +27,6 @@ export interface UserDataType extends UserUpdateType {
   id?: number;
   paypal_id: string | null;
   stripe_id: string | null;
-  subscription_expires_at: string | null;
 }
 
 export interface UserUpdateType {
@@ -33,6 +36,7 @@ export interface UserUpdateType {
   img_url?: string;
   password?: string;
   type?: PlanType;
+  subscription_expires_at?: string | null;
 }
 export interface FavInfluencersProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;
@@ -43,10 +47,12 @@ export interface FavInfluencersProjectsPayload {
 export interface SelectedPlan {
   monthly_price: number;
   begin_price: number;
-  billing_type: 'monthly' | 'yearly';
+  billing_type: BillingType;
   plan: PlanType;
-  stripe_product?: string;
-  stripe_price_id?: string;
+  stripe_product?: StripeProductKeys;
+  stripe_price_id?: SubsPriceIdStripe;
 }
 
 export type PlanType = 'Potato Starter' | 'Potato Pro';
+
+export type BillingType = 'monthly' | 'yearly';

@@ -10,6 +10,7 @@ export interface InfluencersState {
     skip: number;
   };
   influencers_data: InfluencersDataType;
+  influencer_by_name: InfluencerData | null;
 }
 
 export interface Influencer {

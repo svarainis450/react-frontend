@@ -56,8 +56,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
     top3LowestTalkRateProjectsSelector
   );
 
-  console.log(top3BullProjects);
-
   const topPositive = isLowestList
     ? top3NegativeProjects
     : top3PositiveProjects;

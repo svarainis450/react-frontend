@@ -78,6 +78,11 @@
         max-width: 107px;
       }
     }
+
+    .check-stats-btn.selected {
+      background-color: var(--color-yellow-hero);
+      color: var(--color-black);
+    }
   }
   .buttons-wrapper.add-to-list {
     justify-content: flex-end;

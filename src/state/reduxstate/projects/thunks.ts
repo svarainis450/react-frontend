@@ -16,6 +16,7 @@ import {
   setTop3NegativeProjects,
   setTop3PositiveProjects,
   setTop3TalkRateProjects,
+  setTrendingProjects,
 } from './slice';
 import {
   Project,
@@ -37,7 +38,6 @@ export const fetchProjectById = createAsyncThunk(
   ) => {
     const { user } = getState() as RootState;
     const tokenFromState = user.user_token;
-    console.log(tokenFromState);
 
     if (tokenFromState && id) {
       statusCallBack && statusCallBack('pending');
@@ -148,7 +148,7 @@ export const fetchTrendingProjects = createAsyncThunk(
       categoryFilter,
       tokenValue,
     }: TrendingProjectsPayload,
-    { getState }
+    { getState, dispatch }
   ) => {
     const { user } = getState() as RootState;
     const tokenFromState = user.user_token;
@@ -166,12 +166,14 @@ export const fetchTrendingProjects = createAsyncThunk(
             Authorization: `Bearer ${tokenValue || tokenFromState}`,
           },
         }).then((res) => res.json());
-        callBack('success');
-        console.log(resp.data);
 
-        return resp.data;
+        dispatch(setTrendingProjects(resp.data));
+        callBack('success');
+
+        if (resp.error.status === 401) {
+          callBack('unauthorized');
+        }
       } catch (e) {
-        console.log(e);
         callBack('error');
       }
     } else {
