@@ -12,7 +12,7 @@ export const cardsList = [
   {
     img: drawer,
     title: "Historical data",
-    subtitle: "With up to 18 months worth of data, we use our datasets to test models and forecast trends, such as the growth of NFT, crypto, Web3, and other industries",
+    subtitle: "With up to 3 months worth of data, we use our datasets to test models and forecast trends, such as the growth of NFT, crypto, Web3, and other industries",
   },
   {
     img: calculator,

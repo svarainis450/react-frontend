@@ -46,7 +46,6 @@ export const EmailInfo: React.FC = () => {
             Send to other account email
           </Typography>
           <form
-            id="inputForm"
             onSubmit={(e: FormEvent<HTMLFormElement>) => hanldeInputSubmit(e)}
             className="Billing__border-wrapper__texts__input-wrapper"
           >
@@ -57,6 +56,7 @@ export const EmailInfo: React.FC = () => {
             />
             {/* TODO: add submit, when email submit visuals appears */}
             <input
+              id="inputForm"
               className="Billing__border-wrapper__texts__input-wrapper__input"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setContactEmail(e.target.value)

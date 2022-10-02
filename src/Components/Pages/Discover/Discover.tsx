@@ -29,6 +29,7 @@ import { Typography } from 'src/Components/Global/Typography';
 import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { useProjectFilters } from 'src/hooks';
+import { ModalWrapper } from 'src/Components/wrappers/ModalWrapper';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -117,6 +118,17 @@ export const Discover: React.FC = () => {
     <div className="Discover">
       <LoggedInLayout activeLink="Discover">
         <Submenu pageTitleMob="Discover" menuItems={submenuList} />
+        {projectsStatus === 'pending' && filterValue.length > 0 && (
+          <ModalWrapper
+            overlayOpacity="0.8"
+            overlayBackground="#fff"
+            topPositionOverlay="64px"
+          >
+            <div className="full-screen-loader ">
+              <Loader width={50} height={50} />
+            </div>
+          </ModalWrapper>
+        )}
         <ProjectFilters
           callBack={setProjectsFilter}
           categoryCallBack={setCategoryFilter}
@@ -147,6 +159,7 @@ export const Discover: React.FC = () => {
                   sentiment_score,
                   chart_talk_rate,
                   chart_sentiment,
+                  price,
                 },
                 index
               ) => (
@@ -167,6 +180,7 @@ export const Discover: React.FC = () => {
                     first_historical_data={first_historical_data}
                     chart_talk_rate={chart_talk_rate}
                     chart_sentiment={chart_sentiment}
+                    price={price}
                     // influencers={influencers}
                     type={type as unknown as CategoryTags}
                   />

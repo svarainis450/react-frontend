@@ -31,6 +31,7 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   influencerProjects,
 }) => {
   const { isTablet } = useMediaQuery();
+  console.log(influencerProjects);
 
   return (
     <div className="project-picks">

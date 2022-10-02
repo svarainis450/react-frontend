@@ -9,7 +9,6 @@
     font-weight: 700;
     font-size: 1.125rem;
     line-height: 1.125rem;
-    letter-spacing: -2%;
 
     @include desktop {
       margin: 0 0 22px;
@@ -30,6 +29,8 @@
       width: 100%;
 
       border: 1px solid var(--color-sand);
+      background-color: var(--color-white);
+
       border-radius: 5px;
 
       cursor: pointer;
@@ -54,8 +55,8 @@
         position: absolute;
         top: 4px;
         right: 8px;
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
         background-color: var(--color-grey);
       }

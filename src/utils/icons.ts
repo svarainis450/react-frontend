@@ -25,6 +25,9 @@ import input_arrow_filled from '../Assets/icons/input_arrow_filled.svg';
 import input_arrow_active from '../Assets/icons/input_arrow_active.svg';
 import question_mark from '../Assets/icons/question_mark.svg';
 import question_mark_grey from '../Assets/icons/question_mark_grey.svg';
+import question_mark_white from '../Assets/icons/question_mark_white.svg';
+import info_label_grey from '../Assets/icons/info_label_grey.svg';
+import info_label_yellow from '../Assets/icons/info_label_yellow.svg';
 import filter_icon from '../Assets/icons/filter_icon.svg';
 import transfer_arrows from '../Assets/icons/transfer_arrows.svg';
 import remove from '../Assets/icons/remove.svg';
@@ -50,6 +53,7 @@ import open_sea from '../Assets/icons/open_sea_icon.svg';
 import top_expert from '../Assets/icons/top_expert.svg';
 import top_expert_mobile from '../Assets/icons/top_expert_mobile.svg';
 import nft_symbol from '../Assets/icons/nft_symbol.svg';
+import empty_talk_rate from '../Assets/icons/empty_talk_rate.svg';
 
 //Influencers page icons
 import first_mover from '../Assets/icons/first_mover.svg';
@@ -81,6 +85,9 @@ import rocket_ticket from '../Assets/images/rocketTicket.svg';
 import premium_modal from '../Assets/icons/premium_modal.svg';
 
 export const icons = {
+  info_label_grey,
+  empty_talk_rate,
+  info_label_yellow,
   nft_symbol,
   premium_modal,
   rocket_ticket,
@@ -92,6 +99,7 @@ export const icons = {
   add_project,
   counter,
   question_mark_grey,
+  question_mark_white,
   remove,
   add_to_list,
   transfer_arrows,

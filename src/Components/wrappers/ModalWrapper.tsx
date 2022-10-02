@@ -52,11 +52,13 @@ interface Styles {
   overlayBackground?: string;
   overlayOpacity?: string;
   fullScreen?: boolean;
+  topPositionOverlay?: string;
 }
 
 const Overlay = styled.div<Styles>`
   position: fixed;
-  top: 0;
+  top: ${({ topPositionOverlay }) =>
+    topPositionOverlay ? topPositionOverlay : '0'};
   bottom: 0;
   left: 0;
   right: 0;
