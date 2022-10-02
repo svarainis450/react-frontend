@@ -71,7 +71,6 @@ export const ForYouChartView = ({
               return obj;
             }
           });
-          console.log(newState);
           setGraphToggleButtons(newState);
         }
         break;
