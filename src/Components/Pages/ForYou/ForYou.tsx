@@ -171,6 +171,7 @@ export const ForYou: React.FC = () => {
             <div>
               {dataForStats && (
                 <ForYouChartView
+                  projectType={projectByIdState.type}
                   chartPrice={dataForStats[0].chart_price}
                   chartSentiment={dataForStats[0].chart_sentiment}
                   chartTalkRate={dataForStats[0].chart_talk_rate}

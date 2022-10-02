@@ -16,7 +16,7 @@ import { DotExplain } from './ChartElements/ChartGraphicsElements';
 import './linePlot.css';
 import { isConstructorDeclaration } from 'typescript';
 
-const buttonIntervals = ['3H', '1D', '1W', '1M', '3M', 'All'];
+// const buttonIntervals = ['3H', '1D', '1W', '1M', '3M', 'All'];
 
 export const getOffsetTop = (element) => {
   let offsetTop = 0;
@@ -60,7 +60,6 @@ export const addTooltip = (
         .select('#value')
         .html(`${activeItems[0].title}: ${closestDataPoint.value}`);
 
-      // console.log(event.pageX, window.innerWidth, chartDimensions.width);
       const svgCoords = document
         .querySelector('.listening-rect')
         .getBoundingClientRect();
@@ -76,7 +75,6 @@ export const addTooltip = (
         tooltip.style('left', `${event.pageX - tooltipWidth.width - 20}px`);
       }
 
-      // console.log(yScale(closestDataPoint.value));
       if (coords[1] > yScale(closestDataPoint.value)) {
         tooltip.style(
           'top',
@@ -162,7 +160,6 @@ export const addTooltipTwoLines = (chartDimensions, realOffset, dataItems) => {
         .html(
           `${dataItems[1].item.title}: ${dataItems[1].closestDataPoint.value}`
         );
-      // console.log(event.pageX, window.innerWidth, chartDimensions.width);
       const svgCoords = document
         .querySelector('.listening-rect')
         .getBoundingClientRect();
@@ -337,15 +334,31 @@ export const genChart = (
         chartTypeMap.get(activeItems[0].title) + intervalMapFirstCapitalized
       ];
     if (data.length > 2) {
-      let maxScaleValue;
-      if (['Mentions', 'Sentiment'].includes(activeItems[0].title)) {
-        maxScaleValue = 100;
+      let forYouChartDomain;
+      if (
+        ['Mentions', 'Sentiment'].includes(activeItems[0].title) &&
+        ['3M', 'All'].includes(interval)
+      ) {
+        forYouChartDomain = [0, 100];
+      } else if (['3H', '1D', '1W', '1M'].includes(interval)) {
+        const minVal = d3.min(data, (d) => d.value);
+        let maxVal = d3.max(data, (d) => d.value);
+        maxVal =
+          maxVal * 1.1 > 100 &&
+          ['Mentions', 'Sentiment'].includes(activeItems[0].title)
+            ? maxVal
+            : maxVal * 1.1;
+
+        const diff = maxVal - minVal;
+        forYouChartDomain =
+          minVal - diff < 0 ? [0, maxVal] : [minVal - diff * 0.4, maxVal];
       } else {
-        maxScaleValue = d3.max(data, (d) => d.value);
+        console.log('ugh');
+        forYouChartDomain = [0, d3.max(data, (d) => d.value)];
       }
       const yScale = d3
         .scaleLinear()
-        .domain([0, maxScaleValue])
+        .domain(forYouChartDomain)
         .range([chartDimensions.height, 0]);
 
       addLineWithGradient(
@@ -382,15 +395,31 @@ export const genChart = (
           chartTypeMap.get(item.title) + intervalMapFirstCapitalized
         ];
       if (data.length > 2) {
-        let maxScaleValue;
-        if (['Mentions', 'Sentiment'].includes(item.title)) {
-          maxScaleValue = 100;
+        let forYouChartDomain;
+        if (
+          ['Mentions', 'Sentiment'].includes(item.title) &&
+          ['3M', 'All'].includes(interval)
+        ) {
+          forYouChartDomain = [0, 100];
+        } else if (['3H', '1D', '1W', '1M'].includes(interval)) {
+          const minVal = d3.min(data, (d) => d.value);
+          let maxVal = d3.max(data, (d) => d.value);
+          maxVal =
+            maxVal * 1.1 > 100 && ['Mentions', 'Sentiment'].includes(item.title)
+              ? maxVal
+              : maxVal * 1.1;
+
+          const diff = maxVal - minVal;
+          forYouChartDomain =
+            minVal - diff < 0 ? [0, maxVal] : [minVal - diff * 0.4, maxVal];
         } else {
-          maxScaleValue = d3.max(data, (d) => d.value);
+          console.log('ugh');
+          forYouChartDomain = [0, d3.max(data, (d) => d.value)];
         }
+        console.log(forYouChartDomain);
         const yScale = d3
           .scaleLinear()
-          .domain([0, maxScaleValue])
+          .domain(forYouChartDomain)
           .range([chartDimensions.height, 0]);
 
         addLineWithGradient(
@@ -428,10 +457,14 @@ export const genChart = (
   }
 };
 
-export const ForYouChart = ({ chartData, chartTypeButtons }) => {
+export const ForYouChart = ({ projectType, chartData, chartTypeButtons }) => {
   const [interval, setInterval] = useState('All');
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [chartDimensions, setChartDimensions] = useState(null);
+  const buttonIntervals =
+    projectType === 'nft'
+      ? ['1W', '1M', '3M', 'All']
+      : ['3H', '1D', '1W', '1M', '3M', 'All'];
 
   useEffect(() => {
     window.addEventListener('resize', () => {
@@ -451,7 +484,7 @@ export const ForYouChart = ({ chartData, chartTypeButtons }) => {
   useEffect(() => {
     if (chartDimensions)
       genChart(chartData, interval, chartDimensions, chartTypeButtons, margin);
-  }, [interval, chartDimensions, chartTypeButtons, windowSize]);
+  }, [chartData, interval, chartDimensions, chartTypeButtons, windowSize]);
 
   return (
     <>

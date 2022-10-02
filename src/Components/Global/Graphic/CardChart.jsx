@@ -46,7 +46,6 @@ const addLineNoGradient = (
   data,
   isSpline
 ) => {
-  // console.log(d3.select(`.chart-area-${projectId}`).selectAll('*').remove());
   let line = d3
     .line()
     .x((d) => xScale(d.datetime))
@@ -140,7 +139,6 @@ export const genCardChart = (
     'talkRate' +
     intervalMapper[interval].charAt(0).toUpperCase() +
     intervalMapper[interval].slice(1);
-  // console.log(chartData[intervalMapper[interval]][sentimentName]);
   const sentimentData = chartData[intervalMapper[interval]][sentimentName];
   const talkRateData = chartData[intervalMapper[interval]][talkRateName];
 

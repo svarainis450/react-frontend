@@ -59,7 +59,6 @@ const CheckoutForm = () => {
           },
         }
       );
-      console.log(paymentIntent);
 
       if (error) {
         setMessage(error.message);
@@ -68,7 +67,10 @@ const CheckoutForm = () => {
         setMessage('Payment successful!');
       }
       dispatch(updateUserInfo({ type: 'Potato Starter' }));
+
+
       console.log(res.data);
+
     } catch {
       console.log('err');
       setMessage('An unexpected error occurred.');
