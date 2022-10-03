@@ -58,7 +58,9 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
   };
 
   const handlePremiumModal = () => {
-    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+    if (type === 'Potato Starter') {
+      dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+    }
   };
 
   return (

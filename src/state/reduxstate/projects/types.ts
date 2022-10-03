@@ -56,7 +56,7 @@ export interface Project {
   bull_bear_score: number;
   talk_rate_daily_change: number;
   full_volume: null;
-  project_twitter_user_card: InfluencerData[];
+  project_twitter_user_card: ProjectInfluencer[];
   base_currency: string;
   chart_price: {
     date: string;
@@ -108,6 +108,34 @@ export interface Project {
     color: string;
   };
   description?: string;
+}
+
+export interface ProjectInfluencer {
+  order: 1;
+  sentiment: 'NEGATIVE' | 'POSITIVE';
+  twitter_user_twitter_followers: string;
+  tweet: {
+    id: string;
+    created_at: string;
+    cleaned_content: string;
+    like_count: number;
+    reply_count: number;
+    retweet_count: number;
+    quote_count: number;
+    conversation_id: string;
+    project_names: string;
+    twitter_user_id: string;
+    scraped_at: null | number;
+    is_advertisement: string;
+    sentiment: 'NEGATIVE' | 'POSITIVE';
+    mentioned_users: string;
+    retweeted_tweet: null | number;
+    quoted_tweet: null | number;
+    in_reply_to_tweet_id: string;
+    in_reply_to_user: string;
+    hashtags: null | number;
+    cashtags: null | number;
+  };
 }
 
 export interface TrendingProject {

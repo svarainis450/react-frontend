@@ -44,6 +44,7 @@ import bulls from '../Assets/icons/bull.svg';
 import bear from '../Assets/icons/bear.svg';
 import positive from '../Assets/icons/positive.svg';
 import negative from '../Assets/icons/negative.svg';
+import positive_thumb from '../Assets/icons/positive_thumb.svg';
 import positive_element from '../Assets/icons/positive_element.svg';
 import negative_element from '../Assets/icons/negative_element.svg';
 import bear_element from '../Assets/icons/bear_element.svg';
@@ -86,6 +87,7 @@ import rocket_ticket from '../Assets/images/rocketTicket.svg';
 import premium_modal from '../Assets/icons/premium_modal.svg';
 
 export const icons = {
+  positive_thumb,
   solana_icon,
   info_label_grey,
   empty_talk_rate,

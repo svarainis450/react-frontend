@@ -29,7 +29,6 @@ export const SubscriptionOptions: FC = memo(() => {
     const selectedPlanDetails = priceOptions[String(selectedPeriod)].find(
       (p) => p.plan === user.selectedPlan?.plan
     );
-    console.log(selectedPlanDetails);
     setUser((prev) => ({
       ...prev,
       selectedPlan: priceOptions[String(selectedPeriod)].find(

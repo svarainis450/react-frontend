@@ -168,9 +168,9 @@ export const ForYou: React.FC = () => {
         <div className="For-you__wrapper">
           <div className="For-you__wrapper__graph-wrapper">
             <div>
-              {dataForStats && projectByIdState && (
+              {dataForStats && (
                 <ForYouChartView
-                  projectType={projectByIdState.type}
+                  projectType={dataForStats[0].type}
                   chartPrice={dataForStats[0].chart_price}
                   chartSentiment={dataForStats[0].chart_sentiment}
                   chartTalkRate={dataForStats[0].chart_talk_rate}

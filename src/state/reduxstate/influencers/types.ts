@@ -62,6 +62,7 @@ export interface InfluencerData {
   influence_score: number;
   bullseye_score: number;
   first_mover_reviewer_score: number;
+  sentiment?: string;
 }
 
 export interface InfluencersDataType {

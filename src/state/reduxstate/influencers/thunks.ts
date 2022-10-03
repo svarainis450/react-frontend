@@ -150,6 +150,10 @@ export const fetchInfluencers = createAsyncThunk(
         }
 
         callBack && callBack('success');
+
+        if (resp.error.status === 401 && callBack) {
+          callBack('unauthorized');
+        }
       } catch (e) {
         callBack && callBack('error');
         console.log(e);
@@ -212,7 +216,6 @@ export const fetchInfluencerByName = createAsyncThunk(
             Authorization: `Bearer ${tokenFromState}`,
           },
         }).then((res) => res.json());
-        console.log(resp);
         dispatch(setInfluencerByName(resp.data));
 
         statusCallBack && statusCallBack('succeeded');

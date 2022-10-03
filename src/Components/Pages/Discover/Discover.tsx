@@ -165,6 +165,7 @@ export const Discover: React.FC = () => {
                   price,
                   opensea_project_url,
                   base_currency,
+                  project_twitter_user_card,
                 },
                 index
               ) => (
@@ -187,7 +188,7 @@ export const Discover: React.FC = () => {
                     price={price}
                     opensea_project_url={opensea_project_url}
                     base_currency={base_currency}
-                    // influencers={influencers}
+                    project_twitter_user_card={project_twitter_user_card}
                     type={type as unknown as CategoryTags}
                   />
                 </Element>

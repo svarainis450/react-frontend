@@ -122,6 +122,10 @@ export const fetchProjects = createAsyncThunk(
         if (callBack) {
           callBack('success');
         }
+
+        if (resp.error.status === 401 && callBack) {
+          callBack('unauthorized');
+        }
       } catch (e) {
         if (callBack) {
           callBack('error');
