@@ -18,6 +18,7 @@ const initialState: UserState = {
     stripe_id: null,
     subscription_expires_at: null,
     password: '',
+    billing_history: [],
   },
   selected_plan: undefined,
 };

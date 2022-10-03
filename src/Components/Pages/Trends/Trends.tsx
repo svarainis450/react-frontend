@@ -24,11 +24,7 @@ import {
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
-import {
-  InfluencerFilterKeys,
-  Statuses,
-  SubmenuFilters,
-} from 'src/state/reduxstate/projects/types';
+import { Statuses, SubmenuFilters } from 'src/state/reduxstate/projects/types';
 import { Submenu } from './Submenu';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';

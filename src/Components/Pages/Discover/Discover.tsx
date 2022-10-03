@@ -30,6 +30,9 @@ import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { useProjectFilters } from 'src/hooks';
 import { ModalWrapper } from 'src/Components/wrappers/ModalWrapper';
+import { LogOut } from 'src/Common/utils/LogOut';
+import { LinkList } from 'src/types';
+import { useNavigate } from 'react-router-dom';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -51,6 +54,7 @@ export const submenuList: SubmenuListProps[] = [
 
 export const Discover: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const projectsData = useSelector(projectsDataSelector);
   const projects = projectsData.projects;
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
@@ -80,34 +84,31 @@ export const Discover: React.FC = () => {
   const cardsPerOneRequest = 8;
 
   useEffect(() => {
+    if (projectsStatus === 'unauthorized') {
+      navigate(LinkList.Login);
+      LogOut();
+    }
+  }, [projectsStatus]);
+
+  useEffect(() => {
+    setSkipElements(null);
+  }, [categoryFilter]);
+
+  useEffect(() => {
     if (
       (projects && projects.length === 0) ||
       (skipElements && skipElements > 0) ||
       filterValue
     ) {
-      if (
-        (categoryFilter || projectsFilter) &&
-        skipElements &&
-        skipElements > 0
-      ) {
-        dispatch(
-          fetchProjects({
-            filter: filterValue,
-            callBack: setProjectStatus,
-            skip: 0,
-          })
-        ).then(() => scrollToElement('card-to-scroll'));
-      } else {
-        dispatch(
-          fetchProjects({
-            filter: filterValue,
-            callBack: setProjectStatus,
-            skip: skipElements,
-          })
-        ).then(() => scrollToElement('card-to-scroll'));
-      }
+      dispatch(
+        fetchProjects({
+          filter: filterValue,
+          callBack: setProjectStatus,
+          skip: skipElements,
+        })
+      ).then(() => scrollToElement('card-to-scroll'));
     }
-  }, [skipElements, filterValue, categoryFilter]);
+  }, [skipElements, projectsFilter, nameFilter]);
 
   useEffect(() => {
     if (token) {
@@ -132,7 +133,7 @@ export const Discover: React.FC = () => {
     <div className="Discover">
       <LoggedInLayout activeLink="Discover">
         <Submenu pageTitleMob="Discover" menuItems={submenuList} />
-        {projectsStatus === 'pending' && filterValue.length > 0 && (
+        {projectsStatus === 'pending' && (
           <ModalWrapper
             overlayOpacity="0.8"
             overlayBackground="#fff"
@@ -174,6 +175,8 @@ export const Discover: React.FC = () => {
                   chart_sentiment,
                   price,
                   opensea_project_url,
+                  base_currency,
+                  project_twitter_user_card,
                 },
                 index
               ) => (
@@ -195,14 +198,15 @@ export const Discover: React.FC = () => {
                     chart_sentiment={chart_sentiment}
                     price={price}
                     opensea_project_url={opensea_project_url}
-                    // influencers={influencers}
+                    base_currency={base_currency}
+                    project_twitter_user_card={project_twitter_user_card}
                     type={type as unknown as CategoryTags}
                   />
                 </Element>
               )
             )}
         </div>
-        {projectsStatus === 'pending' && <Loader width={50} height={50} />}
+        {/* {projectsStatus === 'pending' && <Loader width={50} height={50} />} */}
 
         {notAllToShow &&
           projectsStatus !== 'pending' &&

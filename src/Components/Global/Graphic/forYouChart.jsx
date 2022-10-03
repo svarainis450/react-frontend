@@ -353,7 +353,6 @@ export const genChart = (
         forYouChartDomain =
           minVal - diff < 0 ? [0, maxVal] : [minVal - diff * 0.4, maxVal];
       } else {
-        console.log('ugh');
         forYouChartDomain = [0, d3.max(data, (d) => d.value)];
       }
       const yScale = d3
@@ -413,10 +412,8 @@ export const genChart = (
           forYouChartDomain =
             minVal - diff < 0 ? [0, maxVal] : [minVal - diff * 0.4, maxVal];
         } else {
-          console.log('ugh');
           forYouChartDomain = [0, d3.max(data, (d) => d.value)];
         }
-        console.log(forYouChartDomain);
         const yScale = d3
           .scaleLinear()
           .domain(forYouChartDomain)

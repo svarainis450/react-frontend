@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Element } from 'react-scroll';
+import { LogOut } from 'src/Common/utils/LogOut';
 
 import {
   InfluencerCard,
@@ -25,12 +27,14 @@ import {
 } from 'src/state/reduxstate/projects/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { getFavInfluencers } from 'src/state/reduxstate/user/thunks';
+import { LinkList } from 'src/types';
 import { scrollToElement } from 'src/utils/scrollers';
 import { submenuList } from '../Discover/Discover';
 
 import './Influencers.scss';
 
 export const Influencers: React.FC = () => {
+  const navigate = useNavigate();
   const influencersData = useSelector(influencersDataSelector);
   const influencers = influencersData.influencers;
   const dispatch = useAppDispatch();
@@ -60,6 +64,13 @@ export const Influencers: React.FC = () => {
   const isLoadedInfluencers = influencers && influencers.length > 0;
   const [seenAll, setSeenAll] = useState('');
   const cardsPerOneRequest = 8;
+
+  useEffect(() => {
+    if (influencersStatus === 'unauthorized') {
+      navigate(LinkList.Login);
+      LogOut();
+    }
+  }, [influencersStatus]);
 
   useEffect(() => {
     if (

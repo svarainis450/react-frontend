@@ -32,6 +32,7 @@ import { CardChart } from '../../Graphic/CardChart';
 import './ProjectCard.scss';
 import { formatDate } from 'src/utils/calculations';
 import { Flex } from 'src/Components/wrappers/Flex';
+import { InfluencersTalkAboutIt } from './InfluencersTalkAboutIt';
 
 interface ProjectCardProps
   extends Pick<
@@ -50,6 +51,8 @@ interface ProjectCardProps
     | 'type'
     | 'price'
     | 'opensea_project_url'
+    | 'base_currency'
+    | 'project_twitter_user_card'
   > {}
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -67,6 +70,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   chart_sentiment,
   type,
   opensea_project_url,
+  base_currency,
+  project_twitter_user_card,
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
@@ -174,7 +179,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   </Typography>
                   {isNftProject ? (
                     <Flex>
-                      <img src={icons.nft_symbol} alt="nft project" />
+                      {base_currency === 'ETH' ? (
+                        <img src={icons.nft_symbol} alt="nft project" />
+                      ) : (
+                        <img src={icons.solana_icon} alt="nft project" />
+                      )}{' '}
                       <Typography
                         variant={TypographyVariant.HEADING_SMALL}
                         weight={TypographyWeight.BOLD700}
@@ -256,11 +265,28 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 sentiment_score={sentiment_score}
                 bull_bear_score={bull_bear_score}
               />
-              <div className="border-wrapper">
+              {/* <div className="border-wrapper">
                 <Typography className="small-text">
                   <strong>Top influencers taked about this coin</strong>
                 </Typography>
-              </div>
+                {project_twitter_user_card.map(
+                  ({
+                    twitter_img_url,
+                    twitter_username,
+                    twitter_displayname,
+                    sentiment,
+                    external_link,
+                  }) => (
+                    <InfluencersTalkAboutIt
+                      img_url={twitter_img_url}
+                      name={twitter_username}
+                      displayName={twitter_displayname}
+                      sentiment={sentiment}
+                      link={external_link}
+                    />
+                  )
+                )}
+              </div> */}
               {url && <CoinBaseButton url={url} btnType={urlBtnType} />}
               <div className="learn-more" onClick={hanldeGoToForYou}>
                 <Typography weight={TypographyWeight.MEDIUM}>

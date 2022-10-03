@@ -38,6 +38,7 @@ export const createPaymentIntent = createAsyncThunk(
   }
 );
 
+//OLD
 export const completePaymentPost = createAsyncThunk(
   'payments/COMPLETED_PAYMENT_EVENT',
   async (_, { dispatch, getState }) => {
@@ -56,11 +57,7 @@ export const completePaymentPost = createAsyncThunk(
             paymentMethodType: 'card',
             currency: 'eur',
           }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          });
+        }).then((res) => res.json());
       } catch (e) {
         console.log(e);
       }

@@ -64,7 +64,9 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   };
 
   const handlePremiumModal = () => {
-    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+    if (type === 'Potato Starter') {
+      dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+    }
   };
 
   return (

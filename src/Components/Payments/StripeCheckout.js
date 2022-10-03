@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './StripeCheckout.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,11 +23,11 @@ const CheckoutForm = () => {
   const token = useSelector(userTokenSelector);
   const [userName, setUserName] = useState('');
   const paymentDetails = {
-    item_description: `${selectedPlan.billing_type} subscription`,
-    price: selectedPlan.stripe_price_id,
+    item_description: `${selectedPlan?.billing_type} subscription`,
+    price: selectedPlan?.stripe_price_id,
     customer_description: 'customer',
     phone: 'dont collect phones',
-    product: selectedPlan.stripe_product,
+    product: selectedPlan?.stripe_product,
   };
 
   const handleSubmit = async (e) => {

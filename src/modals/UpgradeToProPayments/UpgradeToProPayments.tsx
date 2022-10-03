@@ -38,18 +38,18 @@ export const UpgradeToProPayments: React.FC = () => {
     dispatch(setModalType(null));
   };
 
-  const upgradePlan: SelectedPlan = {
-    plan: 'Potato Pro',
-    billing_type: billingType,
-    begin_price: 15,
-    monthly_price: 15,
-    stripe_product: isDevelopmentEnv
-      ? StripeProductKeys.POTATO_PRO_DEV
-      : StripeProductKeys.POTATO_PRO_DEV,
-    stripe_price_id: price[billingType],
-  };
-
   useEffect(() => {
+    const upgradePlan: SelectedPlan = {
+      plan: 'Potato Pro',
+      billing_type: billingType,
+      begin_price: 15,
+      monthly_price: 15,
+      stripe_product: isDevelopmentEnv
+        ? StripeProductKeys.POTATO_PRO_DEV
+        : StripeProductKeys.POTATO_PRO_DEV,
+      stripe_price_id: price[billingType],
+    };
+
     dispatch(setSelectedPlan(upgradePlan));
     if (paymentStatus === 'succeeded') {
       dispatch(setModalType(null));
