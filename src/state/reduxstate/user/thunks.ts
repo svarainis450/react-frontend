@@ -26,7 +26,6 @@ export const fetchUserData = createAsyncThunk(
             Authorization: `Bearer ${tokenValue || token}`,
           },
         }).then((res) => res.json());
-
         dispatch(setUserData(resp));
 
         return resp;

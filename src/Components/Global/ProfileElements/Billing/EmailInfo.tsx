@@ -1,8 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { LogOut } from 'src/Common/utils/LogOut';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { userDataSelector } from 'src/state/reduxstate/user/selectors';
-import { updateUserInfo } from 'src/state/reduxstate/user/thunks';
+import { loginUser, updateUserInfo } from 'src/state/reduxstate/user/thunks';
+import { LinkList } from 'src/types';
 import { icons } from 'src/utils/icons';
 import { Typography } from '../../Typography';
 
@@ -10,6 +13,7 @@ import './Billing.scss';
 
 export const EmailInfo: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const userInfo = useSelector(userDataSelector);
   const [contactEmail, setContactEmail] = useState(userInfo.email);
   const [arrowIcon, setArrowIcon] = useState(icons.input_arrow);
@@ -20,6 +24,10 @@ export const EmailInfo: React.FC = () => {
     if (contactEmail) {
       dispatch(updateUserInfo({ email: contactEmail }));
       setArrowIcon(icons.blue_checkmark);
+      LogOut();
+      navigate(LinkList.Login);
+
+      // dispatch(loginUser({ email: contactEmail, password: userInfo.password }));
     }
   };
 
@@ -54,6 +62,7 @@ export const EmailInfo: React.FC = () => {
               alt="email input"
               className="Billing__border-wrapper__texts__input-wrapper__envelope"
             />
+
             {/* TODO: add submit, when email submit visuals appears */}
             <input
               id="inputForm"
@@ -65,6 +74,7 @@ export const EmailInfo: React.FC = () => {
               placeholder="write your email"
               onFocus={() => setArrowIcon(icons.input_arrow)}
             />
+
             <img
               onClick={() => hanldeInputSubmit()}
               onMouseOver={() => setArrowIcon(icons.input_arrow_filled)}
@@ -74,6 +84,9 @@ export const EmailInfo: React.FC = () => {
               className="Billing__border-wrapper__texts__input-wrapper__input-arrow"
             />
           </form>
+          <Typography className="Billing__border-wrapper__texts__subtitle">
+            After email update, you will be redirected to login with new email
+          </Typography>
         </div>
       </div>
     </div>
