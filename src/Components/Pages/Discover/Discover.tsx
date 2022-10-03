@@ -30,6 +30,9 @@ import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { useProjectFilters } from 'src/hooks';
 import { ModalWrapper } from 'src/Components/wrappers/ModalWrapper';
+import { LogOut } from 'src/Common/utils/LogOut';
+import { LinkList } from 'src/types';
+import { useNavigate } from 'react-router-dom';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -51,6 +54,7 @@ export const submenuList: SubmenuListProps[] = [
 
 export const Discover: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const projectsData = useSelector(projectsDataSelector);
   const projects = projectsData.projects;
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
@@ -78,6 +82,13 @@ export const Discover: React.FC = () => {
     Number(skipElements !== null && skipElements);
 
   const cardsPerOneRequest = 8;
+
+  useEffect(() => {
+    if (projectsStatus === 'unauthorized') {
+      navigate(LinkList.Login);
+      LogOut();
+    }
+  }, [projectsStatus]);
 
   useEffect(() => {
     setSkipElements(null);
