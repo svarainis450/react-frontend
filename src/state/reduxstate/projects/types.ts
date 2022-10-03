@@ -55,7 +55,9 @@ export interface Project {
   sentiment_score: number;
   bull_bear_score: number;
   talk_rate_daily_change: number;
+  full_volume: null;
   project_twitter_user_card: InfluencerData[];
+  base_currency: string;
   chart_price: {
     date: string;
     three_hour_price: string;

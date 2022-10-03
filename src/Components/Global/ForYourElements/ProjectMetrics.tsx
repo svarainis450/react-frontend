@@ -187,7 +187,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
                 className="price-title"
                 weight={TypographyWeight.MEDIUM}
               >
-                {projectByIdProp.price}
+                {projectByIdProp.full_volume}
               </Typography>
             </div>
           </div>

@@ -53,6 +53,7 @@ import open_sea from '../Assets/icons/open_sea_icon.svg';
 import top_expert from '../Assets/icons/top_expert.svg';
 import top_expert_mobile from '../Assets/icons/top_expert_mobile.svg';
 import nft_symbol from '../Assets/icons/nft_symbol.svg';
+import solana_icon from '../Assets/icons/solana_icon.svg';
 import empty_talk_rate from '../Assets/icons/empty_talk_rate.svg';
 
 //Influencers page icons
@@ -85,6 +86,7 @@ import rocket_ticket from '../Assets/images/rocketTicket.svg';
 import premium_modal from '../Assets/icons/premium_modal.svg';
 
 export const icons = {
+  solana_icon,
   info_label_grey,
   empty_talk_rate,
   info_label_yellow,

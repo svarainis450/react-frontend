@@ -80,34 +80,24 @@ export const Discover: React.FC = () => {
   const cardsPerOneRequest = 8;
 
   useEffect(() => {
+    setSkipElements(null);
+  }, [categoryFilter]);
+
+  useEffect(() => {
     if (
       (projects && projects.length === 0) ||
       (skipElements && skipElements > 0) ||
       filterValue
     ) {
-      if (
-        (categoryFilter || projectsFilter) &&
-        skipElements &&
-        skipElements > 0
-      ) {
-        dispatch(
-          fetchProjects({
-            filter: filterValue,
-            callBack: setProjectStatus,
-            skip: 0,
-          })
-        ).then(() => scrollToElement('card-to-scroll'));
-      } else {
-        dispatch(
-          fetchProjects({
-            filter: filterValue,
-            callBack: setProjectStatus,
-            skip: skipElements,
-          })
-        ).then(() => scrollToElement('card-to-scroll'));
-      }
+      dispatch(
+        fetchProjects({
+          filter: filterValue,
+          callBack: setProjectStatus,
+          skip: skipElements,
+        })
+      ).then(() => scrollToElement('card-to-scroll'));
     }
-  }, [skipElements, filterValue, categoryFilter]);
+  }, [skipElements, projectsFilter, nameFilter]);
 
   useEffect(() => {
     if (token) {
@@ -132,7 +122,7 @@ export const Discover: React.FC = () => {
     <div className="Discover">
       <LoggedInLayout activeLink="Discover">
         <Submenu pageTitleMob="Discover" menuItems={submenuList} />
-        {projectsStatus === 'pending' && filterValue.length > 0 && (
+        {projectsStatus === 'pending' && (
           <ModalWrapper
             overlayOpacity="0.8"
             overlayBackground="#fff"
@@ -174,6 +164,7 @@ export const Discover: React.FC = () => {
                   chart_sentiment,
                   price,
                   opensea_project_url,
+                  base_currency,
                 },
                 index
               ) => (
@@ -195,6 +186,7 @@ export const Discover: React.FC = () => {
                     chart_sentiment={chart_sentiment}
                     price={price}
                     opensea_project_url={opensea_project_url}
+                    base_currency={base_currency}
                     // influencers={influencers}
                     type={type as unknown as CategoryTags}
                   />
@@ -202,7 +194,7 @@ export const Discover: React.FC = () => {
               )
             )}
         </div>
-        {projectsStatus === 'pending' && <Loader width={50} height={50} />}
+        {/* {projectsStatus === 'pending' && <Loader width={50} height={50} />} */}
 
         {notAllToShow &&
           projectsStatus !== 'pending' &&

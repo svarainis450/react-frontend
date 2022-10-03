@@ -50,6 +50,7 @@ interface ProjectCardProps
     | 'type'
     | 'price'
     | 'opensea_project_url'
+    | 'base_currency'
   > {}
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -67,6 +68,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   chart_sentiment,
   type,
   opensea_project_url,
+  base_currency,
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
@@ -174,7 +176,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   </Typography>
                   {isNftProject ? (
                     <Flex>
-                      <img src={icons.nft_symbol} alt="nft project" />
+                      {base_currency === 'ETH' ? (
+                        <img src={icons.nft_symbol} alt="nft project" />
+                      ) : (
+                        <img src={icons.solana_icon} alt="nft project" />
+                      )}{' '}
                       <Typography
                         variant={TypographyVariant.HEADING_SMALL}
                         weight={TypographyWeight.BOLD700}

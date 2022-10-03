@@ -94,7 +94,7 @@ export const fetchProjects = createAsyncThunk(
           },
         }).then((res) => res.json());
 
-        if (skip && skip >= 8) {
+        if (skip !== null && skip && skip >= 8) {
           const expandedProjects = concat(
             projects.projects_data.projects,
             resp.data

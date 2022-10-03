@@ -27,7 +27,17 @@ export interface UserDataType extends UserUpdateType {
   id?: number;
   paypal_id: string | null;
   stripe_id: string | null;
+  billing_history: BillingHistory[];
 }
+
+export interface BillingHistory {
+  plan: string;
+  billing_type: BillingType;
+  price: number;
+  billing_date: string;
+}
+
+export type BillingType = 'monthly' | 'yearly';
 
 export interface UserUpdateType {
   email?: string;
@@ -54,5 +64,3 @@ export interface SelectedPlan {
 }
 
 export type PlanType = 'Potato Starter' | 'Potato Pro';
-
-export type BillingType = 'monthly' | 'yearly';
