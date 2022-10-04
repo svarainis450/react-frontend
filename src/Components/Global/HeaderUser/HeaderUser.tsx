@@ -47,6 +47,7 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
     if (userToken) {
       dispatch(fetchUserData(userToken));
     }
+    dispatch(fetchTotalSentiment());
   }, [dispatch, userToken]);
 
   return (

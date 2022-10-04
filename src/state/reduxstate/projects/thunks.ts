@@ -174,7 +174,7 @@ export const fetchTrendingProjects = createAsyncThunk(
         dispatch(setTrendingProjects(resp.data));
         callBack('success');
 
-        if (resp.error.status === 401) {
+        if (resp?.error?.status === 401) {
           callBack('unauthorized');
         }
       } catch (e) {
