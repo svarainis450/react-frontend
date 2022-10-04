@@ -7,7 +7,7 @@ import {
 } from './helpers';
 
 const API_URL =
-  process.env.NODE_ENV === 'development'
+  process.env.REACT_APP_ENV === 'development'
     ? apiv1 //change to dev
     : apiv1;
 

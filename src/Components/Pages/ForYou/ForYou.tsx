@@ -156,6 +156,8 @@ export const ForYou: React.FC = () => {
     }
   };
 
+  console.log(dataForStats);
+
   return (
     <div className="For-you">
       <LoggedInLayout activeLink="For you">

@@ -23,7 +23,7 @@ export const UpgradeToProPayments: React.FC = () => {
   const [billingType, setBillingType] = useState<BillingType>('yearly');
   const selectedPlan = useSelector(selectedPlanSelector);
   const paymentStatus = useSelector(paymentStatusSelector);
-  const isDevelopmentEnv = process.env.NODE_ENV === 'development';
+  const isDevelopmentEnv = process.env.REACT_APP_ENV === 'development';
 
   const price: { [key in BillingType]: SubsPriceIdStripe } = {
     monthly: isDevelopmentEnv
