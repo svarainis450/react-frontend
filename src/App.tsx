@@ -93,7 +93,6 @@ const App = () => {
       getUserInfo();
       const token = JSON.parse(String(localStorage.getItem('token')));
       dispatch(setUserToken(token));
-      dispatch(fetchTotalSentiment());
     }
   }, []);
 

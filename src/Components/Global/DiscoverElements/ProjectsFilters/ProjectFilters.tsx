@@ -41,6 +41,8 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   const dispatch = useAppDispatch();
   const { isTablet } = useMediaQuery();
   const { type } = useSelector(userDataSelector);
+  const userData = useSelector(userDataSelector);
+
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     callBack(ProjectFilterKeys.CATEGORY);
@@ -68,6 +70,8 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
       dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
     }
   };
+
+  console.log(userData);
 
   return (
     <div className="project-filters">

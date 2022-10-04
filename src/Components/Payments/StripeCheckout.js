@@ -30,6 +30,7 @@ const CheckoutForm = () => {
     product: selectedPlan?.stripe_product,
   };
 
+  console.log(selectedPlan);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,8 +60,18 @@ const CheckoutForm = () => {
               name: userName,
             },
           },
-        }
+        },
+        dispatch(
+          updateUserInfo({
+            type: selectedPlan.plan,
+            subscription_expires_at: String(
+              new Date(res.data.current_period_end * 1000)
+            ),
+          })
+        )
       );
+
+      console.log('before dispatch');
 
       if (error) {
         setMessage(error.message);
@@ -68,17 +79,10 @@ const CheckoutForm = () => {
         dispatch(setPaymentStatus('succeeded'));
         setMessage('Payment successful!');
       }
-      dispatch(
-        updateUserInfo({
-          type: selectedPlan.plan,
-          subscription_expires_at: String(
-            new Date(res.data.current_period_end * 1000)
-          ),
-        })
-      );
     } catch (e) {
       console.log(e);
       setMessage('An unexpected error occurred.');
+
       setIsLoading(false);
     }
 
