@@ -30,7 +30,6 @@ const CheckoutForm = () => {
     product: selectedPlan?.stripe_product,
   };
 
-  console.log(selectedPlan);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -70,8 +69,6 @@ const CheckoutForm = () => {
           })
         )
       );
-
-      console.log('before dispatch');
 
       if (error) {
         setMessage(error.message);

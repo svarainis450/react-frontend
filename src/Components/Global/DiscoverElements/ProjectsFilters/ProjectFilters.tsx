@@ -71,8 +71,6 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
     }
   };
 
-  console.log(userData);
-
   return (
     <div className="project-filters">
       <div

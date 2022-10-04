@@ -151,7 +151,7 @@ export const fetchInfluencers = createAsyncThunk(
 
         callBack && callBack('success');
 
-        if (resp.error.status === 401 && callBack) {
+        if (resp?.error?.status === 401 && callBack) {
           callBack('unauthorized');
         }
       } catch (e) {
