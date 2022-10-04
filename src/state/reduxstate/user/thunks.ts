@@ -88,6 +88,8 @@ export const getFavProjects = createAsyncThunk(
 
         dispatch(setFavoriteProjects(resp.favorite_projects));
 
+        console.log(resp);
+
         if (favCallBack) {
           favCallBack('success');
         }

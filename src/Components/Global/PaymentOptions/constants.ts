@@ -36,11 +36,11 @@ export const priceOptions: Record<string, Plan[]> = {
       ],
       billing_type: 'monthly',
       stripe_price_id:
-        process.env.NODE_ENV === 'development'
+        process.env.REACT_APP_ENV === 'development'
           ? SubsPriceIdStripe.STARTER_MONTHLY_DEV
           : SubsPriceIdStripe.STARTER_MONTHLY_PROD,
       stripe_product:
-        process.env.NODE_ENV === 'development'
+        process.env.REACT_APP_ENV === 'development'
           ? StripeProductKeys.POTATO_STARTER_DEV
           : StripeProductKeys.POTATO_STARTER_PROD,
     },
@@ -61,11 +61,11 @@ export const priceOptions: Record<string, Plan[]> = {
       ],
       billing_type: 'monthly',
       stripe_price_id:
-        process.env.NODE_ENV === 'development'
+        process.env.REACT_APP_ENV === 'development'
           ? SubsPriceIdStripe.PRO_MONTHLY_DEV
           : SubsPriceIdStripe.PRO_MONTHLY_PROD,
       stripe_product:
-        process.env.NODE_ENV === 'development'
+        process.env.REACT_APP_ENV === 'development'
           ? StripeProductKeys.POTATO_PRO_DEV
           : StripeProductKeys.POTATO_PRO_PROD,
     },
@@ -87,11 +87,11 @@ export const priceOptions: Record<string, Plan[]> = {
       ],
       billing_type: 'yearly',
       stripe_price_id:
-        process.env.NODE_ENV === 'development'
+        process.env.REACT_APP_ENV === 'development'
           ? SubsPriceIdStripe.STARTER_YEARLY_DEV
           : SubsPriceIdStripe.STARTER_YEARLY_PROD,
       stripe_product:
-        process.env.NODE_ENV === 'development'
+        process.env.REACT_APP_ENV === 'development'
           ? StripeProductKeys.POTATO_STARTER_DEV
           : StripeProductKeys.POTATO_STARTER_PROD,
     },
@@ -112,11 +112,11 @@ export const priceOptions: Record<string, Plan[]> = {
       ],
       billing_type: 'yearly',
       stripe_price_id:
-        process.env.NODE_ENV === 'development'
+        process.env.REACT_APP_ENV === 'development'
           ? SubsPriceIdStripe.PRO_YEARLY_DEV
           : SubsPriceIdStripe.PRO_YEARLY_DEV,
       stripe_product:
-        process.env.NODE_ENV === 'development'
+        process.env.REACT_APP_ENV === 'development'
           ? StripeProductKeys.POTATO_PRO_DEV
           : StripeProductKeys.POTATO_PRO_PROD,
     },
