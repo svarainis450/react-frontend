@@ -67,17 +67,17 @@ export const createGradient = (selection, colorHex, id) => {
   gradient
     .append('stop')
     .attr('offset', '10%')
-    .attr('style', `stop-color:${colorHex};stop-opacity:0.00`);
+    .attr('style', `stop-color:${colorHex};stop-opacity:0.05`);
 
-  gradient
-    .append('stop')
-    .attr('offset', '50%')
-    .attr('style', `stop-color:${colorHex};stop-opacity:0.1`);
+  // gradient
+  //   .append('stop')
+  //   .attr('offset', '50%')
+  //   .attr('style', `stop-color:${colorHex};stop-opacity:0.1`);
 
   gradient
     .append('stop')
     .attr('offset', '100%')
-    .attr('style', `stop-color:${colorHex};stop-opacity:.2`);
+    .attr('style', `stop-color:${colorHex};stop-opacity:.3`);
 };
 
 export const toggleChartActivity = (toggleButtons) => {

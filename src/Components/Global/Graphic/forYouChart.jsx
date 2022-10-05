@@ -334,30 +334,9 @@ export const genChart = (
         chartTypeMap.get(activeItems[0].title) + intervalMapFirstCapitalized
       ];
     if (data.length > 2) {
-      let forYouChartDomain;
-      if (
-        ['Mentions', 'Sentiment'].includes(activeItems[0].title) &&
-        ['3M', 'All'].includes(interval)
-      ) {
-        forYouChartDomain = [0, 100];
-      } else if (['3H', '1D', '1W', '1M'].includes(interval)) {
-        const minVal = d3.min(data, (d) => d.value);
-        let maxVal = d3.max(data, (d) => d.value);
-        maxVal =
-          maxVal * 1.1 > 100 &&
-          ['Mentions', 'Sentiment'].includes(activeItems[0].title)
-            ? maxVal
-            : maxVal * 1.1;
-
-        const diff = maxVal - minVal;
-        forYouChartDomain =
-          minVal - diff < 0 ? [0, maxVal] : [minVal - diff * 0.4, maxVal];
-      } else {
-        forYouChartDomain = [0, d3.max(data, (d) => d.value)];
-      }
       const yScale = d3
         .scaleLinear()
-        .domain(forYouChartDomain)
+        .domain([d3.min(data, (d) => d.value), d3.max(data, (d) => d.value)])
         .range([chartDimensions.height, 0]);
 
       addLineWithGradient(
@@ -394,29 +373,9 @@ export const genChart = (
           chartTypeMap.get(item.title) + intervalMapFirstCapitalized
         ];
       if (data.length > 2) {
-        let forYouChartDomain;
-        if (
-          ['Mentions', 'Sentiment'].includes(item.title) &&
-          ['3M', 'All'].includes(interval)
-        ) {
-          forYouChartDomain = [0, 100];
-        } else if (['3H', '1D', '1W', '1M'].includes(interval)) {
-          const minVal = d3.min(data, (d) => d.value);
-          let maxVal = d3.max(data, (d) => d.value);
-          maxVal =
-            maxVal * 1.1 > 100 && ['Mentions', 'Sentiment'].includes(item.title)
-              ? maxVal
-              : maxVal * 1.1;
-
-          const diff = maxVal - minVal;
-          forYouChartDomain =
-            minVal - diff < 0 ? [0, maxVal] : [minVal - diff * 0.4, maxVal];
-        } else {
-          forYouChartDomain = [0, d3.max(data, (d) => d.value)];
-        }
         const yScale = d3
           .scaleLinear()
-          .domain(forYouChartDomain)
+          .domain([d3.min(data, (d) => d.value), d3.max(data, (d) => d.value)])
           .range([chartDimensions.height, 0]);
 
         addLineWithGradient(
