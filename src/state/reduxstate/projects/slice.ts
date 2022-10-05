@@ -11,6 +11,7 @@ import {
   ProjectsDataType,
   ProjectsState,
   Statuses,
+  TrendingProject,
 } from './types';
 
 const initialState: ProjectsState = {
@@ -116,17 +117,18 @@ const projectsSlice = createSlice({
     ) => {
       state.project_by_id = action.payload;
     },
+    setTrendingProjects: (
+      state: { trending_projects: ProjectsState['trending_projects'] },
+      action: PayloadAction<TrendingProject[]>
+    ) => {
+      state.trending_projects = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProjects.rejected, (state) => {
       state.status = 'error';
     });
-    builder.addCase(
-      fetchTrendingProjects.fulfilled,
-      (state, action: PayloadAction<ProjectsState['trending_projects']>) => {
-        state.trending_projects = action.payload;
-      }
-    );
+
     builder.addCase(
       fetchProjectsByInfluencers.fulfilled,
       (
@@ -157,5 +159,6 @@ export const {
   setTop3NegativeProjects,
   set3LowestTalkRateProjects,
   setProjectById,
+  setTrendingProjects,
 } = projectsSlice.actions;
 export default projectsSlice;

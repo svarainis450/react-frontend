@@ -1,6 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'src/hooks';
+import { fetchInfluencerByName } from 'src/state/reduxstate/influencers/thunks';
 import { Influencer } from 'src/state/reduxstate/influencers/types';
 import { Project } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { LinkList } from 'src/types';
 import {
   calculateBigNumberValues,
   generateProjectsText,
@@ -30,8 +34,15 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
   pickedProjects,
   influencerProjects,
 }) => {
+  const dispatch = useAppDispatch();
   const { isTablet } = useMediaQuery();
-  console.log(influencerProjects);
+  const navigate = useNavigate();
+
+  const handleGetInfluencerByName = (name: string) => {
+    dispatch(fetchInfluencerByName({ name })).then(() =>
+      navigate(LinkList.INFLUENCERS)
+    );
+  };
 
   return (
     <div className="project-picks">
@@ -53,7 +64,10 @@ export const ProjectPicksTable: React.FC<ProjectPicksProps> = ({
           ({ twitter_user, category, post_count, channel, project }, index) => {
             return (
               <div key={index} className="project-picks__row">
-                <div className="project-picks__row__influencer">
+                <div
+                  className="project-picks__row__influencer"
+                  onClick={() => handleGetInfluencerByName(twitter_user.name)}
+                >
                   <img
                     className="icon"
                     src={twitter_user.twitter_img_url || icons.no_image}

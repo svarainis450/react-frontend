@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchProjectsPick } from './thunks';
-import { InfluencersDataType, InfluencersState } from './types';
+import {
+  Influencer,
+  InfluencerData,
+  InfluencersDataType,
+  InfluencersState,
+} from './types';
 
 const initialState: InfluencersState = {
   project_picks: [],
@@ -20,6 +25,7 @@ const initialState: InfluencersState = {
     },
     influencers: [],
   },
+  influencer_by_name: null,
 };
 
 const influencersSlice = createSlice({
@@ -40,6 +46,12 @@ const influencersSlice = createSlice({
     ) => {
       state.influencers_data = action.payload;
     },
+    setInfluencerByName: (
+      state: { influencer_by_name: InfluencersState['influencer_by_name'] },
+      action: PayloadAction<InfluencerData | null>
+    ) => {
+      state.influencer_by_name = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -51,6 +63,9 @@ const influencersSlice = createSlice({
   },
 });
 
-export const { setInfluencersData, setTrendingInfluencers } =
-  influencersSlice.actions;
+export const {
+  setInfluencersData,
+  setTrendingInfluencers,
+  setInfluencerByName,
+} = influencersSlice.actions;
 export default influencersSlice;

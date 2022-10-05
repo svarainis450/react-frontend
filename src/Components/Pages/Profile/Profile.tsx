@@ -30,7 +30,7 @@ import './Profile.scss';
 
 export const Profile: React.FC = () => {
   const block = useSelector(profileBlockSelector) as NavClassTypes;
-  const { isDesktop } = useMediaQuery();
+  const { isDesktop, isTablet } = useMediaQuery();
 
   const profileBlocks: {
     [key in NavClassTypes]: {
@@ -93,7 +93,12 @@ export const Profile: React.FC = () => {
                 </Typography>
               </div>
             )}
-            <CardWrapper>{profileBlock}</CardWrapper>
+
+            {block === 'account' && isTablet ? (
+              profileBlock
+            ) : (
+              <CardWrapper>{profileBlock}</CardWrapper>
+            )}
           </div>
         </section>
       </LoggedInLayout>

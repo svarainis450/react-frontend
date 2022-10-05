@@ -17,7 +17,10 @@ export interface Plan extends SelectedPlan {
   url: LinkList;
   bullets: string[];
   priceAfterDownsell?: number;
+  downsell_stripe_price_id: SubsPriceIdStripe;
 }
+
+export const isDevelopment = process.env.REACT_APP_ENV === 'development';
 
 export const priceOptions: Record<string, Plan[]> = {
   [planTypes.monthly]: [
@@ -35,14 +38,15 @@ export const priceOptions: Record<string, Plan[]> = {
         'Social sentiment & mentions volume analysis only (excl. price & volume)',
       ],
       billing_type: 'monthly',
-      stripe_price_id:
-        process.env.NODE_ENV === 'development'
-          ? SubsPriceIdStripe.STARTER_MONTHLY_DEV
-          : SubsPriceIdStripe.STARTER_MONTHLY_PROD,
-      stripe_product:
-        process.env.NODE_ENV === 'development'
-          ? StripeProductKeys.POTATO_STARTER_DEV
-          : StripeProductKeys.POTATO_STARTER_PROD,
+      stripe_price_id: isDevelopment
+        ? SubsPriceIdStripe.STARTER_MONTHLY_DEV
+        : SubsPriceIdStripe.STARTER_MONTHLY_PROD,
+      stripe_product: isDevelopment
+        ? StripeProductKeys.POTATO_STARTER_DEV
+        : StripeProductKeys.POTATO_STARTER_PROD,
+      downsell_stripe_price_id: isDevelopment
+        ? SubsPriceIdStripe.STARTER_DOWNSELL_MONTHLY_DEV
+        : SubsPriceIdStripe.STARTER_DOWNSELL_MONTHLY_PROD,
     },
     {
       isMostPopular: false,
@@ -60,14 +64,15 @@ export const priceOptions: Record<string, Plan[]> = {
         '24/7 support with a four-hour response time',
       ],
       billing_type: 'monthly',
-      stripe_price_id:
-        process.env.NODE_ENV === 'development'
-          ? SubsPriceIdStripe.PRO_MONTHLY_DEV
-          : SubsPriceIdStripe.PRO_MONTHLY_PROD,
-      stripe_product:
-        process.env.NODE_ENV === 'development'
-          ? StripeProductKeys.POTATO_PRO_DEV
-          : StripeProductKeys.POTATO_PRO_PROD,
+      stripe_price_id: isDevelopment
+        ? SubsPriceIdStripe.PRO_MONTHLY_DEV
+        : SubsPriceIdStripe.PRO_MONTHLY_PROD,
+      stripe_product: isDevelopment
+        ? StripeProductKeys.POTATO_PRO_DEV
+        : StripeProductKeys.POTATO_PRO_PROD,
+      downsell_stripe_price_id: isDevelopment
+        ? SubsPriceIdStripe.PRO_DOWNSELL_MONTHLY_DEV
+        : SubsPriceIdStripe.PRO_DOWNSELL_MONTHLY_PROD,
     },
   ],
 
@@ -86,14 +91,15 @@ export const priceOptions: Record<string, Plan[]> = {
         'Social sentiment & mentions volume analysis only (excl. price & volume)',
       ],
       billing_type: 'yearly',
-      stripe_price_id:
-        process.env.NODE_ENV === 'development'
-          ? SubsPriceIdStripe.STARTER_YEARLY_DEV
-          : SubsPriceIdStripe.STARTER_YEARLY_PROD,
-      stripe_product:
-        process.env.NODE_ENV === 'development'
-          ? StripeProductKeys.POTATO_STARTER_DEV
-          : StripeProductKeys.POTATO_STARTER_PROD,
+      stripe_price_id: isDevelopment
+        ? SubsPriceIdStripe.STARTER_YEARLY_DEV
+        : SubsPriceIdStripe.STARTER_YEARLY_PROD,
+      stripe_product: isDevelopment
+        ? StripeProductKeys.POTATO_STARTER_DEV
+        : StripeProductKeys.POTATO_STARTER_PROD,
+      downsell_stripe_price_id: isDevelopment
+        ? SubsPriceIdStripe.STARTER_DOWNSELL_YEARLY_DEV
+        : SubsPriceIdStripe.STARTER_DOWNSELL_YEARLY_PROD,
     },
     {
       isMostPopular: true,
@@ -111,14 +117,15 @@ export const priceOptions: Record<string, Plan[]> = {
         '24/7 support with a four-hour response time',
       ],
       billing_type: 'yearly',
-      stripe_price_id:
-        process.env.NODE_ENV === 'development'
-          ? SubsPriceIdStripe.PRO_YEARLY_DEV
-          : SubsPriceIdStripe.PRO_YEARLY_DEV,
-      stripe_product:
-        process.env.NODE_ENV === 'development'
-          ? StripeProductKeys.POTATO_PRO_DEV
-          : StripeProductKeys.POTATO_PRO_PROD,
+      stripe_price_id: isDevelopment
+        ? SubsPriceIdStripe.PRO_YEARLY_DEV
+        : SubsPriceIdStripe.PRO_YEARLY_DEV,
+      stripe_product: isDevelopment
+        ? StripeProductKeys.POTATO_PRO_DEV
+        : StripeProductKeys.POTATO_PRO_PROD,
+      downsell_stripe_price_id: isDevelopment
+        ? SubsPriceIdStripe.PRO_DOWNSELL_YEARLY_DEV
+        : SubsPriceIdStripe.PRO_DOWNSELL_YEARLY_PROD,
     },
   ],
 };

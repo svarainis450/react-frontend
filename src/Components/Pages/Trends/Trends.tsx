@@ -24,16 +24,15 @@ import {
   trendingProjectsSelector,
 } from 'src/state/reduxstate/projects/selectors';
 import { useSelector } from 'react-redux';
-import {
-  InfluencerFilterKeys,
-  Statuses,
-  SubmenuFilters,
-} from 'src/state/reduxstate/projects/types';
+import { Statuses, SubmenuFilters } from 'src/state/reduxstate/projects/types';
 import { Submenu } from './Submenu';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
 import { projectPicksSelector } from 'src/state/reduxstate/influencers/selectors';
 import { fetchProjectsPick } from 'src/state/reduxstate/influencers/thunks';
+import { useNavigate } from 'react-router-dom';
+import { LinkList } from 'src/types';
+import { LogOut } from 'src/Common/utils/LogOut';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('daily');
@@ -47,6 +46,7 @@ export const Trends: React.FC = () => {
   const [selectCategory, setSelectCategory] = useState<
     CategoryTags | undefined
   >(undefined);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -81,6 +81,13 @@ export const Trends: React.FC = () => {
   useEffect(() => {
     dispatch(fetchProjects({ skip: null }));
   }, []);
+
+  useEffect(() => {
+    if (trendingStatus === 'unauthorized') {
+      navigate(LinkList.Login);
+      LogOut();
+    }
+  }, [trendingStatus]);
 
   return (
     <div className="Trends">

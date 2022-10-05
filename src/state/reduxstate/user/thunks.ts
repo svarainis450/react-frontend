@@ -26,9 +26,6 @@ export const fetchUserData = createAsyncThunk(
             Authorization: `Bearer ${tokenValue || token}`,
           },
         }).then((res) => res.json());
-
-        console.log(resp);
-
         dispatch(setUserData(resp));
 
         return resp;
@@ -53,8 +50,6 @@ export const updateUserInfo = createAsyncThunk(
           body: JSON.stringify(data),
         }).then((res) => res.json());
         dispatch(fetchUserData(token));
-
-        console.log(resp);
 
         return resp;
       } catch (e) {
@@ -202,9 +197,7 @@ export const deleteFavInfluencer = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(body),
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data));
+        }).then((res) => res.json());
 
         dispatch(getFavInfluencers());
 

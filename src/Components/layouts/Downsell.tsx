@@ -10,12 +10,15 @@ import { Button } from '../Global/Button';
 import { icons } from '../../utils/icons';
 import { UserContext } from '../../state/userContext';
 import { useCookies } from 'react-cookie';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
 
 interface DownsellProps {
   onClose?: () => void;
 }
 
 export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
+  const dispatch = useAppDispatch();
   const { isMobile, isTablet } = useMediaQuery();
   const { user, setUser } = useContext(UserContext);
   const myRef = useRef<null | HTMLDivElement>(null);
@@ -31,6 +34,17 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
       if (plan) {
         newState['selectedPlan'] = plan;
         newState['selectedPlan']['priceAfterDownsell'] = newPrice;
+
+        dispatch(
+          setSelectedPlan({
+            monthly_price: plan.monthly_price,
+            begin_price: plan.begin_price,
+            billing_type: plan.billing_type,
+            plan: plan.plan,
+            stripe_price_id: plan.downsell_stripe_price_id,
+            stripe_product: plan.stripe_product,
+          })
+        );
       }
 
       return newState;

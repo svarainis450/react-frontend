@@ -8,7 +8,7 @@ import { InfoBlocks } from '../Graphic/InfoBlocks';
 import { TalkRateElement } from '../TalkRateElement/TalkRateElement';
 import { CategoryTag } from '../TrendsElements/CategoryTag/CategoryTag';
 import { CategoryTags } from '../TrendsElements/types';
-import { Typography, TypographyVariant, TypographyWeight } from '../Typography';
+import { Typography, TypographyWeight } from '../Typography';
 import './ProjectMetrics.scss';
 
 interface Props {
@@ -187,7 +187,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
                 className="price-title"
                 weight={TypographyWeight.MEDIUM}
               >
-                {projectByIdProp.price}
+                {projectByIdProp.full_volume}
               </Typography>
             </div>
           </div>

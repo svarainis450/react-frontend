@@ -29,11 +29,13 @@ const FILTERS = [
 interface InfluencerFiltersProps {
   callBack: Dispatch<SetStateAction<InfluencerFilterKeys>>;
   nameFilterCallBack: Dispatch<SetStateAction<string | null>>;
+  onClick?: () => void;
 }
 
 export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
   callBack,
   nameFilterCallBack,
+  onClick,
 }) => {
   const dispatch = useAppDispatch();
   const { isTablet } = useMediaQuery();
@@ -56,11 +58,13 @@ export const InfluencerFilters: React.FC<InfluencerFiltersProps> = ({
   };
 
   const handlePremiumModal = () => {
-    dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+    if (type === 'Potato Starter') {
+      dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO));
+    }
   };
 
   return (
-    <div className="influencer-filters">
+    <div className="influencer-filters" onClick={onClick}>
       <div
         className="influencer-filters__input-wrapper"
         onClick={handlePremiumModal}

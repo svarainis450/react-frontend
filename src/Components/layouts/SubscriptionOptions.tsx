@@ -29,7 +29,6 @@ export const SubscriptionOptions: FC = memo(() => {
     const selectedPlanDetails = priceOptions[String(selectedPeriod)].find(
       (p) => p.plan === user.selectedPlan?.plan
     );
-    console.log(selectedPlanDetails);
     setUser((prev) => ({
       ...prev,
       selectedPlan: priceOptions[String(selectedPeriod)].find(
@@ -73,12 +72,7 @@ export const SubscriptionOptions: FC = memo(() => {
               /month
             </Small>
           </div>
-          <img
-            src={
-              selectedPeriod === 'monthly' ? icons.circle_checked : icons.circle
-            }
-            alt="Cicle"
-          />
+          <Circle isSelected={selectedPeriod === 'monthly'} />
         </OptionCard>
         <OptionCard
           isSelected={selectedPeriod === 'yearly'}
@@ -104,12 +98,7 @@ export const SubscriptionOptions: FC = memo(() => {
               /month
             </Small>
           </div>
-          <img
-            src={
-              selectedPeriod === 'yearly' ? icons.circle_checked : icons.circle
-            }
-            alt="Cicle"
-          />
+          <Circle isSelected={selectedPeriod === 'yearly'} />
         </OptionCard>
       </Flex>
     </>
@@ -132,10 +121,11 @@ const OptionCard = styled(Flex).attrs({
 })<{ isSelected?: boolean }>`
   flex: 1;
   padding: 0.625rem 0.9rem;
-  background: ${theme.colors.white};
+  background: ${({ isSelected }) =>
+    isSelected ? 'rgba(43, 89, 209, 0.1);' : theme.colors.white};
   border: 1.5px solid
     ${({ isSelected }) =>
-      isSelected ? theme.colors.heroYellow : theme.colors.white};
+      isSelected ? theme.colors.potatoBlue : theme.colors.white};
   cursor: pointer;
 
   &:first-of-type {
@@ -170,9 +160,19 @@ const Small = styled(Box).attrs({ as: 'p' })`
 
 // @TODO: move to Typography component
 const Discount = styled.span`
-  padding: 0.25rem;
+  padding: 0.125rem;
   font-size: 0.75rem;
   color: ${theme.colors.white};
   background: ${theme.colors.black};
   border-radius: 0.75rem;
+`;
+
+const Circle = styled.div<{ isSelected?: boolean }>`
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: ${({ isSelected }) =>
+    isSelected ? theme.colors.potatoBlue : '#f4f4f4'};
+  box-shadow: ${({ isSelected }) =>
+    isSelected ? '0px 2px 2px rgba(0, 0, 0, 0.1)' : ''};
 `;

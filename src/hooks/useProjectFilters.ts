@@ -6,16 +6,19 @@ export const useProjectFilters = (
   categoryValue: CategoryTags | null,
   nameValue: string | null
 ) => {
+  const categoryFilterValue =
+    (categoryValue && `&category=${categoryValue.toLocaleLowerCase()}`) || '';
+
   if (filterValue === ProjectFilterKeys.POSITIVE) {
-    return '&orderBy=sentiment&order=DESC';
+    return `&orderBy=sentiment&order=DESC${categoryFilterValue}`;
   } else if (filterValue === ProjectFilterKeys.NEGATIVE) {
-    return '&orderBy=sentiment&order=ASC';
+    return `&orderBy=sentiment&order=ASC${categoryFilterValue}`;
   } else if (filterValue === ProjectFilterKeys.NEWEST) {
-    return '&orderBy=date&order=DESC';
+    return `&orderBy=date&order=DESC${categoryFilterValue}`;
   } else if (filterValue === ProjectFilterKeys.OLDEST) {
-    return '&orderBy=date&order=ASC';
+    return `&orderBy=date&order=ASC${categoryFilterValue}`;
   } else if (filterValue === ProjectFilterKeys.TALK_RATE) {
-    return '&orderBy=talk_rate&order=DESC';
+    return `&orderBy=talk_rate&order=DESC${categoryFilterValue}`;
   } else if (filterValue === ProjectFilterKeys.CATEGORY && categoryValue) {
     return `&category=${categoryValue.toLocaleLowerCase()}`;
   } else if (filterValue === ProjectFilterKeys.NAME && nameValue) {

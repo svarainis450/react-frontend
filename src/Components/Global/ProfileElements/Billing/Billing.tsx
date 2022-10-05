@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { PaymentMethodTypes } from 'src/state/reduxstate/projects/types';
+import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { Typography, TypographyWeight } from '../../Typography';
 
 import './Billing.scss';
@@ -11,6 +13,7 @@ import { PaymentMethod } from './PaymentMethod';
 import { UpgradeSelection } from './UpgradeSelection/UpgradeSelection';
 
 export const Billing: React.FC = () => {
+  const userData = useSelector(userDataSelector);
   const [selectedMethod, setSelectedMethod] =
     useState<PaymentMethodTypes | null>(null);
 
@@ -24,7 +27,7 @@ export const Billing: React.FC = () => {
 
   return (
     <div className="Billing">
-      <UpgradeSelection />
+      {userData.type === 'Potato Starter' && <UpgradeSelection />}
       <div className="Billing__section-titles">
         <Typography className="Billing__section-titles__title">
           Payment method
@@ -53,8 +56,8 @@ export const Billing: React.FC = () => {
         ))}
       </div> */}
       <EmailInfo />
-      <PaymentDetails selectedPaymentMethod={selectedMethod} />
-      <BillingHistory />
+      {/* <PaymentDetails selectedPaymentMethod={selectedMethod} />
+      <BillingHistory /> */}
     </div>
   );
 };

@@ -62,7 +62,7 @@ const App = () => {
   const { userInfo, getUserInfo } = useContext(UserInfoContext);
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== 'development') {
+    if (process.env.REACT_APP_ENV !== 'development') {
       TagManager.initialize({ gtmId: 'GTM-NDCWF47' });
     }
 
@@ -93,7 +93,6 @@ const App = () => {
       getUserInfo();
       const token = JSON.parse(String(localStorage.getItem('token')));
       dispatch(setUserToken(token));
-      dispatch(fetchTotalSentiment());
     }
   }, []);
 

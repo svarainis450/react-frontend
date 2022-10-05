@@ -31,6 +31,8 @@ import { PositiveBullsBlock } from './PositiveBullsBlock';
 import { CardChart } from '../../Graphic/CardChart';
 import './ProjectCard.scss';
 import { formatDate } from 'src/utils/calculations';
+import { Flex } from 'src/Components/wrappers/Flex';
+import { InfluencersTalkAboutIt } from './InfluencersTalkAboutIt';
 
 interface ProjectCardProps
   extends Pick<
@@ -43,12 +45,14 @@ interface ProjectCardProps
     | 'name'
     | 'first_historical_data'
     | 'coinbase_url'
-    | 'nft_address'
     | 'img_url'
     | 'chart_talk_rate'
     | 'chart_sentiment'
     | 'type'
     | 'price'
+    | 'opensea_project_url'
+    | 'base_currency'
+    | 'project_twitter_user_card'
   > {}
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -57,7 +61,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   name,
   first_historical_data,
   img_url,
-  nft_address,
   coinbase_url,
   talk_rate_daily_change,
   talk_rate_score,
@@ -66,6 +69,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   chart_talk_rate,
   chart_sentiment,
   type,
+  opensea_project_url,
+  base_currency,
+  project_twitter_user_card,
 }) => {
   const dispatch = useAppDispatch();
   const favoriteProjects = useSelector(favoriteProjectsSelector);
@@ -79,9 +85,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   const [showMore, setShowMore] = useState(false);
   const [status, setStatus] = useState<Statuses>('idle');
   const [showSentimentInfo, setShowSentimentInfo] = useState(false);
-  const url = nft_address || coinbase_url || null;
-  const urlBtnType = nft_address ? 'opensea' : 'coinbase';
+  const url = opensea_project_url || coinbase_url || null;
+  const urlBtnType = opensea_project_url ? 'opensea' : 'coinbase';
   const [projectByIsStatus, setProjectByIdStatus] = useState<Statuses>('idle');
+  const isNftProject =
+    type.toLocaleLowerCase() === CategoryTags.nft.toLowerCase();
 
   const handleFavoritesIcon = (id: number | undefined) => {
     if ((!isFavoriteProject || !isFavInstance) && id) {
@@ -131,7 +139,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               </div>
             </div>
             {isTablet && !showMore && (
-              <div>
+              <div className="talk-rate-mobile-wrap">
                 <TalkRateElement rate={talk_rate_score} />
               </div>
             )}
@@ -167,14 +175,31 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                     variant={TypographyVariant.TEXT_SMALL}
                     weight={TypographyWeight.MEDIUM}
                   >
-                    Current price
+                    {isNftProject ? 'Project Price' : 'Current price'}
                   </Typography>
-                  <Typography
-                    variant={TypographyVariant.HEADING_SMALL}
-                    weight={TypographyWeight.BOLD700}
-                  >
-                    ${price}
-                  </Typography>
+                  {isNftProject ? (
+                    <Flex>
+                      {base_currency === 'ETH' ? (
+                        <img src={icons.nft_symbol} alt="nft project" />
+                      ) : (
+                        <img src={icons.solana_icon} alt="nft project" />
+                      )}{' '}
+                      <Typography
+                        variant={TypographyVariant.HEADING_SMALL}
+                        weight={TypographyWeight.BOLD700}
+                      >
+                        {' '}
+                        {price}
+                      </Typography>
+                    </Flex>
+                  ) : (
+                    <Typography
+                      variant={TypographyVariant.HEADING_SMALL}
+                      weight={TypographyWeight.BOLD700}
+                    >
+                      ${price}
+                    </Typography>
+                  )}
                 </div>
               </div>
               <div className="flex border-wrapper">
@@ -240,11 +265,28 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 sentiment_score={sentiment_score}
                 bull_bear_score={bull_bear_score}
               />
-              <div className="border-wrapper">
+              {/* <div className="border-wrapper">
                 <Typography className="small-text">
                   <strong>Top influencers taked about this coin</strong>
                 </Typography>
-              </div>
+                {project_twitter_user_card.map(
+                  ({
+                    twitter_img_url,
+                    twitter_username,
+                    twitter_displayname,
+                    sentiment,
+                    external_link,
+                  }) => (
+                    <InfluencersTalkAboutIt
+                      img_url={twitter_img_url}
+                      name={twitter_username}
+                      displayName={twitter_displayname}
+                      sentiment={sentiment}
+                      link={external_link}
+                    />
+                  )
+                )}
+              </div> */}
               {url && <CoinBaseButton url={url} btnType={urlBtnType} />}
               <div className="learn-more" onClick={hanldeGoToForYou}>
                 <Typography weight={TypographyWeight.MEDIUM}>

@@ -30,6 +30,9 @@ import { fetchInfluencers } from 'src/state/reduxstate/influencers/thunks';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 import { useProjectFilters } from 'src/hooks';
 import { ModalWrapper } from 'src/Components/wrappers/ModalWrapper';
+import { LogOut } from 'src/Common/utils/LogOut';
+import { LinkList } from 'src/types';
+import { useNavigate } from 'react-router-dom';
 
 export const submenuList: SubmenuListProps[] = [
   {
@@ -51,6 +54,7 @@ export const submenuList: SubmenuListProps[] = [
 
 export const Discover: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const projectsData = useSelector(projectsDataSelector);
   const projects = projectsData.projects;
   const [projectsFilter, setProjectsFilter] = useState(ProjectFilterKeys.NONE);
@@ -80,6 +84,17 @@ export const Discover: React.FC = () => {
   const cardsPerOneRequest = 8;
 
   useEffect(() => {
+    if (projectsStatus === 'unauthorized') {
+      navigate(LinkList.Login);
+      LogOut();
+    }
+  }, [projectsStatus]);
+
+  useEffect(() => {
+    setSkipElements(null);
+  }, [categoryFilter]);
+
+  useEffect(() => {
     if (
       (projects && projects.length === 0) ||
       (skipElements && skipElements > 0) ||
@@ -93,7 +108,7 @@ export const Discover: React.FC = () => {
         })
       ).then(() => scrollToElement('card-to-scroll'));
     }
-  }, [skipElements, filterValue]);
+  }, [skipElements, projectsFilter, nameFilter]);
 
   useEffect(() => {
     if (token) {
@@ -118,13 +133,13 @@ export const Discover: React.FC = () => {
     <div className="Discover">
       <LoggedInLayout activeLink="Discover">
         <Submenu pageTitleMob="Discover" menuItems={submenuList} />
-        {projectsStatus === 'pending' && filterValue.length > 0 && (
+        {projectsStatus === 'pending' && (
           <ModalWrapper
             overlayOpacity="0.8"
             overlayBackground="#fff"
             topPositionOverlay="64px"
           >
-            <div className="full-screen-loader ">
+            <div className="full-screen-loader">
               <Loader width={50} height={50} />
             </div>
           </ModalWrapper>
@@ -154,12 +169,14 @@ export const Discover: React.FC = () => {
                   talk_rate_score,
                   talk_rate_daily_change,
                   bull_bear_score,
-                  nft_address,
                   first_historical_data,
                   sentiment_score,
                   chart_talk_rate,
                   chart_sentiment,
                   price,
+                  opensea_project_url,
+                  base_currency,
+                  project_twitter_user_card,
                 },
                 index
               ) => (
@@ -171,7 +188,6 @@ export const Discover: React.FC = () => {
                     id={id}
                     name={name}
                     img_url={img_url}
-                    nft_address={nft_address}
                     coinbase_url={coinbase_url}
                     talk_rate_score={talk_rate_score}
                     talk_rate_daily_change={talk_rate_daily_change}
@@ -181,14 +197,16 @@ export const Discover: React.FC = () => {
                     chart_talk_rate={chart_talk_rate}
                     chart_sentiment={chart_sentiment}
                     price={price}
-                    // influencers={influencers}
+                    opensea_project_url={opensea_project_url}
+                    base_currency={base_currency}
+                    project_twitter_user_card={project_twitter_user_card}
                     type={type as unknown as CategoryTags}
                   />
                 </Element>
               )
             )}
         </div>
-        {projectsStatus === 'pending' && <Loader width={50} height={50} />}
+        {/* {projectsStatus === 'pending' && <Loader width={50} height={50} />} */}
 
         {notAllToShow &&
           projectsStatus !== 'pending' &&

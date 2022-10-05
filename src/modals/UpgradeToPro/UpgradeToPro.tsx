@@ -3,11 +3,15 @@ import React from 'react';
 import { ModalWrapper } from 'src/Components';
 import { Button } from 'src/Components/Global/Button';
 import { Typography } from 'src/Components/Global/Typography';
+import {
+  StripeProductKeys,
+  SubsPriceIdStripe,
+} from 'src/globalConstants/prices';
 import { setModalType } from 'src/state/reduxstate/modals/slice';
 import { ModalTypes } from 'src/state/reduxstate/modals/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
-import { SelectedPlan } from 'src/state/reduxstate/user/types';
+import { BillingType, SelectedPlan } from 'src/state/reduxstate/user/types';
 import { icons } from 'src/utils/icons';
 import './UpgradeToPro.scss';
 
@@ -26,15 +30,7 @@ export const UpgradeToPro: React.FC = () => {
     dispatch(setModalType(null));
   };
 
-  const upgradePlan: SelectedPlan = {
-    plan: 'Potato Pro',
-    billing_type: 'monthly',
-    begin_price: 15,
-    monthly_price: 15,
-  };
-
   const handleUpgradeToPro = () => {
-    dispatch(setSelectedPlan(upgradePlan));
     dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO_PAYMENT));
   };
 

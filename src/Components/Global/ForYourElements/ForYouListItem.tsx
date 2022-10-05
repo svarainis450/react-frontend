@@ -100,10 +100,10 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
         </button>
         {isInFavorites && (
           <button
-            className="check-stats-btn"
+            className={`check-stats-btn ${isCheckingStats ? 'selected' : ''}`}
             onClick={() => handleCheckStatsBtn(id)}
           >
-            Check stats
+            {isCheckingStats ? 'Selected' : 'Check stats'}
           </button>
         )}
       </div>

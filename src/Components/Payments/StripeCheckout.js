@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import './StripeCheckout.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,13 +23,13 @@ const CheckoutForm = () => {
   const token = useSelector(userTokenSelector);
   const [userName, setUserName] = useState('');
   const paymentDetails = {
-    item_description: `${selectedPlan.billing_type} subscription`,
-    price: selectedPlan.stripe_price_id,
+    item_description: `${selectedPlan?.billing_type} subscription`,
+    price: selectedPlan?.stripe_price_id,
     customer_description: 'customer',
     phone: 'dont collect phones',
-    product: selectedPlan.stripe_product,
+    product: selectedPlan?.stripe_product,
   };
-  console.log(paymentDetails);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,7 +46,9 @@ const CheckoutForm = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { client_secret } = res.data;
+
+      const client_secret =
+        res.data.latest_invoice.payment_intent.client_secret;
 
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         client_secret,
@@ -57,7 +59,15 @@ const CheckoutForm = () => {
               name: userName,
             },
           },
-        }
+        },
+        dispatch(
+          updateUserInfo({
+            type: selectedPlan.plan,
+            subscription_expires_at: String(
+              new Date(res.data.current_period_end * 1000)
+            ),
+          })
+        )
       );
 
       if (error) {
@@ -66,14 +76,10 @@ const CheckoutForm = () => {
         dispatch(setPaymentStatus('succeeded'));
         setMessage('Payment successful!');
       }
-      dispatch(updateUserInfo({ type: 'Potato Starter' }));
-
-
-      console.log(res.data);
-
-    } catch {
-      console.log('err');
+    } catch (e) {
+      console.log(e);
       setMessage('An unexpected error occurred.');
+
       setIsLoading(false);
     }
 

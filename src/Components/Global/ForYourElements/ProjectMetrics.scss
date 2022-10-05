@@ -1,7 +1,6 @@
 @import '../../../utils/breakpointsMixins.scss';
 
 .metrics-wrapper {
-  margin: 32px auto 16px;
   width: 100%;
   overflow-x: scroll;
   background-color: var(--color-grey);
@@ -9,14 +8,13 @@
   border-bottom: 1px solid var(--color-grey-lighter);
 
   @include desktop {
+    margin: 32px auto 16px;
     overflow-x: visible;
     border: none;
     max-width: 1300px;
   }
 
   .metrics-flex {
-    position: relative;
-
     display: flex;
     justify-content: flex-start;
     padding: 0 0 16px 35%;
@@ -33,6 +31,23 @@
   .metrics-flex.nft-project {
     @media screen and (max-width: 780px) {
       width: 560px;
+    }
+
+    .metrics-flex.larger {
+      position: absolute;
+      width: 37%;
+      left: 0px;
+      flex: 1.8;
+      margin: 0 0 16px;
+      padding: 20px 16px 9px 0;
+      background-color: var(--color-grey);
+      z-index: 9;
+
+      @include desktop {
+        position: static;
+        padding: 5px 16px 5px 0;
+        justify-content: flex-start;
+      }
     }
   }
 

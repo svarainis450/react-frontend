@@ -2,16 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { concat } from 'lodash';
 import { Dispatch, SetStateAction } from 'react';
 import { TrendsProjectsByInfluencersPayload } from '../projects/thunks';
-import {
-  Statuses,
-  SubmenuFilters,
-  TrendsDateFilterType,
-} from '../projects/types';
+import { Statuses, SubmenuFilters } from '../projects/types';
 import { RootState } from '../slice';
 import { apiv1 } from '../types';
 import { getFavInfluencers } from '../user/thunks';
 import { FavInfluencersProjectsPayload } from '../user/types';
-import { setInfluencersData, setTrendingInfluencers } from './slice';
+import {
+  setInfluencerByName,
+  setInfluencersData,
+  setTrendingInfluencers,
+} from './slice';
 import { InfluencerData } from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
@@ -129,7 +129,7 @@ export const fetchInfluencers = createAsyncThunk(
         const { influencers } = getState() as RootState;
         const influencersArray = influencers.influencers_data.influencers;
 
-        if (skip && skip >= 52) {
+        if (skip && skip >= 8) {
           const expandedInfluencers = concat(influencersArray, resp.data);
           const uniqueInfluencers = [
             ...(new Set(expandedInfluencers) as unknown as InfluencerData[]),
@@ -150,6 +150,10 @@ export const fetchInfluencers = createAsyncThunk(
         }
 
         callBack && callBack('success');
+
+        if (resp?.error?.status === 401 && callBack) {
+          callBack('unauthorized');
+        }
       } catch (e) {
         callBack && callBack('error');
         console.log(e);
@@ -186,6 +190,38 @@ export const sendFavInfluencer = createAsyncThunk(
       } catch (e) {
         callBack && callBack('error');
         console.log(e);
+      }
+    }
+  }
+);
+
+interface InfluencerByNamePayload {
+  name: string;
+  statusCallBack?: Dispatch<SetStateAction<Statuses>>;
+}
+export const fetchInfluencerByName = createAsyncThunk(
+  'influencers/GET_IFLUENCER_BY_NAME',
+  async (
+    { name, statusCallBack }: InfluencerByNamePayload,
+    { getState, dispatch }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if (tokenFromState && name) {
+      statusCallBack && statusCallBack('pending');
+      try {
+        const resp = await fetch(`${apiv1}/twitter-users/${name}`, {
+          headers: {
+            Authorization: `Bearer ${tokenFromState}`,
+          },
+        }).then((res) => res.json());
+        dispatch(setInfluencerByName(resp.data));
+
+        statusCallBack && statusCallBack('succeeded');
+      } catch (e) {
+        console.log(e);
+        statusCallBack && statusCallBack('error');
       }
     }
   }
