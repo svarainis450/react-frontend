@@ -13,21 +13,22 @@ import { useAppDispatch } from 'src/state/reduxstate/store';
 import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
 import { useSelector } from 'react-redux';
 import { selectedPlanSelector } from 'src/state/reduxstate/user/selectors';
+import { hasAcceptedDownsellSelector } from 'src/state/reduxstate/payments/selectors';
 
 export const SubscriptionOptions: FC = memo(() => {
   const dispatch = useAppDispatch();
   const { isMobile } = useMediaQuery();
   const { user, setUser } = useContext(UserContext);
+  const hasAcceptedDownsell = useSelector(hasAcceptedDownsellSelector);
   const [selectedPeriod, setSelectedPeriod] = useState(
     user.selectedPlan?.billing_type.toLocaleLowerCase() || 'yearly'
   );
   const selectedPlan = useSelector(selectedPlanSelector);
-  const userPlanContext = user.selectedPlan;
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   useEffect(() => {
     const selectedPlanDetails = priceOptions[String(selectedPeriod)].find(
-      (p) => p.plan === user.selectedPlan?.plan
+      (p) => p.plan === selectedPlan?.plan
     );
     setUser((prev) => ({
       ...prev,
@@ -42,8 +43,12 @@ export const SubscriptionOptions: FC = memo(() => {
           begin_price: selectedPlanDetails.begin_price,
           billing_type: selectedPlanDetails.billing_type,
           plan: selectedPlanDetails.plan,
-          stripe_price_id: selectedPlanDetails.stripe_price_id,
-          stripe_product: selectedPlanDetails.stripe_product,
+          stripe_price_id: hasAcceptedDownsell
+            ? selectedPlanDetails.downsell_stripe_price_id
+            : selectedPlanDetails.stripe_price_id,
+          stripe_product: hasAcceptedDownsell
+            ? selectedPlanDetails.downsell_product_stripe
+            : selectedPlanDetails.stripe_product,
         })
       );
     } // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,7 +57,7 @@ export const SubscriptionOptions: FC = memo(() => {
   return (
     <>
       <Title margin={isMobile ? '0 0 1.25rem 0' : '0 0 3.25rem 0'}>
-        Subscribe to {user.selectedPlan?.plan}
+        Subscribe to {selectedPlan?.plan}
       </Title>
       <Flex
         margin={isMobile ? '0 0 2.875rem 0' : '0 0 2.5rem 0'}

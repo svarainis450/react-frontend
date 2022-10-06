@@ -5,6 +5,7 @@ import { PaymentsState } from './types';
 const initialState: PaymentsState = {
   secret_key: '',
   payment_status: 'idle',
+  has_accepted_downsell: false,
 };
 
 const paymentsSlice = createSlice({
@@ -17,6 +18,12 @@ const paymentsSlice = createSlice({
     ) => {
       state.secret_key = action.payload;
     },
+    setHasAcceptedDownsell: (
+      state: { has_accepted_downsell: boolean },
+      action: PayloadAction<boolean>
+    ) => {
+      state.has_accepted_downsell = action.payload;
+    },
     setPaymentStatus: (
       state: { payment_status: Statuses },
       action: PayloadAction<Statuses>
@@ -26,5 +33,6 @@ const paymentsSlice = createSlice({
   },
 });
 
-export const { setSecretKey, setPaymentStatus } = paymentsSlice.actions;
+export const { setSecretKey, setPaymentStatus, setHasAcceptedDownsell } =
+  paymentsSlice.actions;
 export default paymentsSlice;

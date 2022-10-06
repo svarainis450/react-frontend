@@ -43,11 +43,11 @@ export const CheckoutPage: FC = memo(() => {
     setShowDownsell(false);
   }, []);
 
-  useEffect(() => {
-    if (!user.selectedPlan) {
-      navigate(LinkList.Membership);
-    }
-  }, [navigate, user]);
+  // useEffect(() => {
+  //   if (!user.selectedPlan) {
+  //     navigate(LinkList.Membership);
+  //   }
+  // }, [navigate, user]);
 
   useEffect(() => {
     if (myRef.current) {

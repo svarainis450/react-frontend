@@ -72,11 +72,11 @@ export const AddToCardPage: FC = memo(() => {
     setShowDownsell(false);
   }, []);
 
-  useEffect(() => {
-    if (!user.selectedPlan) {
-      navigate(LinkList.Membership);
-    }
-  }, [navigate, user]);
+  // useEffect(() => {
+  //   if (!user.selectedPlan) {
+  //     navigate(LinkList.Membership);
+  //   }
+  // }, [navigate, user]);
 
   useEffect(() => {
     if (paymentStatus === 'succeeded') {

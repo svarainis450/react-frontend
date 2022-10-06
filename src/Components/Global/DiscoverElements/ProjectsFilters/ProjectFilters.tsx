@@ -89,7 +89,7 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             handleNameInputChange(e)
           }
-          disabled={type === 'Potato Starter' || !type}
+          disabled={type === 'Potato Starter'}
         />
       </div>
       {!isTablet && (

@@ -45,12 +45,7 @@ export const TwoSideBlock = ({
           {subtitle && <p className="TwoSideBlock__subtitle">{subtitle}</p>}
 
           <Link to={url || '/'}>
-            <Button
-              onClick={() => console.log('click')}
-              className="TwoSideBlock__cta desktop"
-            >
-              {ctaText}
-            </Button>
+            <Button className="TwoSideBlock__cta desktop">{ctaText}</Button>
           </Link>
 
           {subText?.length > 0 && (
@@ -77,12 +72,7 @@ export const TwoSideBlock = ({
           )}
 
           <Link to={url || '/'}>
-            <Button
-              onClick={() => console.log('click')}
-              className="TwoSideBlock__cta mobile"
-            >
-              {ctaText}
-            </Button>
+            <Button className="TwoSideBlock__cta mobile">{ctaText}</Button>
           </Link>
 
           {subText?.length > 0 && (

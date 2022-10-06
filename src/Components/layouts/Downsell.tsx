@@ -12,6 +12,7 @@ import { UserContext } from '../../state/userContext';
 import { useCookies } from 'react-cookie';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
+import { setHasAcceptedDownsell } from 'src/state/reduxstate/payments/slice';
 
 interface DownsellProps {
   onClose?: () => void;
@@ -31,6 +32,8 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
       let newState = prev;
       const plan = prev.selectedPlan;
 
+      dispatch(setHasAcceptedDownsell(true));
+
       if (plan) {
         newState['selectedPlan'] = plan;
         newState['selectedPlan']['priceAfterDownsell'] = newPrice;
@@ -42,7 +45,7 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
             billing_type: plan.billing_type,
             plan: plan.plan,
             stripe_price_id: plan.downsell_stripe_price_id,
-            stripe_product: plan.stripe_product,
+            stripe_product: plan.downsell_product_stripe,
           })
         );
       }
