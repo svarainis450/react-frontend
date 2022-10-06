@@ -28,6 +28,13 @@ export enum SubsPriceIdStripe {
 export enum StripeProductKeys {
   POTATO_PRO_DEV = 'prod_MUzjT8yaV9ecJ0',
   POTATO_STARTER_DEV = 'prod_MUzjngoXbsXCyg',
+
   POTATO_PRO_PROD = 'prod_MUwh5WNiYRyeIH',
-  POTATO_STARTER_PROD = 'prod_MUwgCl8NIcuufA',
+  POTATO_STARTER_PROD = 'prod_MYNnQ8zriPIApR',
+
+  POTATO_PRO_DOWNSELL_DEV = 'prod_MUzlfsPpJNFuKW',
+  POTATO_STARTER_DOWNSELL_DEV = 'prod_MUzkXLRvF3ZeaW',
+
+  POTATO_PRO_DOWNSELL_PROD = 'prod_MUzfoiG8tlcIws',
+  POTATO_STARTER_DOWNSELL_PROD = 'prod_MUzdpcwLxZxS93',
 }

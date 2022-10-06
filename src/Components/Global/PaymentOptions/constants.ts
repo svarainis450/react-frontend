@@ -18,6 +18,7 @@ export interface Plan extends SelectedPlan {
   bullets: string[];
   priceAfterDownsell?: number;
   downsell_stripe_price_id: SubsPriceIdStripe;
+  downsell_product_stripe: StripeProductKeys;
 }
 
 export const isDevelopment = process.env.REACT_APP_ENV === 'development';
@@ -47,6 +48,9 @@ export const priceOptions: Record<string, Plan[]> = {
       downsell_stripe_price_id: isDevelopment
         ? SubsPriceIdStripe.STARTER_DOWNSELL_MONTHLY_DEV
         : SubsPriceIdStripe.STARTER_DOWNSELL_MONTHLY_PROD,
+      downsell_product_stripe: isDevelopment
+        ? StripeProductKeys.POTATO_STARTER_DOWNSELL_DEV
+        : StripeProductKeys.POTATO_STARTER_DOWNSELL_PROD,
     },
     {
       isMostPopular: false,
@@ -73,6 +77,9 @@ export const priceOptions: Record<string, Plan[]> = {
       downsell_stripe_price_id: isDevelopment
         ? SubsPriceIdStripe.PRO_DOWNSELL_MONTHLY_DEV
         : SubsPriceIdStripe.PRO_DOWNSELL_MONTHLY_PROD,
+      downsell_product_stripe: isDevelopment
+        ? StripeProductKeys.POTATO_PRO_DOWNSELL_DEV
+        : StripeProductKeys.POTATO_PRO_DOWNSELL_PROD,
     },
   ],
 
@@ -100,6 +107,9 @@ export const priceOptions: Record<string, Plan[]> = {
       downsell_stripe_price_id: isDevelopment
         ? SubsPriceIdStripe.STARTER_DOWNSELL_YEARLY_DEV
         : SubsPriceIdStripe.STARTER_DOWNSELL_YEARLY_PROD,
+      downsell_product_stripe: isDevelopment
+        ? StripeProductKeys.POTATO_STARTER_DOWNSELL_DEV
+        : StripeProductKeys.POTATO_STARTER_DOWNSELL_PROD,
     },
     {
       isMostPopular: true,
@@ -126,6 +136,9 @@ export const priceOptions: Record<string, Plan[]> = {
       downsell_stripe_price_id: isDevelopment
         ? SubsPriceIdStripe.PRO_DOWNSELL_YEARLY_DEV
         : SubsPriceIdStripe.PRO_DOWNSELL_YEARLY_PROD,
+      downsell_product_stripe: isDevelopment
+        ? StripeProductKeys.POTATO_PRO_DOWNSELL_DEV
+        : StripeProductKeys.POTATO_PRO_DOWNSELL_PROD,
     },
   ],
 };

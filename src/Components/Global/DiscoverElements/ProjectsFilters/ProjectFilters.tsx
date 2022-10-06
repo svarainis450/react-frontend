@@ -43,6 +43,8 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   const { type } = useSelector(userDataSelector);
   const userData = useSelector(userDataSelector);
 
+  console.log(userData);
+
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     callBack(ProjectFilterKeys.CATEGORY);
@@ -89,7 +91,7 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             handleNameInputChange(e)
           }
-          disabled={type === 'Potato Starter' || !type}
+          disabled={type === 'Potato Starter'}
         />
       </div>
       {!isTablet && (

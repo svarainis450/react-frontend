@@ -6,6 +6,9 @@ import { theme } from '../../theme';
 import { Box } from '../wrappers/Box';
 import { Flex } from '../wrappers/Flex';
 import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
+import { selectedPlanSelector } from 'src/state/reduxstate/user/selectors';
+import { hasAcceptedDownsellSelector } from 'src/state/reduxstate/payments/selectors';
 
 interface OrderSummaryProps {
   hideTitle?: boolean;
@@ -14,8 +17,12 @@ interface OrderSummaryProps {
 export const OrderSummary: FC<OrderSummaryProps> = memo(
   ({ hideTitle = false }) => {
     const { user } = useContext(UserContext);
+    const selectedPlan = useSelector(selectedPlanSelector);
+    const hasAcceptedDownsell = useSelector(hasAcceptedDownsellSelector);
     let totalPrice = Number(user.selectedPlan?.begin_price);
     const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
+
+    if (!selectedPlan) return null;
 
     return (
       <>
@@ -41,14 +48,12 @@ export const OrderSummary: FC<OrderSummaryProps> = memo(
               <Regular>{user.selectedPlan?.discount}.00</Regular>
             </Row>
           ) : null}
-          {user.selectedPlan?.priceAfterDownsell ? (
+          {hasAcceptedDownsell ? (
             <Row margin="0 0 1rem 0">
               <Regular color="#FA5000">Additional discount</Regular>
               <Regular color="#FA5000">
                 -{getCookie?.currencySymbol}
-                {parseFloat(
-                  String(Number(user.selectedPlan?.begin_price) * 0.15)
-                ).toFixed(2)}
+                {(selectedPlan.begin_price * 0.15).toFixed(2)}
               </Regular>
             </Row>
           ) : null}
@@ -57,7 +62,9 @@ export const OrderSummary: FC<OrderSummaryProps> = memo(
             <Regular>Billed now</Regular>
             <Regular>
               {getCookie?.currencySymbol}
-              {user.selectedPlan?.priceAfterDownsell || `${totalPrice}`}.00
+              {hasAcceptedDownsell
+                ? (totalPrice - selectedPlan.begin_price * 0.15).toFixed(2)
+                : `${totalPrice}`}
             </Regular>
           </Row>
         </Background>

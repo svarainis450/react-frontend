@@ -36,11 +36,7 @@ export const Header = ({ onMenuToggle }: HeaderProps) => {
 
       <div className="Header__button-wrapper">
         <Link to={LinkList.Login}>
-          <Button
-            className="Header__button--login"
-            buttonType="transparent"
-            onClick={() => console.log('login')}
-          >
+          <Button className="Header__button--login" buttonType="transparent">
             Log In
           </Button>
         </Link>

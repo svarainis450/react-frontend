@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { PaymentOptionsProps } from './types';
@@ -20,6 +20,7 @@ export const PaymentOptions = ({
   isSelected,
   isSelectedHandler,
 }: PaymentOptionsProps) => {
+  const navigate = useNavigate();
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   return (
@@ -101,9 +102,15 @@ export const PaymentOptions = ({
                 </button>
               )}
 
-              <Link to={LinkList.Checkout}>
-                <Button className="PaymentOptions__card-button">Buy now</Button>
-              </Link>
+              <Button
+                onClick={() => {
+                  isSelectedHandler(index);
+                  navigate(LinkList.Checkout);
+                }}
+                className="PaymentOptions__card-button"
+              >
+                Buy now
+              </Button>
 
               <ul className="PaymentOptions__card-bulletlist">
                 {item.bullets.map((text, index) => {
