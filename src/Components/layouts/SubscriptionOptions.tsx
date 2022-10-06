@@ -24,12 +24,11 @@ export const SubscriptionOptions: FC = memo(() => {
     user.selectedPlan?.billing_type.toLocaleLowerCase() || 'yearly'
   );
   const selectedPlan = useSelector(selectedPlanSelector);
-  const userPlanContext = user.selectedPlan;
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   useEffect(() => {
     const selectedPlanDetails = priceOptions[String(selectedPeriod)].find(
-      (p) => p.plan === user.selectedPlan?.plan
+      (p) => p.plan === selectedPlan?.plan
     );
     setUser((prev) => ({
       ...prev,
