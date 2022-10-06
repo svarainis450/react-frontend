@@ -6,4 +6,5 @@ export interface PaymentOptionsProps {
 
   isSelected: number;
   isSelectedHandler: (value: number) => void;
+  navigateHandler?: (value: boolean) => void;
 }

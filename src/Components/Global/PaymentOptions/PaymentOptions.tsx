@@ -1,4 +1,3 @@
-import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { PaymentOptionsProps } from './types';
@@ -19,8 +18,8 @@ export const PaymentOptions = ({
   minimal,
   isSelected,
   isSelectedHandler,
+  navigateHandler,
 }: PaymentOptionsProps) => {
-  const navigate = useNavigate();
   const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
 
   return (
@@ -105,7 +104,7 @@ export const PaymentOptions = ({
               <Button
                 onClick={() => {
                   isSelectedHandler(index);
-                  navigate(LinkList.Checkout);
+                  navigateHandler && navigateHandler(true);
                 }}
                 className="PaymentOptions__card-button"
               >

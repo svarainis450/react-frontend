@@ -19,20 +19,28 @@ import { Layout } from '../Layout';
 import { UserContext } from '../../../state/userContext';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
+import { useSelector } from 'react-redux';
+import { selectedPlanSelector } from 'src/state/reduxstate/user/selectors';
+import { useNavigate } from 'react-router-dom';
+import { LinkList } from 'src/types';
 
 export const Pricing = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [currentPricingOption, setCurrentPricingOption] = useState<string>(
     planTypes.yearly
   );
+  const selectedPlan = useSelector(selectedPlanSelector);
+  const [navigateNext, setNavigateNext] = useState(false);
   const [isSelectedm, setIsSelected] = useState(0);
   const { setUser } = useContext(UserContext);
-  const selectedPlan = useMemo(
-    () => priceOptions[currentPricingOption][isSelectedm],
-    [currentPricingOption, isSelectedm]
-  );
+  // const selectedPlan = useMemo(
+  //   () => priceOptions[currentPricingOption][isSelectedm],
+  //   [currentPricingOption, isSelectedm]
+  // );
 
   useEffect(() => {
+    const selectedPlan = priceOptions[currentPricingOption][isSelectedm];
     setUser((prev) => ({ ...prev, selectedPlan }));
     dispatch(
       setSelectedPlan({
@@ -44,7 +52,8 @@ export const Pricing = () => {
         stripe_product: selectedPlan.stripe_product,
       })
     );
-  }, [selectedPlan, setUser]);
+    navigateNext && navigate(LinkList.Checkout);
+  }, [isSelectedm, currentPricingOption, setUser, navigateNext]);
 
   return (
     <Layout>
@@ -58,6 +67,7 @@ export const Pricing = () => {
           setCurrentPricingOption={setCurrentPricingOption}
           isSelected={isSelectedm}
           isSelectedHandler={setIsSelected}
+          navigateHandler={setNavigateNext}
         />
 
         <CompareFeatures featuresList={CompareFeaturesList} />
