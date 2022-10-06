@@ -47,6 +47,7 @@ export interface UserUpdateType {
   password?: string;
   type?: PlanType;
   subscription_expires_at?: string | null;
+  invoice_email?: string;
 }
 export interface FavInfluencersProjectsPayload {
   callBack?: Dispatch<SetStateAction<Statuses>>;
