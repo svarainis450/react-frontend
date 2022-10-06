@@ -22,12 +22,8 @@ export const EmailInfo: React.FC = () => {
     e?.preventDefault();
     document.getElementById('inputForm')?.blur();
     if (contactEmail) {
-      dispatch(updateUserInfo({ email: contactEmail }));
+      dispatch(updateUserInfo({ invoice_email: contactEmail }));
       setArrowIcon(icons.blue_checkmark);
-      LogOut();
-      navigate(LinkList.Login);
-
-      // dispatch(loginUser({ email: contactEmail, password: userInfo.password }));
     }
   };
 
@@ -48,7 +44,7 @@ export const EmailInfo: React.FC = () => {
           </Typography>
           {/* TODO: billing. check if email value comes as expected */}
           <Typography className="Billing__border-wrapper__texts__subtitle">
-            {userInfo.email || 'email@email.com'}
+            {userInfo.invoice_email || 'email@email.com'}
           </Typography>
           <Typography className="Billing__border-wrapper__texts__title other">
             Send to other account email
@@ -84,9 +80,6 @@ export const EmailInfo: React.FC = () => {
               className="Billing__border-wrapper__texts__input-wrapper__input-arrow"
             />
           </form>
-          <Typography className="Billing__border-wrapper__texts__subtitle">
-            After email update, you will be redirected to login with new email
-          </Typography>
         </div>
       </div>
     </div>
