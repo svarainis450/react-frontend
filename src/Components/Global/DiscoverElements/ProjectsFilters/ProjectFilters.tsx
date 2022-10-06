@@ -43,8 +43,6 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   const { type } = useSelector(userDataSelector);
   const userData = useSelector(userDataSelector);
 
-  console.log(userData);
-
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     callBack(ProjectFilterKeys.CATEGORY);
