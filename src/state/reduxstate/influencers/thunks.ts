@@ -113,20 +113,21 @@ export const fetchInfluencers = createAsyncThunk(
     { callBack, filter, skip, tokenValue }: InfluencersPayload,
     { dispatch, getState }
   ) => {
+    const { user, influencers } = getState() as RootState;
+    const tokenFromState = user.user_token;
     const url = skip
       ? `${apiv1}/twitter-users?take=8&skip=${skip}${filter || ''}`
       : `${apiv1}/twitter-users?take=8${filter || ''}`;
 
     callBack && callBack('pending');
-    if (tokenValue || token) {
+    if (tokenFromState) {
       try {
         const resp = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${tokenValue || token}`,
+            Authorization: `Bearer ${tokenFromState}`,
           },
         }).then((res) => res.json());
 
-        const { influencers } = getState() as RootState;
         const influencersArray = influencers.influencers_data.influencers;
 
         if (skip && skip >= 8) {
