@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useMediaQuery } from 'src/hooks';
 import {
   fetchProjectById,
   sendFavProject,
@@ -32,6 +33,7 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
   const { img_url, name, type, id } = project;
   const [status, setStatus] = useState<Statuses>('idle');
   const [isRemoved, setIsRemoved] = useState(false);
+  const { isTablet } = useMediaQuery();
 
   const hanldeAddOrRemoveBtn = (id: number) => {
     if (isInFavorites) {
@@ -62,7 +64,10 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
     return null;
 
   return (
-    <div className={`for-you-list-item ${isCheckingStats ? 'checking' : ''}`}>
+    <div
+      className={`for-you-list-item ${isCheckingStats ? 'checking' : ''}`}
+      onClick={() => showMobileListCallback(false)}
+    >
       <div className="flex-wrapper">
         <div>
           <img
@@ -90,7 +95,9 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
                 src={isInFavorites ? icons.remove : icons.add_to_list}
                 alt="remove or add butn"
               />
-              {isInFavorites ? 'Remove' : 'Add to your list'}
+              {(!isTablet || !isInFavorites) && (
+                <span>{isInFavorites ? 'Remove' : 'Add to your list'}</span>
+              )}{' '}
             </>
           ) : (
             <div className="loader-wrapper-list-item">

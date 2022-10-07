@@ -108,7 +108,7 @@ export const Discover: React.FC = () => {
         })
       ).then(() => scrollToElement('card-to-scroll'));
     }
-  }, [skipElements, projectsFilter, nameFilter]);
+  }, [skipElements, projectsFilter, nameFilter, categoryFilter]);
 
   useEffect(() => {
     if (token) {
@@ -127,6 +127,10 @@ export const Discover: React.FC = () => {
     } else {
       const seenAll = 'You`ve seen it all';
       setSeenAll(seenAll);
+    }
+
+    if (nameFilter && nameFilter.length > 0) {
+      setNameFilter('');
     }
   };
   return (
@@ -219,7 +223,9 @@ export const Discover: React.FC = () => {
               Load more
             </Button>
           )}
-        {seenAll.length > 0 && <Typography>{seenAll}</Typography>}
+        {seenAll.length > 0 && (
+          <Typography className="seen-all">{seenAll}</Typography>
+        )}
       </LoggedInLayout>
     </div>
   );

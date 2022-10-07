@@ -22,7 +22,6 @@ import { Star, Influencers } from '../../../Assets/icons/IconElements';
 import {
   favoriteProjectsSelector,
   userDataSelector,
-  userTokenSelector,
 } from 'src/state/reduxstate/user/selectors';
 import { Typography } from '@mui/material';
 import {

@@ -32,7 +32,7 @@ export const Pricing = () => {
   );
   const selectedPlan = useSelector(selectedPlanSelector);
   const [navigateNext, setNavigateNext] = useState(false);
-  const [isSelectedm, setIsSelected] = useState(0);
+  const [isSelectedm, setIsSelected] = useState(1);
   const { setUser } = useContext(UserContext);
   // const selectedPlan = useMemo(
   //   () => priceOptions[currentPricingOption][isSelectedm],

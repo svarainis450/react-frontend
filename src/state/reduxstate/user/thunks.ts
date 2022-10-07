@@ -18,12 +18,15 @@ const token = JSON.parse(String(localStorage.getItem('token')));
 
 export const fetchUserData = createAsyncThunk(
   'user/GET_USER_DATA',
-  async (tokenValue: string, { dispatch }) => {
-    if (tokenValue) {
+  async (_, { dispatch, getState }) => {
+    const { user } = getState() as RootState;
+    const token = user.user_token;
+
+    if (token) {
       try {
         const resp = await fetch(`${apiv1}/users`, {
           headers: {
-            Authorization: `Bearer ${tokenValue || token}`,
+            Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
         dispatch(setUserData(resp));
@@ -52,7 +55,7 @@ export const updateUserInfo = createAsyncThunk(
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
-        dispatch(fetchUserData(token));
+        dispatch(fetchUserData());
 
         return resp;
       } catch (e) {

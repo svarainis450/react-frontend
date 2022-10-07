@@ -4,7 +4,7 @@ export enum Prices {
 }
 
 export enum SubsPriceIdStripe {
-  STARTER_MONTHLY_PROD = 'price_1LlwmfLPHXTxUZlW2Wi6aaDj',
+  STARTER_MONTHLY_PROD = 'price_1LpH26LPHXTxUZlWLOqOLowl',
   STARTER_YEARLY_PROD = 'price_1LlwmfLPHXTxUZlWy3aWFEBg',
   PRO_MONTHLY_PROD = 'price_1Llwo8LPHXTxUZlWehIWEUe9',
   PRO_YEARLY_PROD = 'price_1Llwo8LPHXTxUZlWEJSuhGwC',

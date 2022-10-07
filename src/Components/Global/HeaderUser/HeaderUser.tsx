@@ -45,7 +45,7 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
 
   useEffect(() => {
     if (userToken) {
-      dispatch(fetchUserData(userToken));
+      dispatch(fetchUserData());
     }
     dispatch(fetchTotalSentiment());
   }, [dispatch, userToken]);
