@@ -14,6 +14,7 @@ import { paymentStatusSelector } from 'src/state/reduxstate/payments/selectors';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { selectedPlanSelector } from 'src/state/reduxstate/user/selectors';
 import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
+import { fetchUserData } from 'src/state/reduxstate/user/thunks';
 import { BillingType, SelectedPlan } from 'src/state/reduxstate/user/types';
 import { icons } from 'src/utils/icons';
 import './UpgradeToProPayments.scss';
@@ -52,6 +53,7 @@ export const UpgradeToProPayments: React.FC = () => {
 
     dispatch(setSelectedPlan(upgradePlan));
     if (paymentStatus === 'succeeded') {
+      dispatch(fetchUserData());
       dispatch(setModalType(null));
     }
   }, [billingType, paymentStatus]);

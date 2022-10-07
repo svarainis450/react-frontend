@@ -10,7 +10,11 @@ import {
   setUserData,
   setUserToken,
 } from './slice';
-import { FavInfluencersProjectsPayload, UserUpdateType } from './types';
+import {
+  FavInfluencersProjectsPayload,
+  PlanType,
+  UserUpdateType,
+} from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
 
@@ -18,12 +22,15 @@ const token = JSON.parse(String(localStorage.getItem('token')));
 
 export const fetchUserData = createAsyncThunk(
   'user/GET_USER_DATA',
-  async (tokenValue: string, { dispatch }) => {
-    if (tokenValue) {
+  async (_, { dispatch, getState }) => {
+    const { user } = getState() as RootState;
+    const token = user.user_token;
+
+    if (token) {
       try {
         const resp = await fetch(`${apiv1}/users`, {
           headers: {
-            Authorization: `Bearer ${tokenValue || token}`,
+            Authorization: `Bearer ${token}`,
           },
         }).then((res) => res.json());
         dispatch(setUserData(resp));
@@ -52,9 +59,49 @@ export const updateUserInfo = createAsyncThunk(
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
-        dispatch(fetchUserData(token));
+        dispatch(fetchUserData());
 
         return resp;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+interface UpdateSendGridDataPayload {
+  email: string;
+  products: PlanType;
+}
+
+export const updateSendGridData = createAsyncThunk(
+  'user/UPDATE_SENDGRID',
+  async (
+    { email, products }: UpdateSendGridDataPayload,
+    { dispatch, getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const userToken = user.user_token;
+
+    const data = {
+      email,
+      products,
+    };
+
+    if (userToken) {
+      try {
+        const resp = await fetch(`${apiv1}/sendgrid-payment-success`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify(data),
+        }).then((res) => res.json());
+
+        console.log(resp);
+
+        // return resp;
       } catch (e) {
         console.log(e);
       }

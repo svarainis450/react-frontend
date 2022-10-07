@@ -82,7 +82,7 @@ export const fetchProjects = createAsyncThunk(
         }`
       : `${apiv1}/projects?take=8${filter || '&orderBy=talk_rate&order=DESC'}`;
 
-    if (token || tokenFromState) {
+    if (tokenFromState) {
       try {
         if (callBack) {
           callBack('pending');
@@ -90,7 +90,7 @@ export const fetchProjects = createAsyncThunk(
 
         const resp = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${token || tokenFromState}`,
+            Authorization: `Bearer ${tokenFromState}`,
           },
         }).then((res) => res.json());
 

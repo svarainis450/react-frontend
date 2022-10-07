@@ -3,15 +3,10 @@ import React from 'react';
 import { ModalWrapper } from 'src/Components';
 import { Button } from 'src/Components/Global/Button';
 import { Typography } from 'src/Components/Global/Typography';
-import {
-  StripeProductKeys,
-  SubsPriceIdStripe,
-} from 'src/globalConstants/prices';
 import { setModalType } from 'src/state/reduxstate/modals/slice';
 import { ModalTypes } from 'src/state/reduxstate/modals/types';
+import { setPaymentStatus } from 'src/state/reduxstate/payments/slice';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
-import { BillingType, SelectedPlan } from 'src/state/reduxstate/user/types';
 import { icons } from 'src/utils/icons';
 import './UpgradeToPro.scss';
 
@@ -31,6 +26,7 @@ export const UpgradeToPro: React.FC = () => {
   };
 
   const handleUpgradeToPro = () => {
+    dispatch(setPaymentStatus('idle'));
     dispatch(setModalType(ModalTypes.UPGRADE_TO_PRO_PAYMENT));
   };
 

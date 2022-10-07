@@ -75,6 +75,7 @@ export const Influencers: React.FC = () => {
   useEffect(() => {
     if (
       !influencers ||
+      influencers.length === 0 ||
       (skipElements && skipElements > 0) ||
       influencers.length < cardsPerOneRequest ||
       influencersFilterValue
