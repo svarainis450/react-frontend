@@ -7,7 +7,7 @@
   border-top: 1px solid var(--color-grey-lighter);
   border-bottom: 1px solid var(--color-grey-lighter);
 
-  @include desktop {
+  @include tablet {
     margin: 32px auto 16px;
     overflow-x: visible;
     border: none;
@@ -21,7 +21,7 @@
     width: 460px;
     background-color: var(--color-grey);
 
-    @include desktop {
+    @include tablet {
       padding: 0;
       flex: 1.4;
       width: 100%;
@@ -43,7 +43,7 @@
       background-color: var(--color-grey);
       z-index: 9;
 
-      @include desktop {
+      @include tablet {
         position: static;
         padding: 5px 16px 5px 0;
         justify-content: flex-start;
@@ -57,7 +57,7 @@
   }
 
   .metrics-flex.bordered {
-    @include desktop {
+    @include tablet {
       border-right: 1.5px solid var(--color-white);
     }
   }
@@ -68,7 +68,7 @@
     padding: 10px 16px 0 16px;
     background-color: var(--color-grey);
 
-    @include desktop {
+    @include tablet {
       padding: 0;
     }
     @media screen and (max-width: 780px) {
@@ -103,7 +103,7 @@
     background-color: var(--color-grey);
     z-index: 9;
 
-    @include desktop {
+    @include tablet {
       position: static;
       padding: 5px 16px 5px 0;
       justify-content: flex-start;
@@ -116,7 +116,7 @@
     height: 30px;
     border-radius: 100%;
 
-    @include desktop {
+    @include tablet {
       width: 54px;
       height: 54px;
     }
@@ -126,7 +126,7 @@
     padding: 10px 0 0 0;
     width: 220px;
 
-    @include desktop {
+    @include tablet {
       padding: 0;
       width: unset;
     }
@@ -156,7 +156,7 @@
     line-height: 14px;
     font-weight: 500;
 
-    @include desktop {
+    @include tablet {
       font-size: 16px;
       line-height: 18px;
     }
@@ -170,7 +170,7 @@
     font-size: 0.75rem;
     letter-spacing: -0.02rem;
 
-    @include desktop {
+    @include tablet {
       font-size: 1.5rem;
     }
   }

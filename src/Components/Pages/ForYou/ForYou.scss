@@ -65,7 +65,7 @@
         z-index: 99;
         overflow-y: scroll;
 
-        @include desktop {
+        @include tablet {
           position: static;
           all: unset;
         }
