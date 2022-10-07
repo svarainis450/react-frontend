@@ -4,12 +4,16 @@ import './StripeCheckout.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectedPlanSelector,
+  userDataSelector,
   userTokenSelector,
 } from 'src/state/reduxstate/user/selectors';
 
 import axios from 'axios';
 import { apiv1 } from 'src/state/reduxstate/types';
-import { updateUserInfo } from 'src/state/reduxstate/user/thunks';
+import {
+  updateSendGridData,
+  updateUserInfo,
+} from 'src/state/reduxstate/user/thunks';
 import { setPaymentStatus } from 'src/state/reduxstate/payments/slice';
 
 const CheckoutForm = () => {
@@ -17,6 +21,7 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const selectedPlan = useSelector(selectedPlanSelector);
+  const userData = useSelector(userDataSelector);
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -72,6 +77,12 @@ const CheckoutForm = () => {
       if (error) {
         setMessage(error.message);
       } else {
+        dispatch(
+          updateSendGridData({
+            email: userData.email,
+            products: selectedPlan.plan,
+          })
+        );
         dispatch(setPaymentStatus('succeeded'));
         setMessage('Payment successful!');
       }

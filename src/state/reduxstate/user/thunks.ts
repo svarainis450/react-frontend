@@ -10,7 +10,11 @@ import {
   setUserData,
   setUserToken,
 } from './slice';
-import { FavInfluencersProjectsPayload, UserUpdateType } from './types';
+import {
+  FavInfluencersProjectsPayload,
+  PlanType,
+  UserUpdateType,
+} from './types';
 
 const token = JSON.parse(String(localStorage.getItem('token')));
 
@@ -58,6 +62,46 @@ export const updateUserInfo = createAsyncThunk(
         dispatch(fetchUserData());
 
         return resp;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+interface UpdateSendGridDataPayload {
+  email: string;
+  products: PlanType;
+}
+
+export const updateSendGridData = createAsyncThunk(
+  'user/UPDATE_SENDGRID',
+  async (
+    { email, products }: UpdateSendGridDataPayload,
+    { dispatch, getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const userToken = user.user_token;
+
+    const data = {
+      email,
+      products,
+    };
+
+    if (userToken) {
+      try {
+        const resp = await fetch(`${apiv1}/sendgrid-payment-success`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userToken}`,
+          },
+          body: JSON.stringify(data),
+        }).then((res) => res.json());
+
+        console.log(resp);
+
+        // return resp;
       } catch (e) {
         console.log(e);
       }
