@@ -44,7 +44,7 @@ export const EmailInfo: React.FC = () => {
           </Typography>
           {/* TODO: billing. check if email value comes as expected */}
           <Typography className="Billing__border-wrapper__texts__subtitle">
-            {userInfo.invoice_email || 'email@email.com'}
+            {userInfo.invoice_email || userInfo.email || 'email@email.com'}
           </Typography>
           <Typography className="Billing__border-wrapper__texts__title other">
             Send to other account email

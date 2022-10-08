@@ -97,7 +97,7 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
               />
               {(!isTablet || !isInFavorites) && (
                 <span>{isInFavorites ? 'Remove' : 'Add to your list'}</span>
-              )}{' '}
+              )}
             </>
           ) : (
             <div className="loader-wrapper-list-item">

@@ -307,8 +307,14 @@ export const fetchProjectsByInfluencers = createAsyncThunk(
 
 export const sendFavProject = createAsyncThunk(
   'projects/POST_FAV_PROJECT',
-  async ({ id, callBack }: FavInfluencersProjectsPayload, { dispatch }) => {
-    if (token) {
+  async (
+    { id, callBack }: FavInfluencersProjectsPayload,
+    { dispatch, getState }
+  ) => {
+    const { user } = getState() as RootState;
+    const tokenFromState = user.user_token;
+
+    if (tokenFromState) {
       try {
         callBack && callBack('pending');
 
@@ -320,7 +326,7 @@ export const sendFavProject = createAsyncThunk(
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenFromState}`,
           },
           body: JSON.stringify(data),
         }).then((res) => res.json());
