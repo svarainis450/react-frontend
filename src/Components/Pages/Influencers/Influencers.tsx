@@ -70,6 +70,7 @@ export const Influencers: React.FC = () => {
       navigate(LinkList.Login);
       LogOut();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [influencersStatus]);
 
   useEffect(() => {
@@ -91,6 +92,7 @@ export const Influencers: React.FC = () => {
         scrollToElement('infl-to-scroll');
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     skipElements,
     influencersFilter,

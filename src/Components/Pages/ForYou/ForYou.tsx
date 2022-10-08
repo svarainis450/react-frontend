@@ -40,7 +40,6 @@ import { useForYouPageData, useMediaQuery, useProjectFilters } from 'src/hooks';
 import { Top3FavElementsSlider } from 'src/Components/Global/ForYourElements/Top3FavElementsSlider';
 import { setModalType } from 'src/state/reduxstate/modals/slice';
 import { ModalTypes } from 'src/state/reduxstate/modals/types';
-import { is } from 'cheerio/lib/api/traversing';
 
 export const forYouSubmenuList: SubmenuListProps[] = [
   {
@@ -93,12 +92,14 @@ export const ForYou: React.FC = () => {
 
     dispatch(getFavProjects({}));
     dispatch(getFavInfluencers());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!isPotatoStarter) {
       dispatch(fetchProjects({ filter: filterValue }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectsFilter, filterValue, nameFilter]);
 
   useEffect(() => {
@@ -116,6 +117,7 @@ export const ForYou: React.FC = () => {
         );
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [takeProjects]);
 
   const topTalkRateProject =
@@ -260,6 +262,7 @@ export const ForYou: React.FC = () => {
                 ))}
               {(!isTablet || showMobileList) &&
                 projects &&
+                // eslint-disable-next-line array-callback-return
                 projects.map((project, index) => {
                   const isIncludedInFavs = favoriteProjects?.find(
                     (item) => item.id === project.id

@@ -12,7 +12,6 @@ import {
 import { setModalType } from 'src/state/reduxstate/modals/slice';
 import { paymentStatusSelector } from 'src/state/reduxstate/payments/selectors';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { selectedPlanSelector } from 'src/state/reduxstate/user/selectors';
 import { setSelectedPlan } from 'src/state/reduxstate/user/slice';
 import { fetchUserData } from 'src/state/reduxstate/user/thunks';
 import { BillingType, SelectedPlan } from 'src/state/reduxstate/user/types';
@@ -22,7 +21,6 @@ import './UpgradeToProPayments.scss';
 export const UpgradeToProPayments: React.FC = () => {
   const dispatch = useAppDispatch();
   const [billingType, setBillingType] = useState<BillingType>('yearly');
-  const selectedPlan = useSelector(selectedPlanSelector);
   const paymentStatus = useSelector(paymentStatusSelector);
   const isDevelopmentEnv = process.env.REACT_APP_ENV === 'development';
 
@@ -47,7 +45,7 @@ export const UpgradeToProPayments: React.FC = () => {
       monthly_price: 15,
       stripe_product: isDevelopmentEnv
         ? StripeProductKeys.POTATO_PRO_DEV
-        : StripeProductKeys.POTATO_PRO_DEV,
+        : StripeProductKeys.POTATO_PRO_PROD,
       stripe_price_id: price[billingType],
     };
 
