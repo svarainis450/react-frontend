@@ -41,7 +41,6 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
   const dispatch = useAppDispatch();
   const { isTablet } = useMediaQuery();
   const { type } = useSelector(userDataSelector);
-  const userData = useSelector(userDataSelector);
 
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();

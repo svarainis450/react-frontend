@@ -15,7 +15,7 @@ const PRO_FEATURES = [
   'Follow an unlimited amount of projects',
   'NFT floor price and volume analysis',
   'Crypto price and volume analysis',
-  '24/7 support with a four-hour response time',
+  'Unlimited search',
 ];
 
 export const UpgradeToPro: React.FC = () => {

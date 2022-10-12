@@ -54,7 +54,7 @@ const CheckoutForm = () => {
 
       const client_secret =
         res.data.latest_invoice.payment_intent.client_secret;
-      const { error } = await stripe.confirmCardPayment(
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
         client_secret,
         {
           payment_method: {
@@ -63,7 +63,10 @@ const CheckoutForm = () => {
               name: userName,
             },
           },
-        },
+        }
+      );
+
+      if (paymentIntent.status === 'succeeded') {
         dispatch(
           updateUserInfo({
             type: selectedPlan.plan,
@@ -71,8 +74,8 @@ const CheckoutForm = () => {
               new Date(res.data.current_period_end * 1000)
             ),
           })
-        )
-      );
+        );
+      }
 
       if (error) {
         setMessage(error.message);

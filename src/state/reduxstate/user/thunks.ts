@@ -76,35 +76,24 @@ interface UpdateSendGridDataPayload {
 
 export const updateSendGridData = createAsyncThunk(
   'user/UPDATE_SENDGRID',
-  async (
-    { email, products }: UpdateSendGridDataPayload,
-    { dispatch, getState }
-  ) => {
-    const { user } = getState() as RootState;
-    const userToken = user.user_token;
-
+  async ({ email, products }: UpdateSendGridDataPayload) => {
     const data = {
       email,
       products,
     };
 
-    if (userToken) {
-      try {
-        const resp = await fetch(`${apiv1}/sendgrid-payment-success`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${userToken}`,
-          },
-          body: JSON.stringify(data),
-        }).then((res) => res.json());
+    try {
+      const resp = await fetch(`${apiv1}/sendgrid-payment-success`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }).then((res) => res.json());
 
-        console.log(resp);
-
-        // return resp;
-      } catch (e) {
-        console.log(e);
-      }
+      return resp;
+    } catch (e) {
+      console.log(e);
     }
   }
 );
