@@ -19,6 +19,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
   const isNftProject =
     projectByIdProp.type === CategoryTags.nft.toLocaleLowerCase();
   const priceTitle = isNftProject ? 'Floor price' : '';
+  const maxNameChars = isTablet ? 13 : 100;
 
   const [showInfoBlock, setShowInfoBlock] = useState({
     talk_rate: false,
@@ -39,7 +40,8 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           </div>
           <div>
             <Typography className="project-title">
-              {projectByIdProp?.name}
+              {projectByIdProp?.name.substring(0, maxNameChars)}
+              {projectByIdProp?.name.length >= maxNameChars && '...'}
             </Typography>
             <CategoryTag
               isSmallerTag={isTablet}

@@ -48,9 +48,11 @@
         width: calc(100% - 54px - 30px - 16px);
         .title {
           margin: 0 0 6px;
+          max-height: 41px;
           font-size: 1rem;
-          word-break: keep-all;
+          word-wrap: break-word;
           width: 100%;
+          overflow-y: hidden;
 
           @include desktop {
             font-size: 1.125rem;
@@ -126,6 +128,10 @@
         cursor: pointer;
       }
     }
+  }
+
+  .nft-symbol {
+    margin-right: 6px;
   }
 
   .flex.icon-project {

@@ -124,12 +124,12 @@ export const HeaderUser = ({ onMenuToggle, activeLink }: HeaderUserProps) => {
           >
             <InfoBlock
               showInfoBlock={showMarketDesc}
-              infoTitle="What’s the overall social sentiment?"
               infoDesc={
                 <>
                   The social sentiment score indicates how users overall feel
                   about the market. Each day, we analyze sentiments and emotions
                   from different sources and crunch them into an exact number:{' '}
+                  <br />
                   <strong>The overall social sentiment score.</strong>
                   <br />
                   <br />

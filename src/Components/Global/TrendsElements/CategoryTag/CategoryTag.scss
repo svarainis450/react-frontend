@@ -38,11 +38,15 @@
 }
 
 .Tag.caption-tag {
-  padding: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 45px;
   height: 14px;
 
-  &__text {
+  p {
     font-size: 8px;
+    letter-spacing: -0.02em;
+    font-weight: 500;
   }
 }

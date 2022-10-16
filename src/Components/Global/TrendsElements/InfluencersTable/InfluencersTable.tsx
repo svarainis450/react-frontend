@@ -81,6 +81,10 @@ export const InfluencersTable: React.FC<InfluencersTableProps> = ({
     e.preventDefault();
     if (e.target.value.length >= 3) {
       setNameFilter(e.target.value);
+
+      if (takeProjects > 0) {
+        setTakeProjects(0);
+      }
     } else if (e.target.value.length === 0) {
       setNameFilter(null);
     }
