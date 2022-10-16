@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import {
   Typography,
@@ -9,21 +9,13 @@ import { TrendingProjectCard } from '../TrendingProjectCard/TrendingProjectCard'
 import './TrendingCategory.scss';
 import { TrendsCategoryEllipse } from './TrendsCategoryEllipse';
 import { CategoryTags } from '../types';
-import {
-  Statuses,
-  SubmenuFilters,
-  TrendingProject,
-} from 'src/state/reduxstate/projects/types';
+import { TrendingProject } from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { useMediaQuery } from 'src/hooks';
 import { icons } from 'src/utils/icons';
 import { CustomSelectDropdown } from './CustomSelectDropdown';
-import { useAppDispatch } from 'src/state/reduxstate/store';
 import { useSelector } from 'react-redux';
-import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
-import { fetchTrendingProjects } from 'src/state/reduxstate/projects/thunks';
 import { trendingProjectsSelector } from 'src/state/reduxstate/projects/selectors';
-import { Loader } from '../../Loader/Loader';
 
 interface TrendingCategoryProps {
   trendingProjects: TrendingProject[];

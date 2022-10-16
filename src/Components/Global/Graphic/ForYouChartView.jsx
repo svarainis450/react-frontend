@@ -107,6 +107,7 @@ export const ForYouChartView = ({
         break;
     }
   };
+
   return (
     <div className="main-screen">
       <div className="toggle-buttons">
@@ -138,7 +139,10 @@ export const ForYouChartView = ({
                   alt="question mark"
                 />
                 {showInfoBlock[titleLowerCased] && (
-                  <InfoBlocks infoType={titleLowerCased} />
+                  <InfoBlocks
+                    infoType={titleLowerCased}
+                    projectType={projectType}
+                  />
                 )}
               </button>
             );
@@ -167,7 +171,10 @@ export const ForYouChartView = ({
                   alt="question mark"
                 />
                 {showInfoBlock[titleLowerCased] && (
-                  <InfoBlocks infoType={titleLowerCased} />
+                  <InfoBlocks
+                    infoType={titleLowerCased}
+                    projectType={projectType}
+                  />
                 )}
               </button>
             );

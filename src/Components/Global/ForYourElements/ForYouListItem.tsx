@@ -79,7 +79,7 @@ export const ForYouListItem: React.FC<ForYouListItemProps> = ({
         <div>
           <Typography className="project-name">{name}</Typography>
           {/* @ts-ignore */}
-          <CategoryTag tagTitle={CategoryTags[type]} />
+          <CategoryTag isCaptionSizeTag tagTitle={CategoryTags[type]} />
         </div>
       </div>
       <div className={`buttons-wrapper ${isInFavorites ? '' : 'add-to-list'}`}>

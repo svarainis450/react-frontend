@@ -24,6 +24,16 @@
     @include desktop {
       grid-template-columns: 1fr 2.05fr;
     }
+
+    .trending-loader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @include desktop {
+        min-height: 80%;
+      }
+    }
   }
 
   .one-column {

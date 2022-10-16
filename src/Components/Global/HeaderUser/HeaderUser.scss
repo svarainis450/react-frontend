@@ -112,23 +112,32 @@
     &__market-info {
       position: absolute;
       top: -30px;
-      left: 35px;
-      width: 90vw;
+      left: 140px;
 
       @media (min-width: 1024px) {
-        width: 500px;
-        left: -200px;
+        width: 222px;
+        left: 83px;
       }
 
       .show-info {
-        padding: 40px 40px 60px;
+        padding: 11px 12px 14px;
 
         left: unset;
         top: 90px;
 
+        font-size: 9px;
+        line-height: 11px;
+        letter-spacing: -0.02em;
+        text-align: center;
+        width: 222px !important;
+
         @media (min-width: 1024px) {
           right: 90px;
           top: 70px;
+        }
+
+        .info__flex-wrapper {
+          display: none;
         }
       }
 

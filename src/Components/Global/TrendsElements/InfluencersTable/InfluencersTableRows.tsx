@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'src/hooks';
 import { Influencer } from 'src/state/reduxstate/influencers/types';
 import {
   calculateBigNumberValues,
@@ -28,6 +29,8 @@ interface InfluencersTableRowProps {
 export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
   influencersData,
 }) => {
+  const { isTablet } = useMediaQuery();
+  const maxProjectsCharacters = isTablet ? 20 : 100;
   return (
     <div className="influencers-picks__influencers-table">
       <div className="influencers-picks__influencers-table__row titles">
@@ -107,7 +110,15 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                         );
                       })}
                   </div>
-                  <Typography>{generateProjectsText(project)}</Typography>
+                  <Typography>
+                    {generateProjectsText(project)?.substring(
+                      0,
+                      maxProjectsCharacters
+                    )}
+                    {/* @ts-ignore */}
+                    {generateProjectsText(project)?.length >=
+                      maxProjectsCharacters && '...'}
+                  </Typography>
                 </div>
                 <div className="influencers-picks__influencers-table__row__link">
                   {link_to_post && (

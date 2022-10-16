@@ -37,7 +37,7 @@ import { LogOut } from 'src/Common/utils/LogOut';
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('daily');
   const filterTitle = filter === 'weekly' ? 'Last Week' : 'Today';
-  const [trendingStatus, setTrendingStatus] = useState<Statuses>('idle');
+  const [trendingStatus, setTrendingStatus] = useState<Statuses>('pending');
   const dispatch = useAppDispatch();
   const trendingProjects = useSelector(trendingProjectsSelector);
   const projectPicks = useSelector(projectPicksSelector);
@@ -59,6 +59,7 @@ export const Trends: React.FC = () => {
         })
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, filter, selectCategory]);
 
   useEffect(() => {
@@ -76,6 +77,7 @@ export const Trends: React.FC = () => {
     //     return () => clearInterval(interval);
     //   });
     // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, filter]);
 
   useEffect(() => {
@@ -87,6 +89,7 @@ export const Trends: React.FC = () => {
       navigate(LinkList.Login);
       LogOut();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trendingStatus]);
 
   return (
@@ -100,7 +103,9 @@ export const Trends: React.FC = () => {
             <section className="wrapper two-columns">
               <CardWrapper title="Trending Category" subtitle={filterTitle}>
                 {trendingStatus === 'pending' ? (
-                  <Loader width={50} height={50} />
+                  <div className="trending-loader">
+                    <Loader width={50} height={50} />
+                  </div>
                 ) : (
                   <TrendingCategory
                     categoryCallback={setSelectCategory}

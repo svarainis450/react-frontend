@@ -1,5 +1,4 @@
 import { CategoryTags } from 'src/Components/Global/TrendsElements/types';
-import { InfluencerData } from '../influencers/types';
 
 export interface ProjectsState {
   trending_projects: TrendingProject[];
@@ -127,7 +126,7 @@ export interface ProjectInfluencer {
     twitter_user_id: string;
     scraped_at: null | number;
     is_advertisement: string;
-    sentiment: 'NEGATIVE' | 'POSITIVE';
+    sentiment: 'NEGATIVE' | 'POSITIVE' | 'NEUTRAL';
     mentioned_users: string;
     retweeted_tweet: null | number;
     quoted_tweet: null | number;

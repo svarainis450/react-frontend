@@ -180,15 +180,22 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                   {isNftProject ? (
                     <Flex>
                       {base_currency === 'ETH' ? (
-                        <img src={icons.nft_symbol} alt="nft project" />
+                        <img
+                          className="nft-symbol"
+                          src={icons.nft_symbol}
+                          alt="nft project"
+                        />
                       ) : (
-                        <img src={icons.solana_icon} alt="nft project" />
-                      )}{' '}
+                        <img
+                          className="nft-symbol"
+                          src={icons.solana_icon}
+                          alt="nft project"
+                        />
+                      )}
                       <Typography
                         variant={TypographyVariant.HEADING_SMALL}
                         weight={TypographyWeight.BOLD700}
                       >
-                        {' '}
                         {price}
                       </Typography>
                     </Flex>

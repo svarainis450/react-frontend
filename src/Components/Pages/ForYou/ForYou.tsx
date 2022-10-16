@@ -279,19 +279,18 @@ export const ForYou: React.FC = () => {
                     );
                   }
                 })}
-              {!isTablet ||
-                (showMobileList && (
-                  <div
-                    className="load-more-projects"
-                    onClick={() => setTakeProjects(takeProjects + 8)}
-                  >
-                    {loadMoreProjectsStatus === 'pending' ? (
-                      <Loader width={20} height={20} />
-                    ) : (
-                      <Typography>Load more...</Typography>
-                    )}
-                  </div>
-                ))}
+              {(!isTablet || showMobileList) && (
+                <div
+                  className="load-more-projects"
+                  onClick={() => setTakeProjects(takeProjects + 8)}
+                >
+                  {loadMoreProjectsStatus === 'pending' ? (
+                    <Loader width={20} height={20} />
+                  ) : (
+                    <Typography>Load more...</Typography>
+                  )}
+                </div>
+              )}
             </div>
             {isTablet && (hasFavProjects || projects) && (
               <ProjectsSliderMobile
