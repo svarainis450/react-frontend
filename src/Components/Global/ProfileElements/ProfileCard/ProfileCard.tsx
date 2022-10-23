@@ -146,6 +146,12 @@ export const ProfileCard: React.FC = () => {
             className={`profile-card__border-wrapper__input-wrapper ${
               editData.information ? '' : 'active'
             }`}
+            onClick={() =>
+              setEditData({
+                ...editData,
+                information: false,
+              })
+            }
           >
             <label>First name</label>
             <input
@@ -157,12 +163,26 @@ export const ProfileCard: React.FC = () => {
                 setNewData({ ...newData, first_name: e.target.value })
               }
             />
-            <CancelXmark onClick={() => handleCancelInput('information')} />
+            {!editData.information && (
+              <CancelXmark
+                // @ts-ignore
+                onClick={(event: Event) => {
+                  event.stopPropagation();
+                  handleCancelInput('information');
+                }}
+              />
+            )}
           </div>
           <div
             className={`profile-card__border-wrapper__input-wrapper ${
               editData.information ? '' : 'active'
             }`}
+            onClick={() =>
+              setEditData({
+                ...editData,
+                information: false,
+              })
+            }
           >
             <label>Last name</label>
             <input
@@ -174,7 +194,15 @@ export const ProfileCard: React.FC = () => {
                 setNewData({ ...newData, last_name: e.target.value })
               }
             />
-            <CancelXmark onClick={() => handleCancelInput('information')} />
+            {!editData.information && (
+              <CancelXmark
+                // @ts-ignore
+                onClick={(event: Event) => {
+                  event.stopPropagation();
+                  handleCancelInput('information');
+                }}
+              />
+            )}
           </div>
         </div>
         <div className="profile-card__border-wrapper">
@@ -197,6 +225,7 @@ export const ProfileCard: React.FC = () => {
             className={`profile-card__border-wrapper__input-wrapper ${
               editData.account ? '' : 'active'
             }`}
+            onClick={() => setEditData({ ...editData, account: false })}
           >
             <label>Email</label>
             {/* TODO: billing. value={email from state} */}
@@ -210,12 +239,21 @@ export const ProfileCard: React.FC = () => {
                 setNewData({ ...newData, email: e.target.value })
               }
             />
-            <CancelXmark onClick={() => handleCancelInput('account')} />
+            {!editData.account && (
+              <CancelXmark
+                // @ts-ignore
+                onClick={(event: Event) => {
+                  event.stopPropagation();
+                  handleCancelInput('account');
+                }}
+              />
+            )}
           </div>
           <div
             className={`profile-card__border-wrapper__input-wrapper ${
               editData.account ? '' : 'active'
             }`}
+            onClick={() => setEditData({ ...editData, account: false })}
           >
             <label>Password</label>
             {/* TODO: billing. value={pasw from state}  not sure if this a good decision*/}
@@ -227,7 +265,15 @@ export const ProfileCard: React.FC = () => {
                 setNewData({ ...newData, password: e.target.value })
               }
             />
-            <CancelXmark onClick={() => handleCancelInput('account')} />
+            {!editData.account && (
+              <CancelXmark
+                // @ts-ignore
+                onClick={(event: Event) => {
+                  event.stopPropagation();
+                  handleCancelInput('account');
+                }}
+              />
+            )}
           </div>
           {(!editData.account ||
             !editData.information ||

@@ -10,6 +10,7 @@ interface TalkRateProps {
   type?: 'talk_rate' | 'bullseye' | 'influence';
   isBiggerBullseye?: boolean;
   isSmalller?: boolean;
+  isWhiteBorder?: boolean;
 }
 
 export const TalkRateElement: React.FC<TalkRateProps> = ({
@@ -17,6 +18,7 @@ export const TalkRateElement: React.FC<TalkRateProps> = ({
   type = 'talk_rate',
   isBiggerBullseye = false,
   isSmalller = false,
+  isWhiteBorder,
 }) => {
   const title = {
     talk_rate: 'Talk Rate',
@@ -34,7 +36,9 @@ export const TalkRateElement: React.FC<TalkRateProps> = ({
         styles={buildStyles({
           textColor: `${theme.colors.black}`,
           pathColor: `${pathColorHandler(rate)}`,
-          trailColor: `${theme.colors.grey}`,
+          trailColor: `${
+            isWhiteBorder ? theme.colors.white : theme.colors.grey
+          }`,
         })}
         value={rate}
         text={`${rate}`}

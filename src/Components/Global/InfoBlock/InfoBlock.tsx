@@ -22,20 +22,23 @@ export const InfoBlock: React.FC<InfoBlockProps> = ({
 
   return (
     <div onMouseLeave={onCloseClick} className={`info ${showInfClass}`}>
-      <div className="info__flex-wrapper">
-        <img
-          className="info__info-label"
-          src={icons.info_label}
-          alt="Info label"
-        />
-        {infoTitle && (
+      {infoTitle && (
+        <div className="info__flex-wrapper">
+          <img
+            className="info__info-label"
+            src={icons.info_label}
+            alt="Info label"
+          />
           <Typography className="info-title" weight={TypographyWeight.BOLD}>
             {infoTitle}
           </Typography>
-        )}
-      </div>
+        </div>
+      )}
       {infoDesc && typeof infoDesc === 'string' ? (
-        <Typography variant={TypographyVariant.SUBHEADING}>
+        <Typography
+          className="info-desc"
+          variant={TypographyVariant.SUBHEADING}
+        >
           {infoDesc}
         </Typography>
       ) : infoDesc ? (

@@ -135,6 +135,12 @@ export interface ProjectInfluencer {
     hashtags: null | number;
     cashtags: null | number;
   };
+  twitter_user: {
+    twitter_img_url: string;
+    twitter_username: string;
+    twitter_displayname: string;
+    external_link: string;
+  };
 }
 
 export interface TrendingProject {
