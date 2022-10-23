@@ -139,9 +139,7 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
                 ? 'Lowest Talk Rate Projects'
                 : 'Top 3 Talk Rate Projects'
             }
-            subtitle={filterTitle}
             showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.rate].title}
             infoDesc={infoBlocks[InfoBlockTypes.rate].desc}
             onInfoClick={() => setShowInfoBlock(InfoBlockTypes.rate)}
             onCloseClick={() => setShowInfoBlock(null)}
@@ -188,7 +186,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
             }
             subtitle={filterTitle}
             showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.positive].title}
             infoDesc={infoBlocks[InfoBlockTypes.positive].desc}
             onInfoClick={() => setShowInfoBlock(InfoBlockTypes.positive)}
             onCloseClick={() => setShowInfoBlock(null)}
@@ -233,7 +230,6 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
             }
             subtitle={filterTitle}
             showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.bullish].title}
             infoDesc={infoBlocks[InfoBlockTypes.bullish].desc}
             onInfoClick={() => setShowInfoBlock(InfoBlockTypes.bullish)}
             onCloseClick={() => setShowInfoBlock(null)}

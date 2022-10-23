@@ -77,10 +77,16 @@
       }
 
       &__influencer {
+        position: absolute;
         display: flex;
         align-items: center;
         justify-self: flex-start;
         width: 140px;
+        background-color: var(--color-white);
+
+        @include tablet {
+          position: static;
+        }
 
         &__tag-name {
           margin: 0 0 2px;
@@ -104,6 +110,14 @@
         line-height: 22px;
         font-weight: 300;
         justify-self: center;
+      }
+
+      &__thin-text.followers {
+        padding-left: 200px;
+
+        @include desktop {
+          padding-left: 0;
+        }
       }
 
       &__thin-text__positioned {
@@ -155,6 +169,21 @@
 
       :first-of-type {
         justify-self: flex-start;
+        position: absolute;
+        background-color: var(--color-white);
+        width: 140px;
+
+        @include desktop {
+          position: static;
+          width: none;
+        }
+      }
+      :nth-child(2) {
+        padding-left: 180px;
+
+        @include desktop {
+          padding-left: 0;
+        }
       }
       :nth-child(6) {
         justify-self: flex-start;

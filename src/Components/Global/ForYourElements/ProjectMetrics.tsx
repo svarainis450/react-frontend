@@ -1,10 +1,16 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'src/hooks';
-import { Project } from 'src/state/reduxstate/projects/types';
+import { sendFavProject } from 'src/state/reduxstate/projects/thunks';
+import { Project, Statuses } from 'src/state/reduxstate/projects/types';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { favoriteProjectsSelector } from 'src/state/reduxstate/user/selectors';
 
 import { icons } from 'src/utils/icons';
+import { CoinBaseButton } from '../DiscoverElements/CoinBaseButton/CoinBaseButton';
 import { IndexAxis } from '../DiscoverElements/IndexAxis/IndexAxis';
 import { InfoBlocks } from '../Graphic/InfoBlocks';
+import { Loader } from '../Loader/Loader';
 import { TalkRateElement } from '../TalkRateElement/TalkRateElement';
 import { CategoryTag } from '../TrendsElements/CategoryTag/CategoryTag';
 import { CategoryTags } from '../TrendsElements/types';
@@ -15,17 +21,32 @@ interface Props {
   projectByIdProp: Project;
 }
 export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
+  const dispatch = useAppDispatch();
   const { isTablet } = useMediaQuery();
+  const [favStatus, setFavStatus] = useState<Statuses>('idle');
   const isNftProject =
     projectByIdProp.type === CategoryTags.nft.toLocaleLowerCase();
   const priceTitle = isNftProject ? 'Floor price' : '';
   const maxNameChars = isTablet ? 13 : 100;
+  const favorites = useSelector(favoriteProjectsSelector);
+  const isInFavs = !!favorites.find((item) => item.id === projectByIdProp.id);
 
   const [showInfoBlock, setShowInfoBlock] = useState({
     talk_rate: false,
     bull: false,
     positive_negative: false,
   });
+
+  const handleAddToFavs = () => {
+    if (!isInFavs) {
+      dispatch(
+        sendFavProject({
+          id: projectByIdProp.id,
+          callBack: setFavStatus,
+        })
+      );
+    }
+  };
 
   return (
     <div className="metrics-wrapper ">
@@ -61,6 +82,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
                 rate={projectByIdProp.talk_rate_score}
                 type="talk_rate"
                 isSmalller={isTablet}
+                isWhiteBorder
               />
             ) : (
               <img src={icons.empty_talk_rate} alt="no talk rate data" />
@@ -144,7 +166,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
           )}
           {showInfoBlock.positive_negative && (
             <InfoBlocks infoType="positive_negative" />
-          )}{' '}
+          )}
         </div>
         {isNftProject ? (
           <div className="Metrics metrics-flex bordered centered prices nft">
@@ -155,7 +177,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
                 className="price-title"
                 weight={TypographyWeight.MEDIUM}
               >
-                {projectByIdProp.price}
+                {Number(projectByIdProp.price).toFixed(2)}
               </Typography>
             </div>
           </div>
@@ -189,11 +211,42 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
                 className="price-title"
                 weight={TypographyWeight.MEDIUM}
               >
-                {projectByIdProp.full_volume}
+                {Number(projectByIdProp.full_volume).toFixed(2)}
               </Typography>
             </div>
           </div>
         )}
+        <div className="Metrics metrics-flex bordered centered add ">
+          <div className="add-project">
+            <div className="add-to-favs" onClick={handleAddToFavs}>
+              {favStatus === 'pending' ? (
+                <Loader width={20} height={20} />
+              ) : (
+                <img
+                  src={
+                    isInFavs ? icons.circle_checkmark_yellow : icons.add_project
+                  }
+                  alt="add to favorites"
+                />
+              )}
+            </div>
+            {(projectByIdProp.opensea_project_url ||
+              projectByIdProp.coinbase_url) && (
+              <CoinBaseButton
+                url={
+                  projectByIdProp.opensea_project_url ||
+                  projectByIdProp.coinbase_url
+                }
+                btnType={
+                  projectByIdProp.type ===
+                  String(CategoryTags.nft).toLocaleLowerCase()
+                    ? 'opensea'
+                    : 'coinbase'
+                }
+              />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

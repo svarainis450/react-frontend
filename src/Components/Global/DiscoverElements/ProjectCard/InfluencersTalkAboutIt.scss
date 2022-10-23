@@ -2,4 +2,33 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &__name-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: calc(100% - 16px - 20px - 24px);
+
+    &__picture {
+      margin-right: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    &__display-name {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    &__name {
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: -0.02em;
+      color: var(--color-grey-text);
+    }
+  }
 }

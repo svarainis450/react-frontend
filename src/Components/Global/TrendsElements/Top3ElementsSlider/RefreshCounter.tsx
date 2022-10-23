@@ -5,7 +5,7 @@ import { icons } from 'src/utils/icons';
 
 export const RefreshCounter: React.FC = () => {
   const [showInfo, setShowInfo] = useState(false);
-  const timer = useTimer(300);
+  const timer = useTimer(320);
 
   return (
     <div
