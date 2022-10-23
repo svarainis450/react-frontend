@@ -6,6 +6,7 @@ export const useProjectFilters = (
   categoryValue: CategoryTags | null,
   nameValue: string | null
 ) => {
+  console.log(filterValue);
   const categoryFilterValue =
     (categoryValue && `&category=${categoryValue.toLocaleLowerCase()}`) || '';
 
