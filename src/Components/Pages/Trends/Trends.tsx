@@ -33,6 +33,7 @@ import { fetchProjectsPick } from 'src/state/reduxstate/influencers/thunks';
 import { useNavigate } from 'react-router-dom';
 import { LinkList } from 'src/types';
 import { LogOut } from 'src/Common/utils/LogOut';
+import { fetchStripeUser } from 'src/state/reduxstate/user/thunks';
 
 export const Trends: React.FC = () => {
   const [filter, setFilter] = useState<SubmenuFilters>('daily');
@@ -59,6 +60,7 @@ export const Trends: React.FC = () => {
         })
       );
     }
+    dispatch(fetchStripeUser());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, filter, selectCategory]);
 

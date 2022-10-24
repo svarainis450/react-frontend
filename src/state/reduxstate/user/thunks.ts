@@ -43,6 +43,31 @@ export const fetchUserData = createAsyncThunk(
   }
 );
 
+export const fetchStripeUser = createAsyncThunk(
+  'user/GET_STRIPE_USER',
+  async (_, { dispatch, getState }) => {
+    const { user } = getState() as RootState;
+    const token = user.user_token;
+
+    if (token) {
+      try {
+        const resp = await fetch(`${apiv1}/stripe/customer-retrieve`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((res) => res.json());
+
+        // console.log(resp);
+
+        return resp;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
 export const updateUserInfo = createAsyncThunk(
   'user/UPDATE_USER_DATA',
   async (data: Partial<UserUpdateType>, { dispatch, getState }) => {
@@ -90,6 +115,64 @@ export const updateSendGridData = createAsyncThunk(
         },
         body: JSON.stringify(data),
       }).then((res) => res.json());
+
+      return resp;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+export const generatePasswResetToken = createAsyncThunk(
+  'user/GENERATE_PASS_RESET_TOKEN',
+  async (email: string) => {
+    const data = {
+      email,
+    };
+
+    try {
+      const resp = await fetch(`${apiv1}/generate-users-password-reset-token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }).then((res) => res.json());
+
+      console.log(resp);
+
+      return resp;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+interface RedeemPayload {
+  email: string;
+  token: string;
+  password: string;
+}
+
+export const redeemPasswResetToken = createAsyncThunk(
+  'user/REDEEM_PASS_RESET_TOKEN',
+  async ({ email, token, password }: RedeemPayload) => {
+    const data = {
+      email,
+      token,
+      password,
+    };
+
+    try {
+      const resp = await fetch(`${apiv1}/redeem-users-password-reset-token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }).then((res) => res.json());
+
+      console.log(resp);
 
       return resp;
     } catch (e) {
