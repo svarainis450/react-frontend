@@ -90,7 +90,12 @@ export const Login = () => {
           >
             {loginInProgress ? 'Logging in ...' : 'Log in'}
           </Button>
-
+          <Link
+            className="Login__content__forgot-password"
+            to={LinkList.ResetPassword}
+          >
+            Forgot password?
+          </Link>
           <img className="Login__img" src={rocketTicket} alt="rocketTicket" />
 
           <p className="Login__teaser">

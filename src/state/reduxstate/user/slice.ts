@@ -21,6 +21,7 @@ const initialState: UserState = {
     billing_history: [],
   },
   selected_plan: undefined,
+  reset_token: undefined,
 };
 
 const userSlice = createSlice({
@@ -32,6 +33,12 @@ const userSlice = createSlice({
       action: PayloadAction<string>
     ) => {
       state.user_token = action.payload;
+    },
+    setResetToken: (
+      state: { reset_token: string | undefined },
+      action: PayloadAction<string>
+    ) => {
+      state.reset_token = action.payload;
     },
     setProfileBlock: (
       state: { profile_block: NavClassTypes },
@@ -73,5 +80,6 @@ export const {
   setSubscribedInfluencers,
   setUserToken,
   setUserData,
+  setResetToken,
 } = userSlice.actions;
 export default userSlice;

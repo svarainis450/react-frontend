@@ -6,6 +6,7 @@ import { RootState } from '../slice';
 import { api, apiv1 } from '../types';
 import {
   setFavoriteProjects,
+  setResetToken,
   setSubscribedInfluencers,
   setUserData,
   setUserToken,
@@ -123,12 +124,23 @@ export const updateSendGridData = createAsyncThunk(
   }
 );
 
+interface PayloadGeneratePassw {
+  email: string;
+  generatePasswStatus: Dispatch<SetStateAction<Statuses>>;
+  errorMsgCallBack: Dispatch<SetStateAction<string>>;
+}
+
 export const generatePasswResetToken = createAsyncThunk(
   'user/GENERATE_PASS_RESET_TOKEN',
-  async (email: string) => {
+  async (
+    { email, generatePasswStatus, errorMsgCallBack }: PayloadGeneratePassw,
+    { dispatch }
+  ) => {
     const data = {
       email,
     };
+
+    generatePasswStatus('pending');
 
     try {
       const resp = await fetch(`${apiv1}/generate-users-password-reset-token`, {
@@ -139,10 +151,20 @@ export const generatePasswResetToken = createAsyncThunk(
         body: JSON.stringify(data),
       }).then((res) => res.json());
 
-      console.log(resp);
+      if (resp.error) {
+        generatePasswStatus('error');
+
+        if (resp.error.status === 404) {
+          errorMsgCallBack('Email not found');
+        }
+      } else {
+        generatePasswStatus('success');
+      }
+      dispatch(setResetToken(resp.token));
 
       return resp;
     } catch (e) {
+      generatePasswStatus('error');
       console.log(e);
     }
   }
@@ -152,11 +174,12 @@ interface RedeemPayload {
   email: string;
   token: string;
   password: string;
+  redeemCalback: Dispatch<SetStateAction<Statuses>>;
 }
 
 export const redeemPasswResetToken = createAsyncThunk(
   'user/REDEEM_PASS_RESET_TOKEN',
-  async ({ email, token, password }: RedeemPayload) => {
+  async ({ email, token, password, redeemCalback }: RedeemPayload) => {
     const data = {
       email,
       token,
@@ -174,8 +197,15 @@ export const redeemPasswResetToken = createAsyncThunk(
 
       console.log(resp);
 
+      if (resp.error) {
+        redeemCalback('error');
+      } else {
+        redeemCalback('success');
+      }
+
       return resp;
     } catch (e) {
+      redeemCalback('error');
       console.log(e);
     }
   }

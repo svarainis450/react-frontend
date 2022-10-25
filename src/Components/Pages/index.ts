@@ -19,3 +19,5 @@ export * from './Influencers/Influencers';
 export * from './Funds/Funds';
 export * from './ForYou/ForYou';
 export * from './Partnerships/Partnerships';
+export * from './ResetPassword/ResetPassword';
+export * from './ResetPasswCode/ResetPasswCode';
