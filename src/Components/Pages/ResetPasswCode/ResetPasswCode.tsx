@@ -9,7 +9,10 @@ import { Input } from 'src/Components';
 import './ResetPasswCode.scss';
 import { LinkList } from 'src/types';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { redeemPasswResetToken } from 'src/state/reduxstate/user/thunks';
+import {
+  generatePasswResetToken,
+  redeemPasswResetToken,
+} from 'src/state/reduxstate/user/thunks';
 import { Statuses } from 'src/state/reduxstate/projects/types';
 import { useSelector } from 'react-redux';
 import {
@@ -39,6 +42,7 @@ export const ResetPasswCode = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [tokenValue, setTokenValue] = useState('');
   const navigate = useNavigate();
+  const [generateStatus, setGenerateStatus] = useState<Statuses>('idle');
 
   useEffect(() => {
     setTokenValue(Object.values(codeState).join(''));
@@ -87,6 +91,20 @@ export const ResetPasswCode = () => {
           redeemCalback: setRedeemStatus,
         })
       );
+    }
+  };
+
+  const hanldeResendCode = () => {
+    if (userData.email) {
+      dispatch(
+        generatePasswResetToken({
+          email: userData.email,
+          generatePasswStatus: setGenerateStatus,
+          errorMsgCallBack: setError,
+        })
+      );
+    } else {
+      navigate(LinkList.ResetPassword);
     }
   };
 
@@ -155,7 +173,8 @@ export const ResetPasswCode = () => {
           {!showPassword && (
             <div>
               <p className="resend-code">
-                Didn’t get your code? <span>Send a new code</span>
+                Didn’t get your code?{' '}
+                <span onClick={hanldeResendCode}>Send a new code</span>
               </p>
             </div>
           )}

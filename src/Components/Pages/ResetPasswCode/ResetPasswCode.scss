@@ -36,11 +36,10 @@
   }
 
   &__img {
-    margin-bottom: 3.125rem;
+    margin: 2.5rem 0;
     height: 5.5rem;
 
     @media (min-width: 1024px) {
-      margin: 2.5rem 0;
       max-width: 120px;
     }
   }
@@ -80,8 +79,8 @@
 
       .digit-input {
         input {
-          width: 46px !important;
-          height: 46px !important;
+          width: 40px !important;
+          height: 40px !important;
           box-sizing: border-box;
           padding: 0 !important;
           font-weight: 500;
@@ -89,6 +88,8 @@
         }
 
         @media (min-width: 1024px) {
+          width: 46px !important;
+          height: 46px !important;
         }
       }
       input::-webkit-outer-spin-button,
