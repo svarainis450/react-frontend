@@ -1,5 +1,6 @@
 import { FC, memo, useContext, useEffect, useState } from 'react';
 import { Link, Link as LinkTag } from 'react-router-dom';
+import { useMediaQuery } from 'src/hooks';
 import styled from 'styled-components';
 
 import {
@@ -22,6 +23,7 @@ const TIME_UNTIL_ERROR = 6000;
 
 export const SuccessPage: FC = memo(() => {
   const { user } = useContext(UserContext);
+  const { isTablet } = useMediaQuery();
   const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -53,6 +55,7 @@ export const SuccessPage: FC = memo(() => {
                     <img
                       className="SuccessHero__img"
                       src={images.successIcon}
+                      alt="chekcmark black"
                     />
                     Thank you for your order
                   </div>
@@ -66,7 +69,11 @@ export const SuccessPage: FC = memo(() => {
                   </Link>
                 </div>
 
-                <img className="SuccessHero__img" src={images.successHeroImg} />
+                <img
+                  className="SuccessHero__img"
+                  src={isTablet ? images.success_mob : images.successHeroImg}
+                  alt="success confetti"
+                />
               </div>
 
               <div className="SuccessHero__subcontent">
@@ -112,12 +119,6 @@ const Background = styled(Flex)<{ isError: boolean }>`
     max-width: 14rem;
     margin: 4rem auto 0 auto;
   }
-`;
-
-const SuccessImg = styled.img`
-  display: block;
-  width: 50%;
-  margin: auto;
 `;
 
 // @TODO: move to Typography component

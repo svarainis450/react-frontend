@@ -6,6 +6,7 @@ import { RootState } from '../slice';
 import { api, apiv1 } from '../types';
 import {
   setFavoriteProjects,
+  setResetToken,
   setSubscribedInfluencers,
   setUserData,
   setUserToken,
@@ -34,6 +35,31 @@ export const fetchUserData = createAsyncThunk(
           },
         }).then((res) => res.json());
         dispatch(setUserData(resp));
+
+        return resp;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
+);
+
+export const fetchStripeUser = createAsyncThunk(
+  'user/GET_STRIPE_USER',
+  async (_, { dispatch, getState }) => {
+    const { user } = getState() as RootState;
+    const token = user.user_token;
+
+    if (token) {
+      try {
+        const resp = await fetch(`${apiv1}/stripe/customer-retrieve`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }).then((res) => res.json());
+
+        // console.log(resp);
 
         return resp;
       } catch (e) {
@@ -93,6 +119,93 @@ export const updateSendGridData = createAsyncThunk(
 
       return resp;
     } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+interface PayloadGeneratePassw {
+  email: string;
+  generatePasswStatus: Dispatch<SetStateAction<Statuses>>;
+  errorMsgCallBack: Dispatch<SetStateAction<string>>;
+}
+
+export const generatePasswResetToken = createAsyncThunk(
+  'user/GENERATE_PASS_RESET_TOKEN',
+  async (
+    { email, generatePasswStatus, errorMsgCallBack }: PayloadGeneratePassw,
+    { dispatch }
+  ) => {
+    const data = {
+      email,
+    };
+
+    generatePasswStatus('pending');
+
+    try {
+      const resp = await fetch(`${apiv1}/generate-users-password-reset-token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }).then((res) => res.json());
+
+      if (resp.error) {
+        generatePasswStatus('error');
+
+        if (resp.error.status === 404) {
+          errorMsgCallBack('Email not found');
+        }
+      } else {
+        generatePasswStatus('success');
+      }
+      dispatch(setResetToken(resp.token));
+
+      return resp;
+    } catch (e) {
+      generatePasswStatus('error');
+      console.log(e);
+    }
+  }
+);
+
+interface RedeemPayload {
+  email: string;
+  token: string;
+  password: string;
+  redeemCalback: Dispatch<SetStateAction<Statuses>>;
+}
+
+export const redeemPasswResetToken = createAsyncThunk(
+  'user/REDEEM_PASS_RESET_TOKEN',
+  async ({ email, token, password, redeemCalback }: RedeemPayload) => {
+    const data = {
+      email,
+      token,
+      password,
+    };
+
+    try {
+      const resp = await fetch(`${apiv1}/redeem-users-password-reset-token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }).then((res) => res.json());
+
+      console.log(resp);
+
+      if (resp.error) {
+        redeemCalback('error');
+      } else {
+        redeemCalback('success');
+      }
+
+      return resp;
+    } catch (e) {
+      redeemCalback('error');
       console.log(e);
     }
   }

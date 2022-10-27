@@ -12,10 +12,13 @@ export const Input: FC<InputProps> = ({
   padding,
   error,
   className,
+  min,
+  max,
+  type,
   ...inputProps
 }) => (
   <Box margin={margin} padding={padding} className={className}>
-    <InputComponent {...inputProps} />
+    <InputComponent min={min} max={max} type={type} {...inputProps} />
     {error ? <Small>{error}</Small> : null}
   </Box>
 );

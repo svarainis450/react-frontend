@@ -25,6 +25,8 @@ import {
   ForYou,
   Partnerships,
   ExpiredSubscription,
+  ResetPassword,
+  ResetPasswCode,
 } from 'src/Components/Pages';
 
 import ScrollOnNavigation from './Components/Global/ScrollOnNavigation/ScrollOnNavigation';
@@ -113,6 +115,14 @@ const App = () => {
                 <Route path={LinkList.AddToCard} element={<AddToCardPage />} />
                 <Route path={LinkList.Success} element={<SuccessPage />} />
                 <Route path={LinkList.WAITLIST} element={<WaitlistSignUp />} />
+                <Route
+                  path={LinkList.ResetPassword}
+                  element={<ResetPassword />}
+                />
+                <Route
+                  path={LinkList.ResetPasswordCode}
+                  element={<ResetPasswCode />}
+                />
                 <Route
                   path={LinkList.PARTNERSHIPS}
                   element={<Partnerships />}
