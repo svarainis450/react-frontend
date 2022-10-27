@@ -19,6 +19,7 @@ import {
   resetTokenSelector,
   userDataSelector,
 } from 'src/state/reduxstate/user/selectors';
+import { Loader } from 'src/Components/Global';
 
 const INPUTS = [1, 2, 3, 4, 5, 6];
 
@@ -78,10 +79,19 @@ export const ResetPasswCode = () => {
     }
   };
 
+  const handleBackSpaceKey = (index: number, e: KeyboardEvent) => {
+    if (index > 0 && e.key === 'Backspace') {
+      setCodeState({ ...codeState, [index]: '' });
+      document.getElementById(`digit-${index - 1}`)?.focus();
+    }
+  };
+
   const submitPasswords = (e: FormEvent) => {
     e.preventDefault();
     if (pass.length < 8) {
       setError('Password must at least 8 characters');
+    } else if (pass !== repeatPass) {
+      setError("Paswords doesn't match");
     } else if (pass === repeatPass && userData.email) {
       dispatch(
         redeemPasswResetToken({
@@ -111,79 +121,89 @@ export const ResetPasswCode = () => {
   return (
     <LayoutWithHeader>
       <div className="Reset-password-code">
-        <div className="Reset-password-code__content">
-          <p className="Reset-password-code__title">
-            {showPassword ? 'Enter new password' : 'We emailed you a code'}
-          </p>
-          {!showPassword && (
-            <>
-              <p className="Reset-password-code__subtitle">
-                Enter in the verification code sent to:
-              </p>
-              <p>
-                <strong>{userData.email}</strong>
-              </p>
-            </>
-          )}
-          {!showPassword && (
-            <form className="digits-form">
-              {error.length > 0 && <p>{error}</p>}
-              <div className="digits-wrapper">
-                {INPUTS.map((_, index) => (
-                  <Input
-                    key={index}
-                    type="text"
-                    id={`digit-${index}`}
-                    // @ts-ignore
-                    value={codeState[index]}
-                    min={0}
-                    max={9}
-                    maxLength={1}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      handleDigitChange(e, index)
-                    }
-                    className="digit-input"
-                  />
-                ))}
+        {generateStatus === 'pending' ? (
+          <div className="reset-loader">
+            <Loader width={50} height={50} />
+          </div>
+        ) : (
+          <div className="Reset-password-code__content">
+            <p className="Reset-password-code__title">
+              {showPassword ? 'Enter new password' : 'We emailed you a code'}
+            </p>
+            {!showPassword && (
+              <>
+                <p className="Reset-password-code__subtitle">
+                  Enter in the verification code sent to:
+                </p>
+                <p>
+                  <strong>{userData.email}</strong>
+                </p>
+              </>
+            )}
+            {!showPassword && (
+              <form className="digits-form">
+                {error.length > 0 && <p>{error}</p>}
+                <div className="digits-wrapper">
+                  {INPUTS.map((_, index) => (
+                    <Input
+                      key={index}
+                      type="text"
+                      id={`digit-${index}`}
+                      // @ts-ignore
+                      value={codeState[index]}
+                      min={0}
+                      max={9}
+                      maxLength={1}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        handleDigitChange(e, index)
+                      }
+                      className="digit-input"
+                      // @ts-ignore
+                      onKeyDown={(e: KeyboardEvent) =>
+                        handleBackSpaceKey(index, e)
+                      }
+                    />
+                  ))}
+                </div>
+              </form>
+            )}
+            {showPassword && (
+              <form onSubmit={submitPasswords} className="passwords-wrapper">
+                <Input
+                  placeholder="New password"
+                  value={pass}
+                  type="password"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setPass(e.target.value)
+                  }
+                />
+                <Input
+                  placeholder="Repeat new password"
+                  value={repeatPass}
+                  type="password"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setRepeatPass(e.target.value)
+                  }
+                  error={error}
+                />
+                <Button>Go to login</Button>
+              </form>
+            )}
+            {!showPassword && (
+              <div>
+                <p className="resend-code">
+                  Didn’t get your code?{' '}
+                  <span onClick={hanldeResendCode}>Send a new code</span>
+                </p>
               </div>
-            </form>
-          )}
-          {showPassword && (
-            <form onSubmit={submitPasswords} className="passwords-wrapper">
-              <Input
-                placeholder="New password"
-                value={pass}
-                type="password"
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setPass(e.target.value)
-                }
-              />
-              <Input
-                placeholder="Repeat new password"
-                value={repeatPass}
-                type="password"
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setRepeatPass(e.target.value)
-                }
-                error={error}
-              />
-              <Button>Go to login</Button>
-            </form>
-          )}
-          {!showPassword && (
-            <div>
-              <p className="resend-code">
-                Didn’t get your code?{' '}
-                <span onClick={hanldeResendCode}>Send a new code</span>
-              </p>
-            </div>
-          )}
-          <img
-            className="Reset-password-code__img"
-            src={rocketTicket}
-            alt="rocketTicket"
-          />
-        </div>
+            )}
+            <img
+              className="Reset-password-code__img"
+              src={rocketTicket}
+              alt="rocketTicket"
+            />
+          </div>
+        )}
       </div>
     </LayoutWithHeader>
   );
