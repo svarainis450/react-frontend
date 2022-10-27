@@ -38,7 +38,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
   });
 
   const handleAddToFavs = () => {
-    if (!isInFavs) {
+    if (!isInFavs && projectByIdProp) {
       dispatch(
         sendFavProject({
           id: projectByIdProp.id,

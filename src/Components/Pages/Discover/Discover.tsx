@@ -96,11 +96,7 @@ export const Discover: React.FC = () => {
   }, [categoryFilter]);
 
   useEffect(() => {
-    if (
-      (projects && projects.length === 0) ||
-      (skipElements && skipElements > 0) ||
-      filterValue
-    ) {
+    if ((skipElements && skipElements > 0) || filterValue) {
       dispatch(
         fetchProjects({
           filter: filterValue,
@@ -113,6 +109,7 @@ export const Discover: React.FC = () => {
 
   useEffect(() => {
     if (token) {
+      dispatch(fetchProjects({ callBack: setProjectStatus }));
       dispatch(fetchInfluencers({ skip: null }));
       dispatch(getFavProjects({ tokenValue: token }));
     }
@@ -134,6 +131,8 @@ export const Discover: React.FC = () => {
       setNameFilter('');
     }
   };
+
+  console.log(projectsStatus);
   return (
     <div className="Discover">
       <LoggedInLayout activeLink="Discover">
@@ -143,6 +142,7 @@ export const Discover: React.FC = () => {
             overlayOpacity="0.8"
             overlayBackground="#fff"
             topPositionOverlay="64px"
+            isLoader
           >
             <div className="full-screen-loader">
               <Loader width={50} height={50} />

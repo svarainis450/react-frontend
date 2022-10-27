@@ -139,6 +139,7 @@ export const Influencers: React.FC = () => {
               overlayOpacity="0.8"
               overlayBackground="#fff"
               topPositionOverlay="64px"
+              isLoader
             >
               <div className="full-screen-loader">
                 <Loader width={50} height={50} />
@@ -147,11 +148,6 @@ export const Influencers: React.FC = () => {
           )}
         {influencersStatus === 'error' && <LoadError />}
         <div className="Influencers__wrapper">
-          {/* {influencersStatus === 'pending' && (
-            <div className="Influencers__err-wrapper full-screen-loader">
-              <Loader width={50} height={50} />
-            </div>
-          )} */}
           {influencersStatus === 'error' ||
             (influencersStatus === 'success' && influencers.length === 0 && (
               <div className="Influencers__err-wrapper">
