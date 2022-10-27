@@ -1,14 +1,11 @@
-import axios from 'axios';
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CancelXmark } from 'src/Assets/icons/IconElements';
 import { useAppDispatch } from 'src/state/reduxstate/store';
-import { apiv1 } from 'src/state/reduxstate/types';
 import { userDataSelector } from 'src/state/reduxstate/user/selectors';
 import { setUserData } from 'src/state/reduxstate/user/slice';
 import { updateUserInfo } from 'src/state/reduxstate/user/thunks';
 import { UserUpdateType } from 'src/state/reduxstate/user/types';
-import { UserInfoContext } from 'src/state/UserInfoContextProvider';
 import { icons } from 'src/utils/icons';
 import { CardWrapper } from '../../TrendsElements/CardWrapper/CardWrapper';
 import {

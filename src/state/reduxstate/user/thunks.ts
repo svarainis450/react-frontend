@@ -195,8 +195,6 @@ export const redeemPasswResetToken = createAsyncThunk(
         body: JSON.stringify(data),
       }).then((res) => res.json());
 
-      console.log(resp);
-
       if (resp.error) {
         redeemCalback('error');
       } else {

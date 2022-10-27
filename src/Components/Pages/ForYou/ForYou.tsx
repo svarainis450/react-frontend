@@ -71,6 +71,7 @@ export const ForYou: React.FC = () => {
   const [projectsFilter, setProjectsFilter] = useState<ProjectFilterKeys>(
     ProjectFilterKeys.NONE
   );
+  const [nameFilterStatus, setNameFilterStatus] = useState<Statuses>('idle');
   const { projects, meta } = useSelector(projectsDataSelector);
   const [takeProjects, setTakeProjects] = useState(0);
   const [loadMoreProjectsStatus, setLoadmoreProjectsStatus] =
@@ -97,7 +98,9 @@ export const ForYou: React.FC = () => {
 
   useEffect(() => {
     if (!isPotatoStarter) {
-      dispatch(fetchProjects({ filter: filterValue }));
+      dispatch(
+        fetchProjects({ filter: filterValue, callBack: setNameFilterStatus })
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectsFilter, filterValue, nameFilter]);
@@ -247,6 +250,9 @@ export const ForYou: React.FC = () => {
                     onFocus={() => setShowMobileList(true)}
                   />
                 </div>
+              )}
+              {nameFilterStatus === 'pending' && (
+                <Loader width={20} height={20} />
               )}
               {(!isTablet || showMobileList) &&
                 hasFavProjects &&

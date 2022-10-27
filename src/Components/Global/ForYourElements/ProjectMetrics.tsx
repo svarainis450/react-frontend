@@ -29,7 +29,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
   const priceTitle = isNftProject ? 'Floor price' : '';
   const maxNameChars = isTablet ? 13 : 100;
   const favorites = useSelector(favoriteProjectsSelector);
-  const isInFavs = !!favorites.find((item) => item.id === projectByIdProp.id);
+  const isInFavs = !!favorites?.find((item) => item.id === projectByIdProp?.id);
 
   const [showInfoBlock, setShowInfoBlock] = useState({
     talk_rate: false,
@@ -38,7 +38,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
   });
 
   const handleAddToFavs = () => {
-    if (!isInFavs) {
+    if (!isInFavs && projectByIdProp) {
       dispatch(
         sendFavProject({
           id: projectByIdProp.id,
