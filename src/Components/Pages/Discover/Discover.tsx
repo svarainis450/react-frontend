@@ -95,13 +95,15 @@ export const Discover: React.FC = () => {
     setSkipElements(null);
   }, [categoryFilter]);
 
+  console.log(nameFilter);
+
   useEffect(() => {
     if ((skipElements && skipElements > 0) || filterValue) {
       dispatch(
         fetchProjects({
           filter: filterValue,
           callBack: setProjectStatus,
-          skip: skipElements,
+          skip: nameFilter && nameFilter.length > 0 ? 0 : skipElements,
         })
       ).then(() => scrollToElement('card-to-scroll'));
     }
@@ -132,7 +134,6 @@ export const Discover: React.FC = () => {
     }
   };
 
-  console.log(projectsStatus);
   return (
     <div className="Discover">
       <LoggedInLayout activeLink="Discover">

@@ -85,12 +85,6 @@ export const ForYou: React.FC = () => {
   const [showMobileList, setShowMobileList] = useState(false);
 
   useEffect(() => {
-    // if (!window.location.hash) {
-    //   //@ts-ignore
-    //   window.location = window.location + '#loaded';
-    //   window.location.reload();
-    // }
-
     dispatch(getFavProjects({}));
     dispatch(getFavInfluencers());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -251,7 +245,7 @@ export const ForYou: React.FC = () => {
                   />
                 </div>
               )}
-              {nameFilterStatus === 'pending' && (
+              {nameFilterStatus === 'pending' && showMobileList && (
                 <Loader width={20} height={20} />
               )}
               {(!isTablet || showMobileList) &&

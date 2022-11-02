@@ -35,6 +35,7 @@ import add_to_list from '../Assets/icons/add_to_list.svg';
 import counter from '../Assets/icons/counter.svg';
 import add_project from '../Assets/icons/add_project.svg';
 import blue_checkmark from '../Assets/icons/blue_checkmark.svg';
+import black_checkmark from '../Assets/icons/black_checkmark.svg';
 import verified_checkmark from '../Assets/icons/verified_checkmark.svg';
 import chart_empty from '../Assets/icons/chart_empty.svg';
 import circle_check_green from '../Assets/icons/circle_check_green.svg';
@@ -90,6 +91,7 @@ import rocket_ticket from '../Assets/images/rocketTicket.svg';
 import premium_modal from '../Assets/icons/premium_modal.svg';
 
 export const icons = {
+  black_checkmark,
   neutral_five,
   circle_checkmark_yellow,
   xmark_square,
