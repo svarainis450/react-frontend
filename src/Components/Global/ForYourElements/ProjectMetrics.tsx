@@ -223,9 +223,7 @@ export const ProjectMetrics: React.FC<Props> = ({ projectByIdProp }) => {
                 <Loader width={20} height={20} />
               ) : (
                 <img
-                  src={
-                    isInFavs ? icons.circle_checkmark_yellow : icons.add_project
-                  }
+                  src={isInFavs ? icons.black_checkmark : icons.add_project}
                   alt="add to favorites"
                 />
               )}

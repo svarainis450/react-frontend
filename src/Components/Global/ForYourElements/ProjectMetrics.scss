@@ -125,12 +125,12 @@
 
   .metrics-flex.centered.prices {
     padding: 10px 0 0 0;
-    flex: 1;
-    width: 220px;
+    width: 250px;
 
     @include tablet {
-      padding: 0;
-      width: unset;
+      padding: 0 6px;
+      width: fit-content;
+      flex: 1.2;
     }
   }
   .metrics-flex.centered.add {
@@ -171,6 +171,7 @@
       font-size: 0.625rem;
       font-weight: 300;
       text-transform: uppercase;
+      text-align: center;
     }
 
     .price-wrapper {
@@ -201,7 +202,7 @@
     letter-spacing: -0.02rem;
 
     @include tablet {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
   }
 
