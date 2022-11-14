@@ -1,0 +1,77 @@
+@import '../../../utils/breakpointsMixins.scss';
+
+.circluar-wrapper {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  box-sizing: border-box;
+
+  .CircularProgressbar-text {
+    font-size: 1.7rem;
+    line-height: 1.7rem;
+    font-weight: 800;
+    dominant-baseline: text-before-edge;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+
+  .talk-rate {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    font-size: 6px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
+
+.circluar-wrapper.bullseye {
+  position: relative;
+  width: 33px;
+  height: 33px;
+
+  .talk-rate.bullseye {
+    position: absolute;
+    top: 8px;
+    line-height: 14px;
+    left: 6px;
+    font-size: 4px;
+  }
+}
+
+.circluar-wrapper.bullseye.bigger {
+  position: relative;
+  width: 58px;
+  height: 58px;
+
+  .talk-rate.bullseye {
+    position: absolute;
+    top: 16px;
+    left: 13px;
+    font-size: 6px;
+    text-transform: uppercase;
+  }
+}
+
+.circluar-wrapper.smaller {
+  width: 33px;
+  height: 33px;
+
+  .CircularProgressbar-text {
+    font-size: 1.7rem;
+    font-weight: 800;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+
+  .talk-rate {
+    position: absolute;
+    top: 10px;
+    left: 4px;
+    font-size: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}

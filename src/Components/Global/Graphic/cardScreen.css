@@ -1,0 +1,21 @@
+.single-card-view {
+  background-color: white;
+  height: 500px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 4px 0px rgb(0, 0, 0, 0.1);
+  padding-top: 200px;
+  margin: 30px;
+}
+
+@media screen and (max-width: 480px) {
+  .single-card-view {
+    width: 100%;
+  }
+}
+
+.graph-wrapper {
+  /* background-color: blue; */
+  width: auto;
+  height: 400px;
+}

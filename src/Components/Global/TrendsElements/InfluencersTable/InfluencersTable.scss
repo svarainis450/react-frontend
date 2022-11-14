@@ -1,0 +1,195 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.influencers-picks {
+  &__filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 16px 0 0 8px;
+
+    &__input-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      max-width: 256px;
+      width: 100%;
+
+      &__magnifier {
+        margin: 0 -24px 0 0;
+      }
+
+      &__input {
+        all: unset;
+        padding: 8px 8px 8px 32px;
+        width: 100%;
+        margin-right: 8px;
+
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 100px;
+      }
+    }
+
+    &__sort {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      grid-gap: 16px;
+
+      max-width: 293px;
+
+      &__option {
+        font-size: 14px;
+        font-weight: 300;
+        cursor: pointer;
+      }
+
+      .select {
+        all: unset;
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  &__influencers-table {
+    padding: 17px 0 0;
+    width: 100%;
+    overflow-x: scroll;
+
+    &__row {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(6, 1fr);
+      grid-auto-rows: 1fr;
+      grid-gap: 40px;
+      align-items: center;
+      justify-items: center;
+      width: 1200px;
+
+      padding: 7px 0;
+
+      border-bottom: 1.5px solid var(--color-grey);
+
+      @include desktop {
+        width: 100%;
+        grid-template-columns: 1.3fr repeat(4, 0.9fr) 1.2fr 0.6fr;
+        grid-gap: 10px;
+      }
+
+      &__influencer {
+        display: flex;
+        align-items: center;
+        justify-self: flex-start;
+        width: 140px;
+
+        &__tag-name {
+          margin: 0 0 2px;
+
+          font-size: 12px;
+          line-height: 14px;
+          font-weight: 500;
+        }
+
+        &__name {
+          color: var(--color-grey-text);
+          font-size: 12px;
+          line-height: 14px;
+          font-weight: 300;
+        }
+      }
+
+      &__thin-text {
+        margin: 0 0 0 6px;
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 300;
+        justify-self: center;
+      }
+
+      &__thin-text__positioned {
+        margin: 0 0 0 35px;
+      }
+
+      &__projects {
+        display: flex;
+        align-items: center;
+        justify-self: flex-start;
+
+        @include desktop {
+          padding-left: 30px;
+        }
+
+        &__overlapping-images {
+          display: flex;
+          justify-content: flex-end;
+          max-width: 90px;
+
+          img {
+            width: 30px;
+            height: 30px;
+            margin-left: -20px;
+            margin-right: 8px;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      &__link {
+        justify-self: center;
+        img {
+          cursor: pointer;
+        }
+      }
+
+      .icon {
+        margin: 0 10px 0 0;
+        width: 30px;
+        height: 30px;
+
+        border-radius: 50%;
+      }
+    }
+
+    .titles {
+      border-top: 1.5px solid var(--color-grey);
+
+      :first-of-type {
+        justify-self: flex-start;
+      }
+      :nth-child(6) {
+        justify-self: flex-start;
+
+        @include desktop {
+          padding-left: 30px;
+        }
+      }
+    }
+  }
+
+  &__pagination-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin: 20px 0 0;
+    width: 100%;
+
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--color-grey-text);
+
+    @include desktop {
+      justify-content: flex-end;
+    }
+
+    &__prev,
+    &__next {
+      all: unset;
+      cursor: pointer;
+    }
+
+    &__prev {
+      margin: 0 20px 0 20px;
+    }
+  }
+}

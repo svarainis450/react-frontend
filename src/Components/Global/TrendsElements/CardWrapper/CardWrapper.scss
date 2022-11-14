@@ -1,0 +1,43 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.card {
+  position: relative;
+
+  padding: 30px;
+
+  border-radius: 10px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+  overflow-x: scroll;
+
+  .flex-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 0 0 20px;
+
+    .info-label {
+      cursor: pointer;
+    }
+  }
+
+  div .title {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    color: var(--color-grey-text);
+  }
+}
+
+.card.yellow {
+  background-color: var(--color-sand);
+}
+
+.card.show-info-block {
+  @include desktop {
+    overflow: visible;
+  }
+}

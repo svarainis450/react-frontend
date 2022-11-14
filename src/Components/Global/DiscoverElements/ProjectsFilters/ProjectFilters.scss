@@ -1,0 +1,68 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.project-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0 0 16px;
+  max-width: 100%;
+
+  @include desktop {
+    margin: 0 auto 16px;
+    padding: 16px 0 0 8px;
+
+    max-width: 1300px;
+  }
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    max-width: 256px;
+    width: 100%;
+
+    &__magnifier {
+      margin: 0 -24px 0 0;
+      z-index: 1;
+    }
+
+    &__input {
+      all: unset;
+      padding: 8px 8px 8px 32px;
+      background-color: var(--color-white);
+      width: 100%;
+
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 100px;
+    }
+  }
+
+  &__sort {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    &__option {
+      width: fit-content;
+      font-size: 14px;
+      font-weight: 300;
+      cursor: pointer;
+    }
+
+    &__option:hover {
+      font-weight: bold;
+    }
+
+    .select {
+      border: none;
+      background-color: transparent;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+
+      *:focus {
+        outline: none;
+      }
+    }
+  }
+}

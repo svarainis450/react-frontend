@@ -1,0 +1,50 @@
+.custom-select {
+  position: relative;
+
+  margin: 20px auto;
+  max-width: 234px;
+  width: 100%;
+
+  background: var(--color-white);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
+  &__desc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+
+    cursor: pointer;
+
+    &__arrow.selected {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__options {
+    position: absolute;
+    width: 100%;
+
+    background-color: var(--color-white);
+    border-top: 1.5px solid var(--color-grey);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    &__option {
+      cursor: pointer;
+
+      &__value {
+        padding: 6px 6px 6px 16px;
+      }
+
+      :hover {
+        background-color: var(--color-yellow-hero);
+      }
+    }
+    &__option.selected {
+      background-color: var(--color-yellow-hero);
+    }
+  }
+}

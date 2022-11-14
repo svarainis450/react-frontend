@@ -1,0 +1,169 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.profile-card {
+  position: relative;
+  margin: 70px 0 0;
+  max-width: 100%;
+  width: 100%;
+
+  @include desktop {
+    margin: 53px 0 0;
+    max-width: 310px;
+  }
+
+  &__avatar {
+    position: absolute;
+    top: -70px;
+    left: calc(50% - 114px / 2);
+
+    width: 114px;
+    height: 114px;
+
+    border: 2px solid var(--color-white);
+    border-radius: 50%;
+    z-index: 1;
+    cursor: pointer;
+
+    @include desktop {
+      top: -57px;
+    }
+  }
+
+  &__active-bubble {
+    position: absolute;
+    top: 20px;
+    right: calc(50% - 114px / 2);
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+    background-color: var(--color-green);
+
+    z-index: 9;
+  }
+
+  &__picture-upload {
+    display: none;
+  }
+
+  &__name {
+    margin: 30px 0 16px;
+
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  &__border-wrapper {
+    padding: 8px 0;
+
+    border-top: 1px solid var(--color-grey);
+
+    &__edit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin: 0 0 16px;
+
+      &__action {
+        cursor: pointer;
+      }
+    }
+
+    &__input-wrapper {
+      position: relative;
+      margin: 0 0 8px;
+
+      label {
+        position: absolute;
+        top: 16px;
+        left: 8px;
+
+        color: var(--color-grey-text);
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      input {
+        padding: 16px 30px 16px 35%;
+        width: 100%;
+
+        border: 0.5px solid var(--color-grey-text);
+        border-radius: 10px;
+
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      ::placeholder {
+        color: var(--color-black);
+      }
+
+      input:focus::placeholder {
+        color: transparent;
+      }
+
+      input.email-input {
+        padding: 16px 30px 16px 22%;
+      }
+
+      svg {
+        position: absolute;
+        top: 40%;
+        right: 14px;
+
+        cursor: pointer;
+
+        path {
+          fill: var(--color-grey-text);
+        }
+      }
+    }
+
+    &__input-wrapper.active {
+      svg {
+        path {
+          fill: var(--color-black);
+        }
+      }
+    }
+
+    &__tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+
+      width: 100%;
+    }
+
+    .done-button {
+      all: unset;
+      margin: 16px 0 0;
+
+      float: right;
+      color: var(--color-blue);
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+
+  .bolded-text {
+    color: var(--color-grey-text);
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 500;
+  }
+
+  .card {
+    @media sreen and (max-width: 790px) {
+      padding: 0;
+      box-shadow: 0;
+    }
+  }
+}

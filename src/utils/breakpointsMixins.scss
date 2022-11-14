@@ -1,0 +1,23 @@
+// screen size definitions
+$screen-desk-min: 1024px;
+$screen-tablet-min: 768px;
+$screen-mobile-min: 460px;
+
+// Desktop
+@mixin desktop {
+  @media (min-width: #{$screen-desk-min}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$screen-tablet-min}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (min-width: #{$screen-tablet-min}) {
+    @content;
+  }
+}

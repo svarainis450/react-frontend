@@ -1,0 +1,49 @@
+.SwiperButtons {
+  display: none;
+  margin-top: 1.875rem;
+  
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+
+  &__prev,
+  &__next {
+    width: 3rem;
+    height: 3rem;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__next {
+    margin-left: 5rem;
+  }
+
+  .arrowLeft {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../../Assets/images/arrowLeft.svg") !important;
+    display: block;
+
+    &:hover {
+      background-image: url("../../../../Assets/images/arrowLeftHover.svg") !important;
+    }
+  }
+
+  .arrowRight {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../../Assets/images/arrowRight.svg") !important;
+    display: block;
+
+    &:hover {
+      background-image: url("../../../../Assets/images/arrowRightHover.svg") !important;
+    }
+  }
+}

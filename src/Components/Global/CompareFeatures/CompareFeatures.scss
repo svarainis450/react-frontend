@@ -1,0 +1,78 @@
+.CompareFeatures {
+  margin-top: 4.375rem;
+  margin-bottom: 1.25rem;
+
+  @media (min-width: 1024px) {
+  }
+
+  &__hero {
+    margin-bottom: 3.75rem;
+  }
+
+  &__table-wrapper {
+    overflow: auto;
+  }
+
+  &__table {
+    margin: 0 auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    th {
+      border: 1.5px solid #EEEEEE;
+    }
+
+    td {
+      text-align: center;
+      border: 1.5px solid #EEEEEE;
+      height: 3.375rem;
+    }
+  }
+
+  &__header {
+    padding: 0.625rem 3.25rem 1rem;
+  }
+
+  &__name {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  &__occurrence {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    opacity: 0.6;
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+
+    button {
+      width: 7.5rem;
+    }
+  }
+
+  &__first-heading {
+    display: block;
+    border: 0 !important;
+  }
+  
+  &__feature-desc {
+    min-width: 250px;
+    text-align: left !important;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    padding-left: 1.375rem;
+    padding-right: 1rem;
+    background-color: #F4F4F4;
+  }
+}

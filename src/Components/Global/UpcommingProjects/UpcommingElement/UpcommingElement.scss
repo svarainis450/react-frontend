@@ -1,0 +1,88 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.upcomming-element {
+  display: flex;
+  flex-direction: column;
+
+  padding: 15px 25px;
+  width: 100%;
+
+  border-radius: 10px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+
+  @include desktop {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+  }
+
+  .project-icon {
+    width: 54px;
+    height: 54px;
+
+    @include desktop {
+      margin: 0 24px 0 10px;
+    }
+  }
+
+  .grey-text {
+    color: var(--color-grey-text);
+  }
+
+  .project-desc {
+    margin: 0 0 8px;
+    width: 100%;
+
+    @include desktop {
+      margin: 0;
+      max-width: 260px;
+    }
+  }
+
+  .project-opening {
+    max-width: 65px;
+
+    text-align: center;
+  }
+
+  &__mobile-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 8px;
+  }
+
+  &__mobile-wrapper.bordered {
+    margin: 0 0 8px;
+    border-bottom: 1.5px solid var(--color-grey);
+  }
+
+  .title {
+    margin: 0 0 6px;
+  }
+
+  .learn-more-btn {
+    all: unset;
+    display: block;
+    padding: 8px;
+    max-width: 100px;
+    width: 100%;
+
+    border-radius: 50px;
+    border: 1px solid var(--color-black);
+    text-align: center;
+
+    @include desktop {
+      max-width: 140px;
+    }
+  }
+
+  .flex-start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 20%;
+  }
+}

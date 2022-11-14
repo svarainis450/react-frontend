@@ -1,0 +1,65 @@
+.HeroMiniBlock {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  padding: 1.25rem 1.625rem 3rem;
+  background-color: var(--color-orange-hero);
+
+  @media (min-width: 1024px) {
+    padding: 2.875rem 3rem 5.375rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
+    margin: auto 0;
+  }
+
+  &__title {
+    margin-bottom: 1.563rem;
+    text-align: center;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    
+    @media (min-width: 1024px) {
+      text-align: left;
+      max-width: 30rem;
+
+      font-style: normal;
+      font-weight: 300;
+      font-size: 50px;
+      line-height: 60px;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  &__cta {
+    width: 11.875rem;
+    display: block;
+    margin: 0 auto 0.5rem;
+
+    @media (min-width: 1024px) {
+      margin: 0;
+    }
+  }
+
+  &__img {
+    @media (max-width: 1023px) {
+      width: 12rem;
+    }
+
+    @media (min-width: 1024px) {
+      margin-left: 15.875rem;
+    }
+  }
+  
+  &__mainimg {
+    max-height: 100%;
+  }
+}

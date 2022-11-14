@@ -1,0 +1,54 @@
+.Button {
+  border: 0;
+  border-radius: 50px;
+  padding: 0.75rem 0.5rem;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  line-height: 17px;
+  height: 3rem;
+
+  &__dark {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border: 1px solid var(--color-black);
+
+    &:hover {
+      background-color: var(--color-yellow-hero);
+      color: var(--color-black);
+    }
+  }
+
+  &__success {
+    background-color: var(--color-yellow-hero);
+    color: var(--color-black);
+  }
+
+  &__light {
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+
+  &__transparent {
+    background-color: transparent;
+    color: var(--color-black);
+    border: 1px solid var(--color-black);
+
+    &:hover {
+      background-color: var(--color-yellow-hero);
+      color: var(--color-black);
+    }
+  }
+
+  &__thin {
+    font-weight: 300;
+  }
+
+  &__heavy {
+    font-weight: 500;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}

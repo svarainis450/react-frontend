@@ -1,0 +1,151 @@
+@import "../../utils/breakpointsMixins.scss";
+
+.For-you {
+  background-color: var(--color-grey);
+  max-width: 100%;
+
+  &__wrapper {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+
+    @include desktop {
+      margin: 0 auto 32px;
+      padding: 10px 0 0;
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 1300px;
+    }
+    &__graph-wrapper {
+      position: relative;
+      width: 100%;
+
+      @include desktop {
+        max-width: calc(100% - 432px);
+        margin: 0 32px 0 0;
+      }
+    }
+    .plot-area {
+      @include desktop {
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+    }
+
+    &__projects-list {
+      margin: 0 0 16px;
+      padding: 0;
+      width: 100%;
+
+      @include desktop {
+        margin: 57px 0 0;
+        padding: 16px 30px;
+        max-width: 420px;
+        max-height: 444px;
+        height: 444px;
+
+        overflow-y: scroll;
+        border-radius: 10px;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        background-color: var(--color-white);
+      }
+
+      &__desktop-mobile {
+        position: absolute;
+        padding: 0 16px;
+        width: 100%;
+        max-height: 400px;
+
+        background-color: var(--color-white);
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+
+        z-index: 99;
+        overflow-y: scroll;
+
+        @include tablet {
+          position: static;
+          all: unset;
+        }
+      }
+
+      .load-more-projects {
+        margin: 16px 0;
+        width: 100%;
+        cursor: pointer;
+        text-align: center;
+
+        @include desktop {
+          margin: 16px 0 0;
+        }
+
+        p {
+          color: var(--color-grey-text);
+          font-size: 0.875rem;
+          font-weight: 500;
+          text-align: center;
+        }
+      }
+
+      .title-wrapper {
+        display: flex;
+        align-items: center;
+        padding: 0 0 10px;
+        border-bottom: 1px solid var(--color-grey);
+
+        .question-mark {
+          cursor: pointer;
+        }
+
+        .list-title {
+          margin-right: 6px;
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        width: 100%;
+
+        @include desktop {
+          max-width: 256px;
+          margin: 16px 0;
+        }
+
+        &__magnifier {
+          margin: 0 -24px 0 0;
+          z-index: 1;
+        }
+
+        &__input {
+          all: unset;
+          padding: 8px 8px 8px 32px;
+          background-color: var(--color-white);
+          width: 100%;
+
+          box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+          border-radius: 100px;
+        }
+      }
+    }
+  }
+
+  .empty-dashboard {
+    max-width: 100%;
+
+    @include desktop {
+      max-width: 527px;
+      margin: 30px auto 0;
+    }
+
+    p {
+      color: var(--color-grey-text);
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+}

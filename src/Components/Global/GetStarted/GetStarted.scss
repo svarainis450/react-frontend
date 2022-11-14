@@ -1,0 +1,55 @@
+.GetStarted {
+  padding: 2.875rem 1rem;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 1024px) {
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 0 1rem;
+      max-width: 1024px;
+      margin: 0 auto;
+    }
+  }
+
+  &__title {
+    @media (min-width: 1024px) {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 1rem;
+    width: 100%;
+
+    @media (min-width: 1024px) {
+      width: 19.25rem;
+    }
+    
+    &:not(:first-child) {
+      margin-top: 1rem;
+      
+      @media (min-width: 1024px) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &__card-text {
+    .HeroTitle_title {
+      margin-top: 0.75rem;
+      line-height: 25px;
+    }
+  }
+
+  &__img {
+    height: 10rem;
+    max-height: 10rem;
+    max-width: 13.375rem;
+  }
+}

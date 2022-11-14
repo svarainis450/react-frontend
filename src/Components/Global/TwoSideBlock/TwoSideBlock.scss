@@ -1,0 +1,133 @@
+.TwoSideBlock {
+  padding: 2.5rem 1.625rem;
+  background-color: var(--color-light-orange);
+
+  @media (min-width: 1024px) {
+    padding: 2.875rem 10vw 5.375rem;
+
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+  }
+
+  &__content {
+    margin: auto 0;
+    
+    @media (min-width: 1024px) {
+      width: 50%;
+      // margin-left: 10%;
+      margin-right: 1rem;
+    }
+  }
+
+  &__title {
+    margin-bottom: 0.75rem;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      text-align: left;
+    }
+  }
+
+  &__subtitle {
+    text-align: center;
+    max-width: 25rem;
+    margin: 0 auto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 24px;
+
+    @media (min-width: 1024px) {
+      text-align: left;
+      margin: 0 0 1.563rem;
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+  }
+
+  &__cta {
+    width: 100%;
+    margin: 2rem auto 0.5rem;
+    
+    @media (min-width: 1024px) {
+      width: 11.875rem;
+      margin: 0;
+    }
+
+    &.mobile {
+      margin: 1rem auto 0.5rem;
+    }
+  }
+
+  &__sublink {
+    margin-top: 1.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    @media (min-width: 1024px) {
+      margin-top: 1.25rem;
+    }
+
+    a {
+      color: #0022FF;
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 22px;
+    }
+
+    &-img {
+      width: 1rem;
+      height: 1rem;
+      margin: 0 0.5rem 0 0 !important;
+
+      @media (min-width: 1024px) {
+        margin-bottom: -0.2rem !important;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  // IMG
+  &__img {
+    margin-top: 1.375rem;
+    width: 100%;
+    
+    @media (min-width: 1024px) {
+      width: 50%;
+    }
+
+    
+    img {
+      margin-left: auto;
+      margin-right: auto;
+      max-height: 22.25rem;
+      max-width: 50%;
+      display: block;
+
+      @media (min-width: 1024px) {
+        max-width: 100%;
+      }
+    }
+  }
+  
+  &__message,
+  &__mainimg {
+    max-height: 100%;
+  }
+
+
+}

@@ -1,0 +1,132 @@
+@import '../../../utils/breakpointsMixins.scss';
+
+.for-you-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  width: 100%;
+
+  border-bottom: 1px solid var(--color-grey);
+
+  .flex-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .project-icon {
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+  }
+
+  .project-name {
+    margin: 0 0 2px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 0 0 6px;
+    max-width: 130px;
+    width: 100%;
+
+    @include tablet {
+      justify-content: space-between;
+      max-width: 190px;
+      width: 100%;
+    }
+
+    .check-stats-btn {
+      all: unset;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 10px;
+      max-width: 80px;
+      width: 100%;
+
+      background-color: var(--color-blue);
+      border-radius: 5px;
+      color: var(--color-white);
+      font-size: 12px;
+      line-height: 14px;
+      font-weight: 500;
+      cursor: pointer;
+
+      img {
+        margin-right: 4px;
+      }
+    }
+
+    .check-stats-btn.remove {
+      @media screen and (max-width: 790px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+      }
+      margin: 0 6px 0 0;
+      background-color: var(--color-sand);
+      color: var(--color-grey-text);
+
+      img {
+        margin: 0;
+
+        @include desktop {
+          margin-right: 4px;
+        }
+      }
+
+      @include desktop {
+        display: flex;
+        border-radius: 5px;
+      }
+
+      .loader-wrapper-list-item {
+        .loader-wrapper .loader {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+    .check-stats-btn.remove.add-to-list {
+      justify-self: flex-end;
+      max-width: 107px;
+      width: 100%;
+      border-radius: 5px;
+      padding: 2px 10px;
+      margin: 0;
+
+      img {
+        margin-right: 4px;
+      }
+
+      @include desktop {
+        max-width: 107px;
+        margin: 0 6px 0 0;
+        padding: 8px 10px;
+      }
+    }
+
+    .check-stats-btn.selected {
+      background-color: var(--color-yellow-hero);
+      color: var(--color-black);
+    }
+  }
+  .buttons-wrapper.add-to-list {
+    justify-content: flex-end;
+  }
+}
+
+// .for-you-list-item.checking {
+//   background-color: var(--color-grey);
+//   width: 100%;
+// }

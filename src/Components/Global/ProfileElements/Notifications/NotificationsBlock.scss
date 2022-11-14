@@ -1,0 +1,57 @@
+@import '../../../../utils/breakpointsMixins.scss';
+
+.notifications-block {
+  &__row {
+    margin: 16px 0 0;
+    padding: 8px 0;
+
+    border-top: 1px solid var(--color-grey);
+
+    &__content {
+      max-width: 100%;
+
+      @include desktop {
+        max-width: 430px;
+        width: 100%;
+      }
+    }
+
+    .titles-wrapper {
+      max-width: 100%;
+
+      @include desktop {
+        max-width: 275px;
+      }
+    }
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .notif-title {
+    margin: 0 0 6px;
+    font-size: 14px;
+  }
+
+  .grey-text {
+    color: var(--color-grey-text);
+  }
+
+  .toggle-title {
+    margin: 0 0 0 6px;
+  }
+
+  .ToggleButton__slider {
+    background-color: var(--color-sand);
+  }
+
+  .ToggleButton__input {
+    &:checked + .ToggleButton__slider {
+      background-color: var(--color-blue);
+    }
+  }
+}

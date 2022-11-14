@@ -1,0 +1,81 @@
+.FAQ {
+  padding: 2.5rem 4%;
+
+  @media (min-width: 1024px) {
+    padding: 2.875rem 10rem 5.375rem;
+  }
+
+  &__wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+
+    .Mui-expanded {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &__hero {
+    margin-bottom: 1.625rem;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 3.75rem;
+    }
+  }
+
+  &__accordeon-item {
+    box-shadow: initial !important;
+    border-radius: 0 !important;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-top: 0;
+
+    &.MuiPaper-root {
+      border-bottom: 1px solid var(--color-grey-line);
+
+      @media (max-width: 440px) {
+        padding-bottom: 0.5rem;
+      }
+
+      &::before {
+        display: none;
+      }
+
+      &:last-of-type {
+        border-bottom: 0 !important;
+      }
+    }
+
+    &__summary {
+      .MuiAccordionSummary-content {
+        display: flex;
+        align-items: center;
+
+        // text-transform: uppercase;
+
+        &.Mui-expanded {
+          margin-top: 0 !important;
+          min-height: none;
+        }
+      }
+    }
+
+    &__text {
+      line-height: 24px;
+    }
+  }
+
+  &__item-title {
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+  }
+
+  &__button {
+    width: 100%;
+    margin: 1.625rem auto 0;
+
+    @media (min-width: 1024px) {
+      margin-top: 3.75rem;
+      width: 11.875rem;
+    }
+  }
+}
