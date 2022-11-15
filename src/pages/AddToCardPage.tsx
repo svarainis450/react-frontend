@@ -6,15 +6,15 @@ import {
   useEffect,
   useRef,
   useState,
-} from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import TagManager from "react-gtm-module";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import CheckoutForm from "src/Components/Payments/StripeCheckout";
-import { paymentStatusSelector } from "src/state/reduxstate/payments/selectors";
-import styled from "styled-components";
+} from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import TagManager from 'react-gtm-module';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import CheckoutForm from 'src/Components/Payments/StripeCheckout';
+import { paymentStatusSelector } from 'src/state/reduxstate/payments/selectors';
+import styled from 'styled-components';
 
 import {
   Box,
@@ -24,16 +24,16 @@ import {
   OrderSummary,
   OurPromise,
   SubscriptionLayout,
-} from "../Components";
-import { useMediaQuery } from "../hooks";
-import { UserContext } from "../state/userContext";
-import { theme } from "../theme";
-import { LinkList } from "../types";
-import CardsLogos from "src/Assets/icons/payments/cards_logos.svg";
+} from '../Components';
+import { useMediaQuery } from '../hooks';
+import { UserContext } from '../state/userContext';
+import { theme } from '../theme';
+import { LinkList } from '../types';
+import CardsLogos from 'src/Assets/icons/payments/cards_logos.svg';
 
 const secretKey =
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY ||
-  "pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGdxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk";
+  'pk_test_51LSQG2LPHXTxUZlWyvAfxX92AV2docuxwV92qiDuFIP5lzErCWGdxFmvUIXjHmPBfonOTNqR3c3F0pJMobFmzfBN00jIXrnBDk';
 
 const stripePromise = secretKey && loadStripe(secretKey);
 
@@ -49,8 +49,8 @@ export const AddToCardPage: FC = memo(() => {
   const handlePaymentSubmit = useCallback(() => {
     TagManager.dataLayer({
       dataLayer: {
-        event: "purchase_main",
-        currencyCode: "USD",
+        event: 'purchase_main',
+        currencyCode: 'USD',
         transactionId: user.orderId,
         transactionTotal: user.hasDownsell
           ? selectedPlan?.downsell?.final_price
@@ -85,7 +85,7 @@ export const AddToCardPage: FC = memo(() => {
   // }, [navigate, user]);
 
   useEffect(() => {
-    if (paymentStatus === "succeeded") {
+    if (paymentStatus === 'succeeded') {
       handlePaymentSubmit();
       navigate(LinkList.Success);
     }
@@ -105,7 +105,7 @@ export const AddToCardPage: FC = memo(() => {
             <FlexStyled ref={myRef} isDownsell={showDownsell}>
               {isTablet ? null : <OurPromise />}
               <SubscriptionLayout onBack={handleLogoClick}>
-                <Title margin={isMobile ? "0 0 1.5rem 0" : "0 0 2.5rem 0"}>
+                <Title margin={isMobile ? '0 0 1.5rem 0' : '0 0 2.5rem 0'}>
                   Payment Details
                 </Title>
                 {/* <Img
@@ -124,7 +124,7 @@ export const AddToCardPage: FC = memo(() => {
                   <img src={CardsLogos} alt="Payment cards" />
                   <TermsDisclaimerText>
                     By submitting your information and continuing to purchase,
-                    you agree to our <strong>Terms of Service</strong> and{" "}
+                    you agree to our <strong>Terms of Service</strong> and{' '}
                     <strong>Privacy Policy</strong>.
                   </TermsDisclaimerText>
                 </TermsDisclaimerWrap>
@@ -139,7 +139,7 @@ export const AddToCardPage: FC = memo(() => {
   );
 });
 
-AddToCardPage.displayName = "AddToCardPage";
+AddToCardPage.displayName = 'AddToCardPage';
 
 export default AddToCardPage;
 
@@ -183,7 +183,7 @@ const FlexStyled = styled(Flex)<{ isDownsell?: boolean }>`
 `;
 
 // @TODO: move to Typography component
-const Title = styled(Box).attrs({ as: "h2" })`
+const Title = styled(Box).attrs({ as: 'h2' })`
   font-size: 1.875rem;
   text-align: center;
 

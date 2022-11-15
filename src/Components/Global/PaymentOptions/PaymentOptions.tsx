@@ -1,15 +1,15 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
-import { PaymentOptionsProps } from "./types";
-import { planTypes, priceOptions, PRICE_OPTIONS_BIGGER } from "./constants";
-import { Button } from "../Button";
-import { ToggleButton } from "../ToggleButton";
+import { PaymentOptionsProps } from './types';
+import { planTypes, priceOptions, PRICE_OPTIONS_BIGGER } from './constants';
+import { Button } from '../Button';
+import { ToggleButton } from '../ToggleButton';
 
-import "./PaymentOptions.scss";
-import mostPopular from "../../../Assets/images/mostPopular.svg";
-import teaserArrow from "../../../Assets/images/teaserArrow.svg";
-import { useCookies } from "react-cookie";
-import { useFunnel } from "src/hooks";
+import './PaymentOptions.scss';
+import mostPopular from '../../../Assets/images/mostPopular.svg';
+import teaserArrow from '../../../Assets/images/teaserArrow.svg';
+import { useCookies } from 'react-cookie';
+import { useFunnel } from 'src/hooks';
 
 export const PaymentOptions = ({
   className,
@@ -19,14 +19,14 @@ export const PaymentOptions = ({
   isSelected,
   isSelectedHandler,
 }: PaymentOptionsProps) => {
-  const [getCookie, setCookie] = useCookies(["currency", "currencySymbol"]);
+  const [getCookie, setCookie] = useCookies(['currency', 'currencySymbol']);
   const { funnel } = useFunnel();
   const PRODUCTS = funnel === 5 ? PRICE_OPTIONS_BIGGER : priceOptions;
 
   return (
     <div
-      className={classNames("PaymentOptions", className, {
-        "PaymentOptions--minimal": minimal,
+      className={classNames('PaymentOptions', className, {
+        'PaymentOptions--minimal': minimal,
       })}
     >
       <div className="PaymentOptions__toggle">
@@ -55,11 +55,11 @@ export const PaymentOptions = ({
           return (
             <div
               className={classNames(
-                "PaymentOptions__card",
-                item.isMostPopular && "most-popular",
-                { "PaymentOptions__card--selected": isSelected === index }
+                'PaymentOptions__card',
+                item.isMostPopular && 'most-popular',
+                { 'PaymentOptions__card--selected': isSelected === index }
               )}
-              key={"PaymentOptions__" + index + "__" + currentOption}
+              key={'PaymentOptions__' + index + '__' + currentOption}
               onClick={() => isSelectedHandler(index)}
             >
               {item.isMostPopular && (
@@ -82,8 +82,8 @@ export const PaymentOptions = ({
               </div>
 
               <p className="PaymentOptions__card-payment-occurance">
-                per month{" "}
-                {currentOption === planTypes.yearly && " paid annually"}
+                per month{' '}
+                {currentOption === planTypes.yearly && ' paid annually'}
               </p>
 
               {currentOption === planTypes.yearly ? (

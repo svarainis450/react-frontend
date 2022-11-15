@@ -1,20 +1,20 @@
-import { useContext, useState } from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import "./StripeCheckout.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useContext, useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import './StripeCheckout.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   userDataSelector,
   userTokenSelector,
-} from "src/state/reduxstate/user/selectors";
+} from 'src/state/reduxstate/user/selectors';
 
-import axios from "axios";
-import { apiv1 } from "src/state/reduxstate/types";
+import axios from 'axios';
+import { apiv1 } from 'src/state/reduxstate/types';
 import {
   updateSendGridData,
   updateUserInfo,
-} from "src/state/reduxstate/user/thunks";
-import { setPaymentStatus } from "src/state/reduxstate/payments/slice";
-import { UserContext } from "src/state/userContext";
+} from 'src/state/reduxstate/user/thunks';
+import { setPaymentStatus } from 'src/state/reduxstate/payments/slice';
+import { UserContext } from 'src/state/userContext';
 
 const CheckoutForm = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const CheckoutForm = () => {
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const token = useSelector(userTokenSelector);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState('');
   const { user } = useContext(UserContext);
 
   const paymentDetails = {
@@ -34,8 +34,8 @@ const CheckoutForm = () => {
       user.hasDownsell && user.selectedPlan.downsell.stripe_price_id
         ? user.selectedPlan.downsell.stripe_price_id
         : user.selectedPlan?.stripe_price_id,
-    customer_description: "customer",
-    phone: "dont collect phones",
+    customer_description: 'customer',
+    phone: 'dont collect phones',
     product:
       user.hasDownsell && user.selectedPlan.downsell.stripe_product
         ? user.selectedPlan.downsell.stripe_product
@@ -73,7 +73,7 @@ const CheckoutForm = () => {
         }
       );
 
-      if (paymentIntent.status === "succeeded") {
+      if (paymentIntent.status === 'succeeded') {
         dispatch(
           updateUserInfo({
             type: user.selectedPlan.title,
@@ -93,12 +93,12 @@ const CheckoutForm = () => {
             products: user.selectedPlan.title,
           })
         );
-        dispatch(setPaymentStatus("succeeded"));
-        setMessage("Payment successful!");
+        dispatch(setPaymentStatus('succeeded'));
+        setMessage('Payment successful!');
       }
     } catch (e) {
       console.log(e);
-      setMessage("An unexpected error occurred.");
+      setMessage('An unexpected error occurred.');
 
       setIsLoading(false);
     }
@@ -131,7 +131,7 @@ const CheckoutForm = () => {
             {isLoading ? (
               <div className="spinner" id="spinner"></div>
             ) : (
-              "Pay now"
+              'Pay now'
             )}
           </span>
         </button>

@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
+import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-import { infoBlocks } from "src/pages/Trends/constants";
-import { SubmenuFilters } from "src/state/reduxstate/projects/types";
-import { LoadError } from "../../LoadError/LoadError";
-import { CardWrapper } from "../CardWrapper/CardWrapper";
-import { Top3Element } from "../Top3Element/Top3Element";
-import { InfoBlockTypes } from "../types";
+import { infoBlocks } from 'src/Components/Pages/Trends/constants';
+import { SubmenuFilters } from 'src/state/reduxstate/projects/types';
+import { LoadError } from '../../LoadError/LoadError';
+import { CardWrapper } from '../CardWrapper/CardWrapper';
+import { Top3Element } from '../Top3Element/Top3Element';
+import { InfoBlockTypes } from '../types';
 
 import {
   fetchProjectsByInfluencers,
   fetchTop3LowestProjects,
   fetchTop3Projects,
-} from "src/state/reduxstate/projects/thunks";
+} from 'src/state/reduxstate/projects/thunks';
 import {
   top3BullProjectsSelector,
   top3PositiveProjectsSelector,
@@ -22,14 +22,14 @@ import {
   top3LowestTalkRateProjectsSelector,
   top3BearProjectsSelector,
   top3NegativeProjectsSelector,
-} from "src/state/reduxstate/projects/selectors";
+} from 'src/state/reduxstate/projects/selectors';
 
-import "./Top3ElementsSlider.scss";
-import { Pagination } from "swiper";
-import { RefreshCounter } from "./RefreshCounter";
-import { useAppDispatch } from "src/state/reduxstate/store";
-import { useSelector } from "react-redux";
-import { userTokenSelector } from "src/state/reduxstate/user/selectors";
+import './Top3ElementsSlider.scss';
+import { Pagination } from 'swiper';
+import { RefreshCounter } from './RefreshCounter';
+import { useAppDispatch } from 'src/state/reduxstate/store';
+import { useSelector } from 'react-redux';
+import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
 
 interface Top3ElementsSliderProps {
   filterTitle?: string;
@@ -66,48 +66,48 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
     : top3TalkRateProjects;
 
   useEffect(() => {
-    if (token && filter !== "upcomming") {
+    if (token && filter !== 'upcomming') {
       dispatch(
         fetchProjectsByInfluencers({ tokenValue: token, dateFilter: filter })
       );
       dispatch(
         fetchTop3Projects({
-          filter: "top-bull",
+          filter: 'top-bull',
           tokenValue: token,
           dateFilter: filter,
         })
       );
       dispatch(
         fetchTop3Projects({
-          filter: "top-sentiment",
+          filter: 'top-sentiment',
           tokenValue: token,
           dateFilter: filter,
         })
       );
       dispatch(
         fetchTop3Projects({
-          filter: "top-talk-rate",
+          filter: 'top-talk-rate',
           tokenValue: token,
           dateFilter: filter,
         })
       );
       dispatch(
         fetchTop3LowestProjects({
-          filter: "lowest-bull",
+          filter: 'lowest-bull',
           tokenValue: token,
           dateFilter: filter,
         })
       );
       dispatch(
         fetchTop3LowestProjects({
-          filter: "lowest-sentiment",
+          filter: 'lowest-sentiment',
           tokenValue: token,
           dateFilter: filter,
         })
       );
       dispatch(
         fetchTop3LowestProjects({
-          filter: "lowest-talk-rate",
+          filter: 'lowest-talk-rate',
           tokenValue: token,
           dateFilter: filter,
         })
@@ -136,12 +136,10 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           <CardWrapper
             title={
               isLowestList
-                ? "Lowest Talk Rate Projects"
-                : "Top 3 Talk Rate Projects"
+                ? 'Lowest Talk Rate Projects'
+                : 'Top 3 Talk Rate Projects'
             }
-            subtitle={filterTitle}
             showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.rate].title}
             infoDesc={infoBlocks[InfoBlockTypes.rate].desc}
             onInfoClick={() => setShowInfoBlock(InfoBlockTypes.rate)}
             onCloseClick={() => setShowInfoBlock(null)}
@@ -183,12 +181,11 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
           <CardWrapper
             title={
               isLowestList
-                ? "Top 3 Negative Projects"
-                : "Top 3 Positive Projects"
+                ? 'Top 3 Negative Projects'
+                : 'Top 3 Positive Projects'
             }
             subtitle={filterTitle}
             showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.positive].title}
             infoDesc={infoBlocks[InfoBlockTypes.positive].desc}
             onInfoClick={() => setShowInfoBlock(InfoBlockTypes.positive)}
             onCloseClick={() => setShowInfoBlock(null)}
@@ -229,11 +226,10 @@ export const Top3ElementsSlider: React.FC<Top3ElementsSliderProps> = ({
         <SwiperSlide>
           <CardWrapper
             title={
-              isLowestList ? "Biggest Bear Projects" : "Top 3 Bull Projects"
+              isLowestList ? 'Biggest Bear Projects' : 'Top 3 Bull Projects'
             }
             subtitle={filterTitle}
             showInfoLabel
-            infoTitle={infoBlocks[InfoBlockTypes.bullish].title}
             infoDesc={infoBlocks[InfoBlockTypes.bullish].desc}
             onInfoClick={() => setShowInfoBlock(InfoBlockTypes.bullish)}
             onCloseClick={() => setShowInfoBlock(null)}

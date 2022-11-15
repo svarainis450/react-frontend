@@ -35,9 +35,12 @@ import add_to_list from '../Assets/icons/add_to_list.svg';
 import counter from '../Assets/icons/counter.svg';
 import add_project from '../Assets/icons/add_project.svg';
 import blue_checkmark from '../Assets/icons/blue_checkmark.svg';
+import black_checkmark from '../Assets/icons/black_checkmark.svg';
 import verified_checkmark from '../Assets/icons/verified_checkmark.svg';
 import chart_empty from '../Assets/icons/chart_empty.svg';
 import circle_check_green from '../Assets/icons/circle_check_green.svg';
+import circle_checkmark_yellow from '../Assets/icons/circle_checkmark_yellow.svg';
+import xmark_square from '../Assets/icons/xmark_square.svg';
 
 //Discover page icons
 import bulls from '../Assets/icons/bull.svg';
@@ -45,6 +48,7 @@ import bear from '../Assets/icons/bear.svg';
 import positive from '../Assets/icons/positive.svg';
 import negative from '../Assets/icons/negative.svg';
 import positive_thumb from '../Assets/icons/positive_thumb.svg';
+import neutral_five from '../Assets/icons/neutral_five.svg';
 import positive_element from '../Assets/icons/positive_element.svg';
 import negative_element from '../Assets/icons/negative_element.svg';
 import bear_element from '../Assets/icons/bear_element.svg';
@@ -73,6 +77,8 @@ import reddit from '../Assets/icons/socialChannels/reddit.svg';
 
 // Payments
 import paypal_logo from '../Assets/icons/payments/paypal_logo.svg';
+import cards_logos from '../Assets/icons/payments/cards_logos.svg';
+import crypto_currencies from '../Assets/icons/payments/crypto_currencies.svg';
 import coingate from '../Assets/icons/payments/coingate.svg';
 import visa from '../Assets/icons/payments/visa.svg';
 import mastercard from '../Assets/icons/payments/mastercard.svg';
@@ -85,6 +91,10 @@ import rocket_ticket from '../Assets/images/rocketTicket.svg';
 import premium_modal from '../Assets/icons/premium_modal.svg';
 
 export const icons = {
+  black_checkmark,
+  neutral_five,
+  circle_checkmark_yellow,
+  xmark_square,
   positive_thumb,
   solana_icon,
   info_label_grey,
@@ -111,6 +121,7 @@ export const icons = {
   mastercard,
   input_arrow_active,
   input_arrow,
+  crypto_currencies,
   filter_icon,
   question_mark,
   no_image,
@@ -123,6 +134,7 @@ export const icons = {
   paypal_logo,
   arrow_right,
   arrow_down,
+  cards_logos,
   telegram,
   twitter,
   discord,

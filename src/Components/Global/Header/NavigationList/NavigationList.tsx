@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { LinkList } from "../../../../types/links";
+import { NavLink } from 'react-router-dom';
+import { LinkList } from '../../../../types/links';
 
 export const NavigationList = () => {
   return (

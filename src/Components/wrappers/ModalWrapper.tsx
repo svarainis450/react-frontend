@@ -5,10 +5,12 @@ import styled from 'styled-components';
 
 interface ModalWrapperProps extends Styles {
   children: React.ReactNode;
+  isLoader?: boolean;
 }
 
 export const ModalWrapper: React.FC<ModalWrapperProps> = ({
   children,
+  isLoader = false,
   ...props
 }) => {
   const dispatch = useAppDispatch();
@@ -18,7 +20,7 @@ export const ModalWrapper: React.FC<ModalWrapperProps> = ({
     if (typeof window !== 'undefined') {
       body?.classList.add('disable-scrolling');
     }
-    if (body) {
+    if (body && !isLoader) {
       body.style.position = 'fixed';
     }
     return () => {

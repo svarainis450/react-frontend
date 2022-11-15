@@ -13,6 +13,7 @@ export interface UserState {
   user_token: string | null;
   user_data: UserDataType;
   selected_plan?: SelectedPlan;
+  reset_token: string | undefined;
 }
 
 export type NavClassTypes =

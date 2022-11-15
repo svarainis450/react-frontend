@@ -41,7 +41,7 @@ export const ForYouChartView = ({
   });
 
   if (!chartPrice || !chartSentiment || !chartTalkRate || !chartVolume) {
-    return <EmptyChartStateComp />;
+    return <EmptyChartStateComp isNoData />;
   }
 
   const chartData = filterDataObjectsByPeriod(

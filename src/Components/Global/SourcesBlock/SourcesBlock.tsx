@@ -1,10 +1,10 @@
-import { HeroTitle } from "../HeroTitle";
+import { HeroTitle } from '../HeroTitle';
+import { listOfSources } from './constants';
 
-import "./SourcesBlock.scss";
-import Platforms from "src/Assets/images/landing/platforms.png";
-import PlatformsMobile from "src/Assets/images/landing/platforms_mobile.png";
+import './SourcesBlock.scss';
+import { Link } from 'react-router-dom';
 
-export const SourcesBlock = () => {
+export const SourcesBlock = ({}) => {
   return (
     <div className="SourcesBlock">
       <HeroTitle
@@ -13,10 +13,13 @@ export const SourcesBlock = () => {
       />
 
       <div className="SourcesBlock__list">
-        <picture>
-          <source media="(max-width: 440px)" srcSet={PlatformsMobile} />
-          <img src={Platforms} alt="" />
-        </picture>
+        {listOfSources.map((item, index) => {
+          return (
+            <Link to={item.url} className="SourcesBlock__item" key={index}>
+              <img src={item.src} alt={item.type} />
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

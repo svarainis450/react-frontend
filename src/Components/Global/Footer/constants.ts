@@ -1,9 +1,9 @@
-// import visa from '../../../Assets/images/payments/visa.svg';
-// import mastercard from '../../../Assets/images/payments/mastercard.svg';
-// import amex from '../../../Assets/images/payments/amex.svg';
-// import paypal from '../../../Assets/images/payments/paypal.svg';
-// import applepay from '../../../Assets/images/payments/applepay.svg';
-// import gpay from '../../../Assets/images/payments/gpay.svg';
+import visa from '../../../Assets/images/payments/visa.svg';
+import mastercard from '../../../Assets/images/payments/mastercard.svg';
+import amex from '../../../Assets/images/payments/amex.svg';
+import paypal from '../../../Assets/images/payments/paypal.svg';
+import applepay from '../../../Assets/images/payments/applepay.svg';
+import gpay from '../../../Assets/images/payments/gpay.svg';
 
 import ig from '../../../Assets/images/social/ig.svg';
 import twitter from '../../../Assets/images/social/twitter.svg';
@@ -41,38 +41,38 @@ export const pageListMobile = [
   {title: 'Terms & conditions', url: LinkList.TermsAndConditions},
 ]
 
-// export const paymentList = [
-//   {
-//     type: 'visa',
-//     url: '/',
-//     img: visa
-//   },
-//   {
-//     type: 'mastercard',
-//     url: '/',
-//     img: mastercard
-//   },
-//   {
-//     type: 'amex',
-//     url: '/',
-//     img: amex
-//   },
-//   {
-//     type: 'paypal',
-//     url: '/',
-//     img: paypal
-//   },
-//   {
-//     type: 'applepay',
-//     url: '/',
-//     img: applepay
-//   },
-//   {
-//     type: 'gpay',
-//     url: '/',
-//     img: gpay
-//   },
-// ]
+export const paymentList = [
+  {
+    type: 'visa',
+    url: '/',
+    img: visa
+  },
+  {
+    type: 'mastercard',
+    url: '/',
+    img: mastercard
+  },
+  {
+    type: 'amex',
+    url: '/',
+    img: amex
+  },
+  {
+    type: 'paypal',
+    url: '/',
+    img: paypal
+  },
+  {
+    type: 'applepay',
+    url: '/',
+    img: applepay
+  },
+  {
+    type: 'gpay',
+    url: '/',
+    img: gpay
+  },
+]
 
 export const socialList = [
   {

@@ -1,10 +1,10 @@
-import { useState, FC, ReactNode } from "react";
+import { useState, FC, ReactNode } from 'react';
 
-import { Header } from "../../Global/Header";
-import { Footer } from "../../Global/Footer";
-import { SideMenu } from "../../Global/SideMenu";
+import { Header } from '../../Global/Header';
+import { Footer } from '../../Global/Footer';
+import { SideMenu } from '../../Global/SideMenu';
 
-import "./Layout.scss";
+import './Layout.scss';
 
 export interface LayoutProps {
   children: ReactNode;

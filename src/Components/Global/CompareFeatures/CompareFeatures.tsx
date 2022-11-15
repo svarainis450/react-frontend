@@ -1,19 +1,19 @@
-import classNames from "classnames";
-import { useNavigate } from "react-router-dom";
+import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
-import { HeroTitle } from "../HeroTitle";
-import { CompareFeaturesProps } from "./types";
-import { LinkList } from "../../../types";
-import { Button } from "../Button";
+import { HeroTitle } from '../HeroTitle';
+import { CompareFeaturesProps } from './types';
+import { LinkList } from '../../../types';
+import { Button } from '../Button';
 
-import trueImage from "../../../Assets/images/compareTrue.svg";
-import falseImage from "../../../Assets/images/compareFalse.svg";
+import trueImage from '../../../Assets/images/compareTrue.svg';
+import falseImage from '../../../Assets/images/compareFalse.svg';
 
-import "./CompareFeatures.scss";
-import { useMoney } from "src/hooks";
-import { useContext } from "react";
-import { UserContext } from "src/state/userContext";
-import { priceOptions } from "../PaymentOptions";
+import './CompareFeatures.scss';
+import { useMoney } from 'src/hooks';
+import { useContext } from 'react';
+import { UserContext } from 'src/state/userContext';
+import { priceOptions } from '../PaymentOptions';
 
 export const CompareFeatures = ({
   featuresList,
@@ -24,7 +24,7 @@ export const CompareFeatures = ({
   const { currencySign } = useMoney();
 
   const handleSelect = (planKey: string) => {
-    const plan = priceOptions["yearly"].find((p) => p.key === planKey);
+    const plan = priceOptions['yearly'].find((p) => p.key === planKey);
 
     setUser((prev) => ({
       ...prev,
@@ -35,7 +35,7 @@ export const CompareFeatures = ({
   };
 
   return (
-    <div className={classNames("CompareFeatures", className)}>
+    <div className={classNames('CompareFeatures', className)}>
       <HeroTitle className="CompareFeatures__hero" title="Compare features" />
 
       <div className="CompareFeatures__table-wrapper">
@@ -50,7 +50,7 @@ export const CompareFeatures = ({
               </p>
 
               <div className="CompareFeatures__cta">
-                <Button onClick={() => handleSelect("potato-starter-yearly")}>
+                <Button onClick={() => handleSelect('potato-starter-yearly')}>
                   Select plan
                 </Button>
               </div>
@@ -65,7 +65,7 @@ export const CompareFeatures = ({
               <div className="CompareFeatures__cta">
                 <Button
                   buttonType="success"
-                  onClick={() => handleSelect("potato-pro-yearly")}
+                  onClick={() => handleSelect('potato-pro-yearly')}
                 >
                   Select plan
                 </Button>

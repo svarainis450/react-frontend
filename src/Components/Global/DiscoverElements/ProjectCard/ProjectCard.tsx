@@ -272,28 +272,34 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
                 sentiment_score={sentiment_score}
                 bull_bear_score={bull_bear_score}
               />
-              {/* <div className="border-wrapper">
+
+              <div className="border-wrapper">
                 <Typography className="small-text">
                   <strong>Top influencers taked about this coin</strong>
                 </Typography>
-                {project_twitter_user_card.map(
-                  ({
-                    twitter_img_url,
-                    twitter_username,
-                    twitter_displayname,
-                    sentiment,
-                    external_link,
-                  }) => (
-                    <InfluencersTalkAboutIt
-                      img_url={twitter_img_url}
-                      name={twitter_username}
-                      displayName={twitter_displayname}
-                      sentiment={sentiment}
-                      link={external_link}
-                    />
-                  )
-                )}
-              </div> */}
+                <div className="influencers-talk-wrapper">
+                  {project_twitter_user_card.length > 0 ? (
+                    project_twitter_user_card.map(
+                      ({ sentiment, twitter_user, tweet }) => (
+                        <InfluencersTalkAboutIt
+                          img_url={twitter_user.twitter_img_url}
+                          name={twitter_user.twitter_username}
+                          displayName={twitter_user.twitter_displayname}
+                          sentiment={sentiment}
+                          tweetId={tweet.id}
+                        />
+                      )
+                    )
+                  ) : (
+                    <div className="sorry-influencers-wrap">
+                      <p>
+                        Sorry, champ. There's no information about this project.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {url && <CoinBaseButton url={url} btnType={urlBtnType} />}
               <div className="learn-more" onClick={hanldeGoToForYou}>
                 <Typography weight={TypographyWeight.MEDIUM}>

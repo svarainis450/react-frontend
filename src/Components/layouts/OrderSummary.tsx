@@ -1,11 +1,11 @@
-import { FC, memo, useContext } from "react";
-import styled from "styled-components";
-import { UserContext } from "../../state/userContext";
+import { FC, memo, useContext } from 'react';
+import styled from 'styled-components';
+import { UserContext } from '../../state/userContext';
 
-import { theme } from "../../theme";
-import { Box } from "../wrappers/Box";
-import { Flex } from "../wrappers/Flex";
-import { useMoney } from "src/hooks";
+import { theme } from '../../theme';
+import { Box } from '../wrappers/Box';
+import { Flex } from '../wrappers/Flex';
+import { useMoney } from 'src/hooks';
 
 interface OrderSummaryProps {
   hideTitle?: boolean;
@@ -72,7 +72,7 @@ export const OrderSummary: FC<OrderSummaryProps> = memo(
   }
 );
 
-OrderSummary.displayName = "OrderSummary";
+OrderSummary.displayName = 'OrderSummary';
 
 const Background = styled.div`
   padding: 1.5rem 0;
@@ -80,20 +80,20 @@ const Background = styled.div`
 `;
 
 // @TODO: move to Typography component
-const Subtitle = styled(Box).attrs({ as: "p" })`
+const Subtitle = styled(Box).attrs({ as: 'p' })`
   font-size: 1.25rem;
   text-align: center;
   font-weight: 500;
 `;
 
 const Row = styled(Flex).attrs({
-  alignItems: "center",
-  justifyContent: "space-between",
+  alignItems: 'center',
+  justifyContent: 'space-between',
 })``;
 
 const Regular = styled.p<{ color?: string }>`
   font-size: 1rem;
-  color: ${({ color }) => color || "inherit"};
+  color: ${({ color }) => color || 'inherit'};
 `;
 
 const Line = styled(Box)`

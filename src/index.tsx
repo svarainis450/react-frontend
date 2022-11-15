@@ -1,20 +1,20 @@
-import { Suspense } from "react";
-import ReactDOM from "react-dom/client";
+import { Suspense } from 'react';
+import ReactDOM from 'react-dom/client';
 
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { UserContextProvider } from "./state/userContext";
-import { UserInfoContextProvider } from "src/state/UserInfoContextProvider";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistor, store } from "./state/reduxstate/store";
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { UserContextProvider } from './state/userContext';
+import { UserInfoContextProvider } from 'src/state/UserInfoContextProvider';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './state/reduxstate/store';
 
-import "./index.css";
+import './index.css';
 
-import { Spinner } from "./Components/elements/Spinner";
+import { Spinner } from './Components/elements/Spinner';
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById('root') as HTMLElement
 );
 root.render(
   <Provider store={store}>

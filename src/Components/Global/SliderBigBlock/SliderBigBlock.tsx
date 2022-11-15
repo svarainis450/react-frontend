@@ -1,21 +1,21 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
 
-import "swiper/css";
-import "swiper/css/navigation";
+import 'swiper/css';
+import 'swiper/css/navigation';
 
-import { Button } from "../Button";
-import { HeroTitle } from "../HeroTitle";
+import { Button } from '../Button';
+import { HeroTitle } from '../HeroTitle';
 
-import ss1 from "../../../Assets/images/screenshots/ss1.png";
-import ss2 from "../../../Assets/images/screenshots/ss2.png";
-import infograph1 from "../../../Assets/images/screenshots/infograph1.svg";
-import infograph2 from "../../../Assets/images/screenshots/infograph2.svg";
-import infograph3 from "../../../Assets/images/screenshots/infograph3.svg";
+import ss1 from '../../../Assets/images/screenshots/ss1.png';
+import ss2 from '../../../Assets/images/screenshots/ss2.png';
+import infograph1 from '../../../Assets/images/screenshots/infograph1.svg';
+import infograph2 from '../../../Assets/images/screenshots/infograph2.svg';
+import infograph3 from '../../../Assets/images/screenshots/infograph3.svg';
 
-import "./SliderBigBlock.scss";
-import { useNavigate } from "react-router-dom";
-import { LinkList } from "src/types";
+import './SliderBigBlock.scss';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { LinkList } from 'src/types';
 
 export const SliderBigBlock = () => {
   const navigate = useNavigate();

@@ -12,6 +12,8 @@ export enum LinkList {
   Faq = '/faq',
   Demo = '/demo',
   Login = '/login',
+  ResetPassword = '/reset-password',
+  ResetPasswordCode = '/reset-password-code',
   Register = '/register',
   TermsAndConditions = '/t&c',
   PrivacyPolicy = '/privacy-policy',

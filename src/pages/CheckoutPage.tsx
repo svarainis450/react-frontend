@@ -6,9 +6,9 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+} from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import {
   Box,
@@ -18,11 +18,11 @@ import {
   LayoutWithHeader,
   OurPromise,
   SubscriptionLayout,
-} from "../Components";
-import { useMediaQuery } from "../hooks";
-import { UserContext } from "../state/userContext";
-import { theme } from "../theme";
-import { LinkList } from "../types";
+} from '../Components';
+import { useMediaQuery } from '../hooks';
+import { UserContext } from '../state/userContext';
+import { theme } from '../theme';
+import { LinkList } from '../types';
 
 const CheckoutPage: FC = memo(() => {
   const { isMobile, isTablet } = useMediaQuery();
@@ -61,7 +61,7 @@ const CheckoutPage: FC = memo(() => {
         <FlexStyled ref={myRef} isDownsell={showDownsell}>
           {isTablet ? null : <OurPromise />}
           <SubscriptionLayout onBack={handleLogoClick}>
-            <Title margin={isMobile ? "0 0 1.5rem 0" : "0 0 2.5rem 0"}>
+            <Title margin={isMobile ? '0 0 1.5rem 0' : '0 0 2.5rem 0'}>
               Create account
             </Title>
             <GeneralInformationForm onSubmit={handleSubmit} />
@@ -73,7 +73,7 @@ const CheckoutPage: FC = memo(() => {
   );
 });
 
-CheckoutPage.displayName = "CheckoutPage";
+CheckoutPage.displayName = 'CheckoutPage';
 
 export default CheckoutPage;
 
@@ -116,7 +116,7 @@ const FlexStyled = styled(Flex)<{ isDownsell?: boolean }>`
 `;
 
 // @TODO: move to Typography component
-const Title = styled(Box).attrs({ as: "h2" })`
+const Title = styled(Box).attrs({ as: 'h2' })`
   font-size: 1.875rem;
   text-align: center;
 

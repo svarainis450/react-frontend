@@ -1,12 +1,12 @@
-import { Button } from "../Button";
-import { HeroMiniBlockProps } from "./types";
-import { Link } from "react-router-dom";
-import Lottie from "lottie-react";
+import { Button } from '../Button';
+import { HeroMiniBlockProps } from './types';
+import { Link } from 'react-router-dom';
+import Lottie from 'lottie-react';
 
-import * as animationData from "src/Assets/lotties/Lottie_rocket.json";
+import * as animationData from 'src/Assets/lotties/Lottie_rocket.json';
 
-import "./HeroMiniBlock.scss";
-import classNames from "classnames";
+import './HeroMiniBlock.scss';
+import classNames from 'classnames';
 
 export const HeroMiniBlock = ({
   children,
@@ -20,12 +20,12 @@ export const HeroMiniBlock = ({
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
 
   return (
-    <div className={classNames("HeroMiniBlock", className)}>
+    <div className={classNames('HeroMiniBlock', className)}>
       <div className="HeroMiniBlock__content">
         <p className="HeroMiniBlock__title">{children}</p>
 

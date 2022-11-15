@@ -1,15 +1,15 @@
-import { FC, memo, useCallback, useContext, useEffect, useRef } from "react";
-import styled from "styled-components";
+import { FC, memo, useCallback, useContext, useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
-import { theme } from "../../theme";
-import { images } from "../../utils/images";
-import { Box } from "../wrappers/Box";
-import { Flex } from "../wrappers/Flex";
-import { useMediaQuery } from "../../hooks";
-import { Button } from "../Global/Button";
-import { icons } from "../../utils/icons";
-import { UserContext } from "../../state/userContext";
-import { useCookies } from "react-cookie";
+import { theme } from '../../theme';
+import { images } from '../../utils/images';
+import { Box } from '../wrappers/Box';
+import { Flex } from '../wrappers/Flex';
+import { useMediaQuery } from '../../hooks';
+import { Button } from '../Global/Button';
+import { icons } from '../../utils/icons';
+import { UserContext } from '../../state/userContext';
+import { useCookies } from 'react-cookie';
 
 interface DownsellProps {
   onClose?: () => void;
@@ -21,7 +21,7 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
   const myRef = useRef<null | HTMLDivElement>(null);
   const price = user.selectedPlan?.final_price || 0;
   const newPrice = parseFloat(parseFloat(String(price * 0.85)).toFixed(2));
-  const [getCookie] = useCookies(["currency", "currencySymbol"]);
+  const [getCookie] = useCookies(['currency', 'currencySymbol']);
 
   const handleDownsellSelection = useCallback(() => {
     setUser((prev) => ({ ...prev, hasDownsell: true }));
@@ -45,21 +45,21 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
         <Background
           alignItems="center"
           justifyContent="center"
-          flexDirection={isTablet ? "column-reverse" : "row"}
+          flexDirection={isTablet ? 'column-reverse' : 'row'}
           ref={myRef}
         >
           <HeroImg src={images.manWithRocket} alt="Man With Rocket" />
           <ContentWrapper>
-            <Title margin={isMobile ? "0 0 0.5rem 0" : "0 0 2.5rem 0"}>
+            <Title margin={isMobile ? '0 0 0.5rem 0' : '0 0 2.5rem 0'}>
               Wait! Claim your 15% discount on membership!
             </Title>
-            <Subtitle margin={isMobile ? "0 0 1rem" : "0 0 2rem 0"}>
+            <Subtitle margin={isMobile ? '0 0 1rem' : '0 0 2rem 0'}>
               Get your membership for:
             </Subtitle>
             <Flex
               alignItems="baseline"
               justifyContent="center"
-              margin={isMobile ? "0 0 0.625rem 0" : "0 0 2rem 0"}
+              margin={isMobile ? '0 0 0.625rem 0' : '0 0 2rem 0'}
             >
               <Price margin="0 0.5rem 0 0">
                 {newPrice}
@@ -76,7 +76,7 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
             <Button onClick={handleDownsellSelection}>Get 15% Now!</Button>
             <Small
               margin="0 0 1.5rem 0"
-              style={{ cursor: "pointer" }}
+              style={{ cursor: 'pointer' }}
               onClick={onClose}
             >
               No, thank you
@@ -89,7 +89,7 @@ export const Downsell: FC<DownsellProps> = memo(({ onClose }) => {
   );
 });
 
-Downsell.displayName = "Downsell";
+Downsell.displayName = 'Downsell';
 
 const ModalWrapper = styled.div`
   position: absolute;
@@ -156,27 +156,27 @@ const HeroImg = styled.img`
 `;
 
 // @TODO: move to Typography component
-const Title = styled(Box).attrs({ as: "p" })`
+const Title = styled(Box).attrs({ as: 'p' })`
   font-size: 1.875rem;
   font-weight: 500;
   text-align: center;
 `;
 
 // @TODO: move to Typography component
-const Subtitle = styled(Box).attrs({ as: "p" })`
+const Subtitle = styled(Box).attrs({ as: 'p' })`
   font-size: 1.25rem;
   font-weight: 500;
   text-align: center;
 `;
 
 // @TODO: move to Typography component
-const Price = styled(Box).attrs({ as: "p" })`
+const Price = styled(Box).attrs({ as: 'p' })`
   font-size: 3.75rem;
   font-weight: 900;
 `;
 
 // @TODO: move to Typography component
-const OldPrice = styled(Box).attrs({ as: "p" })`
+const OldPrice = styled(Box).attrs({ as: 'p' })`
   font-size: 1.25rem;
   font-weight: 500;
   color: ${theme.colors.orange};
@@ -184,7 +184,7 @@ const OldPrice = styled(Box).attrs({ as: "p" })`
 `;
 
 // @TODO: move to Typography component
-const Small = styled(Box).attrs({ as: "p" })`
+const Small = styled(Box).attrs({ as: 'p' })`
   font-size: 0.875rem;
   text-align: center;
 `;

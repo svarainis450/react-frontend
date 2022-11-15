@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div<{ isPage?: boolean; position?: string }>`
-  position: ${({ position }) => (position ? position : "static")};
+  position: ${({ position }) => (position ? position : 'static')};
   max-width: 65.625rem;
   padding-left: 4%;
   padding-right: 4%;

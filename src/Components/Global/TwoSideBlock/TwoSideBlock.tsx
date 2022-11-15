@@ -1,22 +1,22 @@
-import Lottie from "lottie-react";
-import { Button } from "../Button";
-import { Typography, TypographyVariant, TypographyWeight } from "../Typography";
-import { TwoSideBlockProps } from "./types";
+import Lottie from 'lottie-react';
+import { Button } from '../Button';
+import { Typography, TypographyVariant, TypographyWeight } from '../Typography';
+import { TwoSideBlockProps } from './types';
 
-import rocketTicket from "../../../Assets/images/rocketTicket.svg";
-import infoIcon from "../../../Assets/images/infoIcon.svg";
-import * as animationData from "src/Assets/lotties/Lottie_ticket.json";
+import rocketTicket from '../../../Assets/images/rocketTicket.svg';
+import infoIcon from '../../../Assets/images/infoIcon.svg';
+import * as animationData from 'src/Assets/lotties/Lottie_ticket.json';
 
-import "./TwoSideBlock.scss";
-import { Link } from "react-router-dom";
-import classNames from "classnames";
+import './TwoSideBlock.scss';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 export const TwoSideBlock = ({
   title,
   subtitle,
   url,
-  subText = "",
-  subUrl = "",
+  subText = '',
+  subUrl = '',
   img,
   ctaText,
   className,
@@ -26,12 +26,12 @@ export const TwoSideBlock = ({
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
 
   return (
-    <div className={classNames("TwoSideBlock", className)}>
+    <div className={classNames('TwoSideBlock', className)}>
       <div className="TwoSideBlock__wrapper">
         <div className="TwoSideBlock__content">
           <Typography
@@ -44,7 +44,7 @@ export const TwoSideBlock = ({
 
           {subtitle && <p className="TwoSideBlock__subtitle">{subtitle}</p>}
 
-          <Link to={url || "/"}>
+          <Link to={url || '/'}>
             <Button className="TwoSideBlock__cta desktop">{ctaText}</Button>
           </Link>
 
@@ -71,7 +71,7 @@ export const TwoSideBlock = ({
             <Lottie {...defaultOptions} />
           )}
 
-          <Link to={url || "/"}>
+          <Link to={url || '/'}>
             <Button className="TwoSideBlock__cta mobile">{ctaText}</Button>
           </Link>
 

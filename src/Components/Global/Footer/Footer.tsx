@@ -1,22 +1,29 @@
-import { Link } from "react-router-dom";
-import { Typography, TypographyWeight, TypographyVariant } from "../Typography";
-import { pageListLarge, pageListMobile, socialList } from "./constants";
+import { Link } from 'react-router-dom';
+import { Typography, TypographyWeight, TypographyVariant } from '../Typography';
+import {
+  pageListLarge,
+  pageListMobile,
+  paymentList,
+  socialList,
+} from './constants';
 
-import logo from "../../../Assets/images/logoTM.svg";
+import logo from '../../../Assets/images/logoTM.svg';
 
-import "./Footer.scss";
+import './Footer.scss';
 
 export const Footer = () => {
   const generatePaymentBlocks = () => {
     return (
       <ul className="Footer__payments">
-        {/* {paymentList.map((item, index) => {
-        return <li className="Footer__payments-item" key={index}>
-          <Link to={item.url}>
-            <img src={item.img} alt={item.type} />
-          </Link>
-        </li>
-      })} */}
+        {paymentList.map((item, index) => {
+          return (
+            <li className="Footer__payments-item" key={index}>
+              <Link to={item.url}>
+                <img src={item.img} alt={item.type} />
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     );
   };

@@ -8,7 +8,7 @@ export const FormWrapper = styled.div`
   margin: auto;
 
   @media (max-width: ${theme.breakpoints.mobile}px) {
-    width: auto;
-    padding: 3rem 4% 0;
+    width: 100%;
+    padding: 3rem 1rem 0;
   }
 `;

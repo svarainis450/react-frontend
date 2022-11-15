@@ -7,3 +7,5 @@ export const subscribedInfluencersSelector = (s: AppState) =>
   s.user.subscribed_influencers;
 export const userTokenSelector = (s: AppState) => s.user.user_token;
 export const userDataSelector = (s: AppState) => s.user.user_data;
+export const selectedPlanSelector = (s: AppState) => s.user.selected_plan;
+export const resetTokenSelector = (s: AppState) => s.user.reset_token;

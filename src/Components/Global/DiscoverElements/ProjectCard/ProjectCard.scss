@@ -29,6 +29,12 @@
       .grey-text {
         color: var(--color-grey-text);
       }
+
+      .influencers-talk-wrapper {
+        display: grid;
+        grid-gap: 16px;
+        padding-top: 16px;
+      }
     }
 
     .favorites {
@@ -203,6 +209,22 @@
       @include desktop {
         right: 130px;
       }
+    }
+  }
+
+  .sorry-influencers-wrap {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    min-height: 138px;
+
+    p {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      letter-spacing: -0.02em;
+      text-align: center;
     }
   }
 }

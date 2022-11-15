@@ -1,12 +1,12 @@
-import { FC, memo, ReactNode, useContext } from "react";
-import { UserContext } from "src/state/userContext";
-import styled from "styled-components";
+import { FC, memo, ReactNode, useContext } from 'react';
+import { UserContext } from 'src/state/userContext';
+import styled from 'styled-components';
 
-import { theme } from "../../theme";
-import { icons } from "../../utils/icons";
-import { Flex } from "../wrappers/Flex";
-import { FormWrapper } from "../wrappers/FormWrapper";
-import { SubscriptionOptions } from "./SubscriptionOptions";
+import { theme } from '../../theme';
+import { icons } from '../../utils/icons';
+import { Flex } from '../wrappers/Flex';
+import { FormWrapper } from '../wrappers/FormWrapper';
+import { SubscriptionOptions } from './SubscriptionOptions';
 
 interface SubscriptionLayoutProps {
   children?: ReactNode;

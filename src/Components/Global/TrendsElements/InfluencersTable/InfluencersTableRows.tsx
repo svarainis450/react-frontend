@@ -78,7 +78,7 @@ export const InfluencersTableRows: React.FC<InfluencersTableRowProps> = ({
                     </Typography>
                   </div>
                 </div>
-                <div className="influencers-picks__influencers-table__row__thin-text">
+                <div className="influencers-picks__influencers-table__row__thin-text followers">
                   <Typography>{calculateBigNumberValues(followers)}</Typography>
                 </div>
                 {/* <div className="influencers-picks__influencers-table__row__bullseye">

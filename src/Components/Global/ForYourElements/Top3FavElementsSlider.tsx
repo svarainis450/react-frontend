@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
+import { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-import { infoBlocks } from "src/pages/Trends/constants";
-import { Project } from "src/state/reduxstate/projects/types";
-import "./Top3FavElementsSlider.scss";
-import { Pagination } from "swiper";
-import { InfoBlockTypes } from "../TrendsElements/types";
-import { CardWrapper } from "../TrendsElements/CardWrapper/CardWrapper";
-import { Top3Element } from "../TrendsElements/Top3Element/Top3Element";
-import { LoadError } from "../LoadError/LoadError";
+import { infoBlocks } from 'src/Components/Pages/Trends/constants';
+import { Project } from 'src/state/reduxstate/projects/types';
+import './Top3FavElementsSlider.scss';
+import { Pagination } from 'swiper';
+import { InfoBlockTypes } from '../TrendsElements/types';
+import { CardWrapper } from '../TrendsElements/CardWrapper/CardWrapper';
+import { Top3Element } from '../TrendsElements/Top3Element/Top3Element';
+import { LoadError } from '../LoadError/LoadError';
 
 interface Top3ElementsSliderProps {
   topPositive: Project[];

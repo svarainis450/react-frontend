@@ -1,20 +1,20 @@
-import Lottie from "lottie-react";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
+import Lottie from 'lottie-react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 
-import { Typography, TypographyVariant, TypographyWeight } from "../Typography";
-import { HeroTitle } from "../HeroTitle";
+import { Typography, TypographyVariant, TypographyWeight } from '../Typography';
+import { HeroTitle } from '../HeroTitle';
 
-import * as animationData from "src/Assets/lotties/Lottie_mac.json";
+import * as animationData from 'src/Assets/lotties/Lottie_mac.json';
 
-import people from "src/Assets/images/reasoning/people.svg";
-import download from "src/Assets/images/reasoning/download.svg";
-import target from "src/Assets/images/reasoning/target.svg";
-import world from "src/Assets/images/reasoning/world.svg";
-import arrowDown from "src/Assets/images/arrowDown.svg";
+import people from '../../../Assets/images/reasoning/people.svg';
+import download from '../../../Assets/images/reasoning/download.svg';
+import target from '../../../Assets/images/reasoning/target.svg';
+import world from '../../../Assets/images/reasoning/world.svg';
+import arrowDown from '../../../Assets/images/arrowDown.svg';
 
-import "./Reasoning.scss";
+import './Reasoning.scss';
 
 export const Reasoning = () => {
   const defaultOptions = {
@@ -22,7 +22,7 @@ export const Reasoning = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
 

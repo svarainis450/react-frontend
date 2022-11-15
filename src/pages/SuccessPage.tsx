@@ -1,6 +1,7 @@
-import { FC, memo, useContext, useState } from "react";
-import { Link, Link as LinkTag } from "react-router-dom";
-import styled from "styled-components";
+import { FC, memo, useContext, useEffect, useState } from 'react';
+import { Link, Link as LinkTag } from 'react-router-dom';
+import { useMediaQuery } from 'src/hooks';
+import styled from 'styled-components';
 
 import {
   Box,
@@ -8,23 +9,28 @@ import {
   FormWrapper,
   LayoutWithHeader,
   OrderSummary,
-} from "../Components";
-import { Button } from "../Components/Global/Button";
-import { UserContext } from "../state/userContext";
-import { theme } from "../theme";
-import { LinkList } from "../types";
-import { icons } from "../utils/icons";
-import { images } from "../utils/images";
+} from '../Components';
+import { Button } from '../Components/Global/Button';
+import { UserContext } from '../state/userContext';
+import { theme } from '../theme';
+import { LinkList } from '../types';
+import { icons } from '../utils/icons';
+import { images } from '../utils/images';
 
-import successHeroImg from "src/Assets/images/successHeroImg.svg";
-
-import "./SuccessHero.scss";
+import './SuccessHero.scss';
 
 const TIME_UNTIL_ERROR = 6000;
 
-const SuccessPage: FC = memo(() => {
+export const SuccessPage: FC = memo(() => {
   const { user } = useContext(UserContext);
+  const { isTablet } = useMediaQuery();
   const [isError, setIsError] = useState<boolean>(false);
+
+  useEffect(() => {
+    // setTimeout(() => {
+    //   setIsError(true);
+    // }, TIME_UNTIL_ERROR);
+  }, []);
 
   return (
     <LayoutWithHeader>
@@ -49,6 +55,7 @@ const SuccessPage: FC = memo(() => {
                     <img
                       className="SuccessHero__img"
                       src={images.successIcon}
+                      alt="chekcmark black"
                     />
                     Thank you for your order
                   </div>
@@ -62,12 +69,16 @@ const SuccessPage: FC = memo(() => {
                   </Link>
                 </div>
 
-                <img className="SuccessHero__img" src={successHeroImg} />
+                <img
+                  className="SuccessHero__img"
+                  src={isTablet ? images.success_mob : images.successHeroImg}
+                  alt="success confetti"
+                />
               </div>
 
               <div className="SuccessHero__subcontent">
                 We’ve also sent you a letter with <b>app access link</b> to your
-                email <b>{user.email}</b> (Didn’t get the link?{" "}
+                email <b>{user.email}</b> (Didn’t get the link?{' '}
                 <Link to="#">
                   <b>Try one more time</b>
                 </Link>
@@ -76,7 +87,7 @@ const SuccessPage: FC = memo(() => {
             </div>
 
             <FormWrapper>
-              {/* <OrderSummary /> */}
+              <OrderSummary />
               <LinkTag to={LinkList.Home}>
                 <Button>Go to the homepage</Button>
               </LinkTag>
@@ -88,9 +99,7 @@ const SuccessPage: FC = memo(() => {
   );
 });
 
-SuccessPage.displayName = "SuccessPage";
-
-export default SuccessPage;
+SuccessPage.displayName = 'SuccessPage';
 
 const Background = styled(Flex)<{ isError: boolean }>`
   padding: 0 0 2rem;
@@ -112,14 +121,8 @@ const Background = styled(Flex)<{ isError: boolean }>`
   }
 `;
 
-const SuccessImg = styled.img`
-  display: block;
-  width: 50%;
-  margin: auto;
-`;
-
 // @TODO: move to Typography component
-const Title = styled(Box).attrs({ as: "h2" })`
+const Title = styled(Box).attrs({ as: 'h2' })`
   font-size: 1.875rem;
   text-align: center;
 
@@ -129,7 +132,7 @@ const Title = styled(Box).attrs({ as: "h2" })`
 `;
 
 // @TODO: move to Typography component
-const OrderNumber = styled(Box).attrs({ as: "p" })`
+const OrderNumber = styled(Box).attrs({ as: 'p' })`
   padding: 1rem 0;
   text-align: center;
   font-size: 0.875rem;

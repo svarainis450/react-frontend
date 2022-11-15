@@ -1,8 +1,8 @@
-import Lottie from "lottie-react";
-import animationData from "src/Assets/lotties/Lottie_loader.json";
-import styled from "styled-components";
+import Lottie from 'lottie-react';
+import animationData from 'src/Assets/lotties/Lottie_loader.json';
+import styled from 'styled-components';
 
-import "./Loader.scss";
+import './Loader.scss';
 
 interface LoaderProps {
   width?: number;
@@ -15,7 +15,7 @@ export const Loader: React.FC<LoaderProps> = (props) => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
   return (

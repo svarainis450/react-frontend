@@ -1,9 +1,4 @@
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchProjectById } from 'src/state/reduxstate/projects/thunks';
-import { useAppDispatch } from 'src/state/reduxstate/store';
-import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
-import { getFavProjects } from 'src/state/reduxstate/user/thunks';
 import { LinkList } from 'src/types';
 
 import './NavigationList.scss';
@@ -17,9 +12,7 @@ export const NavigationList: React.FC<NavigationListProps> = ({
   list,
   activeLink,
 }) => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const userToken = useSelector(userTokenSelector);
 
   const handleMenuSelection = (type: string, url: LinkList) => {
     navigate(url);

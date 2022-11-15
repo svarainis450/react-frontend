@@ -1,27 +1,27 @@
-import { PaymentOptions, priceOptions } from "../PaymentOptions";
-import { FunnelTopProps } from "./types";
-import "react-image-gallery/styles/css/image-gallery.css";
-import ImageGallery from "react-image-gallery";
-import { useContext, useMemo, useState, useEffect } from "react";
+import { PaymentOptions, priceOptions } from '../PaymentOptions';
+import { FunnelTopProps } from './types';
+import 'react-image-gallery/styles/css/image-gallery.css';
+import ImageGallery from 'react-image-gallery';
+import { useContext, useMemo, useState, useEffect } from 'react';
 
-import "./FunnelTop.scss";
-import { images, imagesMobile } from "./constants";
-import { HeroTitle } from "../HeroTitle";
-import { Button } from "../Button";
-import { StatisticsHero } from "../StatisticsHero";
-import { FAQ, potatoItems, potatoProItems, potatoDefaultItems } from "../FAQ";
-import { useFunnel, useMediaQuery } from "../../../hooks";
-import { UserContext } from "../../../state/userContext";
-import { Link } from "react-router-dom";
-import { LinkList } from "../../../types";
-import { useCookies } from "react-cookie";
-import { PRICE_OPTIONS_BIGGER } from "../PaymentOptions/constants";
+import './FunnelTop.scss';
+import { images, imagesMobile } from './constants';
+import { HeroTitle } from '../HeroTitle';
+import { Button } from '../Button';
+import { StatisticsHero } from '../StatisticsHero';
+import { FAQ, potatoItems, potatoProItems, potatoDefaultItems } from '../FAQ';
+import { useFunnel, useMediaQuery } from '../../../hooks';
+import { UserContext } from '../../../state/userContext';
+import { Link } from 'react-router-dom';
+import { LinkList } from '../../../types';
+import { useCookies } from 'react-cookie';
+import { PRICE_OPTIONS_BIGGER } from '../PaymentOptions/constants';
 
 export const FunnelTop = ({
   currentPricingOption,
   setCurrentPricingOption,
 }: FunnelTopProps) => {
-  const [getCookie] = useCookies(["currencySymbol"]);
+  const [getCookie] = useCookies(['currencySymbol']);
   const { setUser } = useContext(UserContext);
   const [isSelectedm, setIsSelected] = useState(1);
   const { isDesktop } = useMediaQuery();
@@ -36,8 +36,6 @@ export const FunnelTop = ({
     setUser((prev) => ({ ...prev, selectedPlan }));
   }, [selectedPlan, setUser]);
   var currencySymbol = getCookie.currencySymbol;
-
-  console.log(selectedPlan);
 
   return (
     <div className="FunnelTop">
@@ -68,7 +66,7 @@ export const FunnelTop = ({
             <Button className="FunnelTop__cta desktop">
               <>
                 Buy now - {currencySymbol}
-                {selectedPlan.final_price || ""}
+                {selectedPlan.final_price || ''}
               </>
             </Button>
           </Link>

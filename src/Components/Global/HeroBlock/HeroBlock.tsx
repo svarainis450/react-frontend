@@ -1,15 +1,16 @@
-import { Link } from "react-router-dom";
-import { Button } from "../Button";
-import { Typography, TypographyVariant } from "../Typography";
-import { StatisticsHero } from "../StatisticsHero";
+import { Link } from 'react-router-dom';
+import { Button } from '../Button';
+import { Typography, TypographyVariant } from '../Typography';
+import { StatisticsHero } from '../StatisticsHero';
+import { HeroBlockProps } from './types';
 
-import Lottie from "lottie-react";
-import * as animationData from "src/Assets/lotties/Lottie_guy.json";
+import Lottie from 'lottie-react';
+import * as animationData from 'src/Assets/lotties/Lottie_guy.json';
 
-import "./HeroBlock.scss";
-import { LinkList } from "../../../types/links";
+import './HeroBlock.scss';
+import { LinkList } from '../../../types/links';
 
-export const HeroBlock = () => {
+export const HeroBlock = ({}: HeroBlockProps) => {
   // const THREE_DAYS_IN_MS = 5 * 24 * 60 * 60 * 1000;
   // const NOW_IN_MS = new Date().getTime();
 
@@ -29,7 +30,7 @@ export const HeroBlock = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
+      preserveAspectRatio: 'xMidYMid slice',
     },
   };
 

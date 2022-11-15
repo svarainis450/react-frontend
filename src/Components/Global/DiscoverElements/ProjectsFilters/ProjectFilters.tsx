@@ -44,7 +44,6 @@ export const ProjectFilters: React.FC<ProjectFiltersProps> = ({
 
   const handleCategorySelection = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
-    callBack(ProjectFilterKeys.CATEGORY);
     categoryCallBack(e.target.value as CategoryTags);
   };
 

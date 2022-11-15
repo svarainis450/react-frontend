@@ -145,7 +145,6 @@
       border-radius: 50%;
       background-color: var(--color-yellow-hero);
     }
-
     &-discount {
       color: var(--color-black);
       font-style: normal;
@@ -153,7 +152,6 @@
       font-size: 12px;
       line-height: 24px;
     }
-
     &-payment-occurance {
       margin-top: 6px;
       font-style: normal;
@@ -183,7 +181,7 @@
       text-align: left;
       margin-top: 35px;
       height: 8.5rem;
-      list-style-image: url("../../../Assets/images/listItemCheck.svg");
+      list-style-image: url('../../../Assets/images/listItemCheck.svg');
       margin-left: 1rem;
     }
 
