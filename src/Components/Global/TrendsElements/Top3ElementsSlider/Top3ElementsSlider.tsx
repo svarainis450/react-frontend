@@ -3,7 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import { infoBlocks } from 'src/Components/Pages/Trends/constants';
 import { SubmenuFilters } from 'src/state/reduxstate/projects/types';
 import { LoadError } from '../../LoadError/LoadError';
 import { CardWrapper } from '../CardWrapper/CardWrapper';
@@ -30,6 +29,41 @@ import { RefreshCounter } from './RefreshCounter';
 import { useAppDispatch } from 'src/state/reduxstate/store';
 import { useSelector } from 'react-redux';
 import { userTokenSelector } from 'src/state/reduxstate/user/selectors';
+import { SubmenuListProps } from 'src/pages/Trends/Submenu/types';
+import { LastWeek, Today } from 'src/Assets/icons/IconElements';
+
+export const submenuList: Array<SubmenuListProps> = [
+  {
+    title: 'Today',
+    icon: <Today />,
+    callBackKey: 'daily',
+  },
+  {
+    title: 'Last Week',
+    icon: <LastWeek />,
+    callBackKey: 'weekly',
+  },
+  // {
+  //   title: 'Upcoming',
+  //   icon: <Upcomming />,
+  //   callBackKey: 'upcomming',
+  // },
+];
+
+export const infoBlocks = {
+  [InfoBlockTypes.rate]: {
+    title: 'What’s Talk Rate Project?',
+    desc: 'Talk Rate summarizes which projects are most often discussed among crypto experts and the community.',
+  },
+  [InfoBlockTypes.positive]: {
+    title: 'What’s Positive Project?',
+    desc: `Positive v.s. A negative Index shows whether people are more positive or negative about the project's growth.`,
+  },
+  [InfoBlockTypes.bullish]: {
+    title: 'What’s Bullish Project?',
+    desc: 'Bull v.s. Bear spots whether the project is Bullish, meaning is on the rise, or Bearish, meaning it is declining in value.',
+  },
+};
 
 interface Top3ElementsSliderProps {
   filterTitle?: string;

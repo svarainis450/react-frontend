@@ -21,7 +21,7 @@ import './SuccessHero.scss';
 
 const TIME_UNTIL_ERROR = 6000;
 
-export const SuccessPage: FC = memo(() => {
+const SuccessPage: FC = memo(() => {
   const { user } = useContext(UserContext);
   const { isTablet } = useMediaQuery();
   const [isError, setIsError] = useState<boolean>(false);
@@ -98,6 +98,8 @@ export const SuccessPage: FC = memo(() => {
     </LayoutWithHeader>
   );
 });
+
+export default SuccessPage;
 
 SuccessPage.displayName = 'SuccessPage';
 
