@@ -2,10 +2,12 @@
   "headers": [
     {
       "source": "/static/js/(.*).js",
-      "headers": {
-        "key": "Content-Encoding",
-        "value": "gzip"
-      }
+      "headers": [
+        {
+          "key": "Content-Encoding",
+          "value": "gzip"
+        }
+      ]
     }
   ]
 }
