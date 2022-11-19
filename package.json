@@ -24,6 +24,7 @@
     "cheerio": "^1.0.0-rc.12",
     "classnames": "^2.3.1",
     "d3": "^7.6.1",
+    "gzipper": "^7.2.0",
     "js-cookie": "^3.0.1",
     "listen": "^1.0.1",
     "lodash": "^4.17.21",
@@ -55,7 +56,7 @@
   },
   "scripts": {
     "start": "env REACT_APP_ENV=development react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build  && gzipper --verbose ./build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
