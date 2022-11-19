@@ -1,17 +1,3 @@
 {
-  "headers": [
-    {
-      "source": "/static/js/(.*).js",
-      "headers": [
-        {
-          "key": "Accept-Encoding",
-          "value": "gzip"
-        },
-        {
-          "key": "Content-Encoding",
-          "value": "gzip"
-        }
-      ]
-    }
-  ]
+  "headers": []
 }
